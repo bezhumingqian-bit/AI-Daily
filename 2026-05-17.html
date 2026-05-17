@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026年5月17日</title>
+<meta name="description" content="每日精选 5 条 AI 要闻 · 100% 一手源 · 已与昨日去重">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: linear-gradient(180deg, #F5F3EE 0%, #FAF8F2 100%);
+    color: #1F1D2B;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 16px; }
+
+  /* Header */
+  .header {
+    background: #1F1D2B;
+    color: #fff;
+    border-radius: 16px;
+    padding: 28px 28px 24px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 160px; height: 160px;
+    background: #534AB7;
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    right: 60px; bottom: -50px;
+    width: 100px; height: 100px;
+    background: #1D9E75;
+    border-radius: 50%;
+    opacity: 0.4;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .header-title { font-size: 24px; font-weight: 600; letter-spacing: 0.5px; }
+  .header-date { font-size: 14px; opacity: 0.7; margin-top: 6px; }
+  .header-meta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 4px 12px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    font-size: 12px;
+  }
+  .tags { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* Card */
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card:active { transform: scale(0.99); }
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .num {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .headline {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1F1D2B;
+    line-height: 1.4;
+    flex: 1;
+    padding-top: 4px;
+  }
+  .fact {
+    font-size: 14px;
+    color: #5F5E5A;
+    line-height: 1.7;
+    margin-bottom: 10px;
+    padding-left: 44px;
+  }
+  .comment {
+    font-size: 14px;
+    color: #1F1D2B;
+    line-height: 1.7;
+    padding: 10px 14px;
+    margin-left: 44px;
+    background: #FAF8F2;
+    border-left: 3px solid #534AB7;
+    border-radius: 0 6px 6px 0;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-top: 14px;
+    padding-left: 44px;
+    font-size: 12px;
+  }
+  .cat { padding: 2px 10px; border-radius: 4px; font-weight: 500; }
+  .tier {
+    padding: 2px 10px;
+    border-radius: 4px;
+    background: #E1F5EE;
+    color: #0F6E56;
+    font-weight: 500;
+  }
+  .link {
+    color: #185FA5;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(24,95,165,0.2);
+    transition: background 0.15s ease;
+  }
+  .link:active { background: rgba(24,95,165,0.08); }
+  .link::after { content: " ↗"; }
+  .dot { color: #B4B2A9; }
+
+  /* Footer */
+  .footer {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 16px;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .footer-line {
+    font-size: 14px;
+    color: #5F5E5A;
+    margin-bottom: 12px;
+  }
+  .audit {
+    font-size: 11px;
+    color: #B4B2A9;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    .container { padding: 12px; }
+    .header { padding: 24px 22px 20px; }
+    .header-title { font-size: 20px; }
+    .card { padding: 18px; }
+    .fact, .comment { padding-left: 0; margin-left: 0; }
+    .meta { padding-left: 0; }
+    .num { width: 28px; height: 28px; font-size: 14px; }
+    .headline { font-size: 15px; }
+    .fact, .comment { font-size: 13.5px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-content">
+        <h1 class="header-title">AI 日报</h1>
+        <p class="header-date">2026 年 5 月 17 日 · 5 条精选</p>
+        <div class="header-meta">
+          <span class="chip">100% 一手源</span>
+          <span class="chip">已与昨日去重</span>
+          <span class="chip">审核 25/26</span>
+        </div>
+        <div class="tags">
+          <span class="tag">#开源密集模型</span>
+          <span class="tag">#本地 Agent</span>
+          <span class="tag">#arXiv 治理</span>
+          <span class="tag">#万亿参数</span>
+          <span class="tag">#推理优化</span>
+        </div>
+      </div>
+    </header>
+
+    <article class="card">
+      <div class="card-header">
+        <div class="num" style="background:#EEEDFE;color:#534AB7;">1</div>
+        <h2 class="headline">阿里 Qwen3.6-27B 开源刷屏 r/LocalLLaMA</h2>
+      </div>
+      <p class="fact">27B 密集模型 / 262K 原生上下文（可扩 1M）/ Apache 2.0；跑分超自家 Qwen3.5-397B。</p>
+      <div class="comment">开源密集模型重新追上 MoE，本地部署性价比拐点出现。</div>
+      <div class="meta">
+        <span class="cat" style="background:#EEEDFE;color:#534AB7;">开源</span>
+        <span class="tier">T1 一手源</span>
+        <a class="link" href="https://huggingface.co/Qwen/Qwen3.6-27B" target="_blank" rel="noopener">HuggingFace</a>
+        <span class="dot">·</span>
+        <a class="link" href="https://www.reddit.com/r/LocalLLaMA/" target="_blank" rel="noopener">Reddit 1505 票</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-header">
+        <div class="num" style="background:#E1F5EE;color:#0F6E56;">2</div>
+        <h2 class="headline">OpenHuman 登顶 GitHub Trending，把 Karpathy LLM Wiki 做成产品</h2>
+      </div>
+      <p class="fact">118 项 OAuth 集成 · 每 20 分钟自动同步 · TokenJuice 压缩 80% · 本地 SQLite + Obsidian 兼容。</p>
+      <div class="comment">Agent 竞争从模型评分转向"先理解你"，但 OAuth 全家桶授权也是新的安全黑洞。</div>
+      <div class="meta">
+        <span class="cat" style="background:#E1F5EE;color:#0F6E56;">Agent</span>
+        <span class="tier">T1 一手源</span>
+        <a class="link" href="https://github.com/tinyhumansai/openhuman" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-header">
+        <div class="num" style="background:#FAEEDA;color:#854F0B;">3</div>
+        <h2 class="headline">arXiv 重拳治 AI 幻觉，违规作者禁投 1 年</h2>
+      </div>
+      <p class="fact">出现"无可辩驳证据"的 AI 幻觉内容即触发；不禁 AI 辅助但要求作者逐条核实。</p>
+      <div class="comment">学术 AI 治理首个量级处罚，预印本平台开始划红线，可能被 SSRN/bioRxiv 跟进。</div>
+      <div class="meta">
+        <span class="cat" style="background:#FAEEDA;color:#854F0B;">政策</span>
+        <span class="tier">T1 一手源</span>
+        <a class="link" href="https://arstechnica.com/science/2026/05/preprint-server-arxiv-will-ban-submitters-of-ai-generated-hallucinations" target="_blank" rel="noopener">Ars Technica</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-header">
+        <div class="num" style="background:#FBEAF0;color:#993556;">4</div>
+        <h2 class="headline">蚂蚁百灵 Ring-2.6-1T 开源，万亿参数主打 Agent 执行力</h2>
+      </div>
+      <p class="fact">工具调用 / 多步推理 / 长链任务错误恢复全面增强；多项 Agent benchmark 达开源 SOTA。</p>
+      <div class="comment">国内开源阵营从对位 GPT 转向对位 Claude Agent 能力，蚂蚁切入工具链场景。</div>
+      <div class="meta">
+        <span class="cat" style="background:#FBEAF0;color:#993556;">开源</span>
+        <span class="tier">T1 一手源</span>
+        <a class="link" href="https://github.com/inclusionAI/Ring" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-header">
+        <div class="num" style="background:#E6F1FB;color:#185FA5;">5</div>
+        <h2 class="headline">llama.cpp 合并 Speculative Checkpointing（PR #19493）</h2>
+      </div>
+      <p class="fact">节省 recurrent 模块在 draft 拒绝时的重复算力；r/LocalLLaMA 200+ upvotes 60 评论。</p>
+      <div class="comment">边缘 Agent 长上下文吞吐瓶颈被撕开一角，Qwen / Mamba 系最直接受益。</div>
+      <div class="meta">
+        <span class="cat" style="background:#E6F1FB;color:#185FA5;">推理优化</span>
+        <span class="tier">T1 一手源</span>
+        <a class="link" href="https://github.com/ggerganov/llama.cpp/pull/19493" target="_blank" rel="noopener">GitHub PR #19493</a>
+      </div>
+    </article>
+
+    <footer class="footer">
+      <p class="footer-line">早安，AI 浪潮里冲冲冲 ☕</p>
+      <div class="audit">
+        <span>采集 25+ 候选</span>
+        <span>·</span>
+        <span>剔除 3 条已报</span>
+        <span>·</span>
+        <span>13 维质量审核 25/26</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

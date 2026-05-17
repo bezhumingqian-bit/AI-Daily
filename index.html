@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 历史归档</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(180deg, #F5F3EE 0%, #FAF8F2 100%);
+    color: #1F1D2B;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 16px; }
+  .header {
+    background: #1F1D2B;
+    color: #fff;
+    border-radius: 16px;
+    padding: 32px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 160px; height: 160px;
+    background: #534AB7;
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    right: 60px; bottom: -50px;
+    width: 100px; height: 100px;
+    background: #1D9E75;
+    border-radius: 50%;
+    opacity: 0.4;
+  }
+  .h-content { position: relative; z-index: 2; }
+  h1 { font-size: 26px; font-weight: 600; letter-spacing: 0.5px; }
+  .subtitle { font-size: 14px; opacity: 0.7; margin-top: 6px; }
+  .desc {
+    margin-top: 18px;
+    font-size: 13px;
+    line-height: 1.7;
+    opacity: 0.85;
+    max-width: 540px;
+  }
+  .archive-list { display: flex; flex-direction: column; gap: 10px; }
+  .archive-item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 22px;
+    border: 1px solid rgba(0,0,0,0.04);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: transform 0.15s ease;
+  }
+  .archive-item:active { transform: scale(0.99); }
+  .item-left { flex: 1; min-width: 0; }
+  .item-date { font-size: 13px; color: #888780; margin-bottom: 4px; }
+  .item-title { font-size: 16px; font-weight: 500; line-height: 1.4; }
+  .item-arrow { color: #534AB7; font-size: 18px; flex-shrink: 0; }
+  .footer {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+    margin-top: 16px;
+    border: 1px solid rgba(0,0,0,0.04);
+    font-size: 12px;
+    color: #B4B2A9;
+  }
+  @media (max-width: 480px) {
+    .container { padding: 12px; }
+    .header { padding: 26px 22px; }
+    h1 { font-size: 22px; }
+    .archive-item { padding: 16px 18px; }
+    .item-title { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="h-content">
+        <h1>AI 日报 · 归档</h1>
+        <p class="subtitle">每日 9:30 · 自动更新</p>
+        <p class="desc">每日精选 5-8 条 AI 要闻，覆盖大模型、产品、融资、论文、政策、算力、Agent。一手源优先，每条带原文链接，11 维质量审核制确保信息密度与多样性。</p>
+      </div>
+    </header>
+
+    <div class="archive-list">
+      <a href="2026-05-17.html" class="archive-item">
+        <div class="item-left">
+          <div class="item-date">2026 年 5 月 17 日</div>
+          <div class="item-title">Qwen3.6-27B / OpenHuman / arXiv 治幻觉 / 蚂蚁 Ring-2.6-1T / llama.cpp PR</div>
+        </div>
+        <span class="item-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="footer">商业 / 认知观察者 · 出品</div>
+  </div>
+</body>
+</html>
