@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 周报 · 第 20 周</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #2C2A26;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 20px 16px; }
+
+  /* Header */
+  .header {
+    background: #FAF7EE;
+    border: 1px solid #E6E1D6;
+    border-radius: 4px;
+    padding: 36px 28px 30px;
+    margin-bottom: 20px;
+  }
+  .brand { font-size: 11px; letter-spacing: 4px; color: #B5B0A4; text-transform: uppercase; margin-bottom: 10px; }
+  .week-tag { font-size: 13px; color: #8A8474; letter-spacing: 0.5px; margin-bottom: 6px; }
+  h1 { font-size: 26px; font-weight: 500; color: #2C2A26; letter-spacing: 1.5px; margin-bottom: 8px; }
+  .summary-line { font-size: 14px; color: #5F5B53; line-height: 1.75; letter-spacing: 0.2px; max-width: 560px; }
+  .divider { height: 1px; background: #E6E1D6; margin: 20px 0; }
+
+  /* Section block */
+  .section { margin-bottom: 24px; }
+  .section-head {
+    background: #FFFEFC;
+    border: 1px solid #E6E1D6;
+    border-radius: 4px 4px 0 0;
+    padding: 18px 24px 14px;
+    border-bottom: 2px solid #8A8474;
+  }
+  .section-num { font-size: 11px; letter-spacing: 3px; color: #B5B0A4; text-transform: uppercase; margin-bottom: 4px; }
+  .section-title { font-size: 18px; font-weight: 500; color: #2C2A26; letter-spacing: 0.5px; }
+  .section-body {
+    background: #FFFEFC;
+    border: 1px solid #E6E1D6;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 20px 24px 24px;
+  }
+
+  /* Signal card */
+  .signal { margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid #E6E1D6; }
+  .signal:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .signal-head { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+  .signal-stars { font-size: 12px; color: #8A8474; white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .signal-title { font-size: 14.5px; font-weight: 500; color: #2C2A26; line-height: 1.55; letter-spacing: 0.2px; }
+  .signal-detail { font-size: 13px; color: #5F5B53; line-height: 1.75; margin-bottom: 4px; }
+  .signal-meta { font-size: 11.5px; color: #7A766C; line-height: 1.6; }
+  .signal-meta a { color: #8A8474; text-decoration: none; border-bottom: 1px solid #C4BBA9; }
+  .signal-meta a:hover { color: #5A5443; }
+
+  /* Collapsible */
+  .collapse-toggle {
+    display: inline-block;
+    font-size: 11.5px;
+    color: #8A8474;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    padding: 2px 0;
+    border-bottom: 1px dashed #B5B0A4;
+    margin-top: 4px;
+    user-select: none;
+  }
+  .collapse-toggle:hover { color: #5A5443; }
+  .collapse-content { display: none; margin-top: 8px; }
+  .collapse-content.open { display: block; }
+
+  /* Table */
+  .matrix-table { width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.6; }
+  .matrix-table th {
+    background: #FAF7EE;
+    color: #5A5443;
+    font-weight: 500;
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid #E6E1D6;
+    font-size: 11.5px;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+  .matrix-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #E6E1D6;
+    color: #2C2A26;
+    vertical-align: top;
+  }
+  .matrix-table tr:last-child td { border-bottom: none; }
+  .matrix-table .vendor-cell { font-weight: 500; white-space: nowrap; color: #2C2A26; }
+
+  /* Category tags */
+  .tag { display: inline-block; font-size: 10.5px; padding: 1px 7px; border-radius: 2px; margin-right: 4px; letter-spacing: 0.3px; }
+  .tag-open { background: #E8E2D2; color: #5A5443; }
+  .tag-agent { background: #DAE0D2; color: #4A5340; }
+  .tag-policy { background: #E5DCC4; color: #6B5F40; }
+  .tag-model { background: #E2D2CB; color: #6B4F47; }
+  .tag-infer { background: #D5DCDC; color: #4A5258; }
+
+  /* Trend items */
+  .trend-item { margin-bottom: 20px; }
+  .trend-item:last-child { margin-bottom: 0; }
+  .trend-head { font-size: 14.5px; font-weight: 500; color: #2C2A26; line-height: 1.55; margin-bottom: 6px; letter-spacing: 0.2px; }
+  .trend-body { font-size: 13px; color: #5F5B53; line-height: 1.8; }
+  .trend-evidence { font-size: 12px; color: #7A766C; line-height: 1.65; margin-top: 6px; padding-left: 12px; border-left: 2px solid #E6E1D6; }
+
+  /* Watch list */
+  .watch-item { margin-bottom: 14px; padding-left: 14px; border-left: 2px solid #8A8474; }
+  .watch-item:last-child { margin-bottom: 0; }
+  .watch-title { font-size: 14px; font-weight: 500; color: #2C2A26; margin-bottom: 4px; }
+  .watch-desc { font-size: 12.5px; color: #5F5B53; line-height: 1.7; }
+
+  /* Footer */
+  .footer {
+    background: #FAF7EE;
+    border: 1px solid #E6E1D6;
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-top: 24px;
+  }
+  .footer-note { font-size: 12px; color: #7A766C; line-height: 1.75; letter-spacing: 0.2px; margin-bottom: 8px; }
+  .footer-brand { font-size: 11px; color: #B5B0A4; letter-spacing: 2px; text-align: center; margin-top: 12px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px; }
+    .header { padding: 28px 20px 24px; }
+    h1 { font-size: 22px; }
+    .section-body { padding: 16px 18px 20px; }
+    .matrix-table { font-size: 11.5px; }
+    .matrix-table th, .matrix-table td { padding: 8px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <div class="brand">A I &nbsp; W E E K L Y</div>
+  <div class="week-tag">第 20 周 · 2026-05-11 ～ 2026-05-17</div>
+  <h1>AI 行业趋势周报</h1>
+  <div class="divider"></div>
+  <p class="summary-line">Anthropic 2000 亿云合同锁定算力霸权，OpenAI 40 亿部署公司收编实施团队，DeepSeek 首轮融资 500 亿创下中国纪录——本周的信号指向同一个方向：AI 竞争从模型评分转向落地交付与算力锁定。</p>
+</header>
+
+<!-- ═══ 维度 1：本周关键信号 ═══ -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">维度 01</div>
+    <div class="section-title">本周关键信号</div>
+  </div>
+  <div class="section-body">
+
+    <div class="signal">
+      <div class="signal-head">
+        <span class="signal-stars">🌟🌟🌟</span>
+        <span class="signal-title">Anthropic 承诺 5 年向 Google Cloud 投入 2000 亿美元，锁定 TPU 算力</span>
+      </div>
+      <div class="signal-detail">据 The Information 报道，Anthropic 与 Google Cloud 签署的 5 年基础设施合同金额约 2000 亿美元，占 Google Cloud 收入积压订单的 40% 以上。合同覆盖 Broadcom 合作交付的多吉瓦 TPU 算力，2027 年起上线。同月 Anthropic 还与 AWS 签署 1000 亿美元 / 10 年合同，与 SpaceX/xAI Colossus 1 数据中心达成 300MW 算力协议。Anthropic + OpenAI 两家公司合计占主要云厂商约 2 万亿美元积压订单的一半。</div>
+      <span class="collapse-toggle" onclick="toggleCollapse(this)">展开详情 ↓</span>
+      <div class="collapse-content">
+        <div class="signal-meta">
+          涉及厂商：Anthropic / Google / Broadcom / AWS / SpaceX-xAI<br>
+          类别：<span class="tag tag-model">大模型</span><span class="tag tag-infer">算力</span><br>
+          信源：<a href="https://thetechmedia.in/2026/05/07/anthropic-enters-200bn-agreement-with-google-for-cloud-and-tpu-chips/">The Tech Media</a> · <a href="https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/anthropic-commits-spending-us200-billion-googles-cloud-and-chips-report">Business Times</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="signal">
+      <div class="signal-head">
+        <span class="signal-stars">🌟🌟🌟</span>
+        <span class="signal-title">OpenAI 成立 40 亿美元部署公司 DeployCo，收编 Tomoro 150 名工程师</span>
+      </div>
+      <div class="signal-detail">OpenAI 成立多数控股的咨询子公司 DeployCo，初始投资超 40 亿美元，收购应用 AI 咨询公司 Tomoro，150 名工程师并入。合作方包括 TPG、Bain Capital、Brookfield 等 19 家。同周 OpenAI 三大产品线（ChatGPT / Codex / API）被强行合并，IPO 前组织重构信号明显。Codex 同步上线手机端（iOS/Android），新增 Hooks 安全合规脚本和 HIPAA 合规支持。</div>
+      <span class="collapse-toggle" onclick="toggleCollapse(this)">展开详情 ↓</span>
+      <div class="collapse-content">
+        <div class="signal-meta">
+          涉及厂商：OpenAI / TPG / Bain Capital / Tomoro<br>
+          类别：<span class="tag tag-agent">商业</span><span class="tag tag-model">产品</span><br>
+          信源：<a href="https://www.stcn.com/article/detail/3905102.html">证券时报</a> · <a href="https://dentro.de/ai/news/">Dentro AI</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="signal">
+      <div class="signal-head">
+        <span class="signal-stars">🌟🌟🌟</span>
+        <span class="signal-title">DeepSeek 首轮融资 500 亿，估值 515 亿美元，国家大基金领投</span>
+      </div>
+      <div class="signal-detail">DeepSeek 创始人梁文锋出资 200 亿占 40%，国家集成电路产业投资基金（大基金）洽谈领投，腾讯拟出资 60 亿获约 2% 股权。投后估值突破 3500 亿元人民币（约 515 亿美元），一个月内从 100 亿美元飙升 5 倍。V4 模型完成从 NVIDIA CUDA 到华为昇腾 CANN 的全链路迁移，成为首个不依赖英伟达的前沿模型。计划 6 月推出 V4.1，强化 MCP 协议适配与多模态能力。</div>
+      <span class="collapse-toggle" onclick="toggleCollapse(this)">展开详情 ↓</span>
+      <div class="collapse-content">
+        <div class="signal-meta">
+          涉及厂商：DeepSeek / 国家大基金 / 腾讯 / 华为昇腾<br>
+          类别：<span class="tag tag-model">融资</span><span class="tag tag-open">开源</span><span class="tag tag-policy">国产替代</span><br>
+          信源：<a href="https://finance.sina.com.cn/wm/2026-05-10/doc-inhxkpei6219932.shtml">中国经营报</a> · <a href="https://www.stcn.com/article/detail/3900726.html">证券时报</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="signal">
+      <div class="signal-head">
+        <span class="signal-stars">🌟🌟</span>
+        <span class="signal-title">中国大模型"五强"集体刷新估值，智谱港股单日涨 36.9%</span>
+      </div>
+      <div class="signal-detail">5 月 7–14 日一周内，月之暗面（20 亿美元 / 估值 200 亿）、阶跃星辰（25 亿美元 / 估值待定）、DeepSeek 三家未上市密集融资；已上市的智谱收盘涨 36.9%，市值首破 5000 亿港元；MiniMax 涨 18.46% 至 2566 亿港元。智谱 2025 年全年营收不足 8 亿元，市值 / 营收比远超科大讯飞。中国 AI 四强合计估值破万亿。</div>
+      <span class="collapse-toggle" onclick="toggleCollapse(this)">展开详情 ↓</span>
+      <div class="collapse-content">
+        <div class="signal-meta">
+          涉及厂商：月之暗面 / 阶跃星辰 / 智谱 / MiniMax / DeepSeek<br>
+          类别：<span class="tag tag-model">融资</span><br>
+          信源：<a href="https://finance.eastmoney.com/a/202605153738482224.html">东方财富</a> · <a href="https://www.stcn.com/article/detail/3910380.html">证券时报</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="signal">
+      <div class="signal-head">
+        <span class="signal-stars">🌟🌟</span>
+        <span class="signal-title">Musk 诉 OpenAI 案进入第三周：Altman 曝 Musk 曾要求 90% 股权</span>
+      </div>
+      <div class="signal-detail">Satya Nadella 出庭称 Musk 从未质疑微软投资；Ilya Sutskever 透露持股估值 70 亿美元，否认曾承诺永久非营利；Sam Altman 作证称 Musk 早期要求 90% 股权后软化但坚持多数控制。Brockman 持股近 300 亿美元。5 月 15 日结辩，9 人陪审团即将裁决。Musk 索赔约 1500 亿美元，要求 Altman / Brockman 离职。</div>
+      <span class="collapse-toggle" onclick="toggleCollapse(this)">展开详情 ↓</span>
+      <div class="collapse-content">
+        <div class="signal-meta">
+          涉及厂商：OpenAI / Microsoft / xAI<br>
+          类别：<span class="tag tag-policy">诉讼</span><span class="tag tag-model">治理</span><br>
+          信源：<a href="https://www.thepaper.cn/newsDetail_forward_33161371">澎湃新闻</a> · <a href="https://www.dailysabah.com/business/tech/musk-sought-90-of-openai-altman-says-in-blockbuster-trial/amp">Daily Sabah / AFP</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="signal">
+      <div class="signal-head">
+        <span class="signal-stars">🌟🌟</span>
+        <span class="signal-title">Gemini 3.5 Pro "卡布奇诺"泄露，Google I/O 前最大信号</span>
+      </div>
+      <div class="signal-detail">Gemini 3.5 Pro 代号 Cappuccino 泄露，编程能力对位 GPT-5.5。Agent 模式 Spark 引发隐私与信任讨论：可 24 小时自主执行购物、预订等长程任务。Google 同周发布 Android Gemini Intelligence 更新，将 AI 从聊天窗口推进到系统级 Agent 层——跨应用理解屏幕内容并完成多步操作。DeepMind 还推出 AI 原生鼠标指针，用户指向 + 说话即可触发 AI 操作。</div>
+      <span class="collapse-toggle" onclick="toggleCollapse(this)">展开详情 ↓</span>
+      <div class="collapse-content">
+        <div class="signal-meta">
+          涉及厂商：Google / DeepMind<br>
+          类别：<span class="tag tag-model">大模型</span><span class="tag tag-agent">Agent</span><br>
+          信源：<a href="https://www.36kr.com/p/3810432812162816">36氪</a> · <a href="https://www.cnbc.com/2026/05/12/google-races-put-gemini-at-center-of-android-before-apples-ai-reboot.html">CNBC</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="signal">
+      <div class="signal-head">
+        <span class="signal-stars">🌟🌟</span>
+        <span class="signal-title">Anthropic 企业付费占比首超 OpenAI，Claude for Small Business 发布</span>
+      </div>
+      <div class="signal-detail">Ramp 平台 5 月 AI 指数显示：Anthropic 付费企业客户占比 34.4%，首次超过 OpenAI 的 32.3%。Anthropic 同周推出 Claude for Small Business，嵌入 QuickBooks / PayPal / HubSpot / Canva / Docusign 等 15 个小企业工具，提供 15 个开箱即用 Agent 工作流。Opus 4.7 Fast 模式上线，付费用户编程额度提升 50%。</div>
+      <span class="collapse-toggle" onclick="toggleCollapse(this)">展开详情 ↓</span>
+      <div class="collapse-content">
+        <div class="signal-meta">
+          涉及厂商：Anthropic / Intuit / PayPal / HubSpot<br>
+          类别：<span class="tag tag-agent">企业AI</span><br>
+          信源：<a href="https://tmtpost.com/7987225.html">钛媒体</a> · <a href="https://singhajit.com/dev-weekly/2026/may-11-17/">Dev Weekly</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="signal">
+      <div class="signal-head">
+        <span class="signal-stars">🌟</span>
+        <span class="signal-title">Apple M5 MIE 内存防护被 Claude Mythos 辅助攻破：5 年防线 5 天沦陷</span>
+      </div>
+      <div class="signal-detail">安全公司 Calif 利用 Anthropic Claude Mythos 模型辅助，5 天内攻破 Apple M5 芯片的 Memory Integrity Enforcement (MIE)——苹果设计该硬件防线预期抵抗周期为 5 年。同周 Claude Mythos 正式现身 Google Cloud Marketplace，预览标签消失，暗示从实验性走向正式商用。</div>
+      <span class="collapse-toggle" onclick="toggleCollapse(this)">展开详情 ↓</span>
+      <div class="collapse-content">
+        <div class="signal-meta">
+          涉及厂商：Apple / Anthropic / Calif / Google Cloud<br>
+          类别：<span class="tag tag-policy">安全</span><span class="tag tag-model">大模型</span><br>
+          信源：<a href="https://www.cls.cn/detail/2372994">财联社</a> · <a href="https://www.tomshardware.com/tech-industry/cyber-security/apple-m5-architecture-suffers-first-privilege-escalation-exploit-anthropics-claude-mythos-helps-researchers-bypass-memory-integrity-enforcement">Tom's Hardware</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ 维度 2：厂商动态矩阵 ═══ -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">维度 02</div>
+    <div class="section-title">厂商动态矩阵</div>
+  </div>
+  <div class="section-body" style="padding: 0; overflow-x: auto;">
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>厂商</th>
+          <th>模型</th>
+          <th>产品 / 渠道</th>
+          <th>融资 / 估值</th>
+          <th>关键动作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="vendor-cell">OpenAI</td>
+          <td>GPT-5.5 Instant 默认上线；GPT-5.6 内测代号 ember-alpha / beacon-alpha</td>
+          <td>Codex 手机端 + Hooks 安全脚本 + HIPAA；DeployCo 部署公司；Daybreak 安全产品</td>
+          <td>估值 $8500 亿；员工股票套现 $66 亿</td>
+          <td>三大产品线合并；IPO 前组织重构；Musk 诉讼结辩</td>
+        </tr>
+        <tr>
+          <td class="vendor-cell">Anthropic</td>
+          <td>Opus 4.7 Fast 模式上线；Claude Mythos 正式上 Google Cloud</td>
+          <td>Claude for Small Business（15 工具 / 15 工作流）；与 SpaceX/xAI Colossus 1 算力协议</td>
+          <td>ARR 440 亿；估值 $9000 亿–1 万亿</td>
+          <td>$2000 亿 Google Cloud 合同；$1000 亿 AWS 合同；企业付费占比首超 OpenAI</td>
+        </tr>
+        <tr>
+          <td class="vendor-cell">Google DeepMind</td>
+          <td>Gemini 3.5 Pro "Cappuccino" 泄露；AlphaEvolve 扩展至基因组 / 量子 / TPU 设计</td>
+          <td>Android Gemini Intelligence 系统级 Agent；AI 原生鼠标指针</td>
+          <td>Alphabet 市值逼近 Nvidia</td>
+          <td>Google I/O 下周（5/20–21）；Anthropic $2000 亿云合同推高 Cloud backlog 至 $4600 亿</td>
+        </tr>
+        <tr>
+          <td class="vendor-cell">Meta</td>
+          <td>Muse Spark（MSL 首个核心模型）；Hatch Agent 开发中</td>
+          <td>智能购物工具</td>
+          <td>—</td>
+          <td>从"AI 布道者"转向"AI 竞争者"；$150 亿挖角 Scale AI 创始人后的首次落地</td>
+        </tr>
+        <tr>
+          <td class="vendor-cell">Microsoft</td>
+          <td>—</td>
+          <td>GitHub Copilot Max $100/月；Copilot CLI 替代 Claude Code；MDASH 安全 Agent</td>
+          <td>Azure AI 年化收入 $370 亿；Copilot 付费席位 2000 万</td>
+          <td>取消内部 Claude Code 许可，工程师转 Copilot CLI；Nadella 出庭作证</td>
+        </tr>
+        <tr>
+          <td class="vendor-cell">DeepSeek</td>
+          <td>V4 Preview（1.6T / 1M 上下文 / CUDA→昇腾全迁移）；V4.1 计划 6 月上线</td>
+          <td>—</td>
+          <td>首轮融资 500 亿 / 估值 $515 亿</td>
+          <td>国家大基金领投；梁文锋出资 200 亿；V4 首个不依赖英伟达的前沿模型</td>
+        </tr>
+        <tr>
+          <td class="vendor-cell">月之暗面</td>
+          <td>Kimi K2.6 编程模型开源</td>
+          <td>—</td>
+          <td>$20 亿融资 / 估值 $200 亿；ARR 超 $2 亿</td>
+          <td>美团龙珠领投；半年累计融资超 $39 亿</td>
+        </tr>
+        <tr>
+          <td class="vendor-cell">阶跃星辰</td>
+          <td>—</td>
+          <td>—</td>
+          <td>$25 亿融资 / 赴港 IPO 筹备中</td>
+          <td>产业链资本集中入场（华勤 / 龙旗 / 豪威 / 中兴）；拆除红筹架构</td>
+        </tr>
+        <tr>
+          <td class="vendor-cell">阿里云</td>
+          <td>Qwen3.6-27B 开源（Apache 2.0 / 262K 上下文）</td>
+          <td>Qoder 1.0 智能体自主开发工作台</td>
+          <td>—</td>
+          <td>Qwen3.6 刷屏 r/LocalLLaMA（1505 票）；Qoder 对位 Cursor + Devin</td>
+        </tr>
+        <tr>
+          <td class="vendor-cell">蚂蚁集团</td>
+          <td>Ring-2.6-1T 开源</td>
+          <td>—</td>
+          <td>—</td>
+          <td>开源万亿参数 Agent 模型，对位 Claude Agent 能力</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 维度 3：技术演进趋势 ═══ -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">维度 03</div>
+    <div class="section-title">技术演进趋势</div>
+  </div>
+  <div class="section-body">
+
+    <div class="trend-item">
+      <div class="trend-head"><span class="tag tag-agent">Agent</span> Agent 竞争从"模型够不够聪明"转向"能不能在真实环境里干活"</div>
+      <div class="trend-body">本周至少 4 个独立信号指向同一方向：Anthropic 推出 15 个开箱即用小企业 Agent 工作流；Google 把 Gemini 从聊天窗口推进到 Android 系统级 Agent 层（跨应用操作、购物车、预订）；阿里云 Qoder 1.0 把 IDE 变成 Agent 自主开发工作台；蚂蚁 Ring-2.6 把万亿参数模型做成 Agent 框架开源。Agent 的竞争焦点已经不在 benchmark 分数，而在于：能不能理解屏幕上下文？能不能跨系统调用工具？能不能在用户授权的范围内自主完成多步任务？Google 的 AI 原生鼠标指针和 Android Gemini Intelligence 是本周最具体的信号——交互方式本身正在被重写。</div>
+      <div class="trend-evidence">论据① Anthropic Claude for Small Business 15 工作流 + Google Gemini Intelligence 跨应用 Agent · ② Qoder 1.0 + Ring-2.6 开源 Agent 框架 · ③ arXiv 本周两篇 Agent 论文：DOLORES（结构化元认知推理，8B 超 32B baseline +24.8%）和 ActFocus（动作 token 加权 RL，提升最高 63.7pp）</div>
+    </div>
+
+    <div class="trend-item">
+      <div class="trend-head"><span class="tag tag-open">开源</span> 密集模型对位 MoE，本地部署门槛持续下降</div>
+      <div class="trend-body">Qwen3.6-27B 以密集架构在 r/LocalLLaMA 刷屏，262K 上下文 + Apache 2.0 协议，在多个 benchmark 匹配更大参数 MoE 模型。蚂蚁 Ring-2.6-1T 开源进一步压低万亿参数门槛。llama.cpp 合并 Speculative Checkpointing（PR #19493），推理优化从云端走向边缘。密集模型对位 MoE 的叙事在社区持续发酵——密集模型虽然参数效率不如 MoE，但在推理延迟和部署简化上有结构性优势，尤其适合本地和边缘场景。</div>
+      <div class="trend-evidence">论据① Qwen3.6-27B Reddit 1505 票 / 541 评论 · ② Ring-2.6-1T GitHub 开源 · ③ llama.cpp PR #19493 + Reddit 200+ 票 · 对比上月：Llama 4 Scout/Maverick 开源是 MoE 路线，本月密集路线反弹</div>
+    </div>
+
+    <div class="trend-item">
+      <div class="trend-head"><span class="tag tag-infer">推理</span> 推理优化的主战场从"怎么跑得快"变成"怎么跑得起"</div>
+      <div class="trend-body">本周几个信号暗示推理优化的关注点正在偏移：OpenAI 上线 GPT-5.5 Instant ultrafast 模式（提速 2–3x）；Anthropic 推出 Opus 4.7 Fast 模式；llama.cpp 的 Speculative Checkpointing 让边缘设备也能跑大模型。更深层的变化在算力侧——Anthropic 和 OpenAI 两家合计占云厂商 $2 万亿积压订单的一半，推理需求正在从"跑 benchmark"转向"支撑每天数十亿次 API 调用"的规模经济问题。谁能把推理成本压到最低，谁就能把 API 定价压到竞争对手亏损线以下。</div>
+      <div class="trend-evidence">论据① GPT-5.5 Instant ultrafast + Opus 4.7 Fast 同周发布 · ② Anthropic $2000 亿 + OpenAI $1400 亿云基础设施锁定 · ③ llama.cpp 边缘推理优化</div>
+    </div>
+
+    <div class="trend-item">
+      <div class="trend-head"><span class="tag tag-model">研究</span> Agent 记忆和推理的可靠性问题浮出水面</div>
+      <div class="trend-body">awesomeagents.ai 本周汇总的三篇论文暴露了 Agent 系统的脆弱面：GPT-5.4 在连续记忆更新后 54% 的已解决问题无法复现（记忆整合反而降低性能）；LLM 在多轮对话中会"沉默地"丢失指令（Goal Accessibility Ratio 可预测崩溃点）；SU-01 证明 30B MoE 模型通过反向困惑度课程学习 + 自验证可以达到奥赛金牌水平，但需要 100K+ token 的推理链。Agent 能力上限在提高，但稳定性下限的问题可能更紧迫。</div>
+      <div class="trend-evidence">论据① arXiv 2605.12978 记忆整合退化 · ② Goal Accessibility Ratio 诊断指标 · ③ SU-01 (arXiv:2605.13301) 30B 奥赛金牌</div>
+    </div>
+
+    <div class="trend-item">
+      <div class="trend-head"><span class="tag tag-policy">治理</span> 学术与政策层面对 AI 输出可靠性的红线在收紧</div>
+      <div class="trend-body">arXiv 宣布对 AI 幻觉违规作者禁投 1 年——这是学术预印本平台首次对 AI 生成内容采取惩罚措施。美国参议院同周向微软、Google、X、Anthropic、Perplexity 五家发出正式问询，要求 30 日内提交 LLM 安全性和透明度说明。两条信号叠加：AI 输出的可靠性不再只是技术问题，而是合规和学术诚信问题。</div>
+      <div class="trend-evidence">论据① arXiv AI 幻觉禁投政策 · ② 美国参议院五公司问询 · 对比上月：欧盟 AI Act 执行细则刚落地，监管密度在加速</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ 维度 4：商业格局变化 ═══ -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">维度 04</div>
+    <div class="section-title">商业格局变化</div>
+  </div>
+  <div class="section-body">
+
+    <div class="trend-item">
+      <div class="trend-head">云厂商的 AI 收入高度依赖两家亏损公司</div>
+      <div class="trend-body">Anthropic + OpenAI 合计占 AWS / Azure / GCP / Oracle 约 $2 万亿积压订单的一半。Anthropic 单独占 Google Cloud 积压订单的 40%+。这意味着云厂商的 AI 增长叙事建立在少数客户能否实现 20–30 倍收入增长的假设之上。Oracle 股价自去年 9 月已跌 45%（OpenAI $3000 亿合同后市场质疑实际执行率），而 Google 和 Amazon 的赌注在于：自研芯片（TPU / Trainium）的毛利率远高于出租 Nvidia GPU。云厂商的 AI 收入质量取决于自研芯片占比，而非单纯订单规模。</div>
+    </div>
+
+    <div class="trend-item">
+      <div class="trend-head">中国大模型估值体系被 DeepSeek 重构，"四强"合计破万亿</div>
+      <div class="trend-body">DeepSeek 估值从 4 月中旬的 $100 亿飙升至 $515 亿，成为整个赛道的定价锚。月之暗面 $200 亿、阶跃星辰接近 $200 亿、智谱 5000 亿港元、MiniMax 2500 亿港元——中国 AI 四强合计估值破万亿人民币。但营收与估值的落差同样惊人：智谱 2025 年营收不足 8 亿元，市值 / 营收比超过 500 倍。这个估值体系的核心支撑不是当前商业化能力，而是"国产替代叙事"和"全栈自主可控"的溢价——DeepSeek V4 完成昇腾适配后，国产芯片概念股全线暴涨。</div>
+    </div>
+
+    <div class="trend-item">
+      <div class="trend-head">部署与实施成为 AI 公司的新战场</div>
+      <div class="trend-body">OpenAI 成立 DeployCo、Anthropic 推 Claude for Small Business、Google 把 Gemini 嵌入 Android 系统层——三巨头本周同时转向"最后一公里"交付。背后逻辑：模型能力差异在缩小（GPT-5.5 vs Claude Opus 4.7 vs Gemini 3.5 在多数 benchmark 上差距 <5%），但企业能否用起来取决于实施质量。DeployCo 的 Palantir 路线（卖人 + 卖方法论）和 Claude for Small Business 的 SaaS 路线（卖开箱即用工作流）代表了两种截然不同的交付策略。谁能先把 Fortune 500 的落地数字拿出来，谁就拿到了下一轮估值的入场券。</div>
+    </div>
+
+    <div class="trend-item">
+      <div class="trend-head">Microsoft 从 OpenAI 独占转向多模型策略</div>
+      <div class="trend-body">Microsoft 取消内部 Claude Code 许可、将工程师迁至 Copilot CLI；同周 OpenAI 获得与其他云厂商（AWS / GCP）深化合作的自由度。双方关系正在从"排他绑定"向"合作但开放"调整。Nadella 出庭时的措辞耐人寻味："我对我们冒险赞助了这家初生实验室感到非常自豪"——用的是"赞助"而非"投资"。Microsoft 的策略是：不把鸡蛋放在一个篮子里，用 Copilot 作为多模型路由层（GPT + Claude + Gemini 都可通过 Copilot CLI 访问），自己做"AI 中间件"而非依赖单一模型提供商。</div>
+    </div>
+
+    <div class="trend-item">
+      <div class="trend-head">自改进 AI 成为新的融资叙事</div>
+      <div class="trend-body">前 Salesforce 首席科学家 Richard Socher 创办 Recursive Superintelligence，$6.5 亿 Series A / 估值 $46.5 亿，GV / Greycroft 领投，Nvidia / AMD 跟投。前 Meta FAIR 科学家田渊栋任联合创始人，Peter Norvig 加盟。同周 Nathan Lambert 发布中国 AI 实验室巡访报告，确认中国开发者尽管名义上受限，大多数仍偏好 Claude。自改进 AI 的叙事从学术论文（OpenAI GPT-5.5 内部发现更高效并行化方法，性能提升 20%+）延伸到创业公司——但"AI 改进 AI"的验证周期远比预训练长，这个赛道的死亡率可能也很高。</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ 维度 5：下周观察清单 ═══ -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-num">维度 05</div>
+    <div class="section-title">下周观察清单</div>
+  </div>
+  <div class="section-body">
+
+    <div class="watch-item">
+      <div class="watch-title">Google I/O（5/20–21）：Gemini 3.5 Pro 是否正式发布</div>
+      <div class="watch-desc">卡布奇诺泄露后，Google 需要在 I/O 上给出官方版本和定价。关注：Spark Agent 的隐私边界如何定义、TPU v6 发布节奏、与 Apple Intelligence 的合作细节。如果 Gemini 3.5 Pro 正式发布且编程能力确实对位 GPT-5.5，模型差距将进一步收窄。</div>
+    </div>
+
+    <div class="watch-item">
+      <div class="watch-title">Musk 诉 OpenAI 案陪审团裁决</div>
+      <div class="watch-desc">9 人陪审团预计本周开始审议。法官 Yvonne Gonzalez Rogers 表示大概率采纳陪审团意见。核心看点：OpenAI 是否被要求回归非营利架构。如果裁决对 Musk 有利，OpenAI 的 IPO 计划和 $8500 亿估值将受到直接冲击；如果对 OpenAI 有利，Musk 的 xAI 将失去一个重要的法律施压工具。</div>
+    </div>
+
+    <div class="watch-item">
+      <div class="watch-title">OpenAI DeployCo 首批客户公告：能否给出 Fortune 500 落地数字</div>
+      <div class="watch-desc">DeployCo 成立后的第一个客户名单和交付成果，将决定"部署公司"这条路线是否成立。关注是否有可量化的效率提升数据（而非模糊的"AI 赋能"描述），以及 Tomoro 150 人团队的整合进度。</div>
+    </div>
+
+    <div class="watch-item">
+      <div class="watch-title">DeepSeek V4.1 是否如期在 6 月上线，Agent benchmark 能否兑现</div>
+      <div class="watch-desc">V4.1 计划强化 MCP 协议适配和多模态能力。作为首轮融资的关键技术支撑，V4.1 的实际表现将直接影响估值能否维持 $515 亿水平。关注：华为昇腾适配的推理效率是否达到商用水平。</div>
+    </div>
+
+    <div class="watch-item">
+      <div class="watch-title">Anthropic 企业付费占比趋势：34.4% 是拐点还是峰值</div>
+      <div class="watch-desc">Ramp 指数显示 Anthropic 首超 OpenAI，但这是基于 Anthropic 客户的付费渗透率而非绝对数量。OpenAI 本周反击（向迁移企业提供两月免费 Codex），下周观察 OpenAI 的企业端动作是否遏制 Anthropic 的增长势头。</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="footer">
+  <p class="footer-note">本期为首发，覆盖 2026-05-11 ～ 05-17，部分回溯依赖 WebSearch 补充（信源含 The Information / CNBC / 财联社 / 证券时报 / 钛媒体 / 东方财富 / 中国经营报 / arXiv / GitHub / HuggingFace / Reddit r/LocalLLaMA 等）。后续周报将以本日报档案库为主信源，减少外部搜索依赖。</p>
+  <p class="footer-note">数据截止 2026-05-18 10:00 · 独立完成，未经用户确认</p>
+  <div class="footer-brand">商 业 · 认 知 观 察 者 · 出 品</div>
+</div>
+
+</div>
+
+<script>
+function toggleCollapse(el) {
+  var content = el.nextElementSibling;
+  if (content.classList.contains('open')) {
+    content.classList.remove('open');
+    el.textContent = el.textContent.replace('收起 ↑', '展开 ↓');
+    if (el.textContent.indexOf('展开') === -1) el.textContent = '展开详情 ↓';
+  } else {
+    content.classList.add('open');
+    el.textContent = el.textContent.replace('展开 ↓', '收起 ↑');
+    if (el.textContent.indexOf('收起') === -1) el.textContent = '收起详情 ↑';
+  }
+}
+</script>
+</body>
+</html>
