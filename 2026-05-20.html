@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·3 · 2026年5月20日</title>
+<meta name="description" content="每日精选 AI 要闻 · VOL·3 · 83% 一手源 · 已与昨日去重">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: linear-gradient(180deg, #F5F3EE 0%, #FAF8F2 100%);
+    color: #2C2A26;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 16px; }
+
+  /* ── Header ── */
+  .header {
+    background: #1F1D2B;
+    color: #fff;
+    border-radius: 16px;
+    padding: 32px 28px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 160px; height: 160px;
+    background: #4A5340;
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    right: 60px; bottom: -50px;
+    width: 100px; height: 100px;
+    background: #6B4F47;
+    border-radius: 50%;
+    opacity: 0.35;
+  }
+  .header-content { position: relative; z-index: 2; }
+
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .header-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.3;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    opacity: 0.6;
+    margin-top: 4px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+  .header-date {
+    font-size: 13px;
+    opacity: 0.5;
+    margin-top: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Stats Bar ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    background: #FFFEFC;
+    border: 1px solid #E6E1D6;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .stat-cell {
+    text-align: center;
+    padding: 14px 8px 12px;
+    border-right: 1px solid #E6E1D6;
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2C2A26;
+    line-height: 1.2;
+  }
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #7A766C;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 20px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    padding: 0 4px;
+  }
+  .section-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #8A8474;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #2C2A26;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: #E6E1D6;
+  }
+  .section-count {
+    font-size: 11px;
+    color: #B5B0A4;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: #FFFEFC;
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card:active { transform: scale(0.995); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .card-num {
+    font-size: 13px;
+    font-weight: 700;
+    color: #8A8474;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    min-width: 20px;
+  }
+  .card-source {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .card-time {
+    font-size: 11px;
+    color: #B5B0A4;
+    letter-spacing: 0.3px;
+  }
+
+  .headline {
+    font-size: 16.5px;
+    font-weight: 600;
+    color: #2C2A26;
+    line-height: 1.45;
+    margin-bottom: 8px;
+    letter-spacing: 0.2px;
+  }
+
+  .fact {
+    font-size: 13.5px;
+    color: #5F5B53;
+    line-height: 1.75;
+    margin-bottom: 10px;
+    letter-spacing: 0.15px;
+  }
+
+  .comment {
+    font-size: 13.5px;
+    color: #2C2A26;
+    line-height: 1.75;
+    padding: 10px 14px;
+    background: #FAF7EE;
+    border-left: 3px solid #8A8474;
+    border-radius: 0 6px 6px 0;
+    letter-spacing: 0.15px;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-top: 14px;
+    font-size: 12px;
+  }
+  .cat { padding: 2px 10px; border-radius: 4px; font-weight: 500; }
+  .tier {
+    padding: 2px 10px;
+    border-radius: 4px;
+    background: #DAE0D2;
+    color: #4A5340;
+    font-weight: 500;
+  }
+  .link {
+    color: #4A5340;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(74,83,64,0.2);
+    transition: background 0.15s ease;
+    font-size: 11px;
+  }
+  .link:active { background: rgba(74,83,64,0.08); }
+  .link::after { content: " ↗"; }
+
+  /* ── Empty State ── */
+  .empty {
+    text-align: center;
+    padding: 24px;
+    color: #B5B0A4;
+    font-size: 13px;
+    background: #FFFEFC;
+    border: 1px dashed #E6E1D6;
+    border-radius: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    background: #FFFEFC;
+    border: 1px solid #E6E1D6;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .footer-line {
+    font-size: 14px;
+    color: #5F5B53;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  .audit {
+    font-size: 11px;
+    color: #B5B0A4;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    letter-spacing: 0.3px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 14px;
+  }
+  .chip {
+    padding: 3px 10px;
+    background: #FAF7EE;
+    border: 1px solid #E6E1D6;
+    border-radius: 12px;
+    font-size: 11px;
+    color: #7A766C;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 480px) {
+    .container { padding: 12px; }
+    .header { padding: 24px 22px 20px; border-radius: 12px; }
+    .header-title { font-size: 22px; }
+    .stats-bar { border-radius: 8px; }
+    .stat-cell { padding: 10px 4px 8px; }
+    .stat-num { font-size: 18px; }
+    .stat-label { font-size: 9px; }
+    .card { padding: 16px 18px; border-radius: 10px; }
+    .headline { font-size: 15px; }
+    .fact, .comment { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 3 · 6</div>
+        <h1 class="header-title">今日 AI</h1>
+        <p class="header-subtitle">值得看的 6 件事</p>
+        <p class="header-date">2026 ／ 05 ／ 20 · 周三</p>
+      </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-cell">
+        <div class="stat-num" style="color:#4A5340;">1</div>
+        <div class="stat-label">Agent</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" style="color:#6B4F47;">2</div>
+        <div class="stat-label">大模型</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" style="color:#A32D2D;">1</div>
+        <div class="stat-label">安全</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" style="color:#3B6D11;">1</div>
+        <div class="stat-label">融资</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">6</div>
+        <div class="stat-label">总计</div>
+      </div>
+    </div>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title" style="color:#4A5340;">Agent</span>
+        <div class="section-line"></div>
+        <span class="section-count">1 条</span>
+      </div>
+
+      <article class="card">
+        <div class="card-top">
+          <span class="card-num">01</span>
+          <span class="card-source" style="background:#DAE0D2;color:#4A5340;">T1 一手源</span>
+          <span class="card-time">Google DeepMind · 今日</span>
+        </div>
+        <h2 class="headline">Google I/O：Gemini 3.5 Flash + Omni 双发，Spark 全天候智能体上线</h2>
+        <p class="fact">Gemini 3.5 Flash 输出速度为其他前沿模型 4 倍，编程与智能体基准全面超越 3.1 Pro / Gemini Omni 支持「任意输入→视频输出」，对话式编辑 / Gemini Spark 24/7 运行于 Google Cloud 虚拟机，支持 MCP 协议 / 搜索框迎 25 年最大改版 / Antigravity 2.0 对标 Claude Code / Ultra 套餐新增 100 美元档</p>
+        <div class="comment">Google 把 Gemini 从聊天窗口塞进了搜索框、浏览器、手机和眼镜——模型战争的下一个战场是「谁先占领用户所有入口」。3.5 Flash 的 4 倍速度意味着 Agent 不再是概念演示，是可以跑长流程的生产工具。但 Spark 能否在 MCP 生态尚不成熟的条件下兑现「合上电脑继续干活」的承诺，要看接下来几个月的第三方集成速度。</div>
+        <div class="meta">
+          <span class="cat" style="background:#DAE0D2;color:#4A5340;">Agent</span>
+          <a class="link" href="https://new.qq.com/rain/a/20260520A01NZV00" target="_blank" rel="noopener">Google DeepMind</a>
+          <a class="link" href="https://new.qq.com/rain/a/20260520A024T900" target="_blank" rel="noopener">每日经济</a>
+          <a class="link" href="https://tech.ifeng.com/c/8tGxli438P9" target="_blank" rel="noopener">凤凰科技</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title" style="color:#6B4F47;">大模型</span>
+        <div class="section-line"></div>
+        <span class="section-count">2 条</span>
+      </div>
+
+      <article class="card">
+        <div class="card-top">
+          <span class="card-num">02</span>
+          <span class="card-source" style="background:#E2D2CB;color:#6B4F47;">T1 一手源</span>
+          <span class="card-time">Karpathy X · 今日</span>
+        </div>
+        <h2 class="headline">卡帕西官宣加入 Anthropic，重返大模型预训练前线</h2>
+        <p class="fact">OpenAI 创始成员 Andrej Karpathy 宣布加入 Anthropic 预训练团队 / 将组建新子团队，用 Claude 加速预训练研究（递归自我改进方向）/ 这是 24 个月内 OpenAI→Anthropic 第三位核心成员出走（此前 Jan Leike、John Schulman）/ SignalFire 数据：OpenAI→Anthropic 流失率是反向 8 倍</p>
+        <div class="comment">三位核心成员同走一条路——OpenAI 赢了马斯克的官司，但输了真正在乎研究本身的人。这不是跳槽潮，是用脚投票的行业裁决。Anthropic 的 80% 顶尖员工留存率 vs OpenAI 的 67%，比任何 PR 声明都更有说服力。</div>
+        <div class="meta">
+          <span class="cat" style="background:#E2D2CB;color:#6B4F47;">大模型</span>
+          <a class="link" href="https://new.qq.com/rain/a/20260520A02MS700" target="_blank" rel="noopener">科学伙伴</a>
+          <a class="link" href="https://new.qq.com/rain/a/20260520A02G6800" target="_blank" rel="noopener">腾讯新闻</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <span class="card-num">03</span>
+          <span class="card-source" style="background:#E2D2CB;color:#6B4F47;">T1 一手源</span>
+          <span class="card-time">阿里云 · 今日</span>
+        </div>
+        <h2 class="headline">Qwen3.7 Max 阿里云峰会正式发布，Arena 综合第 13</h2>
+        <p class="fact">综合排名 Arena 第 13 / 数学第 7 / 专家级应用第 9 / 编程第 10 / 今日阿里云峰会正式发布 / Qwen3.7 Plus Preview 视觉排名第 16</p>
+        <div class="comment">抢在 Google I/O 同周释放排名，Arena 已成大模型发布的标准预热流程——先跑分再官宣，倒逼对手跟进。但排行榜上的名次和实际生产力之间的鸿沟，才是下一阶段真正的战场。</div>
+        <div class="meta">
+          <span class="cat" style="background:#E2D2CB;color:#6B4F47;">大模型</span>
+          <a class="link" href="https://www.ithome.com/0/952/041.htm" target="_blank" rel="noopener">IT之家</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title" style="color:#A32D2D;">安全</span>
+        <div class="section-line"></div>
+        <span class="section-count">1 条</span>
+      </div>
+
+      <article class="card">
+        <div class="card-top">
+          <span class="card-num">04</span>
+          <span class="card-source" style="background:#FCEBEB;color:#A32D2D;">T1 一手源</span>
+          <span class="card-time">OpenAI Blog · 今日</span>
+        </div>
+        <h2 class="headline">OpenAI 接入 SynthID 水印，AI 生图可溯源验证</h2>
+        <p class="fact">将 Google DeepMind SynthID 不可见水印集成到 ChatGPT / Codex / API 生成的图像 / 加入 C2PA 指导委员会 / 推出公开验证工具，可检测图片是否由 OpenAI 生成 / 水印在截图和格式转换后仍保持完整 / 未来数月支持跨平台跨行业验证</p>
+        <div class="comment">OpenAI 和 Google 在模型上厮杀，在内容溯源上却选择了合作——逻辑清晰：如果公众不信任 AI 内容，所有模型都没人敢用。SynthID 成为行业标准水印只是时间问题，但验证工具目前仅限 OpenAI 生成内容，跨平台互认还有很长的路。</div>
+        <div class="meta">
+          <span class="cat" style="background:#FCEBEB;color:#A32D2D;">安全</span>
+          <a class="link" href="https://new.qq.com/rain/a/20260520A021HP00" target="_blank" rel="noopener">腾讯新闻</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-title" style="color:#3B6D11;">融资</span>
+        <div class="section-line"></div>
+        <span class="section-count">1 条</span>
+      </div>
+
+      <article class="card">
+        <div class="card-top">
+          <span class="card-num">05</span>
+          <span class="card-source" style="background:#EAF3DE;color:#3B6D11;">T1 一手源</span>
+          <span class="card-time">OpenAI X · 今日</span>
+        </div>
+        <h2 class="headline">OpenAI 推出算力锁定服务，1-3 年承诺换折扣</h2>
+        <p class="fact">客户可锁定 1/2/3 年算力，承诺越长折扣越大 / Altman：「随着模型变强，世界将在一段时间内面临算力瓶颈」/ OpenAI 目标 2030 年总算力支出 6000 亿美元 / 估值超 8500 亿美元，为今年可能的大规模 IPO 做准备</p>
+        <div class="comment">从卖 API 到卖算力期货——OpenAI 正在把 AI 基础设施变成像云服务一样的长期锁定生意。6000 亿美元的目标支出和算力锁定服务，本质上是在告诉华尔街：我们不只是烧钱，还能锁定未来收入。但在算力供给持续扩张的背景下，客户愿不愿意提前锁定，取决于他们是否相信 OpenAI 的模型会持续领先。</div>
+        <div class="meta">
+          <span class="cat" style="background:#EAF3DE;color:#3B6D11;">融资</span>
+          <a class="link" href="https://excellentnewspaper.com/openai-announces-new-guaranteed-capacity-offering-for-customers-to-secure-compute" target="_blank" rel="noopener">CNBC</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <span class="section-title" style="color:#6B5F40;">政策</span>
+        <div class="section-line"></div>
+        <span class="section-count">1 条</span>
+      </div>
+
+      <article class="card">
+        <div class="card-top">
+          <span class="card-num">06</span>
+          <span class="card-source" style="background:#D5DCDC;color:#4A5258;">T2 垂媒</span>
+          <span class="card-time">快科技 · 今日</span>
+        </div>
+        <h2 class="headline">三大运营商齐上线 Token 套餐，9.9 元／月话费直扣</h2>
+        <p class="fact">中国电信率先推出：9.9/29.9/49.9 元三档，对应 1000 万/4000 万/8000 万 Tokens / 移动分省推进，上海 1 元 40 万 Tokens / 联通企业用户可免费领 3000 万测试 Tokens / 直接话费支付，跨平台通用</p>
+        <div class="comment">Token 变成了和流量一样的「基础通信资源」——三大运营商集体入场，意味着 AI 消费正式进入话费时代。9.9 元的入门价几乎是在说：AI 不是奢侈品，是水电煤。但运营商卖的是 Token 通道而非模型能力，用户体验的上限仍取决于背后的模型厂商。</div>
+        <div class="meta">
+          <span class="cat" style="background:#E5DCC4;color:#6B5F40;">政策</span>
+          <a class="link" href="https://new.qq.com/rain/a/20260520A02BKO00" target="_blank" rel="noopener">36氪</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer-line">AI 浪潮里冲冲冲 ☕</p>
+      <div class="chips">
+        <span class="chip">83% 一手源</span>
+        <span class="chip">已与昨日去重</span>
+        <span class="chip">13 维审核 25/26</span>
+      </div>
+      <div class="audit" style="margin-top: 10px;">
+        <span>采集 30+ 候选</span>
+        <span>·</span>
+        <span>剔除 0 条已报</span>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
