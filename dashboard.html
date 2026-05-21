@@ -140,7 +140,7 @@ body {
 .trending-list { display: flex; flex-direction: column; gap: 8px; }
 .trending-item {
   background: #0E0E10; border: 1px solid rgba(255,255,255,0.05); border-radius: 10px;
-  padding: 16px 20px; display: flex; align-items: center; gap: 16px;
+  padding: 18px 20px; display: flex; align-items: flex-start; gap: 16px;
   text-decoration: none; color: inherit;
   transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s;
 }
@@ -150,6 +150,7 @@ body {
 .trending-info { flex: 1; min-width: 0; }
 .trending-name { font-size: 13.5px; font-weight: 500; color: #F0ECE4; margin-bottom: 4px; }
 .trending-desc { font-size: 11.5px; color: rgba(255,255,255,0.45); line-height: 1.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.trending-usecase { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.6; margin-top: 6px; white-space: normal; }
 .trending-stats { display: flex; gap: 14px; flex-shrink: 0; align-items: center; }
 .trending-stars { font-size: 11px; color: rgba(255,255,255,0.5); }
 .trending-growth { font-size: 11px; color: #9ABE8E; font-weight: 500; }
@@ -504,16 +505,16 @@ document.querySelectorAll('[data-filter-os]').forEach(chip => {
 
 // === GitHub Trending Data ===
 const trending = [
-  { rank: 1, name: 'browser-use/browser-use', desc: 'Make websites accessible for AI agents — MCP Server 模式 + 多 Agent 并发浏览', stars: '52.3K', growth: '+4.2K', lang: 'Python', url: 'https://github.com/browser-use/browser-use' },
-  { rank: 2, name: 'OpenHuman-ai/OpenHuman', desc: '开源具身智能平台，连接大模型与物理世界', stars: '24.1K', growth: '+3.8K', lang: 'Python', url: 'https://github.com/OpenHuman-ai/OpenHuman' },
-  { rank: 3, name: 'modelcontextprotocol/servers', desc: 'MCP 官方 Server 集合 — 已收录 200+ 工具连接器', stars: '38.7K', growth: '+2.9K', lang: 'TypeScript', url: 'https://github.com/modelcontextprotocol/servers' },
-  { rank: 4, name: 'deepseek-ai/DeepSeek-V4', desc: 'DeepSeek V4 模型权重与推理代码 — 1.6T MoE / 昇腾适配', stars: '68.2K', growth: '+2.5K', lang: 'Python', url: 'https://github.com/deepseek-ai/DeepSeek-V4' },
-  { rank: 5, name: 'QwenLM/Qwen3', desc: '通义千问 3 系列模型 — 27B/72B Dense + MoE', stars: '45.8K', growth: '+2.1K', lang: 'Python', url: 'https://github.com/QwenLM/Qwen3' },
-  { rank: 6, name: 'langgenius/dify', desc: 'LLM 应用开发平台 — RAG + Agent + Workflow 一站式', stars: '78.4K', growth: '+1.8K', lang: 'TypeScript', url: 'https://github.com/langgenius/dify' },
-  { rank: 7, name: 'ggml-org/llama.cpp', desc: '大模型推理引擎 — Speculative Checkpointing 新合并', stars: '74.2K', growth: '+1.5K', lang: 'C++', url: 'https://github.com/ggml-org/llama.cpp' },
-  { rank: 8, name: 'huggingface/transformers', desc: 'State-of-the-art ML — Qwen3.6 / Ring-2.6 模型集成', stars: '142K', growth: '+1.2K', lang: 'Python', url: 'https://github.com/huggingface/transformers' },
-  { rank: 9, name: 'anthropics/claude-code', desc: 'Claude Code CLI — 终端内 AI 编程助手', stars: '28.9K', growth: '+1.1K', lang: 'TypeScript', url: 'https://github.com/anthropics/claude-code' },
-  { rank: 10, name: 'All-Hands-AI/OpenHands', desc: 'AI 软件工程师平台 — SWE-Bench 第一', stars: '51.3K', growth: '+980', lang: 'Python', url: 'https://github.com/All-Hands-AI/OpenHands' },
+  { rank: 1, name: 'browser-use/browser-use', desc: '让 AI Agent 像人一样操作浏览器——自动填表、爬数据、跑测试流程', useCase: '适合：需要 Web 自动化的 Agent 项目，替代 Selenium 的 AI 原生方案。支持 MCP Server 模式，可被 Claude/GPT 直接调用浏览器完成任务。', stars: '52.3K', growth: '+4.2K', lang: 'Python', url: 'https://github.com/browser-use/browser-use' },
+  { rank: 2, name: 'OpenHuman-ai/OpenHuman', desc: '开源具身智能平台——连接大模型与物理世界的机器人控制框架', useCase: '适合：机器人开发者、具身智能研究。将 LLM 推理能力转化为物理动作序列，支持 ROS2 和仿真环境（Isaac Sim），8B 模型即可驱动。', stars: '24.1K', growth: '+3.8K', lang: 'Python', url: 'https://github.com/OpenHuman-ai/OpenHuman' },
+  { rank: 3, name: 'modelcontextprotocol/servers', desc: 'MCP 官方工具连接器合集——200+ 现成 Server，一键让 AI 接入各种服务', useCase: '适合：想让 Claude/GPT 连接数据库、API、文件系统的开发者。装一个 server 就多一个能力，如 GitHub、Slack、PostgreSQL、浏览器等全覆盖。', stars: '38.7K', growth: '+2.9K', lang: 'TypeScript', url: 'https://github.com/modelcontextprotocol/servers' },
+  { rank: 4, name: 'deepseek-ai/DeepSeek-V4', desc: 'DeepSeek V4 模型权重——1.6T MoE，首个完全脱离英伟达的前沿大模型', useCase: '适合：本地/私有化部署大模型。支持华为昇腾推理，中文能力顶级，编程/数学对位 GPT-5.5，API 价格仅 $2/M tokens（GPT 的 1/7）。', stars: '68.2K', growth: '+2.5K', lang: 'Python', url: 'https://github.com/deepseek-ai/DeepSeek-V4' },
+  { rank: 5, name: 'QwenLM/Qwen3', desc: '通义千问 3 系列——27B 密集模型跑本地，效果逼近百亿级 MoE', useCase: '适合：本地部署/离线场景。27B 可在单张 3090 跑满速，262K 长上下文适合长文档 RAG，Apache 2.0 商用无顾虑。', stars: '45.8K', growth: '+2.1K', lang: 'Python', url: 'https://github.com/QwenLM/Qwen3' },
+  { rank: 6, name: 'langgenius/dify', desc: 'LLM 应用开发平台——不写代码就能搭 RAG、Agent、工作流', useCase: '适合：产品经理和非技术人员快速搭建 AI 应用。拖拽式 Workflow 编排，内置向量数据库和 Agent 工具调用，对标 Langflow 但更易用。', stars: '78.4K', growth: '+1.8K', lang: 'TypeScript', url: 'https://github.com/langgenius/dify' },
+  { rank: 7, name: 'ggml-org/llama.cpp', desc: '大模型推理引擎——CPU 也能跑 LLM，边缘设备首选', useCase: '适合：需要在 Mac/PC/树莓派/手机上跑模型的场景。最新 Speculative Checkpointing 合并后推理提速 30%+，GGUF 格式已成为本地模型事实标准。', stars: '74.2K', growth: '+1.5K', lang: 'C++', url: 'https://github.com/ggml-org/llama.cpp' },
+  { rank: 8, name: 'huggingface/transformers', desc: '机器学习模型库——所有主流模型的统一接口和预训练权重', useCase: '适合：ML 工程师日常工作。Qwen3.6、Ring-2.6 等新模型发布后第一时间集成，from_pretrained() 一行代码加载任何模型。', stars: '142K', growth: '+1.2K', lang: 'Python', url: 'https://github.com/huggingface/transformers' },
+  { rank: 9, name: 'anthropics/claude-code', desc: 'Claude Code CLI——终端内 AI 编程，读代码/改 Bug/跑测试一条龙', useCase: '适合：终端重度用户。直接在 shell 里 @ 文件让 AI 改代码，不需要切到 IDE。支持 git 操作、运行命令、多文件编辑，比 Copilot Chat 更贴近工程师工作流。', stars: '28.9K', growth: '+1.1K', lang: 'TypeScript', url: 'https://github.com/anthropics/claude-code' },
+  { rank: 10, name: 'All-Hands-AI/OpenHands', desc: 'AI 软件工程师——给它一个 Issue 就能自动写代码、跑测试、提 PR', useCase: '适合：想用 AI 自动修 Bug 和写功能的团队。SWE-Bench 排名第一，可以理解整个 codebase 后自主完成开发任务，支持 GitHub Actions 集成。', stars: '51.3K', growth: '+980', lang: 'Python', url: 'https://github.com/All-Hands-AI/OpenHands' },
 ];
 
 document.getElementById('trendingList').innerHTML = trending.map(t => `
@@ -522,6 +523,7 @@ document.getElementById('trendingList').innerHTML = trending.map(t => `
     <div class="trending-info">
       <div class="trending-name">${t.name}</div>
       <div class="trending-desc">${t.desc}</div>
+      <div class="trending-usecase">${t.useCase}</div>
     </div>
     <div class="trending-stats">
       <span class="trending-lang">${t.lang}</span>
