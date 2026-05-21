@@ -357,14 +357,26 @@ body {
 
 <script>
 // === Tab Switching ===
+function switchTab(tabName) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  const targetTab = document.querySelector('.tab[data-tab="' + tabName + '"]');
+  if (targetTab) {
+    targetTab.classList.add('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+  }
+}
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    switchTab(tab.dataset.tab);
+    history.replaceState(null, '', '#tab-' + tab.dataset.tab);
   });
 });
+// Hash routing on load
+if (location.hash) {
+  const h = location.hash.replace('#tab-', '');
+  switchTab(h);
+}
 
 // === Valuation Chart ===
 const vCtx = document.getElementById('valuationChart').getContext('2d');
