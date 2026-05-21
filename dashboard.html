@@ -119,6 +119,42 @@ body {
 .filter-chip:hover { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); }
 .filter-chip.active { border-color: rgba(200,168,146,0.4); color: #C8A892; background: rgba(200,168,146,0.08); }
 
+/* Open Source Cards */
+.os-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.os-card {
+  background: #0E0E10; border: 1px solid rgba(255,255,255,0.05); border-radius: 10px;
+  padding: 18px 20px; transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.os-card:hover { transform: translateY(-2px); }
+.os-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.os-card-name { font-size: 14px; font-weight: 500; color: #F0ECE4; }
+.os-card-badge { font-size: 9px; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.5px; }
+.os-card-meta { display: flex; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+.os-card-meta span { font-size: 11px; color: rgba(255,255,255,0.4); }
+.os-card-meta strong { color: rgba(255,255,255,0.65); }
+.os-card-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.os-card-tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.os-card-tag { font-size: 9.5px; padding: 2px 8px; border-radius: 3px; background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.4); }
+
+/* Trending List */
+.trending-list { display: flex; flex-direction: column; gap: 8px; }
+.trending-item {
+  background: #0E0E10; border: 1px solid rgba(255,255,255,0.05); border-radius: 10px;
+  padding: 16px 20px; display: flex; align-items: center; gap: 16px;
+  text-decoration: none; color: inherit;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s;
+}
+.trending-item:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.1); }
+.trending-rank { font-size: 16px; font-weight: 600; color: rgba(255,255,255,0.2); min-width: 28px; text-align: center; }
+.trending-rank.top3 { color: #C8A892; }
+.trending-info { flex: 1; min-width: 0; }
+.trending-name { font-size: 13.5px; font-weight: 500; color: #F0ECE4; margin-bottom: 4px; }
+.trending-desc { font-size: 11.5px; color: rgba(255,255,255,0.45); line-height: 1.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.trending-stats { display: flex; gap: 14px; flex-shrink: 0; align-items: center; }
+.trending-stars { font-size: 11px; color: rgba(255,255,255,0.5); }
+.trending-growth { font-size: 11px; color: #9ABE8E; font-weight: 500; }
+.trending-lang { font-size: 9.5px; padding: 2px 7px; border-radius: 3px; background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.4); }
+
 /* Footer */
 .footer { text-align: center; margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.04); }
 .footer-brand { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 3px; }
@@ -157,6 +193,8 @@ body {
   <div class="tabs">
     <div class="tab active" data-tab="valuation">估值追踪</div>
     <div class="tab" data-tab="models">模型对比</div>
+    <div class="tab" data-tab="opensource">开源速查</div>
+    <div class="tab" data-tab="trending">GitHub 热榜</div>
   </div>
 
   <!-- Tab 1: 估值追踪 -->
@@ -280,6 +318,32 @@ body {
 
   </div>
 
+  <!-- Tab 3: 开源速查 -->
+  <div class="tab-content" id="tab-opensource">
+
+    <div class="filters">
+      <div class="filter-chip active" data-filter-os="all">全部</div>
+      <div class="filter-chip" data-filter-os="chat">对话/通用</div>
+      <div class="filter-chip" data-filter-os="code">编程</div>
+      <div class="filter-chip" data-filter-os="agent">Agent</div>
+    </div>
+
+    <div class="os-grid" id="osGrid"></div>
+  </div>
+
+  <!-- Tab 4: GitHub 热榜 -->
+  <div class="tab-content" id="tab-trending">
+
+    <div class="chart-box" style="padding: 18px 22px;">
+      <div class="chart-header" style="margin-bottom: 4px;">
+        <span class="chart-title">本周 AI 相关 Trending · 2026-05-15 — 05-21</span>
+        <span style="font-size:10px;color:rgba(255,255,255,0.25);">数据来源: github.com/trending</span>
+      </div>
+    </div>
+
+    <div class="trending-list" id="trendingList"></div>
+  </div>
+
   <footer class="footer">
     <div class="footer-brand">AI DAILY ／ 商 业 · 认 知 观 察 者 · 出 品</div>
   </footer>
@@ -397,6 +461,75 @@ new Chart(rCtx, {
     }
   }
 });
+
+// === Open Source Models Data ===
+const osModels = [
+  { name: 'DeepSeek V4', params: '1.6T MoE', ctx: '1M', license: 'MIT', stars: '68.2K', use: 'chat', tags: ['对话','编程','Agent','昇腾适配'], desc: '首个不依赖英伟达的前沿开源模型，CUDA→昇腾全迁移，编程/推理/数学三项对位 GPT-5.5', color: '#C8A892' },
+  { name: 'Qwen3.6-27B', params: '27B Dense', ctx: '262K', license: 'Apache 2.0', stars: '45.8K', use: 'chat', tags: ['对话','通用','本地部署'], desc: '密集架构，r/LocalLLaMA 1505 票刷屏，262K 上下文，多 benchmark 匹配更大 MoE 模型', color: '#9ABE8E' },
+  { name: 'Kimi K2.6', params: '未公开', ctx: '128K', license: 'Apache 2.0', stars: '12.3K', use: 'code', tags: ['编程','代码补全','开源'], desc: '月之暗面编程模型，专为代码生成/补全优化，开源后社区活跃度上升', color: '#9AB0BA' },
+  { name: 'Llama 4 Maverick', params: '400B MoE', ctx: '1M', license: 'Llama License', stars: '82.5K', use: 'chat', tags: ['对话','多语言','MoE'], desc: 'Meta 最新开源旗舰，400B MoE 架构 1M 上下文，多语言表现优秀', color: '#C8B468' },
+  { name: 'Ring-2.6-1T', params: '1T', ctx: '128K', license: 'Apache 2.0', stars: '8.7K', use: 'agent', tags: ['Agent','万亿参数','工具调用'], desc: '蚂蚁集团万亿参数 Agent 模型，专为工具调用和多步推理优化', color: '#A89BC8' },
+  { name: 'Qwen3.7 Max', params: '72B Dense', ctx: '128K', license: 'Qwen License', stars: '45.8K', use: 'chat', tags: ['对话','数学','中文'], desc: '通义千问最新旗舰密集模型，数学和中文理解能力领先同参数量级', color: '#9ABE8E' },
+  { name: 'CodeLlama 3', params: '70B', ctx: '100K', license: 'Llama License', stars: '15.2K', use: 'code', tags: ['编程','FIM','重构'], desc: 'Meta 代码专用模型，支持 Fill-in-Middle 和长文件重构', color: '#9AB0BA' },
+  { name: 'OpenHuman v2', params: '8B', ctx: '32K', license: 'MIT', stars: '24.1K', use: 'agent', tags: ['Agent','具身智能','机器人'], desc: '登顶 GitHub Trending，专为具身智能和机器人控制设计的小型 Agent 模型', color: '#A89BC8' },
+];
+
+function renderOsGrid(filter) {
+  const filtered = filter === 'all' ? osModels : osModels.filter(m => m.use === filter);
+  document.getElementById('osGrid').innerHTML = filtered.map(m => `
+    <div class="os-card">
+      <div class="os-card-head">
+        <span class="os-card-name">${m.name}</span>
+        <span class="os-card-badge" style="background:rgba(154,190,142,0.12);color:#9ABE8E;">${m.license}</span>
+      </div>
+      <div class="os-card-meta">
+        <span>参数 <strong>${m.params}</strong></span>
+        <span>上下文 <strong>${m.ctx}</strong></span>
+        <span>Stars <strong>${m.stars}</strong></span>
+      </div>
+      <div class="os-card-desc">${m.desc}</div>
+      <div class="os-card-tags">${m.tags.map(t => `<span class="os-card-tag">${t}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+renderOsGrid('all');
+
+document.querySelectorAll('[data-filter-os]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter-os]').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    renderOsGrid(chip.dataset.filterOs);
+  });
+});
+
+// === GitHub Trending Data ===
+const trending = [
+  { rank: 1, name: 'browser-use/browser-use', desc: 'Make websites accessible for AI agents — MCP Server 模式 + 多 Agent 并发浏览', stars: '52.3K', growth: '+4.2K', lang: 'Python', url: 'https://github.com/browser-use/browser-use' },
+  { rank: 2, name: 'OpenHuman-ai/OpenHuman', desc: '开源具身智能平台，连接大模型与物理世界', stars: '24.1K', growth: '+3.8K', lang: 'Python', url: 'https://github.com/OpenHuman-ai/OpenHuman' },
+  { rank: 3, name: 'modelcontextprotocol/servers', desc: 'MCP 官方 Server 集合 — 已收录 200+ 工具连接器', stars: '38.7K', growth: '+2.9K', lang: 'TypeScript', url: 'https://github.com/modelcontextprotocol/servers' },
+  { rank: 4, name: 'deepseek-ai/DeepSeek-V4', desc: 'DeepSeek V4 模型权重与推理代码 — 1.6T MoE / 昇腾适配', stars: '68.2K', growth: '+2.5K', lang: 'Python', url: 'https://github.com/deepseek-ai/DeepSeek-V4' },
+  { rank: 5, name: 'QwenLM/Qwen3', desc: '通义千问 3 系列模型 — 27B/72B Dense + MoE', stars: '45.8K', growth: '+2.1K', lang: 'Python', url: 'https://github.com/QwenLM/Qwen3' },
+  { rank: 6, name: 'langgenius/dify', desc: 'LLM 应用开发平台 — RAG + Agent + Workflow 一站式', stars: '78.4K', growth: '+1.8K', lang: 'TypeScript', url: 'https://github.com/langgenius/dify' },
+  { rank: 7, name: 'ggml-org/llama.cpp', desc: '大模型推理引擎 — Speculative Checkpointing 新合并', stars: '74.2K', growth: '+1.5K', lang: 'C++', url: 'https://github.com/ggml-org/llama.cpp' },
+  { rank: 8, name: 'huggingface/transformers', desc: 'State-of-the-art ML — Qwen3.6 / Ring-2.6 模型集成', stars: '142K', growth: '+1.2K', lang: 'Python', url: 'https://github.com/huggingface/transformers' },
+  { rank: 9, name: 'anthropics/claude-code', desc: 'Claude Code CLI — 终端内 AI 编程助手', stars: '28.9K', growth: '+1.1K', lang: 'TypeScript', url: 'https://github.com/anthropics/claude-code' },
+  { rank: 10, name: 'All-Hands-AI/OpenHands', desc: 'AI 软件工程师平台 — SWE-Bench 第一', stars: '51.3K', growth: '+980', lang: 'Python', url: 'https://github.com/All-Hands-AI/OpenHands' },
+];
+
+document.getElementById('trendingList').innerHTML = trending.map(t => `
+  <a href="${t.url}" target="_blank" class="trending-item">
+    <span class="trending-rank ${t.rank <= 3 ? 'top3' : ''}">${t.rank}</span>
+    <div class="trending-info">
+      <div class="trending-name">${t.name}</div>
+      <div class="trending-desc">${t.desc}</div>
+    </div>
+    <div class="trending-stats">
+      <span class="trending-lang">${t.lang}</span>
+      <span class="trending-stars">${t.stars}</span>
+      <span class="trending-growth">+${t.growth}</span>
+    </div>
+  </a>
+`).join('');
 </script>
 </body>
 </html>
