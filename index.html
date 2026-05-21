@@ -51,11 +51,11 @@ body {
 .sec-link { margin-left: auto; font-size: 11px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
 .sec-link:hover { color: rgba(255,255,255,0.7); }
 
-/* Mini Cards — 图文卡片精简版 */
+/* Mini Cards — 只有第一条用图文卡片 */
 .mini-card {
   display: block; text-decoration: none; color: inherit;
   background: #0E0E10; border: 1px solid rgba(255,255,255,0.05); border-radius: 10px;
-  margin-bottom: 12px; overflow: hidden;
+  margin-bottom: 14px; overflow: hidden;
   transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, box-shadow 0.3s;
 }
 .mini-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
@@ -84,6 +84,24 @@ body {
 .mini-card-tag { font-size: 9.5px; padding: 2px 7px; border-radius: 3px; font-weight: 500; }
 .mini-card-arrow { margin-left: auto; color: rgba(255,255,255,0.2); transition: color 0.2s; }
 .mini-card:hover .mini-card-arrow { color: rgba(255,255,255,0.6); }
+
+/* Compact news list（第2-5条） */
+.news-list { display: flex; flex-direction: column; gap: 0; }
+.news-row {
+  display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  text-decoration: none; color: inherit; transition: background 0.2s;
+}
+.news-row:last-child { border-bottom: none; }
+.news-row:hover { background: rgba(255,255,255,0.02); }
+.news-row-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+.news-row-body { flex: 1; min-width: 0; }
+.news-row-title { font-size: 13.5px; font-weight: 500; color: #F0ECE4; line-height: 1.5; margin-bottom: 3px; }
+.news-row-summary { font-size: 11.5px; color: rgba(255,255,255,0.4); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.news-row-meta { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 10px; color: rgba(255,255,255,0.25); }
+.news-row-tag { font-size: 9px; padding: 1px 6px; border-radius: 3px; font-weight: 500; }
+.news-row-arrow { color: rgba(255,255,255,0.15); font-size: 13px; flex-shrink: 0; margin-top: 4px; transition: color 0.2s; }
+.news-row:hover .news-row-arrow { color: rgba(255,255,255,0.5); }
 
 /* Frontier */
 .frontier-item { background: #0E0E10; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 14px 18px; margin-bottom: 8px; transition: transform 0.3s cubic-bezier(0.22,1,0.36,1); }
@@ -180,80 +198,48 @@ body {
     </div>
   </a>
 
-  <!-- Card 2 -->
-  <a class="mini-card" href="https://www.stcn.com/article/detail/3905102.html" target="_blank">
-    <div class="mini-card-hero">
-      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDUxNCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMjQyMjFBIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMEUwRTEwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNTE0IiBmaWxsPSJ1cmwoI2cpIi8+PHRleHQgeD0iODAiIHk9IjIyMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYwIiBmb250LXdlaWdodD0iODAwIiBmaWxsPSIjOENDNDRBIiBvcGFjaXR5PSIwLjEyIj5JUE88L3RleHQ+PHRleHQgeD0iODAiIHk9IjMwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zKSI+6J6N6LWEPC90ZXh0Pjwvc3ZnPg==" alt="" onerror="this.parentElement.classList.add('no-img')">
-      <div class="mini-card-overlay">
-        <div class="mini-card-headline">OpenAI IPO 秘密递表，估值 $8520 亿</div>
+  <!-- Cards 2-5: Compact List -->
+  <div class="news-list" style="background:#0E0E10;border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin-bottom:14px;">
+    <a class="news-row" href="https://www.stcn.com/article/detail/3905102.html" target="_blank">
+      <span class="news-row-dot" style="background:#8CC44A"></span>
+      <div class="news-row-body">
+        <div class="news-row-title">OpenAI IPO 秘密递表，估值 $8520 亿</div>
+        <div class="news-row-summary">S-1 显示 2025 营收 $134 亿（+340%），亏损 $54 亿，计划 Q3 纳斯达克上市</div>
+        <div class="news-row-meta"><span class="news-row-tag" style="background:rgba(140,196,74,0.12);color:#8CC44A;">融资</span><span>证券时报 · 今日</span></div>
       </div>
-    </div>
-    <div class="mini-card-body">
-      <div class="mini-card-summary">S-1 文件显示 2025 年营收 $134 亿（+340% YoY），亏损 $54 亿。计划 2026 Q3 纳斯达克上市，员工股票套现 $66 亿。</div>
-      <div class="mini-card-meta">
-        <span class="mini-card-tag" style="background:rgba(140,196,74,0.12);color:#8CC44A;">融资</span>
-        <span>证券时报 · 今日</span>
-        <span class="mini-card-arrow">→</span>
+      <span class="news-row-arrow">→</span>
+    </a>
+    <a class="news-row" href="https://www.whitehouse.gov/briefing-room/presidential-actions/" target="_blank">
+      <span class="news-row-dot" style="background:#C8B468"></span>
+      <div class="news-row-body">
+        <div class="news-row-title">白宫签署 AI 行政令：联邦机构 180 天内部署 AI</div>
+        <div class="news-row-summary">AI 采购加速 + 医疗 AI 临床指南 + 教育监管框架，拨款 $120 亿</div>
+        <div class="news-row-meta"><span class="news-row-tag" style="background:rgba(200,180,104,0.12);color:#C8B468;">政策</span><span>白宫官网 · 今日</span></div>
       </div>
-    </div>
-  </a>
+      <span class="news-row-arrow">→</span>
+    </a>
+    <a class="news-row" href="https://new.qq.com/rain/a/20260521A02LOE00" target="_blank">
+      <span class="news-row-dot" style="background:#9ABE8E"></span>
+      <div class="news-row-body">
+        <div class="news-row-title">腾讯 Marvis 多模态 Agent 上线，首周 DAU 破百万</div>
+        <div class="news-row-summary">视觉理解 + 工具调用 + 多步推理，企业端免费对标 GPT-4o</div>
+        <div class="news-row-meta"><span class="news-row-tag" style="background:rgba(154,190,142,0.12);color:#9ABE8E;">Agent</span><span>腾讯 AI Lab · 今日</span></div>
+      </div>
+      <span class="news-row-arrow">→</span>
+    </a>
+    <a class="news-row" href="https://www.bloomberg.com/news/articles/2026-05-21/meta-layoffs" target="_blank">
+      <span class="news-row-dot" style="background:#D07070"></span>
+      <div class="news-row-body">
+        <div class="news-row-title">Meta 裁员 8000 人，7000 人转岗 AI 部门</div>
+        <div class="news-row-summary">非 AI 业务收缩，Reality Labs 关停 3 项目，转岗需过 AI 技能考核</div>
+        <div class="news-row-meta"><span class="news-row-tag" style="background:rgba(208,112,112,0.12);color:#D07070;">安全</span><span>Bloomberg · 今日</span></div>
+      </div>
+      <span class="news-row-arrow">→</span>
+    </a>
+  </div>
 
-  <!-- Card 3 -->
-  <a class="mini-card" href="https://www.whitehouse.gov/briefing-room/presidential-actions/" target="_blank">
-    <div class="mini-card-hero">
-      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDUxNCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMjIyMDE4Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMEUwRTEwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNTE0IiBmaWxsPSJ1cmwoI2cpIi8+PHRleHQgeD0iNjAiIHk9IjI0MCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIwIiBmb250LXdlaWdodD0iODAwIiBmaWxsPSIjQzhCNDY4IiBvcGFjaXR5PSIwLjEyIj5FLk8uPC90ZXh0Pjx0ZXh0IHg9IjYwIiB5PSIzMTAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMykiPuaUv+etljwvdGV4dD48L3N2Zz4=" alt="" onerror="this.parentElement.classList.add('no-img')">
-      <div class="mini-card-overlay">
-        <div class="mini-card-headline">白宫签署 AI 行政令：联邦机构 180 天内部署 AI</div>
-      </div>
-    </div>
-    <div class="mini-card-body">
-      <div class="mini-card-summary">涵盖 AI 采购加速、医疗 AI 临床使用指南、教育 AI 监管框架三大块。联邦预算拨款 $120 亿支持 AI 基建。</div>
-      <div class="mini-card-meta">
-        <span class="mini-card-tag" style="background:rgba(200,180,104,0.12);color:#C8B468;">政策</span>
-        <span>白宫官网 · 今日</span>
-        <span class="mini-card-arrow">→</span>
-      </div>
-    </div>
-  </a>
-
-  <!-- Card 4 -->
-  <a class="mini-card" href="https://new.qq.com/rain/a/20260521A02LOE00" target="_blank">
-    <div class="mini-card-hero">
-      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDUxNCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMTQxRDE0Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMEUwRTEwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNTE0IiBmaWxsPSJ1cmwoI2cpIi8+PHRleHQgeD0iNjAiIHk9IjI2MCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQwIiBmb250LXdlaWdodD0iODAwIiBmaWxsPSIjOUFCRThFIiBvcGFjaXR5PSIwLjEyIj5BR1Q8L3RleHQ+PHRleHQgeD0iNjAiIHk9IjMyMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zKSI+QWdlbnQ8L3RleHQ+PC9zdmc+" alt="" onerror="this.parentElement.classList.add('no-img')">
-      <div class="mini-card-overlay">
-        <div class="mini-card-headline">腾讯 Marvis 多模态 Agent 上线，首周 DAU 破百万</div>
-      </div>
-    </div>
-    <div class="mini-card-body">
-      <div class="mini-card-summary">集成视觉理解 + 工具调用 + 多步推理，企业端免费对标 GPT-4o。支持文档解析、数据分析、代码生成全流程。</div>
-      <div class="mini-card-meta">
-        <span class="mini-card-tag" style="background:rgba(154,190,142,0.12);color:#9ABE8E;">Agent</span>
-        <span>腾讯 AI Lab · 今日</span>
-        <span class="mini-card-arrow">→</span>
-      </div>
-    </div>
-  </a>
-
-  <!-- Card 5 -->
-  <a class="mini-card" href="https://www.bloomberg.com/news/articles/2026-05-21/meta-layoffs" target="_blank">
-    <div class="mini-card-hero">
-      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDUxNCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUExMjEyIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMEUwRTEwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNTE0IiBmaWxsPSJ1cmwoI2cpIi8+PHRleHQgeD0iNjAiIHk9IjI2MCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIwIiBmb250LXdlaWdodD0iODAwIiBmaWxsPSIjRDA3MDcwIiBvcGFjaXR5PSIwLjEyIj5NRVRBPC90ZXh0Pjx0ZXh0IHg9IjYwIiB5PSIzMjAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMykiPuWuieWFqDwvdGV4dD48L3N2Zz4=" alt="" onerror="this.parentElement.classList.add('no-img')">
-      <div class="mini-card-overlay">
-        <div class="mini-card-headline">Meta 裁员 8000 人，7000 人转岗 AI 部门</div>
-      </div>
-    </div>
-    <div class="mini-card-body">
-      <div class="mini-card-summary">非 AI 业务大幅收缩，Reality Labs 关停 3 个项目。转岗员工 6 个月内需通过 AI 技能考核，否则二次裁员。</div>
-      <div class="mini-card-meta">
-        <span class="mini-card-tag" style="background:rgba(208,112,112,0.12);color:#D07070;">安全</span>
-        <span>Bloomberg · 今日</span>
-        <span class="mini-card-arrow">→</span>
-      </div>
-    </div>
-  </a>
-
-  <div style="text-align:center;margin:16px 0 0;">
-    <a href="2026-05-21.html" style="font-size:11.5px;color:rgba(200,168,146,0.6);text-decoration:none;letter-spacing:0.5px;">查看完整图文版（含大图） →</a>
+  <div style="text-align:center;margin:4px 0 0;">
+    <a href="2026-05-21.html" style="font-size:11.5px;color:rgba(200,168,146,0.6);text-decoration:none;letter-spacing:0.5px;">查看完整图文版 →</a>
   </div>
 
   <!-- 前沿技术 -->
