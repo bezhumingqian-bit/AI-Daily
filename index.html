@@ -11,266 +11,300 @@ html, body { background: #08080A; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans", "Segoe UI", sans-serif;
   color: #F0ECE4; line-height: 1.65; -webkit-font-smoothing: antialiased; min-height: 100vh;
-  position: relative; overflow-x: hidden;
 }
-
-.bg-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-.bg-grid { position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 32px 32px; }
-.bg-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: float 20s ease-in-out infinite; }
-.bg-orb-1 { width: 400px; height: 400px; top: -10%; right: -8%; background: radial-gradient(circle, rgba(200,168,146,0.10) 0%, transparent 70%); }
-.bg-orb-2 { width: 300px; height: 300px; bottom: 20%; left: -10%; background: radial-gradient(circle, rgba(168,155,200,0.07) 0%, transparent 70%); animation-delay: -10s; }
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
-
-.container { max-width: 720px; margin: 0 auto; padding: 0 16px 48px; position: relative; z-index: 1; }
+.container { max-width: 720px; margin: 0 auto; padding: 20px 16px 48px; }
 
 /* Nav */
-.nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; margin-bottom: 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0 14px; margin-bottom: 20px;
+}
 .nav-brand { font-size: 11px; letter-spacing: 5px; color: rgba(255,255,255,0.3); font-weight: 500; }
-.nav-links { display: flex; gap: 16px; }
-.nav-links a { font-size: 11.5px; color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+.nav-links { display: flex; gap: 18px; }
+.nav-links a { font-size: 11px; color: rgba(255,255,255,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
 .nav-links a:hover { color: rgba(255,255,255,0.8); }
 
-/* Hero */
-.hero {
-  padding: 36px 0 28px; text-align: center;
+/* Header — 同日报 v3 风格 */
+.header {
+  background: linear-gradient(135deg, #1A1814 0%, #1C1A16 50%, #181614 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 40px 28px 34px;
+  margin-bottom: 28px;
+  position: relative; overflow: hidden;
 }
-.hero h1 {
-  font-size: 28px; font-weight: 700; line-height: 1.35; letter-spacing: -0.3px;
+.header::before {
+  content:''; position: absolute; right: -60px; top: -60px; width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(200,168,146,0.14) 0%, transparent 70%); border-radius: 50%;
+}
+.header::after {
+  content:''; position: absolute; left: -40px; bottom: -40px; width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(154,190,142,0.08) 0%, transparent 70%); border-radius: 50%;
+}
+.header-inner { position: relative; z-index: 2; }
+.header-vol { font-size: 11px; letter-spacing: 4px; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
+.header h1 {
+  font-size: 26px; font-weight: 600; line-height: 1.35; letter-spacing: 0.5px;
   background: linear-gradient(135deg, #F0ECE4 0%, #C8A892 100%);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
-.hero-tagline { font-size: 13.5px; color: rgba(255,255,255,0.45); letter-spacing: 0.3px; line-height: 1.7; }
-.hero-meta { font-size: 11px; color: rgba(255,255,255,0.2); margin-top: 8px; letter-spacing: 1px; }
+.header-sub { font-size: 13px; color: rgba(255,255,255,0.45); letter-spacing: 0.3px; margin-bottom: 4px; }
+.header-date { font-size: 11.5px; color: rgba(255,255,255,0.25); letter-spacing: 1px; }
 
-/* Section Title */
-.sec-head { display: flex; align-items: center; gap: 10px; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-.sec-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.sec-title { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); letter-spacing: 2.5px; }
-.sec-right { margin-left: auto; font-size: 10.5px; color: rgba(255,255,255,0.25); letter-spacing: 0.5px; }
-.sec-link { margin-left: auto; font-size: 11px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
-.sec-link:hover { color: rgba(255,255,255,0.7); }
+/* Section Header — 同日报 v3 风格 */
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  margin: 28px 0 14px;
+}
+.section-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.section-title { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.6); letter-spacing: 3px; }
+.section-line { flex: 1; height: 1px; background: rgba(255,255,255,0.06); margin-left: 8px; }
+.section-link { font-size: 10.5px; color: rgba(255,255,255,0.3); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; flex-shrink: 0; }
+.section-link:hover { color: rgba(255,255,255,0.7); }
 
-/* Mini Cards — 只有第一条用图文卡片 */
-.mini-card {
+/* Featured Card — 头条大图 */
+.featured {
   display: block; text-decoration: none; color: inherit;
-  background: #0E0E10; border: 1px solid rgba(255,255,255,0.05); border-radius: 10px;
-  margin-bottom: 14px; overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, box-shadow 0.3s;
+  background: #0E0E10; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;
+  overflow: hidden; margin-bottom: 10px;
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
 }
-.mini-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-.mini-card-hero {
-  position: relative; width: 100%; aspect-ratio: 21/9; overflow: hidden;
-}
-.mini-card-hero img {
-  width: 100%; height: 100%; object-fit: cover;
-  filter: brightness(0.6); transition: filter 0.3s;
-}
-.mini-card:hover .mini-card-hero img { filter: brightness(0.75); }
-.mini-card-hero.no-img { background: linear-gradient(135deg, #1A1814, #0E0E10); }
-.mini-card-hero.no-img img { display: none; }
-.mini-card-overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 14px 18px;
-  background: linear-gradient(180deg, transparent 0%, rgba(8,8,10,0.85) 100%);
-}
-.mini-card-headline {
-  font-size: 15px; font-weight: 500; color: #F0ECE4; line-height: 1.45; letter-spacing: 0.2px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-}
-.mini-card-body { padding: 12px 18px 14px; }
-.mini-card-summary { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 6px; }
-.mini-card-meta { display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: rgba(255,255,255,0.3); }
-.mini-card-tag { font-size: 9.5px; padding: 2px 7px; border-radius: 3px; font-weight: 500; }
-.mini-card-arrow { margin-left: auto; color: rgba(255,255,255,0.2); transition: color 0.2s; }
-.mini-card:hover .mini-card-arrow { color: rgba(255,255,255,0.6); }
+.featured:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+.featured-hero { position: relative; width: 100%; aspect-ratio: 21/9; overflow: hidden; }
+.featured-hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6); transition: filter 0.3s; }
+.featured:hover .featured-hero img { filter: brightness(0.75); }
+.featured-hero.no-img { background: linear-gradient(135deg, #1A1814, #0E0E10); }
+.featured-hero.no-img img { display: none; }
+.featured-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 20px; background: linear-gradient(180deg, transparent 0%, rgba(8,8,10,0.9) 100%); }
+.featured-headline { font-size: 16px; font-weight: 500; color: #F0ECE4; line-height: 1.4; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
+.featured-body { padding: 14px 20px; }
+.featured-summary { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 8px; }
+.featured-meta { display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: rgba(255,255,255,0.3); }
+.featured-tag { font-size: 9.5px; padding: 2px 7px; border-radius: 3px; font-weight: 500; }
 
-/* Compact news list（第2-5条） */
-.news-list { display: flex; flex-direction: column; gap: 0; }
+/* News List — 紧凑新闻行 */
+.news-list {
+  background: #0E0E10; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;
+  overflow: hidden; margin-bottom: 6px;
+}
 .news-row {
-  display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
+  display: flex; align-items: flex-start; gap: 12px; padding: 13px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
   text-decoration: none; color: inherit; transition: background 0.2s;
 }
 .news-row:last-child { border-bottom: none; }
-.news-row:hover { background: rgba(255,255,255,0.02); }
-.news-row-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
-.news-row-body { flex: 1; min-width: 0; }
-.news-row-title { font-size: 13.5px; font-weight: 500; color: #F0ECE4; line-height: 1.5; margin-bottom: 3px; }
-.news-row-summary { font-size: 11.5px; color: rgba(255,255,255,0.4); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-.news-row-meta { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 10px; color: rgba(255,255,255,0.25); }
-.news-row-tag { font-size: 9px; padding: 1px 6px; border-radius: 3px; font-weight: 500; }
-.news-row-arrow { color: rgba(255,255,255,0.15); font-size: 13px; flex-shrink: 0; margin-top: 4px; transition: color 0.2s; }
-.news-row:hover .news-row-arrow { color: rgba(255,255,255,0.5); }
+.news-row:hover { background: rgba(255,255,255,0.015); }
+.news-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+.news-body { flex: 1; min-width: 0; }
+.news-title { font-size: 13.5px; font-weight: 500; color: #F0ECE4; line-height: 1.45; margin-bottom: 2px; }
+.news-sub { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.5; }
+.news-meta { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 10px; color: rgba(255,255,255,0.2); }
+.news-tag { font-size: 9px; padding: 1px 6px; border-radius: 3px; font-weight: 500; }
+.news-arrow { color: rgba(255,255,255,0.12); font-size: 12px; flex-shrink: 0; margin-top: 4px; }
+.news-row:hover .news-arrow { color: rgba(255,255,255,0.4); }
 
-/* Frontier */
-.frontier-item { background: #0E0E10; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 14px 18px; margin-bottom: 8px; transition: transform 0.3s cubic-bezier(0.22,1,0.36,1); }
-.frontier-item:hover { transform: translateY(-2px); }
-.frontier-name { font-size: 13px; font-weight: 500; color: #A89BC8; margin-bottom: 4px; }
-.frontier-desc { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; }
-.frontier-stats { font-size: 10.5px; color: rgba(255,255,255,0.3); margin-top: 6px; }
+/* GitHub / Frontier cards */
+.gh-card {
+  display: block; text-decoration: none; color: inherit;
+  background: #0E0E10; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;
+  padding: 14px 18px; margin-bottom: 8px;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s;
+}
+.gh-card:hover { transform: translateY(-2px); border-color: rgba(168,155,200,0.2); }
+.gh-name { font-size: 13px; font-weight: 500; color: #A89BC8; margin-bottom: 4px; }
+.gh-desc { font-size: 11.5px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+.gh-stats { font-size: 10px; color: rgba(255,255,255,0.25); margin-top: 6px; display: flex; gap: 12px; }
+.gh-stats .up { color: #9ABE8E; }
 
-/* Data Snapshot */
-.snapshot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 12px; }
-.snapshot-card { background: #0E0E10; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 14px 16px; text-align: center; }
-.snapshot-label { font-size: 10px; color: rgba(255,255,255,0.35); margin-bottom: 4px; letter-spacing: 0.5px; }
-.snapshot-value { font-size: 18px; font-weight: 600; color: #F0ECE4; }
-.snapshot-change { font-size: 10px; margin-top: 3px; }
-.snapshot-change.up { color: #9ABE8E; }
-.snapshot-sub { font-size: 10.5px; color: rgba(255,255,255,0.3); margin-top: 3px; }
+/* Trending mini list */
+.trending-mini {
+  background: #0E0E10; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;
+  overflow: hidden; margin-top: 10px;
+}
+.trending-mini-head { padding: 10px 18px 6px; font-size: 10px; color: rgba(255,255,255,0.25); letter-spacing: 1.5px; }
+.trending-row {
+  display: flex; align-items: center; gap: 10px; padding: 7px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  text-decoration: none; color: inherit; transition: background 0.15s;
+}
+.trending-row:last-child { border-bottom: none; padding-bottom: 10px; }
+.trending-row:hover { background: rgba(255,255,255,0.015); }
+.trending-rank { font-size: 11px; font-weight: 600; min-width: 16px; text-align: center; }
+.trending-rank.top3 { color: #C8A892; }
+.trending-rank.normal { color: rgba(255,255,255,0.2); }
+.trending-repo { font-size: 11.5px; color: rgba(255,255,255,0.6); flex: 1; }
+.trending-growth { font-size: 10px; color: #9ABE8E; }
+.trending-stars { font-size: 10px; color: rgba(255,255,255,0.2); }
+
+/* Snapshot */
+.snapshot-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+}
+.snapshot-card {
+  background: #0E0E10; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;
+  padding: 14px 10px; text-align: center;
+}
+.snapshot-label { font-size: 9.5px; color: rgba(255,255,255,0.3); margin-bottom: 4px; letter-spacing: 0.5px; }
+.snapshot-value { font-size: 16px; font-weight: 600; color: #F0ECE4; }
+.snapshot-change { font-size: 9.5px; margin-top: 3px; color: #9ABE8E; }
+.snapshot-sub { font-size: 9.5px; color: rgba(255,255,255,0.25); margin-top: 3px; }
 
 /* Weekly */
-.weekly-box { background: linear-gradient(135deg, #0E0E10 0%, #10100F 100%); border: 1px solid rgba(154,190,142,0.1); border-radius: 10px; padding: 18px 22px; position: relative; overflow: hidden; }
-.weekly-box::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background: linear-gradient(180deg, #9ABE8E, #A89BC8); border-radius:3px 0 0 3px; }
-.weekly-quote { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; font-style: italic; margin-bottom: 10px; padding-left: 14px; }
-.weekly-meta { font-size: 11px; color: rgba(255,255,255,0.3); padding-left: 14px; }
-.weekly-link { font-size: 11px; color: rgba(154,190,142,0.7); margin-left: 12px; transition: color 0.2s; }
-.weekly-box:hover .weekly-link { color: #9ABE8E; }
+.weekly-card {
+  display: block; text-decoration: none; color: inherit;
+  background: #0E0E10; border: 1px solid rgba(154,190,142,0.1); border-radius: 10px;
+  padding: 18px 20px; position: relative; overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s;
+}
+.weekly-card:hover { transform: translateY(-2px); border-color: rgba(154,190,142,0.2); }
+.weekly-card::before { content:''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #9ABE8E, #A89BC8); border-radius: 3px 0 0 3px; }
+.weekly-quote { font-size: 13.5px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 8px; padding-left: 14px; }
+.weekly-meta { font-size: 10.5px; color: rgba(255,255,255,0.3); padding-left: 14px; }
 
 /* Past */
 .past-list { display: flex; flex-direction: column; gap: 6px; }
-.past-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: rgba(14,14,16,0.4); border: 1px solid rgba(255,255,255,0.03); border-radius: 8px; text-decoration: none; color: inherit; transition: background 0.2s, transform 0.2s; }
-.past-row:hover { background: #0E0E10; transform: translateY(-1px); }
-.past-date { font-size: 11px; color: rgba(255,255,255,0.3); min-width: 56px; letter-spacing: 0.3px; }
+.past-row {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  background: #0E0E10; border: 1px solid rgba(255,255,255,0.04); border-radius: 8px;
+  text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.2s;
+}
+.past-row:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.08); }
+.past-date { font-size: 11px; color: rgba(255,255,255,0.3); min-width: 50px; }
 .past-tags { display: flex; gap: 5px; flex: 1; flex-wrap: wrap; }
-.past-tag { font-size: 10px; padding: 2px 8px; border-radius: 3px; background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.45); }
-.past-vol { font-size: 9px; color: rgba(200,168,146,0.6); letter-spacing: 1px; }
+.past-tag { font-size: 9.5px; padding: 2px 7px; border-radius: 3px; background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.4); }
+.past-vol { font-size: 9px; color: rgba(200,168,146,0.5); letter-spacing: 1px; }
 
-.footer { text-align: center; margin-top: 36px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.04); }
-.footer-brand { font-size: 11px; color: rgba(255,255,255,0.15); letter-spacing: 3px; }
+/* Footer */
+.footer { text-align: center; margin-top: 32px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.04); }
+.footer-text { font-size: 10.5px; color: rgba(255,255,255,0.15); letter-spacing: 2px; }
 
 @media (max-width: 480px) {
-  .container { padding: 0 12px 36px; }
+  .container { padding: 16px 12px 36px; }
+  .header { padding: 32px 20px 28px; }
+  .header h1 { font-size: 22px; }
   .snapshot-grid { grid-template-columns: repeat(2, 1fr); }
-  .mini-card-headline { font-size: 13px; }
-  .mini-card-hero { aspect-ratio: 2/1; }
+  .featured-headline { font-size: 14px; }
 }
 </style>
 </head>
 <body>
-
-<div class="bg-layer">
-  <div class="bg-grid"></div>
-  <div class="bg-orb bg-orb-1"></div>
-  <div class="bg-orb bg-orb-2"></div>
-</div>
-
 <div class="container">
 
   <nav class="nav">
     <span class="nav-brand">AI DAILY</span>
     <div class="nav-links">
-      <a href="2026-05-21.html">完整图文版</a>
+      <a href="2026-05-21.html">图文版</a>
       <a href="weekly-2026-20.html">周报</a>
       <a href="dashboard.html">仪表盘</a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h1>把每天的 AI<br>一杯咖啡读完</h1>
-    <p class="hero-tagline">大模型 · Agent · 开源 · 前沿技术 · 商业格局</p>
-    <p class="hero-meta">每日 10:30 更新 ／ 每周一发布趋势周报</p>
-  </section>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-vol">VOL · 4</div>
+      <h1>把每天的 AI<br>一杯咖啡读完</h1>
+      <p class="header-sub">大模型 · Agent · 开源 · 前沿技术 · 商业格局</p>
+      <p class="header-date">2026 ／ 05 ／ 21 · 每日 10:30 更新</p>
+    </div>
+  </header>
 
   <!-- 今日速览 -->
-  <div class="sec-head">
-    <span class="sec-dot" style="background:#C8A892;box-shadow:0 0 8px rgba(200,168,146,0.5)"></span>
-    <span class="sec-title">今 日 速 览</span>
-    <a href="2026-05-21.html" class="sec-link">VOL·4 完整版 →</a>
+  <div class="section-header">
+    <span class="section-dot" style="background:#C8A892;box-shadow:0 0 8px rgba(200,168,146,0.5)"></span>
+    <span class="section-title">今 日 速 览</span>
+    <div class="section-line"></div>
+    <a href="2026-05-21.html" class="section-link">完整版 →</a>
   </div>
 
-  <!-- Card 1 -->
-  <a class="mini-card" href="https://openai.com/index/model-disproves-discrete-geometry-conjecture/" target="_blank">
-    <div class="mini-card-hero">
+  <!-- Featured -->
+  <a class="featured" href="https://openai.com/index/model-disproves-discrete-geometry-conjecture/" target="_blank">
+    <div class="featured-hero">
       <img src="https://images.ctfassets.net/kftzwdyauwt9/6WJOhxvdNpC5hDvpiSAqE0/8a11ba6abdabb6a5a674de733cfa710d/SEO-Polynomial-Construction-16x9.png?w=1200&h=514&fit=fill" alt="" onerror="this.parentElement.classList.add('no-img')">
-      <div class="mini-card-overlay">
-        <div class="mini-card-headline">OpenAI 推理模型攻克 Erdős 80 年数学难题</div>
+      <div class="featured-overlay">
+        <div class="featured-headline">OpenAI 推理模型攻克 Erdős 80 年数学难题</div>
       </div>
     </div>
-    <div class="mini-card-body">
-      <div class="mini-card-summary">o3-pro 独立解决 Erdős 差异问题广义变体，证明链自动生成 + 验证。论文已提交 Nature，AI 首次独立解决开放数学问题。</div>
-      <div class="mini-card-meta">
-        <span class="mini-card-tag" style="background:rgba(200,168,146,0.12);color:#C8A892;">大模型</span>
+    <div class="featured-body">
+      <div class="featured-summary">o3-pro 独立解决 Erdős 差异问题广义变体，证明链自动生成 + 验证。AI 首次独立解决开放数学问题。</div>
+      <div class="featured-meta">
+        <span class="featured-tag" style="background:rgba(200,168,146,0.12);color:#C8A892;">大模型</span>
         <span>OpenAI 官博 · 今日</span>
-        <span class="mini-card-arrow">→</span>
       </div>
     </div>
   </a>
 
-  <!-- Cards 2-5: Compact List -->
-  <div class="news-list" style="background:#0E0E10;border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin-bottom:14px;">
+  <!-- News List -->
+  <div class="news-list">
     <a class="news-row" href="https://www.stcn.com/article/detail/3905102.html" target="_blank">
-      <span class="news-row-dot" style="background:#8CC44A"></span>
-      <div class="news-row-body">
-        <div class="news-row-title">OpenAI IPO 秘密递表，估值 $8520 亿</div>
-        <div class="news-row-summary">S-1 显示 2025 营收 $134 亿（+340%），亏损 $54 亿，计划 Q3 纳斯达克上市</div>
-        <div class="news-row-meta"><span class="news-row-tag" style="background:rgba(140,196,74,0.12);color:#8CC44A;">融资</span><span>证券时报 · 今日</span></div>
+      <span class="news-dot" style="background:#8CC44A"></span>
+      <div class="news-body">
+        <div class="news-title">OpenAI IPO 秘密递表，估值 $8520 亿</div>
+        <div class="news-sub">2025 营收 $134 亿 +340%，亏损 $54 亿，计划 Q3 纳斯达克上市</div>
       </div>
-      <span class="news-row-arrow">→</span>
+      <span class="news-arrow">→</span>
     </a>
     <a class="news-row" href="https://www.whitehouse.gov/briefing-room/presidential-actions/" target="_blank">
-      <span class="news-row-dot" style="background:#C8B468"></span>
-      <div class="news-row-body">
-        <div class="news-row-title">白宫签署 AI 行政令：联邦机构 180 天内部署 AI</div>
-        <div class="news-row-summary">AI 采购加速 + 医疗 AI 临床指南 + 教育监管框架，拨款 $120 亿</div>
-        <div class="news-row-meta"><span class="news-row-tag" style="background:rgba(200,180,104,0.12);color:#C8B468;">政策</span><span>白宫官网 · 今日</span></div>
+      <span class="news-dot" style="background:#C8B468"></span>
+      <div class="news-body">
+        <div class="news-title">白宫签署 AI 行政令：联邦机构 180 天内部署</div>
+        <div class="news-sub">AI 采购加速 + 医疗临床指南 + 教育监管框架，拨款 $120 亿</div>
       </div>
-      <span class="news-row-arrow">→</span>
+      <span class="news-arrow">→</span>
     </a>
     <a class="news-row" href="https://new.qq.com/rain/a/20260521A02LOE00" target="_blank">
-      <span class="news-row-dot" style="background:#9ABE8E"></span>
-      <div class="news-row-body">
-        <div class="news-row-title">腾讯 Marvis 多模态 Agent 上线，首周 DAU 破百万</div>
-        <div class="news-row-summary">视觉理解 + 工具调用 + 多步推理，企业端免费对标 GPT-4o</div>
-        <div class="news-row-meta"><span class="news-row-tag" style="background:rgba(154,190,142,0.12);color:#9ABE8E;">Agent</span><span>腾讯 AI Lab · 今日</span></div>
+      <span class="news-dot" style="background:#9ABE8E"></span>
+      <div class="news-body">
+        <div class="news-title">腾讯 Marvis 多模态 Agent 上线，首周 DAU 破百万</div>
+        <div class="news-sub">视觉理解 + 工具调用 + 多步推理，企业端免费</div>
       </div>
-      <span class="news-row-arrow">→</span>
+      <span class="news-arrow">→</span>
     </a>
     <a class="news-row" href="https://www.bloomberg.com/news/articles/2026-05-21/meta-layoffs" target="_blank">
-      <span class="news-row-dot" style="background:#D07070"></span>
-      <div class="news-row-body">
-        <div class="news-row-title">Meta 裁员 8000 人，7000 人转岗 AI 部门</div>
-        <div class="news-row-summary">非 AI 业务收缩，Reality Labs 关停 3 项目，转岗需过 AI 技能考核</div>
-        <div class="news-row-meta"><span class="news-row-tag" style="background:rgba(208,112,112,0.12);color:#D07070;">安全</span><span>Bloomberg · 今日</span></div>
+      <span class="news-dot" style="background:#D07070"></span>
+      <div class="news-body">
+        <div class="news-title">Meta 裁员 8000 人，7000 人转岗 AI 部门</div>
+        <div class="news-sub">Reality Labs 关停 3 项目，转岗需过 AI 技能考核</div>
       </div>
-      <span class="news-row-arrow">→</span>
+      <span class="news-arrow">→</span>
     </a>
   </div>
 
-  <!-- 前沿技术 + GitHub 热榜 -->
-  <div class="sec-head">
-    <span class="sec-dot" style="background:#A89BC8;box-shadow:0 0 8px rgba(168,155,200,0.5)"></span>
-    <span class="sec-title">前 沿 技 术 · G I T H U B</span>
-    <a href="dashboard.html#tab-trending" class="sec-link">完整热榜 →</a>
+  <!-- 前沿技术 -->
+  <div class="section-header">
+    <span class="section-dot" style="background:#A89BC8;box-shadow:0 0 8px rgba(168,155,200,0.5)"></span>
+    <span class="section-title">前 沿 技 术</span>
+    <div class="section-line"></div>
+    <a href="dashboard.html" class="section-link">完整热榜 →</a>
   </div>
 
-  <a href="https://github.com/browser-use/browser-use" target="_blank" class="frontier-item" style="display:block;text-decoration:none;color:inherit;">
-    <div class="frontier-name">browser-use/browser-use v0.4</div>
-    <div class="frontier-desc">新增 MCP Server 模式 + 多 Agent 并发浏览，AI 可直接通过 MCP 协议调用浏览器完成自动化任务</div>
-    <div class="frontier-stats">Python · 52.3K Stars · 本周 +4.2K · <span style="color:rgba(255,255,255,0.5);">github.com →</span></div>
+  <a href="https://github.com/browser-use/browser-use" target="_blank" class="gh-card">
+    <div class="gh-name">browser-use/browser-use v0.4</div>
+    <div class="gh-desc">新增 MCP Server 模式 + 多 Agent 并发浏览，AI 可通过 MCP 协议直接调用浏览器</div>
+    <div class="gh-stats"><span>Python</span><span>52.3K Stars</span><span class="up">+4.2K/周</span></div>
   </a>
-  <a href="https://github.com/ggml-org/llama.cpp/pull/19493" target="_blank" class="frontier-item" style="display:block;text-decoration:none;color:inherit;">
-    <div class="frontier-name">ggml-org/llama.cpp · Speculative Checkpointing</div>
-    <div class="frontier-desc">PR #19493 合并，推测解码 + 检查点让边缘设备推理提速 30%+，GGUF 已成本地模型事实标准</div>
-    <div class="frontier-stats">C++ · 74.2K Stars · 本周 +1.5K · <span style="color:rgba(255,255,255,0.5);">github.com →</span></div>
+  <a href="https://github.com/ggml-org/llama.cpp/pull/19493" target="_blank" class="gh-card">
+    <div class="gh-name">ggml-org/llama.cpp · Speculative Checkpointing</div>
+    <div class="gh-desc">推测解码 + 检查点机制，边缘设备推理提速 30%+，GGUF 已成本地模型事实标准</div>
+    <div class="gh-stats"><span>C++</span><span>74.2K Stars</span><span class="up">+1.5K/周</span></div>
   </a>
 
-  <!-- GitHub 热榜 Top 5 -->
-  <div style="background:#0E0E10;border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin-top:10px;overflow:hidden;">
-    <div style="padding:12px 18px 8px;font-size:10.5px;color:rgba(255,255,255,0.3);letter-spacing:1px;">本 周 T R E N D I N G · T O P 5</div>
-    <a href="https://github.com/browser-use/browser-use" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 18px;text-decoration:none;color:inherit;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.2s;"><span style="font-size:12px;font-weight:600;color:#C8A892;min-width:18px;">1</span><span style="font-size:12px;color:rgba(255,255,255,0.65);flex:1;">browser-use/browser-use</span><span style="font-size:10px;color:#9ABE8E;">+4.2K</span><span style="font-size:10px;color:rgba(255,255,255,0.25);">52.3K</span></a>
-    <a href="https://github.com/OpenHuman-ai/OpenHuman" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 18px;text-decoration:none;color:inherit;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.2s;"><span style="font-size:12px;font-weight:600;color:#C8A892;min-width:18px;">2</span><span style="font-size:12px;color:rgba(255,255,255,0.65);flex:1;">OpenHuman-ai/OpenHuman</span><span style="font-size:10px;color:#9ABE8E;">+3.8K</span><span style="font-size:10px;color:rgba(255,255,255,0.25);">24.1K</span></a>
-    <a href="https://github.com/modelcontextprotocol/servers" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 18px;text-decoration:none;color:inherit;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.2s;"><span style="font-size:12px;font-weight:600;color:#C8A892;min-width:18px;">3</span><span style="font-size:12px;color:rgba(255,255,255,0.65);flex:1;">modelcontextprotocol/servers</span><span style="font-size:10px;color:#9ABE8E;">+2.9K</span><span style="font-size:10px;color:rgba(255,255,255,0.25);">38.7K</span></a>
-    <a href="https://github.com/deepseek-ai/DeepSeek-V4" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 18px;text-decoration:none;color:inherit;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.2s;"><span style="font-size:12px;color:rgba(255,255,255,0.3);min-width:18px;">4</span><span style="font-size:12px;color:rgba(255,255,255,0.65);flex:1;">deepseek-ai/DeepSeek-V4</span><span style="font-size:10px;color:#9ABE8E;">+2.5K</span><span style="font-size:10px;color:rgba(255,255,255,0.25);">68.2K</span></a>
-    <a href="https://github.com/QwenLM/Qwen3" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 18px;text-decoration:none;color:inherit;transition:background 0.2s;"><span style="font-size:12px;color:rgba(255,255,255,0.3);min-width:18px;">5</span><span style="font-size:12px;color:rgba(255,255,255,0.65);flex:1;">QwenLM/Qwen3</span><span style="font-size:10px;color:#9ABE8E;">+2.1K</span><span style="font-size:10px;color:rgba(255,255,255,0.25);">45.8K</span></a>
+  <div class="trending-mini">
+    <div class="trending-mini-head">本 周 T R E N D I N G</div>
+    <a href="https://github.com/browser-use/browser-use" target="_blank" class="trending-row"><span class="trending-rank top3">1</span><span class="trending-repo">browser-use/browser-use</span><span class="trending-growth">+4.2K</span><span class="trending-stars">52.3K</span></a>
+    <a href="https://github.com/OpenHuman-ai/OpenHuman" target="_blank" class="trending-row"><span class="trending-rank top3">2</span><span class="trending-repo">OpenHuman-ai/OpenHuman</span><span class="trending-growth">+3.8K</span><span class="trending-stars">24.1K</span></a>
+    <a href="https://github.com/modelcontextprotocol/servers" target="_blank" class="trending-row"><span class="trending-rank top3">3</span><span class="trending-repo">modelcontextprotocol/servers</span><span class="trending-growth">+2.9K</span><span class="trending-stars">38.7K</span></a>
+    <a href="https://github.com/deepseek-ai/DeepSeek-V4" target="_blank" class="trending-row"><span class="trending-rank normal">4</span><span class="trending-repo">deepseek-ai/DeepSeek-V4</span><span class="trending-growth">+2.5K</span><span class="trending-stars">68.2K</span></a>
+    <a href="https://github.com/QwenLM/Qwen3" target="_blank" class="trending-row"><span class="trending-rank normal">5</span><span class="trending-repo">QwenLM/Qwen3</span><span class="trending-growth">+2.1K</span><span class="trending-stars">45.8K</span></a>
   </div>
 
   <!-- 数据快照 -->
-  <div class="sec-head">
-    <span class="sec-dot" style="background:#9AB0BA;box-shadow:0 0 8px rgba(154,176,186,0.5)"></span>
-    <span class="sec-title">数 据 快 照</span>
-    <a href="dashboard.html" class="sec-link">完整仪表盘 →</a>
+  <div class="section-header">
+    <span class="section-dot" style="background:#9AB0BA;box-shadow:0 0 8px rgba(154,176,186,0.5)"></span>
+    <span class="section-title">数 据 快 照</span>
+    <div class="section-line"></div>
+    <a href="dashboard.html" class="section-link">仪表盘 →</a>
   </div>
 
   <a href="dashboard.html" style="display:block;text-decoration:none;color:inherit;">
@@ -278,69 +312,66 @@ body {
       <div class="snapshot-card">
         <div class="snapshot-label">DeepSeek</div>
         <div class="snapshot-value">$515B</div>
-        <div class="snapshot-change up">↑ 415% · 1月</div>
+        <div class="snapshot-change">↑ 415%</div>
       </div>
       <div class="snapshot-card">
         <div class="snapshot-label">Anthropic</div>
         <div class="snapshot-value">$900B</div>
-        <div class="snapshot-change up">↑ 50% · 3月</div>
+        <div class="snapshot-change">↑ 50%</div>
       </div>
       <div class="snapshot-card">
         <div class="snapshot-label">OpenAI</div>
         <div class="snapshot-value">$850B</div>
-        <div class="snapshot-sub">IPO 递表中</div>
+        <div class="snapshot-sub">IPO 中</div>
       </div>
       <div class="snapshot-card">
-        <div class="snapshot-label">GitHub #1</div>
-        <div class="snapshot-value" style="font-size:13px;margin-top:4px;">browser-use</div>
-        <div class="snapshot-change up">+4.2K stars/周</div>
+        <div class="snapshot-label">智谱</div>
+        <div class="snapshot-value" style="font-size:13px;">HK$5000亿</div>
+        <div class="snapshot-change">↑ 37%</div>
       </div>
     </div>
   </a>
 
   <!-- 本周周报 -->
-  <div class="sec-head">
-    <span class="sec-dot" style="background:#9ABE8E;box-shadow:0 0 8px rgba(154,190,142,0.5)"></span>
-    <span class="sec-title">本 周 周 报</span>
-    <a href="weekly-2026-20.html" class="sec-link">阅读完整周报 →</a>
+  <div class="section-header">
+    <span class="section-dot" style="background:#9ABE8E;box-shadow:0 0 8px rgba(154,190,142,0.5)"></span>
+    <span class="section-title">本 周 周 报</span>
+    <div class="section-line"></div>
+    <a href="weekly-2026-20.html" class="section-link">阅读全文 →</a>
   </div>
 
-  <a href="weekly-2026-20.html" style="display:block;text-decoration:none;color:inherit;">
-    <div class="weekly-box">
-      <div class="weekly-quote">AI 竞争从模型评分转向落地交付与算力锁定——Anthropic 2000 亿锁定 TPU，OpenAI 40 亿建部署公司，DeepSeek 500 亿创中国纪录。</div>
-      <div class="weekly-meta">
-        5 大维度 · 10 家厂商矩阵 · 5 条趋势分析
-        <span class="weekly-link">阅读完整周报 →</span>
-      </div>
-    </div>
+  <a href="weekly-2026-20.html" class="weekly-card">
+    <div class="weekly-quote">AI 竞争从模型评分转向落地交付与算力锁定——Anthropic 2000 亿锁 TPU，OpenAI 40 亿建部署公司，DeepSeek 500 亿创中国纪录。</div>
+    <div class="weekly-meta">第 20 周 · 5 维度 · 10 厂商 · 5 趋势</div>
   </a>
 
   <!-- 往期 -->
-  <div class="sec-head">
-    <span class="sec-dot" style="background:rgba(255,255,255,0.15)"></span>
-    <span class="sec-title">往 期</span>
+  <div class="section-header">
+    <span class="section-dot" style="background:rgba(255,255,255,0.15)"></span>
+    <span class="section-title">往 期</span>
+    <div class="section-line"></div>
   </div>
 
   <div class="past-list">
     <a href="2026-05-20.html" class="past-row">
       <span class="past-date">05/20</span>
-      <div class="past-tags"><span class="past-tag">Gemini 3.5</span><span class="past-tag">卡帕西</span><span class="past-tag">Qwen3.7</span><span class="past-tag">SynthID</span></div>
+      <div class="past-tags"><span class="past-tag">Gemini 3.5</span><span class="past-tag">卡帕西</span><span class="past-tag">Qwen3.7</span></div>
       <span class="past-vol">VOL·3</span>
     </a>
     <a href="2026-05-19.html" class="past-row">
       <span class="past-date">05/19</span>
-      <div class="past-tags"><span class="past-tag">Musk 败诉</span><span class="past-tag">Cursor 2.5</span><span class="past-tag">Cola DLM</span><span class="past-tag">Meta 裁员</span></div>
+      <div class="past-tags"><span class="past-tag">Musk 败诉</span><span class="past-tag">Cursor</span><span class="past-tag">Meta</span></div>
       <span class="past-vol">VOL·2</span>
     </a>
     <a href="2026-05-17.html" class="past-row">
       <span class="past-date">05/17</span>
-      <div class="past-tags"><span class="past-tag">Qwen3.6</span><span class="past-tag">OpenHuman</span><span class="past-tag">arXiv</span><span class="past-tag">Ring-2.6</span></div>
+      <div class="past-tags"><span class="past-tag">Qwen3.6</span><span class="past-tag">OpenHuman</span><span class="past-tag">Ring-2.6</span></div>
       <span class="past-vol">VOL·1</span>
     </a>
   </div>
 
   <footer class="footer">
-    <div class="footer-brand">AI DAILY ／ 每日 10:30 更新 ／ 商业认知观察者出品</div>
+    <p class="footer-text">AI DAILY ／ 商 业 · 认 知 观 察 者 · 出 品</p>
   </footer>
 
 </div>
