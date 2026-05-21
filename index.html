@@ -24,18 +24,31 @@ body {
 .container { max-width: 720px; margin: 0 auto; padding: 0 16px 48px; position: relative; z-index: 1; }
 
 /* Nav */
-.nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; margin-bottom: 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
 .nav-brand { font-size: 11px; letter-spacing: 5px; color: rgba(255,255,255,0.3); font-weight: 500; }
 .nav-links { display: flex; gap: 16px; }
 .nav-links a { font-size: 11.5px; color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
 .nav-links a:hover { color: rgba(255,255,255,0.8); }
 
+/* Hero */
+.hero {
+  padding: 36px 0 28px; text-align: center;
+}
+.hero h1 {
+  font-size: 28px; font-weight: 700; line-height: 1.35; letter-spacing: -0.3px;
+  background: linear-gradient(135deg, #F0ECE4 0%, #C8A892 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+.hero-tagline { font-size: 13.5px; color: rgba(255,255,255,0.45); letter-spacing: 0.3px; line-height: 1.7; }
+.hero-meta { font-size: 11px; color: rgba(255,255,255,0.2); margin-top: 8px; letter-spacing: 1px; }
+
 /* Section Title */
-.sec-head { display: flex; align-items: center; gap: 10px; margin: 28px 0 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-.sec-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.sec-title { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.6); letter-spacing: 2px; }
+.sec-head { display: flex; align-items: center; gap: 10px; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.sec-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.sec-title { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); letter-spacing: 2.5px; }
 .sec-right { margin-left: auto; font-size: 10.5px; color: rgba(255,255,255,0.25); letter-spacing: 0.5px; }
-.sec-link { margin-left: auto; font-size: 11px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+.sec-link { margin-left: auto; font-size: 11px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
 .sec-link:hover { color: rgba(255,255,255,0.7); }
 
 /* Mini Cards — 图文卡片精简版 */
@@ -62,11 +75,11 @@ body {
   background: linear-gradient(180deg, transparent 0%, rgba(8,8,10,0.85) 100%);
 }
 .mini-card-headline {
-  font-size: 14.5px; font-weight: 500; color: #F0ECE4; line-height: 1.45; letter-spacing: 0.2px;
+  font-size: 15px; font-weight: 500; color: #F0ECE4; line-height: 1.45; letter-spacing: 0.2px;
   text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
-.mini-card-body { padding: 14px 18px; }
-.mini-card-summary { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 8px; }
+.mini-card-body { padding: 12px 18px 14px; }
+.mini-card-summary { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 6px; }
 .mini-card-meta { display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: rgba(255,255,255,0.3); }
 .mini-card-tag { font-size: 9.5px; padding: 2px 7px; border-radius: 3px; font-weight: 500; }
 .mini-card-arrow { margin-left: auto; color: rgba(255,255,255,0.2); transition: color 0.2s; }
@@ -93,8 +106,8 @@ body {
 .weekly-box::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background: linear-gradient(180deg, #9ABE8E, #A89BC8); border-radius:3px 0 0 3px; }
 .weekly-quote { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; font-style: italic; margin-bottom: 10px; padding-left: 14px; }
 .weekly-meta { font-size: 11px; color: rgba(255,255,255,0.3); padding-left: 14px; }
-.weekly-link { font-size: 11px; color: rgba(154,190,142,0.7); text-decoration: none; margin-left: 12px; transition: color 0.2s; }
-.weekly-link:hover { color: #9ABE8E; }
+.weekly-link { font-size: 11px; color: rgba(154,190,142,0.7); margin-left: 12px; transition: color 0.2s; }
+.weekly-box:hover .weekly-link { color: #9ABE8E; }
 
 /* Past */
 .past-list { display: flex; flex-direction: column; gap: 6px; }
@@ -134,6 +147,13 @@ body {
       <a href="dashboard.html">仪表盘</a>
     </div>
   </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>把每天的 AI<br>一杯咖啡读完</h1>
+    <p class="hero-tagline">大模型 · Agent · 开源 · 前沿技术 · 商业格局</p>
+    <p class="hero-meta">每日 10:30 更新 ／ 每周一发布趋势周报</p>
+  </section>
 
   <!-- 今日速览 -->
   <div class="sec-head">
@@ -261,28 +281,30 @@ body {
     <a href="dashboard.html" class="sec-link">完整仪表盘 →</a>
   </div>
 
-  <div class="snapshot-grid">
-    <div class="snapshot-card">
-      <div class="snapshot-label">DeepSeek</div>
-      <div class="snapshot-value">$515B</div>
-      <div class="snapshot-change up">↑ 415% · 1月</div>
+  <a href="dashboard.html" style="display:block;text-decoration:none;color:inherit;">
+    <div class="snapshot-grid">
+      <div class="snapshot-card">
+        <div class="snapshot-label">DeepSeek</div>
+        <div class="snapshot-value">$515B</div>
+        <div class="snapshot-change up">↑ 415% · 1月</div>
+      </div>
+      <div class="snapshot-card">
+        <div class="snapshot-label">Anthropic</div>
+        <div class="snapshot-value">$900B</div>
+        <div class="snapshot-change up">↑ 50% · 3月</div>
+      </div>
+      <div class="snapshot-card">
+        <div class="snapshot-label">OpenAI</div>
+        <div class="snapshot-value">$850B</div>
+        <div class="snapshot-sub">IPO 递表中</div>
+      </div>
+      <div class="snapshot-card">
+        <div class="snapshot-label">GitHub #1</div>
+        <div class="snapshot-value" style="font-size:13px;margin-top:4px;">browser-use</div>
+        <div class="snapshot-change up">+4.2K stars/周</div>
+      </div>
     </div>
-    <div class="snapshot-card">
-      <div class="snapshot-label">Anthropic</div>
-      <div class="snapshot-value">$900B</div>
-      <div class="snapshot-change up">↑ 50% · 3月</div>
-    </div>
-    <div class="snapshot-card">
-      <div class="snapshot-label">OpenAI</div>
-      <div class="snapshot-value">$850B</div>
-      <div class="snapshot-sub">IPO 递表中</div>
-    </div>
-    <div class="snapshot-card">
-      <div class="snapshot-label">GitHub #1</div>
-      <div class="snapshot-value" style="font-size:13px;margin-top:4px;">browser-use</div>
-      <div class="snapshot-change up">+4.2K stars/周</div>
-    </div>
-  </div>
+  </a>
 
   <!-- 本周周报 -->
   <div class="sec-head">
@@ -291,13 +313,15 @@ body {
     <span class="sec-right">第 20 周</span>
   </div>
 
-  <div class="weekly-box">
-    <div class="weekly-quote">AI 竞争从模型评分转向落地交付与算力锁定——Anthropic 2000 亿锁定 TPU，OpenAI 40 亿建部署公司，DeepSeek 500 亿创中国纪录。</div>
-    <div class="weekly-meta">
-      5 大维度 · 10 家厂商矩阵 · 5 条趋势分析
-      <a href="weekly-2026-20.html" class="weekly-link">阅读完整周报 →</a>
+  <a href="weekly-2026-20.html" style="display:block;text-decoration:none;color:inherit;">
+    <div class="weekly-box">
+      <div class="weekly-quote">AI 竞争从模型评分转向落地交付与算力锁定——Anthropic 2000 亿锁定 TPU，OpenAI 40 亿建部署公司，DeepSeek 500 亿创中国纪录。</div>
+      <div class="weekly-meta">
+        5 大维度 · 10 家厂商矩阵 · 5 条趋势分析
+        <span class="weekly-link">阅读完整周报 →</span>
+      </div>
     </div>
-  </div>
+  </a>
 
   <!-- 往期 -->
   <div class="sec-head">
