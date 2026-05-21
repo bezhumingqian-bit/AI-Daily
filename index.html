@@ -24,33 +24,18 @@ body {
 .nav-links a { font-size: 11px; color: rgba(255,255,255,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
 .nav-links a:hover { color: rgba(255,255,255,0.8); }
 
-/* Header — 同日报 v3 风格 */
+/* Header — 居中简洁版 */
 .header {
-  background: linear-gradient(135deg, #1A1814 0%, #1C1A16 50%, #181614 100%);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 12px;
-  padding: 40px 28px 34px;
-  margin-bottom: 28px;
-  position: relative; overflow: hidden;
+  text-align: center;
+  padding: 40px 0 32px;
 }
-.header::before {
-  content:''; position: absolute; right: -60px; top: -60px; width: 240px; height: 240px;
-  background: radial-gradient(circle, rgba(200,168,146,0.14) 0%, transparent 70%); border-radius: 50%;
-}
-.header::after {
-  content:''; position: absolute; left: -40px; bottom: -40px; width: 180px; height: 180px;
-  background: radial-gradient(circle, rgba(154,190,142,0.08) 0%, transparent 70%); border-radius: 50%;
-}
-.header-inner { position: relative; z-index: 2; }
-.header-vol { font-size: 11px; letter-spacing: 4px; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
 .header h1 {
-  font-size: 26px; font-weight: 600; line-height: 1.35; letter-spacing: 0.5px;
-  background: linear-gradient(135deg, #F0ECE4 0%, #C8A892 100%);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  margin-bottom: 8px;
+  font-size: 30px; font-weight: 700; line-height: 1.35; letter-spacing: 0.5px;
+  color: #F0ECE4;
+  margin-bottom: 14px;
 }
-.header-sub { font-size: 13px; color: rgba(255,255,255,0.45); letter-spacing: 0.3px; margin-bottom: 4px; }
-.header-date { font-size: 11.5px; color: rgba(255,255,255,0.25); letter-spacing: 1px; }
+.header-sub { font-size: 14px; color: rgba(255,255,255,0.45); letter-spacing: 1px; margin-bottom: 10px; }
+.header-date { font-size: 12px; color: rgba(255,255,255,0.2); letter-spacing: 1.5px; }
 
 /* Section Header — 同日报 v3 风格 */
 .section-header {
@@ -202,12 +187,9 @@ body {
 
   <!-- Header -->
   <header class="header">
-    <div class="header-inner">
-      <div class="header-vol">VOL · 4</div>
-      <h1>把每天的 AI<br>一杯咖啡读完</h1>
-      <p class="header-sub">大模型 · Agent · 开源 · 前沿技术 · 商业格局</p>
-      <p class="header-date">2026 ／ 05 ／ 21 · 每日 10:30 更新</p>
-    </div>
+    <h1>把每天的 AI<br>一杯咖啡读完</h1>
+    <p class="header-sub">大模型 · Agent · 开源 · 前沿技术 · 商业格局</p>
+    <p class="header-date">每日 10:30 更新 ／ 每周一发布趋势周报</p>
   </header>
 
   <!-- 今日速览 -->
