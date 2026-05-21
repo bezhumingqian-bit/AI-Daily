@@ -177,7 +177,7 @@ body {
   <div class="sec-head">
     <span class="sec-dot" style="background:#C8A892;box-shadow:0 0 8px rgba(200,168,146,0.5)"></span>
     <span class="sec-title">今 日 速 览</span>
-    <span class="sec-right">2026 ／ 05 ／ 21 · VOL·4</span>
+    <a href="2026-05-21.html" class="sec-link">VOL·4 完整版 →</a>
   </div>
 
   <!-- Card 1 -->
@@ -238,15 +238,11 @@ body {
     </a>
   </div>
 
-  <div style="text-align:center;margin:4px 0 0;">
-    <a href="2026-05-21.html" style="font-size:11.5px;color:rgba(200,168,146,0.6);text-decoration:none;letter-spacing:0.5px;">查看完整图文版 →</a>
-  </div>
-
-  <!-- 前沿技术 -->
+  <!-- 前沿技术 + GitHub 热榜 -->
   <div class="sec-head">
     <span class="sec-dot" style="background:#A89BC8;box-shadow:0 0 8px rgba(168,155,200,0.5)"></span>
-    <span class="sec-title">前 沿 技 术</span>
-    <span class="sec-right">GitHub & arXiv</span>
+    <span class="sec-title">前 沿 技 术 · G I T H U B</span>
+    <a href="dashboard.html#tab-trending" class="sec-link">完整热榜 →</a>
   </div>
 
   <a href="https://github.com/browser-use/browser-use" target="_blank" class="frontier-item" style="display:block;text-decoration:none;color:inherit;">
@@ -256,9 +252,19 @@ body {
   </a>
   <a href="https://github.com/ggml-org/llama.cpp/pull/19493" target="_blank" class="frontier-item" style="display:block;text-decoration:none;color:inherit;">
     <div class="frontier-name">ggml-org/llama.cpp · Speculative Checkpointing</div>
-    <div class="frontier-desc">PR #19493 合并，推测解码 + 检查点机制让边缘设备推理提速 30%+，GGUF 已成本地模型事实标准</div>
+    <div class="frontier-desc">PR #19493 合并，推测解码 + 检查点让边缘设备推理提速 30%+，GGUF 已成本地模型事实标准</div>
     <div class="frontier-stats">C++ · 74.2K Stars · 本周 +1.5K · <span style="color:rgba(255,255,255,0.5);">github.com →</span></div>
   </a>
+
+  <!-- GitHub 热榜 Top 5 -->
+  <div style="background:#0E0E10;border:1px solid rgba(255,255,255,0.05);border-radius:10px;margin-top:10px;overflow:hidden;">
+    <div style="padding:12px 18px 8px;font-size:10.5px;color:rgba(255,255,255,0.3);letter-spacing:1px;">本 周 T R E N D I N G · T O P 5</div>
+    <a href="https://github.com/browser-use/browser-use" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 18px;text-decoration:none;color:inherit;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.2s;"><span style="font-size:12px;font-weight:600;color:#C8A892;min-width:18px;">1</span><span style="font-size:12px;color:rgba(255,255,255,0.65);flex:1;">browser-use/browser-use</span><span style="font-size:10px;color:#9ABE8E;">+4.2K</span><span style="font-size:10px;color:rgba(255,255,255,0.25);">52.3K</span></a>
+    <a href="https://github.com/OpenHuman-ai/OpenHuman" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 18px;text-decoration:none;color:inherit;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.2s;"><span style="font-size:12px;font-weight:600;color:#C8A892;min-width:18px;">2</span><span style="font-size:12px;color:rgba(255,255,255,0.65);flex:1;">OpenHuman-ai/OpenHuman</span><span style="font-size:10px;color:#9ABE8E;">+3.8K</span><span style="font-size:10px;color:rgba(255,255,255,0.25);">24.1K</span></a>
+    <a href="https://github.com/modelcontextprotocol/servers" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 18px;text-decoration:none;color:inherit;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.2s;"><span style="font-size:12px;font-weight:600;color:#C8A892;min-width:18px;">3</span><span style="font-size:12px;color:rgba(255,255,255,0.65);flex:1;">modelcontextprotocol/servers</span><span style="font-size:10px;color:#9ABE8E;">+2.9K</span><span style="font-size:10px;color:rgba(255,255,255,0.25);">38.7K</span></a>
+    <a href="https://github.com/deepseek-ai/DeepSeek-V4" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 18px;text-decoration:none;color:inherit;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.2s;"><span style="font-size:12px;color:rgba(255,255,255,0.3);min-width:18px;">4</span><span style="font-size:12px;color:rgba(255,255,255,0.65);flex:1;">deepseek-ai/DeepSeek-V4</span><span style="font-size:10px;color:#9ABE8E;">+2.5K</span><span style="font-size:10px;color:rgba(255,255,255,0.25);">68.2K</span></a>
+    <a href="https://github.com/QwenLM/Qwen3" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 18px;text-decoration:none;color:inherit;transition:background 0.2s;"><span style="font-size:12px;color:rgba(255,255,255,0.3);min-width:18px;">5</span><span style="font-size:12px;color:rgba(255,255,255,0.65);flex:1;">QwenLM/Qwen3</span><span style="font-size:10px;color:#9ABE8E;">+2.1K</span><span style="font-size:10px;color:rgba(255,255,255,0.25);">45.8K</span></a>
+  </div>
 
   <!-- 数据快照 -->
   <div class="sec-head">
@@ -296,7 +302,7 @@ body {
   <div class="sec-head">
     <span class="sec-dot" style="background:#9ABE8E;box-shadow:0 0 8px rgba(154,190,142,0.5)"></span>
     <span class="sec-title">本 周 周 报</span>
-    <span class="sec-right">第 20 周</span>
+    <a href="weekly-2026-20.html" class="sec-link">阅读完整周报 →</a>
   </div>
 
   <a href="weekly-2026-20.html" style="display:block;text-decoration:none;color:inherit;">
