@@ -4,154 +4,84 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <title>AI 日报 · 归档</title>
+<meta name="description" content="每日精选 AI 要闻 · 一手源 · 图文卡片 · GitHub Pages 自动更新">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { background: #08080A; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans", "Segoe UI", "Helvetica Neue", sans-serif;
-    background: #F5F1E8;
-    color: #2C2A26;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans", "Segoe UI", sans-serif;
+    color: #F0ECE4; line-height: 1.65; -webkit-font-smoothing: antialiased; min-height: 100vh;
   }
-  .container { max-width: 720px; margin: 0 auto; padding: 20px 16px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
 
-  /* Header */
   .header {
-    background: #1F1D2B;
-    color: #fff;
+    background: linear-gradient(135deg, #1A1814 0%, #1C1A16 50%, #181614 100%);
     border-radius: 16px;
-    padding: 36px 28px 30px;
-    margin-bottom: 16px;
+    padding: 40px 30px 36px;
+    margin-bottom: 32px;
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.04);
   }
-  .header::after {
-    content: "";
-    position: absolute;
-    right: -40px; top: -40px;
-    width: 160px; height: 160px;
-    background: #6B4F47;
-    border-radius: 50%;
-    opacity: 0.5;
-  }
-  .header::before {
-    content: "";
-    position: absolute;
-    right: 60px; bottom: -50px;
-    width: 100px; height: 100px;
-    background: #4A5340;
-    border-radius: 50%;
-    opacity: 0.35;
-  }
+  .header::before { content:""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(200,168,146,0.14) 0%, transparent 70%); border-radius: 50%; }
+  .header::after { content:""; position: absolute; left: -50px; bottom: -50px; width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(154,190,142,0.10) 0%, transparent 70%); border-radius: 50%; }
   .header-content { position: relative; z-index: 2; }
-  .brand {
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: rgba(255,255,255,0.4);
-    text-transform: uppercase;
+  .brand { font-size: 11px; letter-spacing: 4px; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 18px; font-weight: 500; }
+  h1 {
+    font-size: 32px; font-weight: 700; line-height: 1.2; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #F0ECE4 0%, #C8A892 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     margin-bottom: 14px;
   }
-  h1 {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 1px;
-  }
-  .subtitle {
-    font-size: 13px;
-    opacity: 0.55;
-    margin-top: 6px;
-    letter-spacing: 0.5px;
-  }
-  .desc {
-    font-size: 13px;
-    line-height: 1.85;
-    opacity: 0.7;
-    margin-top: 16px;
-    max-width: 540px;
-    letter-spacing: 0.2px;
-  }
+  .subtitle { font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 6px; letter-spacing: 0.5px; }
+  .desc { font-size: 13px; line-height: 1.85; color: rgba(255,255,255,0.45); margin-top: 18px; max-width: 540px; letter-spacing: 0.2px; }
 
-  /* Section */
-  .section-label {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: #8A8474;
-    text-transform: uppercase;
-    margin: 20px 4px 10px;
+  .section-label { font-size: 11px; letter-spacing: 3px; color: rgba(255,255,255,0.4); text-transform: uppercase; margin: 28px 4px 14px; font-weight: 500; }
+  .section-label::before {
+    content:""; display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.5); margin-right: 8px; vertical-align: middle;
   }
+  .section-label.weekly::before { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.5); }
 
-  /* Archive List */
   .archive-list { display: flex; flex-direction: column; gap: 10px; }
   .archive-item {
-    background: #FFFEFC;
-    border: 1px solid #E6E1D6;
-    border-radius: 4px;
-    padding: 20px 24px;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    transition: border-color 0.15s ease, background 0.15s ease;
+    background: #0E0E10; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;
+    padding: 22px 24px; text-decoration: none; color: inherit;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s ease, background 0.3s ease;
   }
   .archive-item:hover, .archive-item:active {
-    border-color: #C4BBA9;
-    background: #FAF7EE;
+    transform: translateY(-2px);
+    border-color: rgba(200,168,146,0.25);
+    background: #131214;
   }
   .item-left { flex: 1; min-width: 0; }
-  .item-date {
-    font-size: 12px;
-    color: #8A8474;
-    margin-bottom: 5px;
-    letter-spacing: 0.5px;
-  }
+  .item-date { font-size: 11.5px; color: rgba(255,255,255,0.4); margin-bottom: 6px; letter-spacing: 0.6px; }
   .item-title {
-    font-size: 14.5px;
-    font-weight: 500;
-    line-height: 1.55;
-    color: #2C2A26;
-    letter-spacing: 0.2px;
+    font-size: 14.5px; font-weight: 500; line-height: 1.55; color: #F0ECE4; letter-spacing: 0.2px;
   }
   .item-vol {
-    font-size: 11px;
-    color: #B5B0A4;
-    margin-left: 6px;
-    letter-spacing: 1px;
+    font-size: 10.5px; color: #C8A892; margin-left: 8px; letter-spacing: 1.5px; padding: 1px 7px;
+    border: 1px solid rgba(200,168,146,0.3); border-radius: 3px;
   }
-  .item-arrow { color: #8A8474; font-size: 16px; flex-shrink: 0; }
-
-  .weekly-empty {
-    background: #FFFEFC;
-    border: 1px dashed #C4BBA9;
-    border-radius: 4px;
-    padding: 24px;
-    text-align: center;
-    font-size: 13px;
-    color: #8A8474;
-    line-height: 1.8;
-    letter-spacing: 0.3px;
-  }
+  .item-arrow { color: rgba(255,255,255,0.25); font-size: 16px; flex-shrink: 0; transition: color 0.2s ease, transform 0.2s ease; }
+  .archive-item:hover .item-arrow { color: rgba(255,255,255,0.7); transform: translateX(4px); }
 
   .footer {
-    background: #FFFEFC;
-    border: 1px solid #E6E1D6;
-    border-radius: 4px;
-    padding: 18px;
-    text-align: center;
-    margin-top: 16px;
-    font-size: 11px;
-    color: #B5B0A4;
-    letter-spacing: 1px;
+    text-align: center; margin-top: 40px; padding: 24px 0 8px;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
+  .footer-brand { font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 2px; margin-bottom: 6px; }
+  .footer-tag { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
 
   @media (max-width: 480px) {
-    .container { padding: 16px 12px; }
-    .header { padding: 28px 22px 24px; border-radius: 12px; }
-    h1 { font-size: 24px; }
+    .container { padding: 16px 12px 32px; }
+    .header { padding: 32px 22px 28px; border-radius: 14px; }
+    h1 { font-size: 26px; }
     .archive-item { padding: 18px 20px; }
-    .item-title { font-size: 14px; }
+    .item-title { font-size: 13.5px; }
   }
 </style>
 </head>
@@ -162,11 +92,11 @@
         <div class="brand">A I &nbsp; D A I L Y</div>
         <h1>AI 日报 · 归档</h1>
         <p class="subtitle">每日 10:30 ／ 自动更新</p>
-        <p class="desc">每日精选 5–8 条 AI 要闻，覆盖大模型、Agent、开源、推理优化、融资、政策、安全。一手源优先，每条带原文链接，13 维质量审核制确保信息密度与多样性。每周一发布上一周趋势分析。</p>
+        <p class="desc">每日精选 AI 要闻，覆盖大模型、Agent、开源、推理优化、融资、政策、安全与前沿技术。一手源优先 · 图文卡片可点击跳转 · 13 维质量审核保障信息密度与多样性。每周一发布上一周趋势分析。</p>
       </div>
     </header>
 
-    <div class="section-label">周 报</div>
+    <div class="section-label weekly">周 报</div>
     <div class="archive-list">
       <a href="weekly-2026-20.html" class="archive-item">
         <div class="item-left">
@@ -182,34 +112,37 @@
       <a href="2026-05-21.html" class="archive-item">
         <div class="item-left">
           <div class="item-date">2026 ／ 05 ／ 21 · 周四 <span class="item-vol">VOL·4</span></div>
-          <div class="item-title">OpenAI 推理模型攻克 Erdős 80 年数学难题 ／ OpenAI IPO 递表 ／ 白宫 AI 行政令 ／ 腾讯 Marvis ／ Meta 裁员转型</div>
+          <div class="item-title">OpenAI 推理模型攻克 Erdős ／ OpenAI IPO 递表 8520 亿 ／ 白宫 AI 行政令 ／ 腾讯 Marvis ／ Meta 转岗 7000</div>
         </div>
         <span class="item-arrow">→</span>
       </a>
       <a href="2026-05-20.html" class="archive-item">
         <div class="item-left">
           <div class="item-date">2026 ／ 05 ／ 20 · 周三 <span class="item-vol">VOL·3</span></div>
-          <div class="item-title">Google I/O Gemini 3.5 Flash + Omni + Spark ／ 卡帕西加入 Anthropic ／ Qwen3.7 Max ／ SynthID 水印 ／ 算力锁定 ／ Token 套餐</div>
+          <div class="item-title">Google I/O Gemini 3.5 Flash + Omni + Spark ／ 卡帕西加入 Anthropic ／ Qwen3.7 Max ／ SynthID ／ Token 套餐</div>
         </div>
         <span class="item-arrow">→</span>
       </a>
       <a href="2026-05-19.html" class="archive-item">
         <div class="item-left">
           <div class="item-date">2026 ／ 05 ／ 19 · 周二 <span class="item-vol">VOL·2</span></div>
-          <div class="item-title">Google I/O Gemini 4.0 ／ Qwen3.7-Max-Preview ／ NVIDIA Vera CPU ／ 智元 WITA 备案 ／ Agent Skills</div>
+          <div class="item-title">马斯克诉 OpenAI 案败诉 ／ Cursor Composer 2.5 ／ 字节 Cola DLM ／ Meta 全球裁员 ／ 腾讯吐司</div>
         </div>
         <span class="item-arrow">→</span>
       </a>
       <a href="2026-05-17.html" class="archive-item">
         <div class="item-left">
           <div class="item-date">2026 ／ 05 ／ 17 · 周日 <span class="item-vol">VOL·1</span></div>
-          <div class="item-title">Qwen3.6-27B ／ OpenHuman ／ arXiv 治幻觉 ／ 蚂蚁 Ring-2.6-1T ／ llama.cpp PR</div>
+          <div class="item-title">Qwen3.6-27B ／ OpenHuman 登顶 GitHub ／ arXiv 治幻觉 ／ 蚂蚁 Ring-2.6-1T ／ llama.cpp 推测优化</div>
         </div>
         <span class="item-arrow">→</span>
       </a>
     </div>
 
-    <div class="footer">商 业 · 认 知 观 察 者 · 出 品</div>
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
   </div>
 </body>
 </html>

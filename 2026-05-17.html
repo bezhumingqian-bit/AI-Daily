@@ -4,304 +4,298 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <title>AI 日报 · 2026年5月17日</title>
-<meta name="description" content="每日精选 5 条 AI 要闻 · 一手源 · 已与昨日去重">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { background: #08080A; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans", "Segoe UI", "Helvetica Neue", sans-serif;
-    background: #F5F1E8;
-    color: #2C2A26;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans", "Segoe UI", sans-serif;
+    color: #F0ECE4;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
   }
-  .container { max-width: 720px; margin: 0 auto; padding: 20px 16px; }
-
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
   .header {
-    background: #FAF7EE;
-    border: 1px solid #E6E1D6;
-    border-radius: 4px;
-    padding: 32px 28px 28px;
-    margin-bottom: 16px;
+    background: linear-gradient(135deg, #1A1814 0%, #1C1A16 50%, #181614 100%);
+    border-radius: 16px;
+    padding: 36px 28px 32px;
+    margin-bottom: 28px;
     position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.04);
   }
-  .brand {
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: #B5B0A4;
-    text-transform: uppercase;
-    margin-bottom: 14px;
+  .header::before {
+    content: ""; position: absolute; right: -60px; top: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(200,168,146,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: ""; position: absolute; left: -40px; bottom: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(154,190,142,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px; letter-spacing: 4px; color: rgba(255,255,255,0.35);
+    text-transform: uppercase; margin-bottom: 18px; font-weight: 500;
   }
   .header-title {
-    font-size: 26px;
-    font-weight: 500;
-    color: #2C2A26;
-    letter-spacing: 1px;
-  }
-  .header-date {
-    font-size: 13px;
-    color: #7A766C;
-    margin-top: 6px;
-    letter-spacing: 0.5px;
-  }
-  .divider {
-    height: 1px;
-    background: #E6E1D6;
-    margin: 18px 0;
-  }
-  .header-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-  .chip {
-    padding: 3px 10px;
-    background: transparent;
-    border: 1px solid #D8D2C5;
-    border-radius: 2px;
-    font-size: 11px;
-    color: #7A766C;
-    letter-spacing: 0.5px;
-  }
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .tag {
-    font-size: 11px;
-    padding: 2px 8px;
-    color: #8A8474;
-    letter-spacing: 0.3px;
-  }
-
-  .card {
-    background: #FFFEFC;
-    border: 1px solid #E6E1D6;
-    border-radius: 4px;
-    padding: 22px 24px;
-    margin-bottom: 10px;
-  }
-  .card-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
+    font-size: 30px; font-weight: 700; line-height: 1.25; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #F0ECE4 0%, #C8A892 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     margin-bottom: 14px;
   }
-  .num {
-    width: 28px; height: 28px;
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 500;
-    flex-shrink: 0;
-    letter-spacing: 0.5px;
-  }
-  .headline {
-    font-size: 15.5px;
-    font-weight: 500;
-    color: #2C2A26;
-    line-height: 1.5;
-    flex: 1;
-    padding-top: 3px;
-    letter-spacing: 0.2px;
-  }
-  .fact {
-    font-size: 13.5px;
-    color: #5F5B53;
-    line-height: 1.75;
-    margin-bottom: 12px;
-    padding-left: 42px;
-  }
-  .comment {
-    font-size: 13.5px;
-    color: #2C2A26;
-    line-height: 1.75;
-    padding: 12px 16px;
-    margin-left: 42px;
-    background: #F7F4EC;
-    border-left: 2px solid #8A8474;
-    border-radius: 0 2px 2px 0;
-  }
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    margin-top: 16px;
-    padding-left: 42px;
-    font-size: 11.5px;
-    color: #7A766C;
-  }
-  .cat {
-    padding: 2px 8px;
-    border-radius: 2px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-  }
-  .tier {
-    padding: 2px 8px;
-    border-radius: 2px;
-    background: #EEEAE0;
-    color: #6B6555;
-    font-weight: 400;
-    letter-spacing: 0.3px;
-  }
-  .link {
-    color: #5C544A;
-    text-decoration: none;
-    border-bottom: 1px solid #C4BBA9;
-    padding-bottom: 1px;
-    transition: color 0.15s ease;
-  }
-  .link:hover, .link:active { color: #2C2A26; border-bottom-color: #2C2A26; }
-  .link::after { content: " ↗"; font-size: 10px; }
-  .dot { color: #C4BBA9; }
+  .header-subtitle { font-size: 14px; color: rgba(255,255,255,0.45); letter-spacing: 0.5px; line-height: 1.6; }
+  .header-date { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 18px; letter-spacing: 1px; font-weight: 500; }
+  .section { margin-bottom: 36px; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding: 0 4px; }
+  .section-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, transparent 100%); }
+  .section-sub { font-size: 11px; color: rgba(255,255,255,0.3); margin: -10px 4px 14px; letter-spacing: 0.5px; }
 
-  .footer {
-    background: #FAF7EE;
-    border: 1px solid #E6E1D6;
-    border-radius: 4px;
-    padding: 22px;
-    text-align: center;
-    margin-top: 16px;
+  .card-link {
+    display: block; text-decoration: none; color: inherit;
+    background: #0E0E10; border-radius: 14px; overflow: hidden;
+    margin-bottom: 14px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  .footer-line {
-    font-size: 13px;
-    color: #5F5B53;
-    margin-bottom: 12px;
-    letter-spacing: 0.3px;
+  .card-link:hover {
+    transform: translateY(-3px) scale(1.01);
+    border-color: rgba(255,255,255,0.12);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.5);
   }
-  .audit {
-    font-size: 11px;
-    color: #B5B0A4;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    letter-spacing: 0.3px;
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+    background: #111113;
   }
+  .card-hero img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.65) saturate(0.8);
+  }
+  .card-link:hover .card-hero img { transform: scale(1.04); filter: brightness(0.78) saturate(1); }
+  .card-hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #0E0E10 0%, rgba(14,14,16,0.92) 35%, rgba(14,14,16,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+  .card-hero-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 20px; z-index: 2; }
+  .card-meta-row {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.3px;
+  }
+  .card-cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .card-source-name { color: rgba(255,255,255,0.65); font-weight: 500; }
+  .card-divider { color: rgba(255,255,255,0.2); }
+  .card-arrow {
+    margin-left: auto; color: rgba(255,255,255,0.25); font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(255,255,255,0.7); transform: translateX(4px); }
+  .headline {
+    font-size: 19px; font-weight: 600; color: #F5F2EC; line-height: 1.4;
+    letter-spacing: -0.2px; text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+  .card-body { background: #0E0E10; padding: 20px 24px 22px; }
+  .fact { font-size: 13px; color: rgba(255,255,255,0.42); line-height: 1.85; margin-bottom: 14px; letter-spacing: 0.1px; }
+  .comment {
+    font-size: 13.5px; color: rgba(255,255,255,0.65); line-height: 1.85;
+    padding: 14px 18px; background: rgba(255,255,255,0.025);
+    border-left: 2px solid rgba(255,255,255,0.1); border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.5); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.5); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.5); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.5); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.5); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.5); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.5); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.5); }
+  .stitle-大模型 { color: #C8A892; }
+  .stitle-Agent { color: #9ABE8E; }
+  .stitle-政策 { color: #C8B468; }
+  .stitle-融资 { color: #8CC44A; }
+  .stitle-开源 { color: #B8B098; }
+  .stitle-推理优化 { color: #9AB0BA; }
+  .stitle-安全 { color: #D07070; }
+  .stitle-前沿技术 { color: #A89BC8; }
+
+  .footer { text-align: center; margin-top: 36px; padding: 24px 0 8px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-brand { font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 2px; margin-bottom: 6px; }
+  .footer-tag { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+  .archive-back { display: inline-block; margin-top: 14px; font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 1.5px; text-decoration: none; padding: 6px 14px; border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; transition: all 0.2s ease; }
+  .archive-back:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.2); }
 
   @media (max-width: 480px) {
-    .container { padding: 16px 12px; }
-    .header { padding: 26px 20px 22px; }
-    .header-title { font-size: 22px; }
-    .card { padding: 20px 18px; }
-    .fact, .comment { padding-left: 0; margin-left: 0; }
-    .meta { padding-left: 0; }
-    .num { width: 26px; height: 26px; font-size: 12px; }
-    .headline { font-size: 14.5px; }
-    .fact, .comment { font-size: 13px; }
+    .container { padding: 16px 12px 32px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
   }
 </style>
 </head>
 <body>
   <div class="container">
     <header class="header">
-      <div class="brand">A I &nbsp; D A I L Y</div>
-      <h1 class="header-title">AI 日报</h1>
-      <p class="header-date">2026 年 5 月 17 日 ／ 5 条精选</p>
-
-      <div class="divider"></div>
-
-      <div class="header-meta">
-        <span class="chip">一手源 100%</span>
-        <span class="chip">已与昨日去重</span>
-        <span class="chip">审核 25 / 26</span>
-      </div>
-      <div class="tags">
-        <span class="tag">#开源密集模型</span>
-        <span class="tag">#本地 Agent</span>
-        <span class="tag">#arXiv 治理</span>
-        <span class="tag">#万亿参数</span>
-        <span class="tag">#推理优化</span>
+      <div class="header-content">
+        <div class="vol">VOL · 1</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 05 ／ 17 · 周日</p>
       </div>
     </header>
 
-    <article class="card">
-      <div class="card-header">
-        <div class="num" style="background:#E8E2D2;color:#5A5443;">01</div>
-        <h2 class="headline">阿里 Qwen3.6-27B 开源刷屏 r/LocalLLaMA</h2>
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
       </div>
-      <p class="fact">27B 密集模型 ／ 262K 原生上下文（可扩 1M）／ Apache 2.0；跑分超自家 Qwen3.5-397B。</p>
-      <div class="comment">开源密集模型重新追上 MoE，本地部署性价比拐点出现。</div>
-      <div class="meta">
-        <span class="cat" style="background:#E8E2D2;color:#5A5443;">开源</span>
-        <span class="tier">T1 一手源</span>
-        <a class="link" href="https://huggingface.co/Qwen/Qwen3.6-27B" target="_blank" rel="noopener">HuggingFace</a>
-        <span class="dot">／</span>
-        <a class="link" href="https://www.reddit.com/r/LocalLLaMA/" target="_blank" rel="noopener">Reddit 1505 票</a>
-      </div>
-    </article>
 
-    <article class="card">
-      <div class="card-header">
-        <div class="num" style="background:#DAE0D2;color:#4A5340;">02</div>
-        <h2 class="headline">OpenHuman 登顶 GitHub Trending，把 Karpathy LLM Wiki 做成产品</h2>
-      </div>
-      <p class="fact">118 项 OAuth 集成 ／ 每 20 分钟自动同步 ／ TokenJuice 压缩 80% ／ 本地 SQLite + Obsidian 兼容。</p>
-      <div class="comment">Agent 竞争从模型评分转向"先理解你"，但 OAuth 全家桶授权也是新的安全黑洞。</div>
-      <div class="meta">
-        <span class="cat" style="background:#DAE0D2;color:#4A5340;">Agent</span>
-        <span class="tier">T1 一手源</span>
-        <a class="link" href="https://github.com/tinyhumansai/openhuman" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </article>
+      <a class="card-link" href="https://github.com/tinyhumansai/openhuman" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/8b0881a514ecca77f20e7dcc3f1b6f73de9a517179c08c20bc31ec5baf954779/tinyhumansai/openhuman" alt="OpenHuman 登顶 GitHub Trending，把 Karpathy LLM Wiki 做成产品" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUYyQzFBIi8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMwQTE0MEEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOUFCRThFIiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM5QUJFOEUiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjOUFCRThFIiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjOUFCRThFIiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiM5QUJFOEUiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+T1BIVTwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+QUdFTlQ8L3RleHQ+PGxpbmUgeDE9IjgwIiB5MT0iMzUwIiB4Mj0iMjIwIiB5Mj0iMzUwIiBzdHJva2U9IiM5QUJFOEUiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iMC42Ii8+PC9zdmc+';" loading="lazy">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">／</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenHuman 登顶 GitHub Trending，把 Karpathy LLM Wiki 做成产品</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">118 项 OAuth 集成 ／ 每 20 分钟自动同步 ／ TokenJuice 压缩 80% ／ 本地 SQLite + Obsidian 兼容。</p>
+          <div class="comment">Agent 竞争从模型评分转向&quot;先理解你&quot;，但 OAuth 全家桶授权也是新的安全黑洞。</div>
+        </div>
+      </a>
+    </section>
 
-    <article class="card">
-      <div class="card-header">
-        <div class="num" style="background:#E5DCC4;color:#6B5F40;">03</div>
-        <h2 class="headline">arXiv 重拳治 AI 幻觉，违规作者禁投 1 年</h2>
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
       </div>
-      <p class="fact">出现"无可辩驳证据"的 AI 幻觉内容即触发；不禁 AI 辅助但要求作者逐条核实。</p>
-      <div class="comment">学术 AI 治理首个量级处罚，预印本平台开始划红线，可能被 SSRN／bioRxiv 跟进。</div>
-      <div class="meta">
-        <span class="cat" style="background:#E5DCC4;color:#6B5F40;">政策</span>
-        <span class="tier">T1 一手源</span>
-        <a class="link" href="https://arstechnica.com/science/2026/05/preprint-server-arxiv-will-ban-submitters-of-ai-generated-hallucinations" target="_blank" rel="noopener">Ars Technica</a>
-      </div>
-    </article>
 
-    <article class="card">
-      <div class="card-header">
-        <div class="num" style="background:#E2D2CB;color:#6B4F47;">04</div>
-        <h2 class="headline">蚂蚁百灵 Ring-2.6-1T 开源，万亿参数主打 Agent 执行力</h2>
-      </div>
-      <p class="fact">工具调用 ／ 多步推理 ／ 长链任务错误恢复全面增强；多项 Agent benchmark 达开源 SOTA。</p>
-      <div class="comment">国内开源阵营从对位 GPT 转向对位 Claude Agent 能力，蚂蚁切入工具链场景。</div>
-      <div class="meta">
-        <span class="cat" style="background:#E2D2CB;color:#6B4F47;">大模型</span>
-        <span class="tier">T1 一手源</span>
-        <a class="link" href="https://github.com/inclusionAI/Ring" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </article>
+      <a class="card-link" href="https://arstechnica.com/science/2026/05/preprint-server-arxiv-will-ban-submitters-of-ai-generated-hallucinations" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMkMyNTE2Ii8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMxNjExMEEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjQzhCNDY4IiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNDOEI0NjgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjQzhCNDY4IiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjQzhCNDY4IiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiNDOEI0NjgiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+QVJYVjwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+5pS/562WPC90ZXh0PjxsaW5lIHgxPSI4MCIgeTE9IjM1MCIgeDI9IjIyMCIgeTI9IjM1MCIgc3Ryb2tlPSIjQzhCNDY4IiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNiIvPjwvc3ZnPg==" alt="arXiv 重拳治 AI 幻觉，违规作者禁投 1 年" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMkMyNTE2Ii8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMxNjExMEEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjQzhCNDY4IiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNDOEI0NjgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjQzhCNDY4IiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjQzhCNDY4IiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiNDOEI0NjgiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+QVJYVjwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+5pS/562WPC90ZXh0PjxsaW5lIHgxPSI4MCIgeTE9IjM1MCIgeDI9IjIyMCIgeTI9IjM1MCIgc3Ryb2tlPSIjQzhCNDY4IiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNiIvPjwvc3ZnPg==';" loading="lazy">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">Ars Technica</span>
+              <span class="card-divider">／</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">arXiv 重拳治 AI 幻觉，违规作者禁投 1 年</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">出现&quot;无可辩驳证据&quot;的 AI 幻觉内容即触发；不禁 AI 辅助但要求作者逐条核实。</p>
+          <div class="comment">学术 AI 治理首个量级处罚，预印本平台开始划红线，可能被 SSRN／bioRxiv 跟进。</div>
+        </div>
+      </a>
+    </section>
 
-    <article class="card">
-      <div class="card-header">
-        <div class="num" style="background:#D5DCDC;color:#4A5258;">05</div>
-        <h2 class="headline">llama.cpp 合并 Speculative Checkpointing（PR #19493）</h2>
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
       </div>
-      <p class="fact">节省 recurrent 模块在 draft 拒绝时的重复算力；r/LocalLLaMA 200+ upvotes 60 评论。</p>
-      <div class="comment">边缘 Agent 长上下文吞吐瓶颈被撕开一角，Qwen ／ Mamba 系最直接受益。</div>
-      <div class="meta">
-        <span class="cat" style="background:#D5DCDC;color:#4A5258;">推理优化</span>
-        <span class="tier">T1 一手源</span>
-        <a class="link" href="https://github.com/ggerganov/llama.cpp/pull/19493" target="_blank" rel="noopener">GitHub PR #19493</a>
+
+      <a class="card-link" href="https://huggingface.co/Qwen/Qwen3.6-27B" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn-thumbnails.huggingface.co/social-thumbnails/models/Qwen/Qwen3.6-27B.png" alt="阿里 Qwen3.6-27B 开源刷屏 r/LocalLLaMA" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMjYyNDFFIi8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMxNDEzMEUiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjQjhCMDk4IiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNCOEIwOTgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjQjhCMDk4IiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjQjhCMDk4IiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiNCOEIwOTgiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+UTMuNjwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+5byA5rqQPC90ZXh0PjxsaW5lIHgxPSI4MCIgeTE9IjM1MCIgeDI9IjIyMCIgeTI9IjM1MCIgc3Ryb2tlPSIjQjhCMDk4IiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNiIvPjwvc3ZnPg==';" loading="lazy">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">HuggingFace</span>
+              <span class="card-divider">／</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">阿里 Qwen3.6-27B 开源刷屏 r/LocalLLaMA</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">27B 密集模型 ／ 262K 原生上下文（可扩 1M）／ Apache 2.0；跑分超自家 Qwen3.5-397B。</p>
+          <div class="comment">开源密集模型重新追上 MoE，本地部署性价比拐点出现。</div>
+        </div>
+      </a>
+      <a class="card-link" href="https://github.com/inclusionAI/Ring" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/c61ac9b8d925accb3821e270e1b7300efe0da4e2801b11da6378a165ba5262ba/inclusionAI/Ring" alt="蚂蚁百灵 Ring-2.6-1T 开源，万亿参数主打 Agent 执行力" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMjYyNDFFIi8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMxNDEzMEUiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjQjhCMDk4IiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNCOEIwOTgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjQjhCMDk4IiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjQjhCMDk4IiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiNCOEIwOTgiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+UklORzwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+5byA5rqQPC90ZXh0PjxsaW5lIHgxPSI4MCIgeTE9IjM1MCIgeDI9IjIyMCIgeTI9IjM1MCIgc3Ryb2tlPSIjQjhCMDk4IiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNiIvPjwvc3ZnPg==';" loading="lazy">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">／</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">蚂蚁百灵 Ring-2.6-1T 开源，万亿参数主打 Agent 执行力</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">工具调用 ／ 多步推理 ／ 长链任务错误恢复全面增强；多项 Agent benchmark 达开源 SOTA。</p>
+          <div class="comment">国内开源阵营从对位 GPT 转向对位 Claude Agent 能力，蚂蚁切入工具链场景。</div>
+        </div>
+      </a>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-推理优化"></span>
+        <span class="section-title stitle-推理优化">推 理 优 化</span>
+        <div class="section-line"></div>
       </div>
-    </article>
+
+      <a class="card-link" href="https://github.com/ggerganov/llama.cpp/pull/19493" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/577d8e1a8bc8840beb966e1a8cc9889f07a9e23b59db43d509ebd9b1381b5269/ggml-org/llama.cpp/pull/19493" alt="llama.cpp 合并 Speculative Checkpointing（PR #19493）" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUEyMjI4Ii8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMwQTEwMTQiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOUFCMEJBIiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM5QUIwQkEiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjOUFCMEJBIiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjOUFCMEJBIiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiM5QUIwQkEiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+TExNQTwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+5o6o55CG5LyY5YyWPC90ZXh0PjxsaW5lIHgxPSI4MCIgeTE9IjM1MCIgeDI9IjIyMCIgeTI9IjM1MCIgc3Ryb2tlPSIjOUFCMEJBIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNiIvPjwvc3ZnPg==';" loading="lazy">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-推理优化"></span>
+              <span class="card-source-name">GitHub PR</span>
+              <span class="card-divider">／</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">llama.cpp 合并 Speculative Checkpointing（PR #19493）</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">节省 recurrent 模块在 draft 拒绝时的重复算力；r/LocalLLaMA 200+ upvotes 60 评论。</p>
+          <div class="comment">边缘 Agent 长上下文吞吐瓶颈被撕开一角，Qwen ／ Mamba 系最直接受益。</div>
+        </div>
+      </a>
+    </section>
 
     <footer class="footer">
-      <p class="footer-line">早安，AI 浪潮里冲冲冲</p>
-      <div class="audit">
-        <span>采集 25+ 候选</span>
-        <span>／</span>
-        <span>剔除 3 条已报</span>
-        <span>／</span>
-        <span>13 维质量审核 25 / 26</span>
-      </div>
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+      <a class="archive-back" href="./">← 回到归档</a>
     </footer>
   </div>
 </body>

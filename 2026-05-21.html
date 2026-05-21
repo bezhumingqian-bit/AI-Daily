@@ -3,219 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<title>AI 日报 · 2026 年 5 月 21 日</title>
-<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<title>AI 日报 · 2026年5月21日</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { background: #08080A; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
-    background: #08080A;
-    color: #E8E6E3;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans", "Segoe UI", sans-serif;
+    color: #F0ECE4;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
   }
   .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
-
-  /* ── Header ── */
   .header {
     background: linear-gradient(135deg, #1A1814 0%, #1C1A16 50%, #181614 100%);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 18px;
-    padding: 40px 32px 36px;
+    border-radius: 16px;
+    padding: 36px 28px 32px;
     margin-bottom: 28px;
     position: relative;
     overflow: hidden;
-  }
-  .header::after {
-    content: "";
-    position: absolute;
-    right: -40px; top: -40px;
-    width: 180px; height: 180px;
-    background: radial-gradient(circle, rgba(180,140,100,0.14) 0%, transparent 70%);
-    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.04);
   }
   .header::before {
-    content: "";
-    position: absolute;
-    left: -30px; bottom: -50px;
-    width: 140px; height: 140px;
-    background: radial-gradient(circle, rgba(120,160,120,0.08) 0%, transparent 70%);
+    content: ""; position: absolute; right: -60px; top: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(200,168,146,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: ""; position: absolute; left: -40px; bottom: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(154,190,142,0.08) 0%, transparent 70%);
     border-radius: 50%;
   }
   .header-content { position: relative; z-index: 2; }
   .vol {
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: rgba(255,255,255,0.3);
-    text-transform: uppercase;
-    margin-bottom: 16px;
+    font-size: 11px; letter-spacing: 4px; color: rgba(255,255,255,0.35);
+    text-transform: uppercase; margin-bottom: 18px; font-weight: 500;
   }
   .header-title {
-    font-size: 34px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    line-height: 1.2;
-    background: linear-gradient(135deg, #F0ECE4 0%, #C8C0B4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .header-subtitle {
-    font-size: 15px;
-    color: rgba(255,255,255,0.45);
-    margin-top: 10px;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    line-height: 1.6;
-  }
-  .header-date {
-    font-size: 12px;
-    color: rgba(255,255,255,0.25);
-    margin-top: 18px;
-    letter-spacing: 1px;
-  }
-  .header-date::before {
-    content: "";
-    display: inline-block;
-    width: 16px; height: 1px;
-    background: rgba(255,255,255,0.2);
-    vertical-align: middle;
-    margin-right: 10px;
-    margin-top: -2px;
-  }
-
-  /* ── Section ── */
-  .section { margin-bottom: 32px; }
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    font-size: 30px; font-weight: 700; line-height: 1.25; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #F0ECE4 0%, #C8A892 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     margin-bottom: 14px;
-    padding: 0 4px;
   }
-  .section-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
+  .header-subtitle { font-size: 14px; color: rgba(255,255,255,0.45); letter-spacing: 0.5px; line-height: 1.6; }
+  .header-date { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 18px; letter-spacing: 1px; font-weight: 500; }
+  .section { margin-bottom: 36px; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding: 0 4px; }
+  .section-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
   .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
-  .section-line { flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
+  .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, transparent 100%); }
+  .section-sub { font-size: 11px; color: rgba(255,255,255,0.3); margin: -10px 4px 14px; letter-spacing: 0.5px; }
 
-  /* ── Image Card ── */
   .card-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
+    display: block; text-decoration: none; color: inherit;
+    background: #0E0E10; border-radius: 14px; overflow: hidden;
     margin-bottom: 14px;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.06);
-    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s ease, box-shadow 0.3s ease;
   }
   .card-link:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+    transform: translateY(-3px) scale(1.01);
     border-color: rgba(255,255,255,0.12);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.5);
   }
   .card-link:active { transform: translateY(-1px); }
 
   .card-hero {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
+    position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
     background: #111113;
   }
   .card-hero img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100%; height: 100%; object-fit: cover;
     transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
     filter: brightness(0.65) saturate(0.8);
   }
-  .card-link:hover .card-hero img {
-    transform: scale(1.04);
-    filter: brightness(0.78) saturate(1);
-  }
-
+  .card-link:hover .card-hero img { transform: scale(1.04); filter: brightness(0.78) saturate(1); }
   .card-hero::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
     height: 70%;
     background: linear-gradient(to top, #0E0E10 0%, rgba(14,14,16,0.92) 35%, rgba(14,14,16,0.4) 70%, transparent 100%);
     pointer-events: none;
   }
-
-  .card-hero-content {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    padding: 22px 24px 20px;
-    z-index: 2;
-  }
+  .card-hero-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 20px; z-index: 2; }
   .card-meta-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-    font-size: 11px;
-    color: rgba(255,255,255,0.55);
-    letter-spacing: 0.3px;
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.3px;
   }
-  .card-cat-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .card-source-name {
-    color: rgba(255,255,255,0.65);
-    font-weight: 500;
-  }
-  .card-divider {
-    color: rgba(255,255,255,0.2);
-  }
+  .card-cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .card-source-name { color: rgba(255,255,255,0.65); font-weight: 500; }
+  .card-divider { color: rgba(255,255,255,0.2); }
   .card-arrow {
-    margin-left: auto;
-    color: rgba(255,255,255,0.25);
-    font-size: 14px;
+    margin-left: auto; color: rgba(255,255,255,0.25); font-size: 14px;
     transition: color 0.2s ease, transform 0.2s ease;
   }
   .card-link:hover .card-arrow { color: rgba(255,255,255,0.7); transform: translateX(4px); }
-
   .headline {
-    font-size: 19px;
-    font-weight: 600;
-    color: #F5F2EC;
-    line-height: 1.4;
-    letter-spacing: -0.2px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    font-size: 19px; font-weight: 600; color: #F5F2EC; line-height: 1.4;
+    letter-spacing: -0.2px; text-shadow: 0 2px 8px rgba(0,0,0,0.4);
   }
-
-  /* Card body */
-  .card-body {
-    background: #0E0E10;
-    padding: 20px 24px 22px;
-  }
-  .fact {
-    font-size: 13px;
-    color: rgba(255,255,255,0.42);
-    line-height: 1.85;
-    margin-bottom: 14px;
-    letter-spacing: 0.1px;
-  }
+  .card-body { background: #0E0E10; padding: 20px 24px 22px; }
+  .fact { font-size: 13px; color: rgba(255,255,255,0.42); line-height: 1.85; margin-bottom: 14px; letter-spacing: 0.1px; }
   .comment {
-    font-size: 13.5px;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.85;
-    padding: 14px 18px;
-    background: rgba(255,255,255,0.025);
-    border-left: 2px solid rgba(255,255,255,0.1);
-    border-radius: 0 8px 8px 0;
+    font-size: 13.5px; color: rgba(255,255,255,0.65); line-height: 1.85;
+    padding: 14px 18px; background: rgba(255,255,255,0.025);
+    border-left: 2px solid rgba(255,255,255,0.1); border-radius: 0 8px 8px 0;
     letter-spacing: 0.1px;
   }
 
-  /* Category dot colors */
   .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.5); }
   .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.5); }
   .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.5); }
@@ -223,7 +119,7 @@
   .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.5); }
   .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.5); }
   .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.5); }
-
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.5); }
   .stitle-大模型 { color: #C8A892; }
   .stitle-Agent { color: #9ABE8E; }
   .stitle-政策 { color: #C8B468; }
@@ -231,38 +127,19 @@
   .stitle-开源 { color: #B8B098; }
   .stitle-推理优化 { color: #9AB0BA; }
   .stitle-安全 { color: #D07070; }
+  .stitle-前沿技术 { color: #A89BC8; }
 
-  /* ── Footer ── */
-  .footer {
-    text-align: center;
-    margin-top: 36px;
-    padding: 24px 0 8px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
-  .footer-brand {
-    font-size: 13px;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 2px;
-    margin-bottom: 6px;
-  }
-  .footer-tag {
-    font-size: 11px;
-    color: rgba(255,255,255,0.2);
-    letter-spacing: 1px;
-  }
+  .footer { text-align: center; margin-top: 36px; padding: 24px 0 8px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-brand { font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 2px; margin-bottom: 6px; }
+  .footer-tag { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+  .archive-back { display: inline-block; margin-top: 14px; font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 1.5px; text-decoration: none; padding: 6px 14px; border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; transition: all 0.2s ease; }
+  .archive-back:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.2); }
 
-  /* Image Error Fallback */
-  .card-hero img.error { display: none; }
-  .card-hero.no-img {
-    background: linear-gradient(135deg, #1A1814 0%, #14161A 100%);
-  }
-
-  /* Mobile */
   @media (max-width: 480px) {
     .container { padding: 16px 12px 32px; }
     .header { padding: 30px 22px 26px; border-radius: 14px; }
     .header-title { font-size: 26px; }
-    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .header-subtitle { font-size: 13.5px; }
     .card-link { border-radius: 12px; }
     .card-hero { aspect-ratio: 16 / 10; }
     .card-hero-content { padding: 18px 20px 16px; }
@@ -275,8 +152,6 @@
 </head>
 <body>
   <div class="container">
-
-    <!-- Header -->
     <header class="header">
       <div class="header-content">
         <div class="vol">VOL · 4</div>
@@ -286,7 +161,6 @@
       </div>
     </header>
 
-    <!-- Section: 大模型 -->
     <section class="section">
       <div class="section-header">
         <span class="section-dot dot-大模型"></span>
@@ -296,26 +170,25 @@
 
       <a class="card-link" href="https://openai.com/index/model-disproves-discrete-geometry-conjecture/" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://images.ctfassets.net/kftzwdyauwt9/6WJOhxvdNpC5hDvpiSAqE0/8a11ba6abdabb6a5a674de733cfa710d/SEO-Polynomial-Construction-16x9.png?w=1600&h=900&fit=fill" alt="OpenAI Erdős" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+          <img src="https://images.ctfassets.net/kftzwdyauwt9/6WJOhxvdNpC5hDvpiSAqE0/8a11ba6abdabb6a5a674de733cfa710d/SEO-Polynomial-Construction-16x9.png?w=1600&h=900&fit=fill" alt="OpenAI 推理模型攻克 Erdős 80 年数学难题，单位距离猜想被推翻" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjM0EyQTIyIi8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMxQTBFMDgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjQzhBODkyIiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNDOEE4OTIiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjQzhBODkyIiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjQzhBODkyIiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiNDOEE4OTIiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+RVJEUzwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+5aSn5qih5Z6LPC90ZXh0PjxsaW5lIHgxPSI4MCIgeTE9IjM1MCIgeDI9IjIyMCIgeTI9IjM1MCIgc3Ryb2tlPSIjQzhBODkyIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNiIvPjwvc3ZnPg==';" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-大模型"></span>
-              <span class="card-source-name">OpenAI 官方博客</span>
-              <span class="card-divider">·</span>
+              <span class="card-source-name">OpenAI 官博</span>
+              <span class="card-divider">／</span>
               <span>今日</span>
               <span class="card-arrow">→</span>
             </div>
-            <h2 class="headline">OpenAI 推理模型攻克 80 年数学难题，Erdős 猜想被推翻</h2>
+            <h2 class="headline">OpenAI 推理模型攻克 Erdős 80 年数学难题，单位距离猜想被推翻</h2>
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">通用推理模型自主推翻 1946 年 Erdős 单位距离猜想 / 代数数论→几何跨领域知识迁移 / 菲尔兹奖得主 Gowers 背书 / 普林斯顿 Sawhney 优化 δ＝0.014 / 125 页推理轨迹公开</p>
-          <div class="comment">这不是 AI 做题，是 AI 做研究——代数数论→几何的跨领域迁移恰是人类数学突破的经典模式。80 年没人走这条路，模型找到了。但"AI 数学家"的叙事要克制：人类定义了问题、验证了证明，模型目前更像一个不知疲倦的搜索器。</div>
+          <p class="fact">通用推理模型独立给出 Gowers / Sawhney 反例构造 ／ 80 年代数数论开放问题首次被 AI 推翻。</p>
+          <div class="comment">推理模型从&quot;做高考题&quot;跨进&quot;动开放问题&quot;，数学家的工具栏正式增加一个新栏位。</div>
         </div>
       </a>
     </section>
 
-    <!-- Section: Agent -->
     <section class="section">
       <div class="section-header">
         <span class="section-dot dot-Agent"></span>
@@ -325,12 +198,12 @@
 
       <a class="card-link" href="https://new.qq.com/rain/a/20260521A02LOE00" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://inews.gtimg.com/om_ls/OfE8lXc6BVpR3IhpGd_iBnosBTLRMh3tqXR9fJY9kP46cAA_640330/0" alt="腾讯 Marvis" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUYyQzFBIi8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMwQTE0MEEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOUFCRThFIiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM5QUJFOEUiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjOUFCRThFIiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjOUFCRThFIiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiM5QUJFOEUiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+TVJWUzwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+QUdFTlQ8L3RleHQ+PGxpbmUgeDE9IjgwIiB5MT0iMzUwIiB4Mj0iMjIwIiB5Mj0iMzUwIiBzdHJva2U9IiM5QUJFOEUiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iMC42Ii8+PC9zdmc+" alt="腾讯 Marvis 正式上线：操作系统级 AI 助手，6 Agent 零配置" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUYyQzFBIi8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMwQTE0MEEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOUFCRThFIiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM5QUJFOEUiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjOUFCRThFIiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjOUFCRThFIiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiM5QUJFOEUiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+TVJWUzwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+QUdFTlQ8L3RleHQ+PGxpbmUgeDE9IjgwIiB5MT0iMzUwIiB4Mj0iMjIwIiB5Mj0iMzUwIiBzdHJva2U9IiM5QUJFOEUiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iMC42Ii8+PC9zdmc+';" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-Agent"></span>
-              <span class="card-source-name">钛媒体</span>
-              <span class="card-divider">·</span>
+              <span class="card-source-name">腾讯新闻</span>
+              <span class="card-divider">／</span>
               <span>今日</span>
               <span class="card-arrow">→</span>
             </div>
@@ -338,33 +211,12 @@
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">应用宝团队打造 / 6 个专项 Agent 协同调度 / 效率模式（混元+DeepSeek V4）+ 隐私模式（端侧 Qwen，断网可用）/ 每天 1000 万免费 Token / Windows + Android 已覆盖</p>
-          <div class="comment">从 Chatbot 到 Agent 到"操作系统级助手"——腾讯选了最重的一条路：直接接管系统底层。6 Agent 协同调度比单 Agent 更像真实团队分工，但端侧模型的隐私承诺和实际能力之间，用户很快会用脚投票。</div>
-        </div>
-      </a>
-
-      <a class="card-link" href="https://finance.sina.com.cn/stock/usstock/c/2026-05-20/doc-inhyqiyi8629149.shtml" target="_blank" rel="noopener">
-        <div class="card-hero">
-          <img src="https://inews.gtimg.com/om_ls/Of4JqFjGo7SxOGFXb1in27EtJAnaOGUpdOyvL-AzVjjCEAA_640330/0" alt="Meta 裁员" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
-          <div class="card-hero-content">
-            <div class="card-meta-row">
-              <span class="card-cat-dot dot-Agent"></span>
-              <span class="card-source-name">新浪财经</span>
-              <span class="card-divider">·</span>
-              <span>今日</span>
-              <span class="card-arrow">→</span>
-            </div>
-            <h2 class="headline">Meta 8000 人裁员落地，7000 人转岗 AI 新部门</h2>
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="fact">全球裁员约 8000 人（10%）/ 关闭 6000 在招岗位 / 7000 人转至四个 AI 新部门 / 引入"AI 原生设计原则"推扁平化 / 扎克伯格承诺年内不再公司级裁员</p>
-          <div class="comment">营收利润双增还裁员——AI 不只是技术路线，正在变成组织形态。7000 人转岗说明 Meta 不只是在削减成本，而是在用人力置换 AI 能力。但"AI 原生设计原则"听起来像用 AI 替代中层管理的委婉说法。</div>
+          <p class="fact">6 个内置 Agent ／ 端侧隐私模式 ／ Qwen 底座 ／ 与应用宝生态深度联动。</p>
+          <div class="comment">马维斯把 Agent 从 App 内服务下沉到 OS 层，腾讯抢占下一代入口的关键拼图。</div>
         </div>
       </a>
     </section>
 
-    <!-- Section: 政策 -->
     <section class="section">
       <div class="section-header">
         <span class="section-dot dot-政策"></span>
@@ -374,26 +226,25 @@
 
       <a class="card-link" href="https://www.whitehouse.gov/?p=31668" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://www.whitehouse.gov/wp-content/uploads/2025/03/WH47-Social-Share-Card.jpg" alt="白宫 AI 行政令" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+          <img src="https://www.whitehouse.gov/wp-content/uploads/2025/03/WH47-Social-Share-Card.jpg" alt="特朗普签署 AI 行政令：国家级框架取代州级碎片监管" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMkMyNTE2Ii8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMxNjExMEEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjQzhCNDY4IiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNDOEI0NjgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjQzhCNDY4IiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjQzhCNDY4IiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiNDOEI0NjgiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+V0g0NzwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+5pS/562WPC90ZXh0PjxsaW5lIHgxPSI4MCIgeTE9IjM1MCIgeDI9IjIyMCIgeTI9IjM1MCIgc3Ryb2tlPSIjQzhCNDY4IiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNiIvPjwvc3ZnPg==';" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-政策"></span>
-              <span class="card-source-name">WhiteHouse 官网</span>
-              <span class="card-divider">·</span>
+              <span class="card-source-name">白宫</span>
+              <span class="card-divider">／</span>
               <span>今日</span>
               <span class="card-arrow">→</span>
             </div>
-            <h2 class="headline">特朗普签 AI 行政令：国家级框架取代州级碎片监管</h2>
+            <h2 class="headline">特朗普签署 AI 行政令：国家级框架取代州级碎片监管</h2>
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">国家级 AI 政策框架 / 授权司法部挑战州级法规 / AI 诉讼特别工作组 / 模型发布前最长 90 天审查 / 情报机构参与前沿模型评估 / OpenAI、Anthropic 已接受通报</p>
-          <div class="comment">一边叫停州级"过度监管"，一边要模型发布前报备审查——看似矛盾实则统一：监管权收归联邦。对 AI 公司来说 50 套法规变 1 套是利好，但"发布前审查"如果落地，意味着模型上线从产品决策变成合规流程。</div>
+          <p class="fact">设立 AI 诉讼工作组 ／ 模型发布前审查 ／ 国家级框架取代各州独立立法。</p>
+          <div class="comment">联邦把 AI 监管收归中央，创业公司从&quot;50 套法规&quot;压力切换到&quot;1 套白名单&quot;门槛。</div>
         </div>
       </a>
     </section>
 
-    <!-- Section: 融资 -->
     <section class="section">
       <div class="section-header">
         <span class="section-dot dot-融资"></span>
@@ -401,14 +252,33 @@
         <div class="section-line"></div>
       </div>
 
-      <a class="card-link" href="https://new.qq.com/rain/a/20260521A01D7F00" target="_blank" rel="noopener">
+      <a class="card-link" href="https://finance.sina.com.cn/stock/usstock/c/2026-05-20/doc-inhyqiyi8629149.shtml" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://inews.gtimg.com/news_ls/O5-EGeQal6dUd-lMpd4yGsOPcOOIMwIHkkRkHz-QcESgAAA_640330/0" alt="OpenAI IPO" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUYyQzBFIi8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMwRTE2MDYiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOENDNDRBIiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4Q0M0NEEiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjOENDNDRBIiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjOENDNDRBIiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiM4Q0M0NEEiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+TUVUQTwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+6J6N6LWEPC90ZXh0PjxsaW5lIHgxPSI4MCIgeTE9IjM1MCIgeDI9IjIyMCIgeTI9IjM1MCIgc3Ryb2tlPSIjOENDNDRBIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNiIvPjwvc3ZnPg==" alt="Meta 8000 人裁员落地，7000 人转岗 AI 新部门" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUYyQzBFIi8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMwRTE2MDYiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOENDNDRBIiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4Q0M0NEEiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjOENDNDRBIiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjOENDNDRBIiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiM4Q0M0NEEiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+TUVUQTwvdGV4dD48dGV4dCB4PSI4MCIgeT0iMzIwIiBmb250LWZhbWlseT0iLWFwcGxlLXN5c3RlbSxCbGlua01hY1N5c3RlbUZvbnQsJ1BpbmdGYW5nIFNDJyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBsZXR0ZXItc3BhY2luZz0iMiI+6J6N6LWEPC90ZXh0PjxsaW5lIHgxPSI4MCIgeTE9IjM1MCIgeDI9IjIyMCIgeTI9IjM1MCIgc3Ryb2tlPSIjOENDNDRBIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNiIvPjwvc3ZnPg==';" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-融资"></span>
-              <span class="card-source-name">Bloomberg</span>
-              <span class="card-divider">·</span>
+              <span class="card-source-name">新浪财经</span>
+              <span class="card-divider">／</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Meta 8000 人裁员落地，7000 人转岗 AI 新部门</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">裁员 8000 人 ／ 同步转岗 7000 人到 AAI 新部门 ／ 推行&quot;AI 原生设计原则&quot;。</p>
+          <div class="comment">扎克伯格把组织拆开重装，每条产线都要被 AI 原生重做一次。</div>
+        </div>
+      </a>
+      <a class="card-link" href="https://new.qq.com/rain/a/20260521A01D7F00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUYyQzBFIi8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMwRTE2MDYiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOENDNDRBIiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4Q0M0NEEiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjOENDNDRBIiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjOENDNDRBIiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiM4Q0M0NEEiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+SVBPPC90ZXh0Pjx0ZXh0IHg9IjgwIiB5PSIzMjAiIGZvbnQtZmFtaWx5PSItYXBwbGUtc3lzdGVtLEJsaW5rTWFjU3lzdGVtRm9udCwnUGluZ0ZhbmcgU0MnLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zNSkiIGxldHRlci1zcGFjaW5nPSIyIj7ono3otYQ8L3RleHQ+PGxpbmUgeDE9IjgwIiB5MT0iMzUwIiB4Mj0iMjIwIiB5Mj0iMzUwIiBzdHJva2U9IiM4Q0M0NEEiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iMC42Ii8+PC9zdmc+" alt="OpenAI 秘密筹备 IPO，估值 8520 亿美元最快周五递表" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDY3NSI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUYyQzBFIi8+PHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiMwRTE2MDYiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODA4MEEiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iciIgY3g9IjIwJSIgY3k9IjMwJSIgcj0iNjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOENDNDRBIiBzdG9wLW9wYWNpdHk9IjAuMTgiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4Q0M0NEEiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNnKSIvPjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3NSIgZmlsbD0idXJsKCNyKSIvPjxjaXJjbGUgY3g9Ijk2MCIgY3k9IjE4MCIgcj0iMTEwIiBmaWxsPSIjOENDNDRBIiBvcGFjaXR5PSIwLjA4Ii8+PGNpcmNsZSBjeD0iMTA4MCIgY3k9IjU0MCIgcj0iMTYwIiBmaWxsPSIjOENDNDRBIiBvcGFjaXR5PSIwLjA1Ii8+PHRleHQgeD0iODAiIHk9IjI0MCIgZm9udC1mYW1pbHk9Ii1hcHBsZS1zeXN0ZW0sQmxpbmtNYWNTeXN0ZW1Gb250LCdQaW5nRmFuZyBTQycsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxODAiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IiM4Q0M0NEEiIG9wYWNpdHk9IjAuMTgiIGxldHRlci1zcGFjaW5nPSItNCI+SVBPPC90ZXh0Pjx0ZXh0IHg9IjgwIiB5PSIzMjAiIGZvbnQtZmFtaWx5PSItYXBwbGUtc3lzdGVtLEJsaW5rTWFjU3lzdGVtRm9udCwnUGluZ0ZhbmcgU0MnLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSI1MDAiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zNSkiIGxldHRlci1zcGFjaW5nPSIyIj7ono3otYQ8L3RleHQ+PGxpbmUgeDE9IjgwIiB5MT0iMzUwIiB4Mj0iMjIwIiB5Mj0iMzUwIiBzdHJva2U9IiM4Q0M0NEEiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iMC42Ii8+PC9zdmc+';" loading="lazy">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">腾讯新闻</span>
+              <span class="card-divider">／</span>
               <span>今日</span>
               <span class="card-arrow">→</span>
             </div>
@@ -416,18 +286,17 @@
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">高盛 + 摩根士丹利协助 / 最快 5 月 22 日秘密提交 / 估值约 8520 亿美元 / 目标 9 月上市 / 累计融资超 1800 亿 / 马斯克诉讼败诉清除障碍</p>
-          <div class="comment">8520 亿估值 vs 1800 亿融资——资本堆积速度远超营收验证。IPO 不是终点，是 OpenAI 向华尔街交出商业可持续性答卷的起点。Anthropic 同期冲刺 9000 亿，两大实验室的上市竞赛正在改写行业游戏规则。</div>
+          <p class="fact">高盛 ／ 摩根士丹利联合主承 ／ 估值 8520 亿美元 ／ 最快本周五秘密递表。</p>
+          <div class="comment">AI 时代第一个万亿级 IPO 的脚本已写好，二级市场算力期货故事正式登场。</div>
         </div>
       </a>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
       <div class="footer-brand">A I &nbsp; D A I L Y</div>
       <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+      <a class="archive-back" href="./">← 回到归档</a>
     </footer>
-
   </div>
 </body>
 </html>
