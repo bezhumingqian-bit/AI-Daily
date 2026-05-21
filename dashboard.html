@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI DAILY · 数据仪表盘</title>
+<meta name="description" content="AI 行业估值追踪、前沿模型能力对比、开源模型速查">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #08080A; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans", "Segoe UI", sans-serif;
+  color: #F0ECE4; line-height: 1.65; -webkit-font-smoothing: antialiased; min-height: 100vh;
+  position: relative; overflow-x: hidden;
+}
+
+.bg-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.bg-grid { position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 32px 32px; }
+.bg-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: float 20s ease-in-out infinite; }
+.bg-orb-1 { width: 400px; height: 400px; top: -10%; right: -8%; background: radial-gradient(circle, rgba(200,168,146,0.10) 0%, transparent 70%); }
+.bg-orb-2 { width: 300px; height: 300px; bottom: 10%; left: -10%; background: radial-gradient(circle, rgba(168,155,200,0.08) 0%, transparent 70%); animation-delay: -10s; }
+@keyframes float { 0%,100%{transform:translateY(0) translateX(0)} 50%{transform:translateY(10px) translateX(-10px)} }
+
+.container { max-width: 780px; margin: 0 auto; padding: 32px 16px 48px; position: relative; z-index: 1; }
+
+/* Header */
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+.header-left {}
+.header-brand { font-size: 10px; letter-spacing: 6px; color: rgba(255,255,255,0.25); margin-bottom: 8px; }
+.header-title { font-size: 22px; font-weight: 600; color: #F0ECE4; letter-spacing: 0.3px; }
+.header-meta { font-size: 11px; color: rgba(255,255,255,0.3); }
+.back-link { font-size: 11px; color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+.back-link:hover { color: rgba(255,255,255,0.7); }
+
+/* Tabs */
+.tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 28px; overflow-x: auto; }
+.tab {
+  padding: 10px 18px; font-size: 12px; color: rgba(255,255,255,0.4);
+  cursor: pointer; white-space: nowrap; letter-spacing: 0.5px;
+  border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s;
+  user-select: none;
+}
+.tab:hover { color: rgba(255,255,255,0.6); }
+.tab.active { color: #F0ECE4; border-bottom-color: #C8A892; font-weight: 500; }
+
+/* Tab Content */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Metric Cards */
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.metric-card {
+  background: #0E0E10; border: 1px solid rgba(255,255,255,0.05); border-radius: 10px;
+  padding: 16px 18px; transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.metric-card:hover { transform: translateY(-2px); }
+.metric-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 6px; letter-spacing: 0.5px; }
+.metric-value { font-size: 22px; font-weight: 600; color: #F0ECE4; margin-bottom: 4px; }
+.metric-change { font-size: 11px; }
+.metric-change.up { color: #9ABE8E; }
+.metric-change.down { color: #D07070; }
+.metric-change.flat { color: rgba(255,255,255,0.35); }
+
+/* Chart Container */
+.chart-box {
+  background: #0E0E10; border: 1px solid rgba(255,255,255,0.05); border-radius: 10px;
+  padding: 20px 22px; margin-bottom: 20px;
+}
+.chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.chart-title { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); }
+.chart-legend { display: flex; gap: 14px; }
+.chart-legend-item { font-size: 10px; display: flex; align-items: center; gap: 5px; }
+.chart-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* Timeline */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.timeline-item {
+  display: flex; align-items: center; gap: 14px; padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-date { font-size: 11px; color: rgba(255,255,255,0.3); min-width: 52px; letter-spacing: 0.3px; }
+.timeline-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.timeline-text { font-size: 12.5px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+/* Model Compare Table */
+.model-table-wrap { overflow-x: auto; }
+.model-table {
+  width: 100%; border-collapse: collapse; font-size: 12px;
+}
+.model-table th {
+  text-align: left; padding: 10px 12px; color: rgba(255,255,255,0.45);
+  font-weight: 500; font-size: 10.5px; letter-spacing: 0.8px; text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.06); white-space: nowrap;
+}
+.model-table td {
+  padding: 12px 12px; border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.6); vertical-align: middle;
+}
+.model-table tr:last-child td { border-bottom: none; }
+.model-table tr:hover td { background: rgba(255,255,255,0.02); }
+.model-name { font-weight: 500; color: #F0ECE4 !important; white-space: nowrap; }
+.best-in-col { color: #9ABE8E !important; font-weight: 500; }
+.model-badge {
+  display: inline-block; font-size: 9px; padding: 2px 6px; border-radius: 3px;
+  margin-left: 6px; vertical-align: middle;
+}
+.badge-closed { background: rgba(200,168,146,0.12); color: #C8A892; }
+.badge-open { background: rgba(154,190,142,0.12); color: #9ABE8E; }
+
+/* Filter Chips */
+.filters { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.filter-chip {
+  font-size: 11px; padding: 5px 12px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.45);
+  cursor: pointer; transition: all 0.2s; user-select: none;
+}
+.filter-chip:hover { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); }
+.filter-chip.active { border-color: rgba(200,168,146,0.4); color: #C8A892; background: rgba(200,168,146,0.08); }
+
+/* Footer */
+.footer { text-align: center; margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.04); }
+.footer-brand { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 3px; }
+
+@media (max-width: 480px) {
+  .container { padding: 20px 12px 36px; }
+  .header-title { font-size: 18px; }
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .tab { padding: 8px 14px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer">
+  <div class="bg-grid"></div>
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+</div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-brand">A I &nbsp; D A I L Y</div>
+      <div class="header-title">数据仪表盘</div>
+    </div>
+    <div style="text-align: right;">
+      <a href="index.html" class="back-link">← 返回主页</a>
+      <div class="header-meta" style="margin-top: 6px;">更新于 2026-05-21</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" data-tab="valuation">估值追踪</div>
+    <div class="tab" data-tab="models">模型对比</div>
+  </div>
+
+  <!-- Tab 1: 估值追踪 -->
+  <div class="tab-content active" id="tab-valuation">
+
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-label">DeepSeek</div>
+        <div class="metric-value">$515B</div>
+        <div class="metric-change up">↑ 415% · 1月内</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Anthropic</div>
+        <div class="metric-value">$900B</div>
+        <div class="metric-change up">↑ 50% · 3月内</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">OpenAI</div>
+        <div class="metric-value">$850B</div>
+        <div class="metric-change flat">→ +6% · 1月内</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">智谱 AI</div>
+        <div class="metric-value">HK$5000亿</div>
+        <div class="metric-change up">↑ 37% · 1周内</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">月之暗面</div>
+        <div class="metric-value">$200B</div>
+        <div class="metric-change up">↑ 100% · 2月内</div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-box">
+      <div class="chart-header">
+        <span class="chart-title">头部 AI 公司估值趋势（2025.12 — 2026.05）</span>
+      </div>
+      <canvas id="valuationChart" height="200"></canvas>
+    </div>
+
+    <!-- 融资时间轴 -->
+    <div class="chart-box">
+      <div class="chart-header">
+        <span class="chart-title">近期融资 · IPO 事件</span>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-date">05/14</span>
+          <span class="timeline-dot" style="background:#C8A892;box-shadow:0 0 6px rgba(200,168,146,0.5)"></span>
+          <span class="timeline-text">DeepSeek 首轮 ¥500亿 · 估值 $515B · 国家大基金领投 · 梁文锋出资 200 亿</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">05/12</span>
+          <span class="timeline-dot" style="background:#9ABE8E;box-shadow:0 0 6px rgba(154,190,142,0.5)"></span>
+          <span class="timeline-text">月之暗面 $20亿 · 估值 $200B · 美团龙珠领投 · 半年累计融资 $39B+</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">05/10</span>
+          <span class="timeline-dot" style="background:#C8B468;box-shadow:0 0 6px rgba(200,180,104,0.5)"></span>
+          <span class="timeline-text">阶跃星辰 $25亿 · 赴港 IPO 筹备中 · 产业链资本集中入场</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">05/07</span>
+          <span class="timeline-dot" style="background:#A89BC8;box-shadow:0 0 6px rgba(168,155,200,0.5)"></span>
+          <span class="timeline-text">Recursive Superintelligence $6.5亿 Series A · 估值 $46.5B · GV/Greycroft 领投</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">05/07</span>
+          <span class="timeline-dot" style="background:#9AB0BA;box-shadow:0 0 6px rgba(154,176,186,0.5)"></span>
+          <span class="timeline-text">Anthropic 与 Google Cloud 签署 $2000亿 / 5年 算力合同（TPU）</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-date">05/05</span>
+          <span class="timeline-dot" style="background:#B8B098;box-shadow:0 0 6px rgba(184,176,152,0.4)"></span>
+          <span class="timeline-text">OpenAI 成立 DeployCo · 初始投资 $40亿+ · 收购 Tomoro 150 人团队</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tab 2: 模型对比 -->
+  <div class="tab-content" id="tab-models">
+
+    <div class="filters">
+      <div class="filter-chip active" data-filter="all">全部</div>
+      <div class="filter-chip" data-filter="closed">闭源</div>
+      <div class="filter-chip" data-filter="open">开源</div>
+      <div class="filter-chip" data-filter="cn">国产</div>
+    </div>
+
+    <div class="chart-box" style="padding: 0; overflow: hidden;">
+      <div class="model-table-wrap">
+        <table class="model-table" id="modelTable">
+          <thead>
+            <tr>
+              <th>模型</th>
+              <th>类型</th>
+              <th>参数</th>
+              <th>上下文</th>
+              <th style="text-align:center">编程</th>
+              <th style="text-align:center">推理</th>
+              <th style="text-align:center">数学</th>
+              <th>价格 ($/M tok)</th>
+              <th>发布</th>
+            </tr>
+          </thead>
+          <tbody id="modelBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Radar Chart -->
+    <div class="chart-box" style="margin-top: 20px;">
+      <div class="chart-header">
+        <span class="chart-title">Top 3 模型能力雷达</span>
+      </div>
+      <canvas id="radarChart" height="260"></canvas>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="footer-brand">AI DAILY ／ 商 业 · 认 知 观 察 者 · 出 品</div>
+  </footer>
+
+</div>
+
+<script>
+// === Tab Switching ===
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// === Valuation Chart ===
+const vCtx = document.getElementById('valuationChart').getContext('2d');
+new Chart(vCtx, {
+  type: 'line',
+  data: {
+    labels: ['2025.12', '2026.01', '02', '03', '04', '05'],
+    datasets: [
+      { label: 'DeepSeek', data: [30, 40, 50, 100, 280, 515], borderColor: '#C8A892', borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#C8A892', tension: 0.3 },
+      { label: 'Anthropic', data: [350, 400, 500, 600, 750, 900], borderColor: '#9ABE8E', borderWidth: 1.5, pointRadius: 2, pointBackgroundColor: '#9ABE8E', tension: 0.3 },
+      { label: 'OpenAI', data: [700, 750, 770, 800, 820, 850], borderColor: '#9AB0BA', borderWidth: 1.5, pointRadius: 2, pointBackgroundColor: '#9AB0BA', tension: 0.3 },
+      { label: '智谱 AI', data: [80, 100, 120, 180, 300, 420], borderColor: '#A89BC8', borderWidth: 1.5, pointRadius: 2, pointBackgroundColor: '#A89BC8', tension: 0.3 },
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: true, position: 'top', labels: { color: 'rgba(240,236,228,0.5)', font: { size: 10 }, boxWidth: 12, padding: 16 } },
+      tooltip: { backgroundColor: '#1A1A1C', titleColor: '#F0ECE4', bodyColor: 'rgba(240,236,228,0.7)', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1, padding: 10, callbacks: { label: ctx => ctx.dataset.label + ': $' + ctx.parsed.y + 'B' } }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: 'rgba(240,236,228,0.3)', font: { size: 10 } } },
+      y: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: 'rgba(240,236,228,0.3)', font: { size: 10 }, callback: v => '$' + v + 'B' }, beginAtZero: true }
+    }
+  }
+});
+
+// === Model Data ===
+const models = [
+  { name: 'GPT-5.5', type: 'closed', region: 'us', params: '—', ctx: '256K', code: 94.2, reason: 91.8, math: 89.5, price: '15 / 60', released: '2026.04' },
+  { name: 'Claude Opus 4.7', type: 'closed', region: 'us', params: '—', ctx: '200K', code: 93.8, reason: 93.5, math: 91.2, price: '15 / 75', released: '2026.05' },
+  { name: 'Gemini 3.5 Pro', type: 'closed', region: 'us', params: '—', ctx: '2M', ctx_best: true, code: 92.1, reason: 90.4, math: 88.0, price: '7 / 21', released: '2026.05' },
+  { name: 'DeepSeek V4', type: 'open', region: 'cn', params: '1.6T MoE', ctx: '1M', code: 91.5, reason: 90.8, math: 90.0, price: '2 / 8', released: '2026.05' },
+  { name: 'Qwen3.6-27B', type: 'open', region: 'cn', params: '27B Dense', ctx: '262K', code: 85.2, reason: 82.4, math: 80.1, price: '免费', released: '2026.05' },
+  { name: 'Kimi K2.6', type: 'open', region: 'cn', params: '—', ctx: '128K', code: 88.7, reason: 84.3, math: 82.5, price: '免费', released: '2026.05' },
+  { name: 'Llama 4 Maverick', type: 'open', region: 'us', params: '400B MoE', ctx: '1M', code: 87.3, reason: 85.1, math: 83.2, price: '免费', released: '2026.04' },
+  { name: 'Ring-2.6-1T', type: 'open', region: 'cn', params: '1T', ctx: '128K', code: 84.0, reason: 86.2, math: 79.8, price: '免费', released: '2026.05' },
+];
+
+function findBest(field) { return Math.max(...models.map(m => m[field])); }
+const bestCode = findBest('code'), bestReason = findBest('reason'), bestMath = findBest('math');
+
+function renderTable(filter) {
+  const filtered = filter === 'all' ? models :
+    filter === 'closed' ? models.filter(m => m.type === 'closed') :
+    filter === 'open' ? models.filter(m => m.type === 'open') :
+    models.filter(m => m.region === 'cn');
+
+  const tbody = document.getElementById('modelBody');
+  tbody.innerHTML = filtered.map(m => `<tr>
+    <td class="model-name">${m.name}</td>
+    <td><span class="model-badge ${m.type === 'closed' ? 'badge-closed' : 'badge-open'}">${m.type === 'closed' ? '闭源' : '开源'}</span></td>
+    <td>${m.params}</td>
+    <td${m.ctx_best ? ' class="best-in-col"' : ''}>${m.ctx}</td>
+    <td style="text-align:center" class="${m.code === bestCode ? 'best-in-col' : ''}">${m.code}</td>
+    <td style="text-align:center" class="${m.reason === bestReason ? 'best-in-col' : ''}">${m.reason}</td>
+    <td style="text-align:center" class="${m.math === bestMath ? 'best-in-col' : ''}">${m.math}</td>
+    <td>${m.price}</td>
+    <td>${m.released}</td>
+  </tr>`).join('');
+}
+renderTable('all');
+
+// Filter chips
+document.querySelectorAll('.filter-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    renderTable(chip.dataset.filter);
+  });
+});
+
+// === Radar Chart ===
+const rCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(rCtx, {
+  type: 'radar',
+  data: {
+    labels: ['编程', '推理', '数学', '上下文长度', '性价比', '中文能力'],
+    datasets: [
+      { label: 'GPT-5.5', data: [94, 92, 90, 60, 50, 85], borderColor: '#9AB0BA', backgroundColor: 'rgba(154,176,186,0.08)', borderWidth: 1.5, pointRadius: 2 },
+      { label: 'Claude Opus 4.7', data: [94, 94, 91, 55, 50, 88], borderColor: '#C8A892', backgroundColor: 'rgba(200,168,146,0.08)', borderWidth: 1.5, pointRadius: 2 },
+      { label: 'DeepSeek V4', data: [92, 91, 90, 80, 95, 95], borderColor: '#9ABE8E', backgroundColor: 'rgba(154,190,142,0.08)', borderWidth: 1.5, pointRadius: 2 },
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'top', labels: { color: 'rgba(240,236,228,0.5)', font: { size: 10 }, boxWidth: 12, padding: 16 } }
+    },
+    scales: {
+      r: {
+        angleLines: { color: 'rgba(255,255,255,0.05)' },
+        grid: { color: 'rgba(255,255,255,0.05)' },
+        pointLabels: { color: 'rgba(240,236,228,0.5)', font: { size: 11 } },
+        ticks: { display: false },
+        suggestedMin: 30, suggestedMax: 100
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
