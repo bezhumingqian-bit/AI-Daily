@@ -106,7 +106,9 @@
   .footer-brand { font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 2px; margin-bottom: 6px; }
   .footer-tag { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
   .card-hero img.error { display: none; }
-  .card-hero.no-img { background: linear-gradient(135deg, #1A1814 0%, #14161A 100%); }
+  .card-hero.no-img { background: linear-gradient(135deg, #1A1814 0%, #1C1A1E 40%, #14161A 100%); display: flex; align-items: center; }
+  .card-hero.no-img::before { content: ""; position: absolute; right: -20px; top: -20px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(168,155,200,0.08) 0%, transparent 70%); border-radius: 50%; }
+  .card-hero.no-img .headline { font-size: 21px; text-shadow: none; }
   @media (max-width: 480px) {
     .container { padding: 16px 12px 32px; }
     .nav { padding: 8px 2px 10px; }
@@ -155,7 +157,7 @@
 
       <a class="card-link" href="https://openai.com/index/" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://images.ctfassets.net/kftzwdyauwt9/6WJOhxvdNpC5hDvpiSAqE0/8a11ba6abdabb6a5a674de733cfa710d/SEO-Polynomial-Construction-16x9.png?w=1600&h=900&fit=fill" alt="OpenAI Codex" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+          <img src="https://images.ctfassets.net/kftzwdyauwt9/6WJOhxvdNpC5hDvpiSAqE0/8a11ba6abdabb6a5a674de733cfa710d/SEO-Polynomial-Construction-16x9.png?w=1600&h=900&fit=fill" alt="OpenAI Codex" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-Agent"></span>
@@ -184,7 +186,7 @@
 
       <a class="card-link" href="https://tech.ifeng.com/c/8tKUGfpvZPG" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://x0.ifengimg.com/ucms/2026_21/390C359CA8D1E42D172DB26319C68275AF1A614F_size251_w975_h549.jpg" alt="GLM-5.1 高速版" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+          <img src="https://x0.ifengimg.com/ucms/2026_21/390C359CA8D1E42D172DB26319C68275AF1A614F_size251_w975_h549.jpg" alt="GLM-5.1 高速版" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-大模型"></span>
@@ -204,7 +206,7 @@
 
       <a class="card-link" href="https://new.qq.com/rain/a/20260522A02KO500" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://inews.gtimg.com/om_ls/Ouhib6FQ7HU69PrpWqoyjBgnMb5CGc_1-dU6hYOCFOAl0AA_640330/0" alt="阿里语音大模型" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+          <img src="https://inews.gtimg.com/om_ls/Ouhib6FQ7HU69PrpWqoyjBgnMb5CGc_1-dU6hYOCFOAl0AA_640330/0" alt="阿里语音大模型" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-大模型"></span>
@@ -233,7 +235,7 @@
 
       <a class="card-link" href="https://new.qq.com/rain/a/20260522A030O700" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://inews.gtimg.com/om_ls/Oiu1ib_ndlL5-m6413AkcIJMNDoPCFMpBAsiIeD-fVDpkAA_640330/0" alt="Anthropic 营收" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+          <img src="https://inews.gtimg.com/om_ls/Oiu1ib_ndlL5-m6413AkcIJMNDoPCFMpBAsiIeD-fVDpkAA_640330/0" alt="Anthropic 营收" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-融资"></span>
@@ -251,9 +253,9 @@
         </div>
       </a>
 
-      <a class="card-link" href="https://new.qq.com/rain/a/20260522A035T900" target="_blank" rel="noopener">
+      <a class="card-link" href="https://finance.sina.com.cn/wm/2026-05-21/doc-inhyrfcu9231983.shtml" target="_blank" rel="noopener">
         <div class="card-hero no-img">
-          <img src="" alt="SpaceX Anthropic" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+          <img src="" alt="SpaceX Anthropic" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-融资"></span>
@@ -280,9 +282,9 @@
         <div class="section-line"></div>
       </div>
 
-      <a class="card-link" href="https://new.qq.com/rain/a/20260522A02KO500" target="_blank" rel="noopener">
-        <div class="card-hero">
-          <img src="https://inews.gtimg.com/om_ls/Ouhib6FQ7HU69PrpWqoyjBgnMb5CGc_1-dU6hYOCFOAl0AA_640330/0" alt="ZCube" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+      <a class="card-link" href="https://www.zhipuai.cn/zh/research/160" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <img src="" alt="ZCube" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-推理优化"></span>
@@ -312,7 +314,7 @@
 
       <a class="card-link" href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://opengraph.githubassets.com/10f7def1623b9e08b8783c6c5231a4abdf8a5d59d57d92b925381538ff34fa55/NousResearch/hermes-agent" alt="hermes-agent" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+          <img src="https://opengraph.githubassets.com/10f7def1623b9e08b8783c6c5231a4abdf8a5d59d57d92b925381538ff34fa55/NousResearch/hermes-agent" alt="hermes-agent" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-前沿技术"></span>
@@ -332,7 +334,7 @@
 
       <a class="card-link" href="https://github.com/HKUDS/CLI-Anything" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://opengraph.githubassets.com/ec53502beefc4f4e1d567f0626fa6b8fd62e2fb50d37fc9f16a3400a42024c83/HKUDS/CLI-Anything" alt="CLI-Anything" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
+          <img src="https://opengraph.githubassets.com/ec53502beefc4f4e1d567f0626fa6b8fd62e2fb50d37fc9f16a3400a42024c83/HKUDS/CLI-Anything" alt="CLI-Anything" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-前沿技术"></span>
