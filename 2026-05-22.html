@@ -15,6 +15,14 @@
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
   }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(255,255,255,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(255,255,255,0.7); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(255,255,255,0.2); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(255,255,255,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(255,255,255,0.8); }
+  .nav-back-arrow { font-size: 13px; }
   .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
   .header {
     background: linear-gradient(135deg, #1A1814 0%, #1C1A16 50%, #181614 100%);
@@ -101,6 +109,7 @@
   .card-hero.no-img { background: linear-gradient(135deg, #1A1814 0%, #14161A 100%); }
   @media (max-width: 480px) {
     .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
     .header { padding: 30px 22px 26px; border-radius: 14px; }
     .header-title { font-size: 26px; }
     .header-subtitle { font-size: 13.5px; margin-top: 8px; }
@@ -116,6 +125,15 @@
 </head>
 <body>
   <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 05 / 22</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
 
     <!-- Header -->
     <header class="header">

@@ -14,6 +14,14 @@
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
   }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(255,255,255,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(255,255,255,0.7); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(255,255,255,0.2); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(255,255,255,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(255,255,255,0.8); }
+  .nav-back-arrow { font-size: 13px; }
   .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
   .header {
     background: linear-gradient(135deg, #1A1814 0%, #1C1A16 50%, #181614 100%);
@@ -152,7 +160,13 @@
 </head>
 <body>
   <div class="container">
-    <nav style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.04)"><a href="index.html" style="font-size:11px;letter-spacing:5px;color:rgba(255,255,255,0.3);text-decoration:none;font-weight:500">AI DAILY</a><div style="display:flex;gap:14px"><a href="index.html" style="font-size:11px;color:rgba(255,255,255,0.4);text-decoration:none;letter-spacing:0.5px">主页</a><a href="dashboard.html" style="font-size:11px;color:rgba(255,255,255,0.4);text-decoration:none;letter-spacing:0.5px">仪表盘</a></div></nav>
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 05 / 21</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
     <header class="header">
       <div class="header-content">
         <div class="vol">VOL · 4</div>
