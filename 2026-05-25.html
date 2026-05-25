@@ -3,32 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<title>AI 日报 · 2026 年 5 月 25 日</title>
+<title>AI 日报 · 浅色模板</title>
 <meta name="description" content="把今天的 AI，一杯咖啡读完">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
-    background: #08080A;
-    color: #E8E6E3;
+    background: #F5F1E8;
+    color: #1A1A1A;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
   }
   .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
-  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(255,255,255,0.4); font-weight: 600; text-decoration: none; }
-  .nav-brand:hover { color: rgba(255,255,255,0.7); }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
   .nav-right { display: flex; align-items: center; gap: 16px; }
-  .nav-date { font-size: 10.5px; color: rgba(255,255,255,0.2); letter-spacing: 0.5px; }
-  .nav-back { font-size: 11px; color: rgba(255,255,255,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
-  .nav-back:hover { color: rgba(255,255,255,0.8); }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
   .nav-back-arrow { font-size: 13px; }
   .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
 
   /* ── Header ── */
   .header {
-    background: linear-gradient(135deg, #1A1814 0%, #1C1A16 50%, #181614 100%);
-    border: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
     border-radius: 18px;
     padding: 40px 32px 36px;
     margin-bottom: 28px;
@@ -40,7 +40,7 @@
     position: absolute;
     right: -40px; top: -40px;
     width: 180px; height: 180px;
-    background: radial-gradient(circle, rgba(180,140,100,0.14) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
     border-radius: 50%;
   }
   .header::before {
@@ -48,14 +48,14 @@
     position: absolute;
     left: -30px; bottom: -50px;
     width: 140px; height: 140px;
-    background: radial-gradient(circle, rgba(120,160,120,0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
     border-radius: 50%;
   }
   .header-content { position: relative; z-index: 2; }
   .vol {
     font-size: 11px;
     letter-spacing: 4px;
-    color: rgba(255,255,255,0.3);
+    color: rgba(26,26,26,0.35);
     text-transform: uppercase;
     margin-bottom: 16px;
   }
@@ -64,14 +64,14 @@
     font-weight: 700;
     letter-spacing: -0.5px;
     line-height: 1.2;
-    background: linear-gradient(135deg, #F0ECE4 0%, #C8C0B4 100%);
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   .header-subtitle {
     font-size: 15px;
-    color: rgba(255,255,255,0.45);
+    color: rgba(26,26,26,0.5);
     margin-top: 10px;
     font-weight: 400;
     letter-spacing: 0.5px;
@@ -79,7 +79,7 @@
   }
   .header-date {
     font-size: 12px;
-    color: rgba(255,255,255,0.25);
+    color: rgba(26,26,26,0.3);
     margin-top: 18px;
     letter-spacing: 1px;
   }
@@ -87,7 +87,7 @@
     content: "";
     display: inline-block;
     width: 16px; height: 1px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(26,26,26,0.15);
     vertical-align: middle;
     margin-right: 10px;
     margin-top: -2px;
@@ -108,8 +108,8 @@
     flex-shrink: 0;
   }
   .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
-  .section-line { flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
-  .section-sub { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
 
   /* ── Image Card ── */
   .card-link {
@@ -119,13 +119,13 @@
     margin-bottom: 14px;
     border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(0,0,0,0.06);
     transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
   }
   .card-link:hover {
     transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.12);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
   }
   .card-link:active { transform: translateY(-1px); }
 
@@ -134,18 +134,18 @@
     width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    background: #111113;
+    background: #F0EDE6;
   }
   .card-hero img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
-    filter: brightness(0.65) saturate(0.8);
+    filter: brightness(0.92) saturate(0.9);
   }
   .card-link:hover .card-hero img {
     transform: scale(1.04);
-    filter: brightness(0.78) saturate(1);
+    filter: brightness(0.98) saturate(1);
   }
 
   .card-hero::after {
@@ -153,7 +153,7 @@
     position: absolute;
     left: 0; right: 0; bottom: 0;
     height: 70%;
-    background: linear-gradient(to top, #0E0E10 0%, rgba(14,14,16,0.92) 35%, rgba(14,14,16,0.4) 70%, transparent 100%);
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
     pointer-events: none;
   }
 
@@ -169,7 +169,7 @@
     gap: 10px;
     margin-bottom: 12px;
     font-size: 11px;
-    color: rgba(255,255,255,0.55);
+    color: rgba(26,26,26,0.6);
     letter-spacing: 0.3px;
   }
   .card-cat-dot {
@@ -178,103 +178,102 @@
     flex-shrink: 0;
   }
   .card-source-name {
-    color: rgba(255,255,255,0.65);
+    color: rgba(26,26,26,0.7);
     font-weight: 500;
   }
   .card-divider {
-    color: rgba(255,255,255,0.2);
+    color: rgba(26,26,26,0.25);
   }
   .card-arrow {
     margin-left: auto;
-    color: rgba(255,255,255,0.25);
+    color: rgba(26,26,26,0.25);
     font-size: 14px;
     transition: color 0.2s ease, transform 0.2s ease;
   }
-  .card-link:hover .card-arrow { color: rgba(255,255,255,0.7); transform: translateX(4px); }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
 
   .headline {
     font-size: 19px;
     font-weight: 600;
-    color: #F5F2EC;
+    color: #1A1A1A;
     line-height: 1.4;
     letter-spacing: -0.2px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
   }
 
   /* Card body */
   .card-body {
-    background: #0E0E10;
+    background: #FFFFFF;
     padding: 20px 24px 22px;
   }
   .fact {
     font-size: 13px;
-    color: rgba(255,255,255,0.42);
+    color: rgba(26,26,26,0.55);
     line-height: 1.85;
     margin-bottom: 14px;
     letter-spacing: 0.1px;
   }
   .comment {
     font-size: 13.5px;
-    color: rgba(255,255,255,0.65);
+    color: rgba(26,26,26,0.7);
     line-height: 1.85;
     padding: 14px 18px;
-    background: rgba(255,255,255,0.025);
-    border-left: 2px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
     border-radius: 0 8px 8px 0;
     letter-spacing: 0.1px;
   }
 
-  /* Category dot colors */
-  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.5); }
-  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.5); }
-  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.5); }
-  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.5); }
-  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.5); }
-  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.5); }
-  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.5); }
-  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.5); }
+  /* Category dot colors — 低饱和 MUJI 适配 */
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
 
-  .stitle-大模型 { color: #C8A892; }
-  .stitle-Agent { color: #9ABE8E; }
-  .stitle-政策 { color: #C8B468; }
-  .stitle-融资 { color: #8CC44A; }
-  .stitle-开源 { color: #B8B098; }
-  .stitle-推理优化 { color: #9AB0BA; }
-  .stitle-安全 { color: #D07070; }
-  .stitle-前沿技术 { color: #A89BC8; }
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
 
   /* ── Footer ── */
   .footer {
     text-align: center;
     margin-top: 36px;
     padding: 24px 0 8px;
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(0,0,0,0.06);
   }
   .footer-brand {
     font-size: 13px;
-    color: rgba(255,255,255,0.4);
+    color: rgba(26,26,26,0.4);
     letter-spacing: 2px;
     margin-bottom: 6px;
   }
   .footer-tag {
     font-size: 11px;
-    color: rgba(255,255,255,0.2);
+    color: rgba(26,26,26,0.2);
     letter-spacing: 1px;
   }
 
   /* Image Error Fallback */
   .card-hero img.error { display: none; }
   .card-hero.no-img {
-    background: linear-gradient(135deg, #1A1814 0%, #1C1A1E 40%, #14161A 100%);
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
     display: flex; align-items: center;
   }
   .card-hero.no-img::before {
     content: ""; position: absolute; right: -20px; top: -20px;
     width: 120px; height: 120px;
-    background: radial-gradient(circle, rgba(168,155,200,0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
     border-radius: 50%;
   }
-  .card-hero.no-img .headline { font-size: 21px; text-shadow: none; }
+  .card-hero.no-img .headline { font-size: 21px; }
 
   /* Mobile */
   @media (max-width: 480px) {
@@ -323,9 +322,9 @@
         <div class="section-line"></div>
       </div>
 
-      <a class="card-link" href="https://new.qq.com/rain/a/20260525A01RYE00" target="_blank" rel="noopener">
+      <a class="card-link" href="#" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://inews.gtimg.com/om_ls/O0i1M48LnYrfx2s9ijw6l6rpU-HmoBkGJaEvbFkDLM22EAA_640330/0" alt="DeepSeek V4-Pro 永久降价" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <img src="https://inews.gtimg.com/om_ls/O0i1M48LnYrfx2s9ijw6l6rpU-HmoBkGJaEvbFkDLM22EAA_640330/0" alt="DeepSeek" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-大模型"></span>
@@ -339,13 +338,13 @@
         </div>
         <div class="card-body">
           <p class="fact">5月31日结束2.5折优惠后永久降至原定价1/4 / 每百万tokens输入(缓存命中)0.025元 / 输入(缓存未命中)3元 / 输出6元 / 创全球大模型API价格新低</p>
-          <div class="comment">从"限时优惠"到"永久折扣"，DeepSeek在价格战里打了最难的一张牌——不是打折，是改价。V4-Pro竞争力本就不弱，降价更多是抢开发者生态而非保生存。代价是毛利率：纯靠规模效应能否覆盖？这是每一家中国大模型公司都要回答的问题。</div>
+          <div class="comment">从"限时优惠"到"永久折扣"，DeepSeek在价格战里打了最难的一张牌——不是打折，是改价。V4-Pro竞争力本就不弱，降价更多是抢开发者生态而非保生存。代价是毛利率：纯靠规模效应能否覆盖？</div>
         </div>
       </a>
 
-      <a class="card-link" href="https://blog.google/innovation-and-ai/technology/research/gemini-for-science-io-2026/" target="_blank" rel="noopener">
+      <a class="card-link" href="#" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/science__keyword__blog-header.width-1300.jpg" alt="Google Gemini Science" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/science__keyword__blog-header.width-1300.jpg" alt="Gemini Nature" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-大模型"></span>
@@ -358,28 +357,8 @@
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">ERA 系统自动编写专家级科学软件 / Co-Scientist 多智能体架构持续生成+批判科研假设 / 测试时计算量扩展假设质量持续提升 / 两篇Nature同日上线 / Gemini for Science工具集同步发布</p>
-          <div class="comment">Google的打法很清晰：用Nature同行评审给工具链做信用背书。ERA解决"实验怎么跑"，Co-Scientist解决"问题怎么问"，恰好覆盖科研链条两端。但AI科学的真正瓶颈不在假设生成，在验证——Nature论文能不能被独立复现，才是试金石。</div>
-        </div>
-      </a>
-
-      <a class="card-link" href="https://new.qq.com/rain/a/20260525A01YCJ00" target="_blank" rel="noopener">
-        <div class="card-hero">
-          <img src="https://inews.gtimg.com/om_ls/OTwSnqEthWvH37aH8JcuNx-H3qjT0cWWSqi3XXlhkYChcAA_640330/0" alt="GPT-5.6 Sonnet 4.8" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
-          <div class="card-hero-content">
-            <div class="card-meta-row">
-              <span class="card-cat-dot dot-大模型"></span>
-              <span class="card-source-name">QQ 新闻综合</span>
-              <span class="card-divider">·</span>
-              <span>今日</span>
-              <span class="card-arrow">→</span>
-            </div>
-            <h2 class="headline">GPT-5.6 与 Claude Sonnet 4.8 或6月同台，多模型密集更新窗口将至</h2>
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="fact">Claude Code npm更新意外泄露Sonnet 4.8引用（约512000行内部调试source map）/ GPT-5.6出现iris-alpha/ember-alpha/beacon-alpha多变体标签 / Sonnet 4.8重点升级视觉+代码+指令遵循 / Gemini 3.5 Pro同期窗口</p>
-          <div class="comment">模型发布节奏从"各自为王"变成"默契同台"——头部厂商的发布时间越来越像手机厂商的发布会撞期。Sonnet 4.8跳过4.7直接升级，说明Anthropic在Agent场景上开始激进；GPT-5.6多变体暗示OpenAI在拆分推理和生成路径。6月会是今年第二个密集发布窗口。</div>
+          <p class="fact">ERA 系统自动编写专家级科学软件 / Co-Scientist 多智能体架构持续生成+批判科研假设 / 测试时计算量扩展假设质量持续提升 / 两篇Nature同日上线</p>
+          <div class="comment">Google的打法很清晰：用Nature同行评审给工具链做信用背书。ERA解决"实验怎么跑"，Co-Scientist解决"问题怎么问"。但AI科学的真正瓶颈不在假设生成，在验证——Nature论文能不能被独立复现，才是试金石。</div>
         </div>
       </a>
     </section>
@@ -392,9 +371,9 @@
         <div class="section-line"></div>
       </div>
 
-      <a class="card-link" href="https://www.36kr.com/p/3824047027458182" target="_blank" rel="noopener">
+      <a class="card-link" href="#" target="_blank" rel="noopener">
         <div class="card-hero">
-          <img src="https://img.36krcdn.com/hsossms/20260525/v2_e0c676e9c6104b4fba94beddd862c6fd@5091053@ai_oswg1134761oswg1053oswg495_img_png~tplv-1marlgjv7f-ai-v3:600:400:600:400:q70.jpg" alt="Claude 双记忆系统" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <img src="https://img.36krcdn.com/hsossms/20260525/v2_e0c676e9c6104b4fba94beddd862c6fd@5091053@ai_oswg1134761oswg1053oswg495_img_png~tplv-1marlgjv7f-ai-v3:600:400:600:400:q70.jpg" alt="Claude" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
           <div class="card-hero-content">
             <div class="card-meta-row">
               <span class="card-cat-dot dot-Agent"></span>
@@ -408,64 +387,7 @@
         </div>
         <div class="card-body">
           <p class="fact">双模记忆系统（经典记忆+文件记忆Memory Files）/ Dreams预览版自动整理记忆 / Conway Agent 7×24h永续运行 / 记忆架构上线以来最大规模翻新</p>
-          <div class="comment">从"无状态聊天"到"有记忆的助手"到"永不下线的Agent"——Anthropic三步跳的关键一跃。文件记忆把Claude从"对话"拉到"工作流"，Conway把Agent从"被调用"变成"一直在线"。但永不下线也意味着持续消耗Token，账单逻辑从"按次"变成"按月"——对企业是习惯改变，对个人是成本考验。</div>
-        </div>
-      </a>
-    </section>
-
-    <!-- Section: 推理优化 -->
-    <section class="section">
-      <div class="section-header">
-        <span class="section-dot dot-推理优化"></span>
-        <span class="section-title stitle-推理优化">推 理 优 化</span>
-        <div class="section-line"></div>
-      </div>
-
-      <a class="card-link" href="https://www.huawei.com/en/news/2026/5/idi-forum-data" target="_blank" rel="noopener">
-        <div class="card-hero">
-          <img src="https://www-file.huawei.com/dam/asset/view/20260525093439030008222956897975.jpg" alt="华为 AI 数据中心" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
-          <div class="card-hero-content">
-            <div class="card-meta-row">
-              <span class="card-cat-dot dot-推理优化"></span>
-              <span class="card-source-name">Huawei 官方</span>
-              <span class="card-divider">·</span>
-              <span>今日</span>
-              <span class="card-arrow">→</span>
-            </div>
-            <h2 class="headline">华为发布 AI 数据中心全栈方案：行业首推 KV Cache 存储卡，TTFT 降 90%</h2>
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="fact">Paris IDI Forum 2026发布 / 行业首个异构计算Context Memory Storage (CMS) / PB级共享KV cache池 / TTFT降低90% / 推理准确率提升30% / 3+1 AI数据平台 / xPU 1:10细粒度分片 / Nexent Agent平台自然语言生成Agent / 开发时间缩短80%</p>
-          <div class="comment">华为的路径和其他云厂商不同——从存储和芯片层往上打，而非从模型层往下。CMS本质上是把KV cache从GPU显存卸载到专用存储，解决长上下文推理的显存瓶颈。1:10 xPU分片意味着一张卡可以服务多个推理任务，资源利用率大幅提升。这不是模型层的创新，是基础设施层的创新——而基础设施层的壁垒往往比模型层更持久。</div>
-        </div>
-      </a>
-    </section>
-
-    <!-- Section: 融资 -->
-    <section class="section">
-      <div class="section-header">
-        <span class="section-dot dot-融资"></span>
-        <span class="section-title stitle-融资">融 资</span>
-        <div class="section-line"></div>
-      </div>
-
-      <a class="card-link" href="https://c.m.163.com/news/a/KTNB7QFJ051180F7.html" target="_blank" rel="noopener">
-        <div class="card-hero no-img">
-          <div class="card-hero-content">
-            <div class="card-meta-row">
-              <span class="card-cat-dot dot-融资"></span>
-              <span class="card-source-name">智东西 / The Information</span>
-              <span class="card-divider">·</span>
-              <span>昨日</span>
-              <span class="card-arrow">→</span>
-            </div>
-            <h2 class="headline">宁德时代拟参投 DeepSeek 首轮，100 亿美元估值 450 亿</h2>
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="fact">融资规模约100亿美元（约700亿人民币）/ 投前估值约450亿美元 / 宁德时代计划参与 / 京东、网易也在洽谈 / 国家大基金、腾讯、IDG均在商议 / 梁文锋承诺继续开发开源模型 / 预计6月内完成</p>
-          <div class="comment">宁德时代出现在AI融资方名单里，信号比金额更值得关注——电池厂投大模型，本质是锁定算力基础设施的能源需求。450亿美元估值vs开源路线：不卖模型卖推理，靠规模效应和成本优势换市场。宁德时代的参与说明AI产业链的上下游整合已经开始——不只是"做模型的"和"用模型的"，还有"给模型供电的"。</div>
+          <div class="comment">从"无状态聊天"到"有记忆的助手"到"永不下线的Agent"——Anthropic三步跳的关键一跃。文件记忆把Claude从"对话"拉到"工作流"，Conway把Agent从"被调用"变成"一直在线"。但永不下线也意味着持续消耗Token，账单逻辑从"按次"变成"按月"。</div>
         </div>
       </a>
     </section>
@@ -477,9 +399,9 @@
         <span class="section-title stitle-前沿技术">前 沿 技 术</span>
         <div class="section-line"></div>
       </div>
-      <p class="section-sub">Frontier · GitHub & arXiv 周边</p>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
 
-      <a class="card-link" href="https://github.com/ruvnet/ruflo" target="_blank" rel="noopener">
+      <a class="card-link" href="#" target="_blank" rel="noopener">
         <div class="card-hero">
           <img src="https://repository-images.githubusercontent.com/995029641/095f6349-c2bf-4850-b1bf-87ebfa3091db" alt="ruflo" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
           <div class="card-hero-content">
@@ -494,32 +416,12 @@
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">Agent编排平台 / 多智能体Swarm部署+自学习群体智能 / RAG集成 / 原生Claude Code + Codex集成 / 5月新增17,886 Stars / 企业级架构 / 开源</p>
-          <div class="comment">Agent从"单兵作战"到"蜂群协作"——ruflo代表的是多智能体编排的工程化方向。自学习群体智能是亮点：Swarm不是简单并行，而是Agent之间互相优化。但多Agent系统的调试和可观测性仍是行业痛点，49K Stars说明了需求，不代表问题已解决。</div>
+          <p class="fact">Agent编排平台 / 多智能体Swarm部署+自学习群体智能 / RAG集成 / 原生Claude Code + Codex集成 / 5月新增17,886 Stars / 开源</p>
+          <div class="comment">Agent从"单兵作战"到"蜂群协作"——ruflo代表的是多智能体编排的工程化方向。自学习群体智能是亮点：Swarm不是简单并行，而是Agent之间互相优化。但多Agent系统的调试和可观测性仍是行业痛点。</div>
         </div>
       </a>
 
-      <a class="card-link" href="https://github.com/0xSteph/pentest-ai" target="_blank" rel="noopener">
-        <div class="card-hero">
-          <img src="https://opengraph.githubassets.com/2f205f86136ea7395b65f7523c2b001c241ba288782014f66c391ddfa0e36d12/0xSteph/pentest-ai" alt="pentest-ai" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
-          <div class="card-hero-content">
-            <div class="card-meta-row">
-              <span class="card-cat-dot dot-前沿技术"></span>
-              <span class="card-source-name">GitHub</span>
-              <span class="card-divider">·</span>
-              <span>本周</span>
-              <span class="card-arrow">→</span>
-            </div>
-            <h2 class="headline">pentest-ai：205 工具安全渗透 MCP Server，v0.15.1 加固生产级安全</h2>
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="fact">205个安全工具wrapper + 17个专项Agent + 60个OWASP Top 10探针 / v0.15.1新增strict_scope/intensity=safe/rate_limit/bearer auth / Juice Shop 63.24%捕获率(43/68) / CLI+MCP双模式 / 本地运行无云依赖</p>
-          <div class="comment">把渗透测试变成MCP服务——安全工具正式进入Agent工具链。200+工具暴露给LLM也意味着攻击面成倍放大，strict_scope和intensity=safe恰好说明这个矛盾的尖锐性。这不是"AI做安全"，是"AI操作安全工具"——边界在哪里，v0.15.1的三个新安全选项已经在回答。</div>
-        </div>
-      </a>
-
-      <a class="card-link" href="https://arxiv.org/abs/2605.08693v1" target="_blank" rel="noopener">
+      <a class="card-link" href="#" target="_blank" rel="noopener">
         <div class="card-hero no-img">
           <div class="card-hero-content">
             <div class="card-meta-row">
@@ -533,8 +435,8 @@
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">反事实效用评估技能编辑决策 / DualAdv-GRPO分别估计任务+技能编辑优势 / ALFWorld成功率+8.8% / WebShop +9.3% / 从"使用技能"到"自主创建+修改+选择技能" / 5月9日提交arXiv</p>
-          <div class="comment">现有Agent框架的技能都是人工设计或外部注入的，SkillMaster让Agent自己创建、修改和选择技能——本质上是Agent的元学习能力。反事实评估是关键创新：不只问"这个技能有没有用"，而问"如果没有这个技能会怎样"。从tool-use到self-improving，这是Agent路线上必须跨越的一步。</div>
+          <p class="fact">反事实效用评估技能编辑决策 / DualAdv-GRPO分别估计任务+技能编辑优势 / ALFWorld成功率+8.8% / WebShop +9.3% / 从"使用技能"到"自主创建+修改+选择技能"</p>
+          <div class="comment">现有Agent框架的技能都是人工设计或外部注入的，SkillMaster让Agent自己创建、修改和选择技能——本质上是Agent的元学习能力。从tool-use到self-improving，这是Agent路线上必须跨越的一步。</div>
         </div>
       </a>
     </section>

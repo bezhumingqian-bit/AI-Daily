@@ -7,10 +7,10 @@
 <meta name="description" content="每天一杯咖啡的时间，看完 AI 行业最值得关注的事。">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { background: #08080A; }
+html, body { background: #F5F1E8; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans", "Segoe UI", sans-serif;
-  color: #F0ECE4; line-height: 1.65; -webkit-font-smoothing: antialiased; min-height: 100vh;
+  color: #1A1A1A; line-height: 1.65; -webkit-font-smoothing: antialiased; min-height: 100vh;
 }
 .container { max-width: 720px; margin: 0 auto; padding: 20px 16px 48px; }
 
@@ -19,10 +19,10 @@ body {
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px 0 14px; margin-bottom: 20px;
 }
-.nav-brand { font-size: 13px; letter-spacing: 3px; color: rgba(255,255,255,0.5); font-weight: 600; }
+.nav-brand { font-size: 13px; letter-spacing: 3px; color: rgba(26,26,26,0.5); font-weight: 600; }
 .nav-links { display: flex; gap: 18px; }
-.nav-links a { font-size: 11px; color: rgba(255,255,255,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
-.nav-links a:hover { color: rgba(255,255,255,0.8); }
+.nav-links a { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+.nav-links a:hover { color: rgba(26,26,26,0.8); }
 
 /* Header — 居中简洁版 */
 .header {
@@ -31,12 +31,12 @@ body {
 }
 .header h1 {
   font-size: 30px; font-weight: 700; line-height: 1.35; letter-spacing: 0.5px;
-  background: linear-gradient(135deg, #F0ECE4 0%, #C8A892 100%);
+  background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   margin-bottom: 14px;
 }
-.header-sub { font-size: 14px; color: rgba(255,255,255,0.45); letter-spacing: 1px; margin-bottom: 10px; }
-.header-date { font-size: 12px; color: rgba(255,255,255,0.2); letter-spacing: 1.5px; }
+.header-sub { font-size: 14px; color: rgba(26,26,26,0.5); letter-spacing: 1px; margin-bottom: 10px; }
+.header-date { font-size: 12px; color: rgba(26,26,26,0.25); letter-spacing: 1.5px; }
 
 /* Section Header */
 .section-header {
@@ -46,128 +46,128 @@ body {
 .section-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .section-title {
   font-size: 13px; font-weight: 500; letter-spacing: 3px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.7), rgba(255,255,255,0.4));
+  background: linear-gradient(90deg, rgba(26,26,26,0.7), rgba(26,26,26,0.4));
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
-.section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.08), transparent); margin-left: 8px; }
-.section-link { font-size: 10.5px; color: rgba(255,255,255,0.3); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; flex-shrink: 0; }
-.section-link:hover { color: rgba(255,255,255,0.7); }
+.section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(0,0,0,0.08), transparent); margin-left: 8px; }
+.section-link { font-size: 10.5px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; flex-shrink: 0; }
+.section-link:hover { color: rgba(26,26,26,0.8); }
 
 /* Featured Card — 头条大图 */
 .featured {
   display: block; text-decoration: none; color: inherit;
-  background: #0E0E10; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;
+  background: #FFFFFF; border: 1px solid rgba(0,0,0,0.06); border-radius: 10px;
   overflow: hidden; margin-bottom: 10px;
   transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s;
 }
-.featured:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+.featured:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
 .featured-hero { position: relative; width: 100%; aspect-ratio: 21/9; overflow: hidden; }
-.featured-hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6); transition: filter 0.3s; }
-.featured:hover .featured-hero img { filter: brightness(0.75); }
-.featured-hero.no-img { background: linear-gradient(135deg, #1A1814, #0E0E10); }
+.featured-hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.92); transition: filter 0.3s; }
+.featured:hover .featured-hero img { filter: brightness(0.98); }
+.featured-hero.no-img { background: linear-gradient(135deg, #E8E4DA, #F0EDE6); }
 .featured-hero.no-img img { display: none; }
-.featured-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 20px; background: linear-gradient(180deg, transparent 0%, rgba(8,8,10,0.9) 100%); }
-.featured-headline { font-size: 16px; font-weight: 500; color: #F0ECE4; line-height: 1.4; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
+.featured-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 20px; background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.9) 100%); }
+.featured-headline { font-size: 16px; font-weight: 500; color: #1A1A1A; line-height: 1.4; }
 .featured-body { padding: 14px 20px; }
-.featured-summary { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.65; margin-bottom: 8px; }
-.featured-meta { display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: rgba(255,255,255,0.3); }
+.featured-summary { font-size: 12.5px; color: rgba(26,26,26,0.55); line-height: 1.65; margin-bottom: 8px; }
+.featured-meta { display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: rgba(26,26,26,0.35); }
 .featured-tag { font-size: 9.5px; padding: 2px 7px; border-radius: 3px; font-weight: 500; }
 
 /* News List — 紧凑新闻行 */
 .news-list {
-  background: #0E0E10; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;
+  background: #FFFFFF; border: 1px solid rgba(0,0,0,0.06); border-radius: 10px;
   overflow: hidden; margin-bottom: 6px;
 }
 .news-row {
   display: flex; align-items: flex-start; gap: 12px; padding: 13px 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
   text-decoration: none; color: inherit; transition: background 0.2s;
 }
 .news-row:last-child { border-bottom: none; }
-.news-row:hover { background: rgba(255,255,255,0.015); }
+.news-row:hover { background: rgba(0,0,0,0.015); }
 .news-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
 .news-body { flex: 1; min-width: 0; }
-.news-title { font-size: 13.5px; font-weight: 500; color: #F0ECE4; line-height: 1.45; margin-bottom: 2px; }
-.news-sub { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.5; }
-.news-meta { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 10px; color: rgba(255,255,255,0.2); }
+.news-title { font-size: 13.5px; font-weight: 500; color: #1A1A1A; line-height: 1.45; margin-bottom: 2px; }
+.news-sub { font-size: 11px; color: rgba(26,26,26,0.4); line-height: 1.5; }
+.news-meta { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 10px; color: rgba(26,26,26,0.25); }
 .news-tag { font-size: 9px; padding: 1px 6px; border-radius: 3px; font-weight: 500; }
-.news-arrow { color: rgba(255,255,255,0.12); font-size: 12px; flex-shrink: 0; margin-top: 4px; }
-.news-row:hover .news-arrow { color: rgba(255,255,255,0.4); }
+.news-arrow { color: rgba(26,26,26,0.15); font-size: 12px; flex-shrink: 0; margin-top: 4px; }
+.news-row:hover .news-arrow { color: rgba(26,26,26,0.5); }
 
 /* GitHub / Frontier cards */
 .gh-card {
   display: block; text-decoration: none; color: inherit;
-  background: #0E0E10; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;
+  background: #FFFFFF; border: 1px solid rgba(0,0,0,0.06); border-radius: 10px;
   padding: 14px 18px; margin-bottom: 8px;
   transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s;
 }
 .gh-card:hover { transform: translateY(-2px); border-color: rgba(168,155,200,0.2); }
-.gh-name { font-size: 13px; font-weight: 500; color: #A89BC8; margin-bottom: 4px; }
-.gh-desc { font-size: 11.5px; color: rgba(255,255,255,0.45); line-height: 1.6; }
-.gh-stats { font-size: 10px; color: rgba(255,255,255,0.25); margin-top: 6px; display: flex; gap: 12px; }
-.gh-stats .up { color: #9ABE8E; }
+.gh-name { font-size: 13px; font-weight: 500; color: #9080B0; margin-bottom: 4px; }
+.gh-desc { font-size: 11.5px; color: rgba(26,26,26,0.5); line-height: 1.6; }
+.gh-stats { font-size: 10px; color: rgba(26,26,26,0.3); margin-top: 6px; display: flex; gap: 12px; }
+.gh-stats .up { color: #7EA06E; }
 
 /* Trending mini list */
 .trending-mini {
-  background: #0E0E10; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;
+  background: #FFFFFF; border: 1px solid rgba(0,0,0,0.06); border-radius: 10px;
   overflow: hidden; margin-top: 10px;
 }
-.trending-mini-head { padding: 10px 18px 6px; font-size: 10px; color: rgba(255,255,255,0.25); letter-spacing: 1.5px; }
+.trending-mini-head { padding: 10px 18px 6px; font-size: 10px; color: rgba(26,26,26,0.3); letter-spacing: 1.5px; }
 .trending-row {
   display: flex; align-items: center; gap: 10px; padding: 7px 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(0,0,0,0.03);
   text-decoration: none; color: inherit; transition: background 0.15s;
 }
 .trending-row:last-child { border-bottom: none; padding-bottom: 10px; }
-.trending-row:hover { background: rgba(255,255,255,0.015); }
+.trending-row:hover { background: rgba(0,0,0,0.015); }
 .trending-rank { font-size: 11px; font-weight: 600; min-width: 16px; text-align: center; }
 .trending-rank.top3 { color: #C8A892; }
-.trending-rank.normal { color: rgba(255,255,255,0.2); }
-.trending-repo { font-size: 11.5px; color: rgba(255,255,255,0.6); flex: 1; }
-.trending-growth { font-size: 10px; color: #9ABE8E; }
-.trending-stars { font-size: 10px; color: rgba(255,255,255,0.2); }
+.trending-rank.normal { color: rgba(26,26,26,0.25); }
+.trending-repo { font-size: 11.5px; color: rgba(26,26,26,0.65); flex: 1; }
+.trending-growth { font-size: 10px; color: #7EA06E; }
+.trending-stars { font-size: 10px; color: rgba(26,26,26,0.25); }
 
 /* Snapshot */
 .snapshot-grid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
 }
 .snapshot-card {
-  background: #0E0E10; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;
+  background: #FFFFFF; border: 1px solid rgba(0,0,0,0.06); border-radius: 8px;
   padding: 14px 10px; text-align: center;
 }
-.snapshot-label { font-size: 9.5px; color: rgba(255,255,255,0.3); margin-bottom: 4px; letter-spacing: 0.5px; }
-.snapshot-value { font-size: 16px; font-weight: 600; color: #F0ECE4; }
-.snapshot-change { font-size: 9.5px; margin-top: 3px; color: #9ABE8E; }
-.snapshot-sub { font-size: 9.5px; color: rgba(255,255,255,0.25); margin-top: 3px; }
+.snapshot-label { font-size: 9.5px; color: rgba(26,26,26,0.4); margin-bottom: 4px; letter-spacing: 0.5px; }
+.snapshot-value { font-size: 16px; font-weight: 600; color: #1A1A1A; }
+.snapshot-change { font-size: 9.5px; margin-top: 3px; color: #7EA06E; }
+.snapshot-sub { font-size: 9.5px; color: rgba(26,26,26,0.3); margin-top: 3px; }
 
 /* Weekly */
 .weekly-card {
   display: block; text-decoration: none; color: inherit;
-  background: #0E0E10; border: 1px solid rgba(154,190,142,0.1); border-radius: 10px;
+  background: #FFFFFF; border: 1px solid rgba(154,190,142,0.15); border-radius: 10px;
   padding: 18px 20px; position: relative; overflow: hidden;
   transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s;
 }
-.weekly-card:hover { transform: translateY(-2px); border-color: rgba(154,190,142,0.2); }
+.weekly-card:hover { transform: translateY(-2px); border-color: rgba(154,190,142,0.25); }
 .weekly-card::before { content:''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #9ABE8E, #A89BC8); border-radius: 3px 0 0 3px; }
-.weekly-quote { font-size: 13.5px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 8px; padding-left: 14px; }
-.weekly-meta { font-size: 10.5px; color: rgba(255,255,255,0.3); padding-left: 14px; }
+.weekly-quote { font-size: 13.5px; color: rgba(26,26,26,0.7); line-height: 1.7; margin-bottom: 8px; padding-left: 14px; }
+.weekly-meta { font-size: 10.5px; color: rgba(26,26,26,0.35); padding-left: 14px; }
 
 /* Past */
 .past-list { display: flex; flex-direction: column; gap: 6px; }
 .past-row {
   display: flex; align-items: center; gap: 12px; padding: 10px 14px;
-  background: #0E0E10; border: 1px solid rgba(255,255,255,0.04); border-radius: 8px;
+  background: #FFFFFF; border: 1px solid rgba(0,0,0,0.04); border-radius: 8px;
   text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.2s;
 }
-.past-row:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.08); }
-.past-date { font-size: 11px; color: rgba(255,255,255,0.3); min-width: 50px; }
+.past-row:hover { transform: translateY(-1px); border-color: rgba(0,0,0,0.1); }
+.past-date { font-size: 11px; color: rgba(26,26,26,0.35); min-width: 50px; }
 .past-tags { display: flex; gap: 5px; flex: 1; flex-wrap: wrap; }
-.past-tag { font-size: 9.5px; padding: 2px 7px; border-radius: 3px; background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.4); }
-.past-vol { font-size: 9px; color: rgba(200,168,146,0.5); letter-spacing: 1px; }
+.past-tag { font-size: 9.5px; padding: 2px 7px; border-radius: 3px; background: rgba(0,0,0,0.04); color: rgba(26,26,26,0.5); }
+.past-vol { font-size: 9px; color: rgba(200,168,146,0.6); letter-spacing: 1px; }
 
 /* Footer */
-.footer { text-align: center; margin-top: 32px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.04); }
-.footer-text { font-size: 10.5px; color: rgba(255,255,255,0.15); letter-spacing: 2px; }
+.footer { text-align: center; margin-top: 32px; padding-top: 18px; border-top: 1px solid rgba(0,0,0,0.06); }
+.footer-text { font-size: 10.5px; color: rgba(26,26,26,0.2); letter-spacing: 2px; }
 
 @media (max-width: 480px) {
   .container { padding: 16px 12px 36px; }
@@ -198,7 +198,7 @@ body {
 
   <!-- 今日速览 -->
   <div class="section-header">
-    <span class="section-dot" style="background:#C8A892;box-shadow:0 0 8px rgba(200,168,146,0.5)"></span>
+    <span class="section-dot" style="background:#C8A892;box-shadow:0 0 8px rgba(200,168,146,0.4)"></span>
     <span class="section-title">今 日 速 览</span>
     <div class="section-line"></div>
     <a href="2026-05-25.html" class="section-link">完整版 →</a>
@@ -214,7 +214,7 @@ body {
     <div class="featured-body">
       <div class="featured-summary">GPT-5.6 与 Sonnet 4.8 或6月同台 · 华为 KV Cache 存储卡 TTFT 降 90% · 宁德时代拟参投 DeepSeek 首轮</div>
       <div class="featured-meta">
-        <span class="featured-tag" style="background:rgba(200,168,146,0.12);color:#C8A892;">大模型</span>
+        <span class="featured-tag" style="background:rgba(200,168,146,0.12);color:#B08E72;">大模型</span>
         <span>VOL·6 · 今日</span>
       </div>
     </div>
@@ -258,7 +258,7 @@ body {
 
   <!-- 前沿技术 -->
   <div class="section-header">
-    <span class="section-dot" style="background:#A89BC8;box-shadow:0 0 8px rgba(168,155,200,0.5)"></span>
+    <span class="section-dot" style="background:#A89BC8;box-shadow:0 0 8px rgba(168,155,200,0.4)"></span>
     <span class="section-title">前 沿 技 术</span>
     <div class="section-line"></div>
     <a href="dashboard.html#tab-trending" class="section-link">GitHub 热榜 →</a>
@@ -286,7 +286,7 @@ body {
 
   <!-- 仪表盘 -->
   <div class="section-header">
-    <span class="section-dot" style="background:#9AB0BA;box-shadow:0 0 8px rgba(154,176,186,0.5)"></span>
+    <span class="section-dot" style="background:#9AB0BA;box-shadow:0 0 8px rgba(154,176,186,0.4)"></span>
     <span class="section-title">仪 表 盘</span>
     <div class="section-line"></div>
     <a href="dashboard.html" class="section-link">查看完整 →</a>
@@ -319,7 +319,7 @@ body {
 
   <!-- 本周周报 -->
   <div class="section-header">
-    <span class="section-dot" style="background:#9ABE8E;box-shadow:0 0 8px rgba(154,190,142,0.5)"></span>
+    <span class="section-dot" style="background:#9ABE8E;box-shadow:0 0 8px rgba(154,190,142,0.4)"></span>
     <span class="section-title">本 周 周 报</span>
     <div class="section-line"></div>
     <a href="weekly-2026-20.html" class="section-link">阅读全文 →</a>
@@ -332,7 +332,7 @@ body {
 
   <!-- 往期 -->
   <div class="section-header">
-    <span class="section-dot" style="background:rgba(255,255,255,0.15)"></span>
+    <span class="section-dot" style="background:rgba(26,26,26,0.2)"></span>
     <span class="section-title">往 期</span>
     <div class="section-line"></div>
   </div>
