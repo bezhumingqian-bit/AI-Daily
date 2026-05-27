@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026/05/27</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<meta property="og:title" content="AI 日报 · VOL·8 · 2026/05/27">
+<meta property="og:description" content="AlphaProof Nexus连破9道数学难题；Altman承认就业末日判断错误；MiniCPM5-1B开源1B超2B；支付宝AI支付破3亿笔">
+<meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  /* ── Section ── */
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  /* ── Image Card ── */
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  /* Card body */
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  /* Category dot colors — 低饱和 MUJI 适配 */
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  /* Image Error Fallback */
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 05 / 27</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 8</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 05 ／ 27 · 周二</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://arxiv.org/abs/2605.22763v1" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://n.sinaimg.cn/spider20260526/104/w1048h656/20260526/f482-2c87f4b385e0c078042bf6de2987cbbf.png" alt="AlphaProof Nexus" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Google DeepMind · arXiv</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">DeepMind AlphaProof Nexus 连破9道悬置56年数学难题</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Gemini 驱动4层智能体架构（LLM + Lean形式化验证 + 进化算法） / 353个Erdős开放问题中解决9个 / OEIS 44个猜想获证 / 每题推理成本仅数百美元 / 证明代码全开源GitHub</p>
+          <div class="comment">从AlphaGo到AlphaProof，DeepMind的路线很一致：选一个人类引以为傲的认知领域，然后正面强攻。这次的关键不是"AI算得快"，而是Lean编译器锁死了幻觉——每一步推理都过形式化验证，证明即正确。当数学证明的成本从"天才数十年"降到"模型几百美元"，数学研究的经济学被改写了。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260527A01IU700" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">OpenAI CEO 演讲</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Altman 公开承认：AI 就业末日判断大错特错</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">视频出席澳大利亚联邦银行悉尼会议 / "我原以为AI会淘汰更多初级白领职位，但实际并未发生" / 尝试用AI代回Slack和邮件，AI回复"这是Sam的AI"后深感人类互动不可替代 / "不会出现业内部分公司所鼓吹的就业末日"</p>
+          <div class="comment">OpenAI CEO自己打自己的脸，比任何第三方反驳都更有分量。但话要说全：汇丰、渣打、亚马逊确实在因AI裁减部分岗位，Altman的修正更多是"末日没那么快"而非"末日不存在"。真正值得注意的是他承认"高阶人工监管仍将是关键"——这不是乐观，是换了一种焦虑。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260527A02YET00" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">科创板日报</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Qwen3.7-Max 编程全球第二，阿里云 QwenCloud + MuleRun 出海</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">CodeArena 得分1541全球第二（仅次于Claude） / 可持续运行35小时 + 1000次工具调用 / QwenCloud 海外官网 + Agent产品MuleRun + Qoder编程平台 + QoderWork桌面智能体 / 阿里云CTO李飞飞：Agent爆发让模型调用量指数级增长</p>
+          <div class="comment">阿里这步棋的看点不在模型本身，而在"云 + Agent + 出海"的组合拳。Qwen3.7-Max的CodeArena第二是技术证明，MuleRun是Agent编排层，QwenCloud是海外分发渠道。三层叠加，阿里在做的不只是卖模型API，是在搭Agent时代的云计算基础设施。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260526A0A2SO00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://n.sinaimg.cn/spider20260526/617/w1267h950/20260526/c0c1-6cb104816c33bdcaf1f70fbc023a640d.jpg" alt="Alipay AI Payment" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">中新社 / 上海证券报</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">支付宝 AI 支付破3亿笔，发布全球首个 TokenPay 与 AI 钱包</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">3亿笔AI智能体支付 / 支持95%通用智能体框架（千问 / Claude Code / Hermes Agent等） / 全球首个TokenPay服务 + AI钱包 / AI付 + AI收 + TokenPay + AI钱包四件套 / MiniMax、阶跃星辰深度合作</p>
+          <div class="comment">3亿笔不是演示，是真实交易量——Agent已经在一个消费级支付网络里跑起来了。TokenPay的思路值得细看：Token作为AI服务的计量单位，支付从"人按按钮"变成"Agent消耗Token"。这把AI商业化的账本从"订阅制"推到了"流量计费制"。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://github.com/OpenBMB/MiniCPM" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/c816e3f0d489f4cc82776a33703a04075a06cd7d3bd22319397384815aebb8d9/OpenBMB/MiniCPM" alt="MiniCPM5-1B" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">GitHub / 面壁智能</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">MiniCPM5-1B 开源：1B参数超所有2B模型，0.5GB跑在手机上</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">AA-Index得分17.9超越所有2B以下模型 / INT4量化后仅0.5GB / MMLU-Pro 48.85 / MATH-500 91.60 / LCB-Pro 22.68 / 自研ForgeTrain AI训练框架 / 权重 + 数据集 + 部署方案全开源</p>
+          <div class="comment">智能密度定律的又一个注脚：3.5个月前2B参数的SOTA，现在1B就能超越。0.5GB跑在浏览器里，意味着端侧AI不再需要"先下载再等"——打开即用，才是AI桌宠能活下来的前提。但1B模型的天花板也很明显，工具调用和长上下文场景依然受限。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 推理优化 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-推理优化"></span>
+        <span class="section-title stitle-推理优化">推 理 优 化</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260527A02CCA00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OiiQCB_v2jYIEKjARXaOvd2X0X_SCiqVYPZo7hnfmqtAIAA_640330/0" alt="MiMo V2.5" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-推理优化"></span>
+              <span class="card-source-name">新浪科技</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">小米 MiMo V2.5 Pro 降价99%，Token量翻5-8倍对标 DeepSeek</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">API永久降价最高99% / 不再区分上下文窗口长度 / 同等价格下Token用量提升5-8倍 / 与DeepSeek V4 Pro同价位 / 小米Q1研发投入90亿元同比增33.4%</p>
+          <div class="comment">昨天DeepSeek V4-Pro降价，今天小米MiMo跟进——API价格战已从"谁先降"进入"谁敢降得更深"。小米的底气来自手机生态：MiMo跑在端侧不需要云端推理成本，API降价是在用硬件利润补贴软件定价。但纯API玩家没有这层缓冲，利润挤压下能撑多久是个问号。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/mukul975/Anthropic-Cybersecurity-Skills" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/1166506614/38d9aad0-5e51-43d0-8567-21443768d1be" alt="Cybersecurity Skills" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic Cybersecurity Skills：754个AI Agent安全技能，覆盖5大框架</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">10.2K Stars / 754个结构化网络安全技能 / 映射到5大安全框架 / 兼容Claude Code / Copilot / Codex CLI / Cursor / Gemini CLI等20+平台 / Python / 今日+880 Stars</p>
+          <div class="comment">把安全知识从"人读文档"变成"Agent可调用技能"——这是Agent从"能干活"到"能干安全活"的关键一步。754个技能覆盖5大框架，Agent不需要安全团队逐条写规则，而是直接从技能库按需取用。但安全是对抗性领域，昨天的技能明天可能就过时，技能库的维护节奏才是真正的考验。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/dograh-hq/dograh" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/6dbdae6ef1c944e430204058656ab1b8455dd4854b7681d209259af5d5fb6e01/dograh-hq/dograh" alt="dograh" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">dograh：MCP原生语音AI平台，自托管替代 Vapi 和 Retell</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">3.3K Stars（+399 today） / 开源语音AI平台 / 自托管替代Vapi / Retell / 支持Speech-to-Speech和LLM / STT / TTS组合 / 可视化工作流构建器 / MCP原生 + 电话系统集成</p>
+          <div class="comment">语音AI的痛点从来不是模型能力，是部署成本和集成复杂度。dograh把语音pipeline做成MCP原生，意味着Agent可以直接"开口说话"而不需要单独对接语音服务。自托管对隐私敏感场景是刚需，但语音实时性的SLA保障在自托管环境下是个不小挑战。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://arxiv.org/abs/2605.17734" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">arXiv</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Skill Programs：让 LLM Agent 从过往经验中提取可复用技能</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">arXiv 2605.17734 / 从Agent历史交互中自动提取可复用技能程序（Skill Programs） / 技能以程序化形式存储，可跨任务调用 / 解决长链条任务中Agent重复犯同样错误的问题 / 新加坡南洋理工大学</p>
+          <div class="comment">现有Agent的技能要么是人工设计，要么靠in-context learning临时凑合。Skill Programs让Agent把"踩过的坑"沉淀成可执行的程序——本质上是Agent的元学习能力。从tool-use到skill-creation，这是Agent路线从"用工具"到"造工具"的必经之路。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
