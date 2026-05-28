@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026 ／ 05 ／ 28</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  /* ── Section ── */
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  /* ── Image Card ── */
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  /* Card body */
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  /* Category dot colors — 低饱和 MUJI 适配 */
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  /* Image Error Fallback */
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 05 / 28</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 9</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 05 ／ 28 · 周四</p>
+      </div>
+    </header>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260528A02DYE00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OXKDvD86e6RK_TVLO7R3TsQenapktoJBmMuxBMgrSlKfAAA_640330/0" alt="Anthropic vs OpenAI" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">The Information</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 年化营收冲至 450 亿美元，5 个月翻 5 倍反超 OpenAI</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Anthropic 年化营收从 2025 年底 90 亿美元飙升至 450 亿美元 / Q2 预计收入 109 亿美元、营业利润 5.59 亿美元 / OpenAI 年化营收约 330 亿美元，Q1 运营亏损率 122% / 企业级 AI 市场份额从 10% 升至 65%</p>
+          <div class="comment">15 个月前还在追赶，现在甩开——Claude Code 是这轮弯道超车的核心引擎。Anthropic 靠企业 API 卖钱，OpenAI 靠订阅烧钱，两条路线的财务差距正在变成鸿沟。但 450 亿年化不可能永远翻倍，服务器扩容可能让 Anthropic 重新亏损。真正的分水岭是两家谁先上市。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://api-docs.deepseek.com/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://api-docs.deepseek.com/img/deepseek-social-card.jpeg" alt="DeepSeek R1-0528" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">DeepSeek 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">DeepSeek R1-0528 发布：AIME 70%→87.5%，164K 上下文 + 60 分钟深度思考</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">R1 模型首次重要升级 / AIME 2025 准确率从 70% 提升至 87.5% / 上下文扩展至 164K tokens / 单任务最长 60 分钟深度思考 / 仍以 V3 为基座但投入更多后训练算力 / 写作能力显著优化（论文/小说/散文）</p>
+          <div class="comment">版本号就是发布日期，DeepSeek 连升级都这么直白。从 70% 到 87.5% 的 AIME 跳跃说明后训练阶段的投入确实有效——不换基座也能大幅提升推理。但 60 分钟深度思考意味着高 Token 消耗，成本侧的压力不容忽视。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://openai.com/zh-Hans-CN/index/testing-ads-in-chatgpt/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://images.ctfassets.net/kftzwdyauwt9/21TdmlEzFwgoo7ZER7SNCV/001b3d542fd4d025a2dcd1a5ab9417fe/OAI_AdsTest_Blog_OpenGraph_1200x630.png?w=1600&h=900&fit=fill" alt="OpenAI Ads" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">OpenAI 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI 广告平台加速扩容：自助投放 + CPC 模式，剑指 25 亿美元广告收入</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Ads Manager 自助投放测试版上线 / 新增 CPC 按点击付费，建议出价 3-5 美元 / CPM 从 60 美元降至 25 美元 / 覆盖美/加/澳/新西兰免费用户 / 即将扩展至英/墨/巴/日/韩 / 付费用户无广告 / 2026 广告收入目标约 25 亿美元</p>
+          <div class="comment">从"要不要做广告"到"怎么把广告做大"——OpenAI 只用了三个月。CPC 模式的加入说明广告主要的是转化而非曝光。但 Anthropic 明确承诺 Claude 永不加广告，两条路线的分野越来越清晰：一个用广告补贴免费层，一个用利润补贴免费层。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260527A0ANT900" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/news_ls/O6XbpIU4LS4RCPXArKcE2XsHX6ikYoRrWSrNrbAbRRn8wAA_640330/0" alt="Tencent SPARK2026" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">腾讯官方</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">腾讯 SPARK2026：MagicDawn 神经渲染全面开源 + 代号 Craft AI 游戏创作平台</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">全球首个跨平台神经动态全局光照方案 NDGI 全面开源 / MagicDawn 深度适配 Arm 最新 GPU + AI 加速器 / 代号Craft：自然语言生成 2D/3D 游戏 / 免费开放超万种预制美术资产 / 《数字景德镇》融合 AI 数字人 + 3D 生成</p>
+          <div class="comment">游戏行业正在成为 AI 落地最深的应用领域之一。NDGI 开源意味着腾讯愿意把渲染底座让给社区——这不是技术慈善，是生态争夺。代号 Craft 把游戏开发门槛压到"说一句话"的程度，但一句话生成的游戏能不能玩，首测会给出答案。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 推理优化 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-推理优化"></span>
+        <span class="section-title stitle-推理优化">推 理 优 化</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260528A025IR00" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-推理优化"></span>
+              <span class="card-source-name">Vitalik Buterin</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Vitalik 评 DeepSeek V4 2-bit 量化：90GB 跑 35 token/s，多硬件支持是关键</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">DeepSeek V4 2-bit 量化版可在 90GB 内存内运行 / 苹果硬件约 35 token/s / AMD 上仅约 7 token/s / Mistral 推出 Leanstral（专注 Lean 代码），70GB 可运行，性能媲美 1T 参数模型 / Vitalik：多硬件支持是区分"去中心化 AI"与"CROPS AI"的关键</p>
+          <div class="comment">同一个模型，苹果 35 token/s vs AMD 7 token/s——5 倍差距不是模型的问题，是软件栈的问题。Vitalik 点出了本地部署的核心矛盾：量化技术已经够强，但硬件适配才是瓶颈。"去中心化 AI"不是口号问题，是工程问题。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/github/chrome-devtools-mcp" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/github/chrome-devtools-mcp" alt="Chrome DevTools MCP" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">GitHub 发布 Chrome DevTools MCP：AI Agent 直接操控浏览器调试与性能分析</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">chrome-devtools-mcp 遵循 Model Context Protocol / AI Agent 可直接访问 Chrome DevTools 全部功能 / 性能追踪（Trace + CrUX API）/ 实时网络请求监控、截屏、console 日志 / 基于 Puppeteer 自动化 / CLI 一行启动：npx chrome-devtools-mcp</p>
+          <div class="comment">MCP 拼图越来越完整——Agent 已经能读文件、调 API、管代码，现在连浏览器调试也打通了。这意味着 Agent 可以自己发现页面性能问题、分析网络瓶颈、修复 bug，然后验证修复效果。但把整个浏览器实例暴露给 AI，安全边界在缩小。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/lobehub/lobehub" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/643445235/1978054a-0d8d-41a7-b1f0-b9ca79278534" alt="LobeHub" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">LobeHub 77.6K Stars：Agent 团队调度器，7×24 运营 + 技能市场 + MCP 原生</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Chief Agent Operator 架构 / 将 Agent 组织为 7×24 运营团队（招聘/调度/汇报）/ Agent Skills 市场 + MCP 原生支持 / 覆盖 Claude / GPT / DeepSeek / Gemini 多模型 / 77.6K Stars / 5 月更新：agent-collaboration + agent-harness 模块</p>
+          <div class="comment">从"单 Agent 执行任务"到"多 Agent 团队协作"——LobeHub 的定位不是聊天界面，是 Agent 的人力资源系统。7×24 运营 + 技能市场的组合，意味着 Agent 可以被雇佣、被调度、被考核。但多 Agent 协调的可观测性和故障恢复，仍是工程痛点。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/shiyu-coder/Kronos" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/fa4a1e678469e9b12f0d59d962f5ab316c954a99fd98f8b065ef8e27525fb73b/shiyu-coder/Kronos" alt="Kronos" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Kronos：金融市场 Foundation Model，26.9K Stars，理解金融市场的"语言"</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Foundation Model for the Language of Financial Markets / 26,911 Stars / 今日 +401 Stars / 专为金融市场时序数据和语言设计 / 开源可商用 / 支持股价预测、风险量化、金融文本理解等多任务</p>
+          <div class="comment">通用大模型处理金融数据的幻觉率居高不下，Kronos 走的是"垂直 Foundation Model"路线——先学金融语言再学推理，而不是让通用模型"顺便"理解金融。这与 BloombergGPT 一脉相承，但开源策略让所有量化团队都能二次开发。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
