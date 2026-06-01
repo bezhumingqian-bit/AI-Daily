@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026/06/01</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<meta property="og:title" content="AI 日报 · VOL·11 · 2026年6月1日">
+<meta property="og:description" content="MiniMax M3开源、微软Polaris自研编程模型、Copilot写46%代码、Claude Mythos即将公开、DeepSeek首轮融资700亿">
+<meta property="og:type" content="article">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  /* ── Section ── */
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  /* ── Image Card ── */
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  /* Card body */
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  /* Category dot colors */
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  /* Image Error Fallback */
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 06 / 01</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 11</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 06 ／ 01 · 周日</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Card 1: MiniMax M3 -->
+      <a class="card-link" href="https://news.qq.com/rain/a/20260601A02ZFQ00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/news_ls/OjhlBh7Vd0gYaQhKIOXuueOWrK3Jm-N2s7D1LNxl6lzpIAA_640330/0" alt="MiniMax M3" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">IT之家 / MiniMax 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">MiniMax M3 开源：MSA 架构、1M 上下文，SWE-Bench Pro 超 GPT-5.5</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">自研 MSA 稀疏注意力架构，1M tokens 上下文计算量仅上代 1/20 / MoE 196B 总参数仅激活 11B / SWE-Bench Pro 59.0% 超 GPT-5.5 接近 Opus 4.7 / BrowseComp 83.5 超 Opus 4.7 / 10 天内开源权重</p>
+          <div class="comment">三项能力合一做开源——前沿 Coding、1M 上下文、原生多模态——MiniMax 在"完整前沿能力开放化"上比国内同行激进得多。MSA 不是简单改 KV cache，是从注意力机制底层重写长上下文效率。开源权重才是真牌：能不能在开发者生态跑通，决定了 M3 是模型发布还是生态事件。</div>
+        </div>
+      </a>
+
+      <!-- Card 2: GitHub Copilot 46% -->
+      <a class="card-link" href="https://gadgetsnow.indiatimes.com/tech-news/microsofts-in-house-coding-model-headlines-build-2026-as-openai-grip-loosens/articleshow/131384950.cms" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Ffiles.catbox.moe%2Ff881vx.png" alt="GitHub Copilot 46%" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Microsoft 官方数据</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">GitHub Copilot 已写平台 46% 代码，AI 编程从辅助变默认</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Build 2026 前发布数据：GitHub 平台 46% 代码由 Copilot 生成，较 2025 年 11 月的 40% 升 6 个百分点 / 470 万付费用户 / Fortune 500 中 90% 采用 / 6 月 1 日起按 token 计费</p>
+          <div class="comment">46% 不是四舍五入——全球最大代码平台上近半新代码来自 AI。问题已从"该不该用 AI 编程"变成"怎么治理 AI 生成的代码"。计费模式从包月转向按量，既是成本优化也是信号：AI 编程不再是增值功能，是基础设施。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Card 3: Microsoft Polaris -->
+      <a class="card-link" href="https://byteiota.com/github-copilot-project-polaris" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://byteiota.com/wp-content/uploads/2026/05/github-copilot-project-polaris.jpg" alt="Microsoft Polaris" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">The Information / Reuters</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">微软自研编程模型 Polaris 亮相 Build 2026，Copilot 不再只靠 OpenAI</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">MoE 架构专为 Copilot 定制，按语言/框架分专家模块 / 8 月起 470 万用户自动迁移 / 配 Turing Forge 企业微调（VPC 内，50 样本起步）/ Code Content Guarantee 承诺 IP 赔偿 / 4 月 OpenAI 合同重写后微软首次亮牌</p>
+          <div class="comment">OpenAI 合同重写后 46 天，微软就亮出底牌。Polaris 不是追赶 Claude Code，是把 Copilot 从"调用外部模型的产品"变成"自有模型驱动的平台"。MoE 按语言分专家——比通用模型更适合 IDE 场景，但也意味着每个语言子模型的训练数据要够深。Turing Forge 50 样本微调的承诺听起来像营销，但 VPC 内运行是真壁垒。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Card 4: Claude Mythos -->
+      <a class="card-link" href="https://dev.to/hiroki-ii-ai/ai-daily-digest-june-1-2026-claude-dynamic-workflows-microsoft-mai-nvidia-gtc-taipei-5eg5" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">Anthropic 确认</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Claude Mythos 即将公开发布：首月自主发现 23,019 个关键漏洞</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Anthropic 确认 Mythos Preview 数周内公开 / 首月在 Project Glasswing 合作基础设施中发现 23,019 个关键漏洞 / 目前仅限约 50 家组织（AWS、Apple、Google、Microsoft、IBM、Cloudflare、Mozilla）/ 公开发布将首次使自主漏洞发现广泛可用</p>
+          <div class="comment">当每家创业公司、每个开源项目、每个政府机构都能跑同款自动漏洞扫描器，攻防不对称将被彻底改写。23K 漏洞/月是能力证明，也是预警：网络安全从"谁先发现"变成"谁先修补"——而修补永远比发现慢。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Card 5: DeepSeek -->
+      <a class="card-link" href="https://new.qq.com/rain/a/20260601A038E700" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">21世纪经济报道</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">DeepSeek 首轮融资 700 亿：国家大基金领投，投前估值 450 亿美元</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">国家集成电路产业投资基金领投 DeepSeek 首轮 / 融资规模升至 700 亿元人民币 / 投前估值 450 亿美元 / 国家大基金成立 12 年来首次跨界投资纯大模型公司 / 多家市场化投资机构参与谈判</p>
+          <div class="comment">国家大基金投纯大模型公司——这不是财务投资，是战略定位。DeepSeek 从"杭州创业公司"变成"国家级 AI 战略平台"，信号意义远大于金额本身。但国家队入场也意味着 DeepSeek 的技术路线和开源策略可能面临新的约束。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <!-- Card 6: ECC -->
+      <a class="card-link" href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/bbf07e4f36c97ed499c2a3785cda4dda6cbad04ef89f0bf03b0d4498e1be194a/affaan-m/ECC" alt="ECC" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">ECC 175.9K Stars：AI 编码 Agent 性能优化系统，覆盖技能/记忆/安全</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Agent Harness 全栈优化：Skills（可复用自然语言技能）、Instincts（行为约束）、Memory（持久上下文）、Security（安全审计）/ 支持 Claude Code、Codex、Cursor、Gemini CLI 等 14+ 平台 / 175.9K Stars / 研究优先开发方法论</p>
+          <div class="comment">Agent 不缺框架，缺的是"怎么让 Agent 稳定跑在生产环境"。ECC 把 Skills、Memory、Security 做成统一 Harness——本质上是给 Agent 加了一套操作系统级的进程管理。175K Stars 说明开发者对"让 Agent 不闯祸"的需求远比"让 Agent 更聪明"迫切。</div>
+        </div>
+      </a>
+
+      <!-- Card 7: context-mode -->
+      <a class="card-link" href="https://github.com/mksglu/context-mode" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/14d49e2a0c90bfcf7d03591136cfa874b5b9da72a20183dd24ff506987e5b970/mksglu/context-mode" alt="context-mode" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">context-mode 13.6K Stars：MCP 上下文窗口优化，Token 消耗降 98%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">MCP Server 实现 / 沙箱化工具输出，上下文窗口 Token 消耗降低 98% / 支持 Claude Code、Codex、Cursor 等 14 个平台 / 13.6K Stars / TypeScript 实现</p>
+          <div class="comment">MCP 协议解决了"Agent 怎么连外部工具"，context-mode 解决的是"连完之后 Token 爆了怎么办"。98% 压缩意味着原来跑 1 次的 Token 预算现在能跑 50 次——这比模型降价更直接地降低了 Agent 的运行成本。</div>
+        </div>
+      </a>
+
+      <!-- Card 8: code-review-graph -->
+      <a class="card-link" href="https://github.com/tirth8205/code-review-graph" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/cfcd8447685db274227038a53a73bd9c7008799cd69f471f5a879f0ee67011ea/tirth8205/code-review-graph" alt="code-review-graph" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">code-review-graph 15.9K Stars：本地代码知识图谱，Code Review Token 降 6.8 倍</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">基于 Tree-sitter 构建本地代码知识图谱 / Claude Code 代码审查 Token 消耗降 6.8 倍 / 日常编码任务 Token 降最高 49 倍 / 增量索引 / 15.9K Stars / Python 实现</p>
+          <div class="comment">GraphRAG 从通用搜索搬进了 IDE——用知识图谱给 Claude Code 做"预习"，让它只读真正相关的代码而非整仓暴力灌入。增量索引是关键：代码库天天变，图谱必须跟着变。6.8 倍不是极限，49 倍才是——后者意味着某些场景下 Agent 的上下文效率接近了人类"只看 diff"的水平。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
