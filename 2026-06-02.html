@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026-06-02</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<meta property="og:title" content="AI 日报 · VOL·12 · 2026-06-02">
+<meta property="og:description" content="每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif; background: #F5F1E8; color: #1A1A1A; line-height: 1.65; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+  .header { background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%); border: 1px solid rgba(0,0,0,0.06); border-radius: 18px; padding: 40px 32px 36px; margin-bottom: 28px; position: relative; overflow: hidden; }
+  .header::after { content: ""; position: absolute; right: -40px; top: -40px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%); border-radius: 50%; }
+  .header::before { content: ""; position: absolute; left: -30px; bottom: -50px; width: 140px; height: 140px; background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%); border-radius: 50%; }
+  .header-content { position: relative; z-index: 2; }
+  .vol { font-size: 11px; letter-spacing: 4px; color: rgba(26,26,26,0.35); text-transform: uppercase; margin-bottom: 16px; }
+  .header-title { font-size: 34px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header-subtitle { font-size: 15px; color: rgba(26,26,26,0.5); margin-top: 10px; font-weight: 400; letter-spacing: 0.5px; line-height: 1.6; }
+  .header-date { font-size: 12px; color: rgba(26,26,26,0.3); margin-top: 18px; letter-spacing: 1px; }
+  .header-date::before { content: ""; display: inline-block; width: 16px; height: 1px; background: rgba(26,26,26,0.15); vertical-align: middle; margin-right: 10px; margin-top: -2px; }
+  .section { margin-bottom: 32px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding: 0 4px; }
+  .section-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+  .card-link { display: block; text-decoration: none; color: inherit; margin-bottom: 14px; border-radius: 16px; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease; }
+  .card-link:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.12); }
+  .card-link:active { transform: translateY(-1px); }
+  .card-hero { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #F0EDE6; }
+  .card-hero img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease; filter: brightness(0.92) saturate(0.9); }
+  .card-link:hover .card-hero img { transform: scale(1.04); filter: brightness(0.98) saturate(1); }
+  .card-hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 70%; background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%); pointer-events: none; }
+  .card-hero-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 20px; z-index: 2; }
+  .card-meta-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 11px; color: rgba(26,26,26,0.6); letter-spacing: 0.3px; }
+  .card-cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .card-source-name { color: rgba(26,26,26,0.7); font-weight: 500; }
+  .card-divider { color: rgba(26,26,26,0.25); }
+  .card-arrow { margin-left: auto; color: rgba(26,26,26,0.25); font-size: 14px; transition: color 0.2s ease, transform 0.2s ease; }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+  .headline { font-size: 19px; font-weight: 600; color: #1A1A1A; line-height: 1.4; letter-spacing: -0.2px; }
+  .card-body { background: #FFFFFF; padding: 20px 24px 22px; }
+  .fact { font-size: 13px; color: rgba(26,26,26,0.55); line-height: 1.85; margin-bottom: 14px; letter-spacing: 0.1px; }
+  .comment { font-size: 13.5px; color: rgba(26,26,26,0.7); line-height: 1.85; padding: 14px 18px; background: rgba(0,0,0,0.03); border-left: 2px solid rgba(0,0,0,0.08); border-radius: 0 8px 8px 0; letter-spacing: 0.1px; }
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+  .footer { text-align: center; margin-top: 36px; padding: 24px 0 8px; border-top: 1px solid rgba(0,0,0,0.06); }
+  .footer-brand { font-size: 13px; color: rgba(26,26,26,0.4); letter-spacing: 2px; margin-bottom: 6px; }
+  .footer-tag { font-size: 11px; color: rgba(26,26,26,0.2); letter-spacing: 1px; }
+  .card-hero img.error { display: none; }
+  .card-hero.no-img { background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%); display: flex; align-items: center; }
+  .card-hero.no-img::before { content: ""; position: absolute; right: -20px; top: -20px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%); border-radius: 50%; }
+  .card-hero.no-img .headline { font-size: 21px; }
+  @media (max-width: 480px) { .container { padding: 16px 12px 32px; } .nav { padding: 8px 2px 10px; } .header { padding: 30px 22px 26px; border-radius: 14px; } .header-title { font-size: 26px; } .header-subtitle { font-size: 13.5px; margin-top: 8px; } .card-link { border-radius: 12px; } .card-hero { aspect-ratio: 16 / 10; } .card-hero-content { padding: 18px 20px 16px; } .headline { font-size: 16px; } .card-body { padding: 16px 20px 18px; } .fact, .comment { font-size: 12.5px; } .section { margin-bottom: 28px; } }
+</style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 06 / 02</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 12</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 06 ／ 02 · 周一</p>
+      </div>
+    </header>
+<section class="section"><div class="section-header"><span class="section-dot dot-大模型"></span><span class="section-title stitle-大模型">大 模 型</span><div class="section-line"></div></div><a class="card-link" href="https://new.qq.com/rain/a/20260601A06Z7Q00" target="_blank" rel="noopener"><div class="card-hero"><img src="https://inews.gtimg.com/om_ls/OyJtUoAUeVRu5_o9pFrYxTZ_OkTHltrNf6WjomKulby5sAA_640330/0" alt="NVIDIA GTC台北：Vera Ru" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer"><div class="card-hero-content"><div class="card-meta-row"><span class="card-cat-dot dot-大模型"></span><span class="card-source-name">NVIDIA GTC Taipei</span><span class="card-divider">·</span><span>今日</span><span class="card-arrow">→</span></div><h2 class="headline">NVIDIA GTC台北：Vera Rubin全面量产 + Vera CPU + RTX Spark重构PC</h2></div></div><div class="card-body"><p class="fact">Vera Rubin AI系统全面量产，吞吐量比Grace Blackwell提升10倍 / Vera CPU任务速度比x86快1.8倍，首款专为AI智能体设计的CPU / RTX Spark三合一芯片(CPU+GPU+NPU)台积电3nm / 搭载RTX Spark笔记本今秋由戴尔/联想等品牌上市</p><div class="comment">黄仁勋从GPU公司变基础架构公司——Vera CPU硬刚Intel，RTX Spark联手微软+联发科重构PC。「算力即收入」不是口号，是英伟达把自己从卖芯片变成卖算力基础设施的战略宣言。</div></div></a>
+<a class="card-link" href="https://byteiota.com/github-copilot-project-polaris" target="_blank" rel="noopener"><div class="card-hero"><img src="https://byteiota.com/wp-content/uploads/2026/05/github-copilot-project-polaris.jpg" alt="微软Build 2026：MAI-Thi" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer"><div class="card-hero-content"><div class="card-meta-row"><span class="card-cat-dot dot-大模型"></span><span class="card-source-name">The Verge / IT之家</span><span class="card-divider">·</span><span>今日</span><span class="card-arrow">→</span></div><h2 class="headline">微软Build 2026：MAI-Thinking-1首个自研推理模型 + Polaris编程模型</h2></div></div><div class="card-body"><p class="fact">MAI-Thinking-1首个自研推理模型，未用其他模型输出蒸馏训练 / Project Polaris是MoE架构编程模型 / Copilot超级应用含Scout AI agent / Turing Forge企业微调仅需50个训练样本 / MAI-Image-2.5和MAI-Voice-2同期发布</p><div class="comment">微软做自研模型不是因为OpenAI不够好，是因为4月27日合同重签后OpenAI可上AWS和Google Cloud——Azure不再独家。Polaris的MoE架构跟DeepSeek V4、Kimi K2.6同路，说明MoE已是编程模型事实标准。但SWE-Bench分数没放出来，内部基准不能当终审。</div></div></a>
+</section>
+<section class="section"><div class="section-header"><span class="section-dot dot-融资"></span><span class="section-title stitle-融资">融 资</span><div class="section-line"></div></div><a class="card-link" href="https://www.wedoany.com/shortnews/187261.html" target="_blank" rel="noopener"><div class="card-hero"><img src="https://img.wedoany.com/2026/0602/20260602092113863.png" alt="Alphabet 800亿美元股权融资A" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer"><div class="card-hero-content"><div class="card-meta-row"><span class="card-cat-dot dot-融资"></span><span class="card-source-name">Bloomberg / 财联社</span><span class="card-divider">·</span><span>今日</span><span class="card-arrow">→</span></div><h2 class="headline">Alphabet 800亿美元股权融资AI基建，伯克希尔100亿入局</h2></div></div><div class="card-body"><p class="fact">总融资800亿美元（300亿承销+400亿市价发行+100亿伯克希尔私募）/ 伯克希尔以每股351.81/348.20美元分别认购A/C类股 / 2026资本开支上调至1800-1900亿美元 / 2027将显著增加 / 谷歌云收入同比+63% / 积压订单翻倍至4600亿</p><div class="comment">科技巨头历史上罕见股权融资——说明AI军备竞赛的资本密度已超出现金流+发债的覆盖能力。伯克希尔24小时内敲定100亿，Greg Abel接班后最大单笔押注。AI基建从「技术竞赛」变成「资产负债表竞赛」，谁的融资能力更强谁就能多买几年先发优势。</div></div></a>
+</section>
+<section class="section"><div class="section-header"><span class="section-dot dot-开源"></span><span class="section-title stitle-开源">开 源</span><div class="section-line"></div></div><a class="card-link" href="https://new.qq.com/rain/a/20260602A02ECS00" target="_blank" rel="noopener"><div class="card-hero"><img src="https://inews.gtimg.com/om_ls/OSpSbpgPsvWIxn7glUXAjnHGdwyaYpn1O2D-9S2GobfuMAA_640330/0" alt="NVIDIA开源Nemotron 3 U" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer"><div class="card-hero-content"><div class="card-meta-row"><span class="card-cat-dot dot-开源"></span><span class="card-source-name">NVIDIA GTC Taipei</span><span class="card-divider">·</span><span>今日</span><span class="card-arrow">→</span></div><h2 class="headline">NVIDIA开源Nemotron 3 Ultra：5500亿参数，推理速度5x，成本降30%</h2></div></div><div class="card-body"><p class="fact">5500亿参数开源模型 / 推理速度比前代快5倍 / 推理成本降低30% / 针对长期运行Agent优化 / 配套企业级Agent Toolkit（OpenShell安全沙盒+NemoClaw编排蓝图）</p><div class="comment">Nemotron的定位不是做最强通用模型，而是做「Agent的最佳大脑」——推理速度快5倍+成本降30%，瞄准的是Agent 7×24小时运行的场景。开源是手段，让NVIDIA的Agent生态绑定开发者才是目的。</div></div></a>
+</section>
+<section class="section"><div class="section-header"><span class="section-dot dot-政策"></span><span class="section-title stitle-政策">政 策</span><div class="section-line"></div></div><a class="card-link" href="https://openai.com/zh-Hans-CN/index/us-department-of-energy-collaboration/" target="_blank" rel="noopener"><div class="card-hero no-img"><div class="card-hero-content"><div class="card-meta-row"><span class="card-cat-dot dot-政策"></span><span class="card-source-name">OpenAI 官方博客</span><span class="card-divider">·</span><span>今日</span><span class="card-arrow">→</span></div><h2 class="headline">OpenAI与美国能源部签署MOU，AI加速「创世纪使命」科学发现</h2></div></div><div class="card-body"><p class="fact">OpenAI与DOE签署谅解备忘录 / 合作「创世纪使命」(Genesis Mission)汇聚政府+国家实验室+产业界 / 在国家实验室部署前沿模型 / 同日向白宫科技政策办公室提交AI加强科技领导力建议 / OpenAI定义2026为「科学之年」</p><div class="comment">与DOE的MOU不涉及具体资金，但打开了国家实验室算力和数据的通道。真正的增量不在军事合同，而在科学计算的token化——如果前沿模型能在DOE场景跑通，就是AI for Science最硬的背书。</div></div></a>
+</section>
+<section class="section"><div class="section-header"><span class="section-dot dot-Agent"></span><span class="section-title stitle-Agent">A G E N T</span><div class="section-line"></div></div><a class="card-link" href="https://view.inews.qq.com/a/20260601A03YLZ00" target="_blank" rel="noopener"><div class="card-hero"><img src="https://inews.gtimg.com/news_ls/OHSGi1042xBDUEgoMNmNxNZymSYua3h-yzC2-M0Him4TAAA_640330/0" alt="英伟达+宇树推出人形机器人Isaac G" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer"><div class="card-hero-content"><div class="card-meta-row"><span class="card-cat-dot dot-Agent"></span><span class="card-source-name">NVIDIA GTC / 财联社</span><span class="card-divider">·</span><span>今日</span><span class="card-arrow">→</span></div><h2 class="headline">英伟达+宇树推出人形机器人Isaac GR00T参考设计，75自由度</h2></div></div><div class="card-body"><p class="fact">宇树H2本体(1.8m/68kg)+Jetson Thor计算平台+Isaac GR00T开放开发平台 / 31个本体自由度+22x2手部自由度=75总自由度 / 五指机械手由Sharpa制造 / Cosmos 3物理世界模型同期发布 / 面向高等教育机构和研究实验室开放</p><div class="comment">黄仁勋说「身高体重和我差不多」——但意义不在尺寸，在于参考设计。宇树出本体，NVIDIA出计算+模型+仿真，Sharpa出手——这是机器人行业的「公版方案」。降低的不是性能上限，而是实验室入场的下限。</div></div></a>
+</section>
+<section class="section"><div class="section-header"><span class="section-dot dot-前沿技术"></span><span class="section-title stitle-前沿技术">前 沿 技 术</span><div class="section-line"></div></div><p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p><a class="card-link" href="https://github.com/supermemoryai/supermemory" target="_blank" rel="noopener"><div class="card-hero"><img src="https://opengraph.githubassets.com/45d1a3478e30b6cdee045c99bcf3d3ba02f0c7f33a14a6a072e787961df7896f/supermemoryai/supermemory" alt="supermemory：AI Agent" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer"><div class="card-hero-content"><div class="card-meta-row"><span class="card-cat-dot dot-前沿技术"></span><span class="card-source-name">GitHub</span><span class="card-divider">·</span><span>本周</span><span class="card-arrow">→</span></div><h2 class="headline">supermemory：AI Agent通用记忆引擎，24K Stars，今日+649</h2></div></div><div class="card-body"><p class="fact">24,040 Stars，今日+649 / 极快、可扩展的内存引擎 / 为AI Agent提供通用记忆API / 支持跨会话持久化记忆 / Agent时代的基础设施层项目</p><div class="comment">从「无状态聊天」到「有记忆的助手」是Agent最关键的跃迁。supermemory把记忆从每个Agent各自实现变成共享基础设施——类似数据库之于Web应用。Hermes Agent日均处理4580亿Token，靠的就是这种记忆层。</div></div></a>
+<a class="card-link" href="https://github.com/EveryInc/compound-engineering-plugin" target="_blank" rel="noopener"><div class="card-hero"><img src="https://opengraph.githubassets.com/5b4ab6c4296cc452072d34df697d4c22a3d9f45f692e5ba32905f160bca98f37/EveryInc/compound-engineering-plugin" alt="compound-engineering" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer"><div class="card-hero-content"><div class="card-meta-row"><span class="card-cat-dot dot-前沿技术"></span><span class="card-source-name">GitHub</span><span class="card-divider">·</span><span>本周</span><span class="card-arrow">→</span></div><h2 class="headline">compound-engineering-plugin：跨平台Agent编码插件，19K Stars</h2></div></div><div class="card-body"><p class="fact">19,134 Stars，今日+417 / Compound Engineering官方插件 / 同时支持Claude Code、OpenAI Codex、Cursor三大编码Agent / 提供统一的工程化Agent工作流 / 降低Agent平台锁定风险</p><div class="comment">一个插件跨三个编码Agent平台——在Agent碎片化时代是反直觉的。但开发者的真实需求就是这样：不想被任何一个平台锁定。它代表的是Agent工具链的「跨平台兼容」方向。</div></div></a>
+<a class="card-link" href="https://github.com/upstash/context7" target="_blank" rel="noopener"><div class="card-hero"><img src="https://opengraph.githubassets.com/d312f2d7941437950b4779d7e9c0a836ce66dffff8ee955a80996c6ad696d4e4/upstash/context7" alt="context7：MCP文档服务器，28" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer"><div class="card-hero-content"><div class="card-meta-row"><span class="card-cat-dot dot-前沿技术"></span><span class="card-source-name">GitHub</span><span class="card-divider">·</span><span>本周</span><span class="card-arrow">→</span></div><h2 class="headline">context7：MCP文档服务器，28K Stars，Agent不再用过时API</h2></div></div><div class="card-body"><p class="fact">28,214 Stars / MCP协议服务器 / 为AI编码Agent提供实时库文档注入 / 解决Agent使用过时API的问题 / MCP Servers类别Top 3项目</p><div class="comment">AI编码Agent最大的隐患不是「不会写代码」，而是「用过时API写代码」。context7通过MCP把最新库文档实时注入Agent上下文——本质是给Agent装了一个永不过时的参考手册。MCP正在成为AI Agent连接外部世界的USB-C接口，context7是最实用的那个插头。</div></div></a>
+</section>    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+  </div>
+</body>
+</html>
