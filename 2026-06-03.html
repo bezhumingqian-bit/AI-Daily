@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026／06／03</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 06 / 03</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 13</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 06 ／ 03 · 周三</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://openai.com/index/codex-for-every-role-tool-workflow/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://images.ctfassets.net/kftzwdyauwt9/4Dvw4ZQ90swvHAxpe8tf49/b38745978bd83b554ac8e4f5865cee37/16x9_SEO_Preview.png?w=1600&h=900&fit=fill" alt="OpenAI Codex" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">OpenAI 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Codex 合体 ChatGPT 倒计时：6 款角色插件 + Sites 交互式网站</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">6款角色插件覆盖数据分析/创意/销售/产品设计/股权投资/投行，62款应用+110项技能 / Sites一键生成交互式网站 / Annotations精准批注 / 500万周活增8倍 / 非开发者占比20%增速3倍于开发者 / 即将合并入ChatGPT惠及10亿用户</p>
+          <div class="comment">从"编程工具"到"全岗位AI员工"——Codex的三连跳和Anthropic Enterprise Agents正面硬刚。500万WAU里20%非开发者意味着市场正在验证：Agent的价值不在"写代码"，在"干活"。62款应用接入也意味着OpenAI正在从"模型公司"变成"平台公司"。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260603A02NKD00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://eventtools.event.microsoft.com/build2026/Build_FY26_Ph1-Registration_OpenGraph_Title-Date-Design_1200x630_Updated_3.9.png" alt="Microsoft Build 2026" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">微软 Build 2026</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">微软一口气发七款自研 MAI 模型，Copilot 不再只靠 OpenAI</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">MAI-Thinking-1推理模型(35B活跃参数/128K上下文/盲测偏好持平Sonnet 4.6) / MAI-Code-1-Flash(5B参数编码模型/已接入GitHub Copilot) / MAI-Image-2.5 / MAI-Voice-2 / MAI-Transcribe-1.5 / Project Solara(AI原生设备) / Scout主动Agent / Majorana 2量子芯片(12量子比特/寿命20秒+) / 全部零蒸馏从零训练</p>
+          <div class="comment">七款模型一口气亮牌，微软在说一件事：不再甘当OpenAI的渠道商。35B参数的MAI-Thinking-1盲测打平Sonnet 4.6是个信号——不是要赢，是要"够用且便宜"。加上Project Solara的AI原生设备和Scout主动Agent，微软画的是"从云到端到量子的全栈闭环"。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://view.inews.qq.com/a/20260603A00RWA00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/news_ls/OxM6llzHnAWCWx_pS_vMCbL7bCr-F1cv_HOk8LEabYe4wAA_640330/0" alt="AI Executive Order" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">财联社 / The Hindu</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">特朗普签署 AI 行政令：前沿模型发布前 30 天自愿提交政府评估</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">AI公司发布前沿模型前30天可自愿提交政府评估 / 此前讨论版本为90天审查期，最终大幅缩短 / 明确"不构成强制许可/预审批制度" / 要求构建AI网络安全信息交换中心 / 诱因是Anthropic Mythos发现的软件漏洞问题 / 谷歌/微软/xAI已与商务部CAISI达成自愿安全核验协议</p>
+          <div class="comment">从90天砍到30天，从强制风向自愿参与——行政令的最终形态是白宫内部和硅谷博弈的折中产物。实质影响有限：已签协议的三家本来就在做，没签的也没被强制。真正的变量是"可信合作伙伴"机制——谁有资格提前拿到前沿模型，这比审查窗口期更值得盯。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://finance.sina.com.cn/stock/usstock/c/2026-06-02/doc-inhzzumh2958687.shtml" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://n.sinaimg.cn/tech/transform/59/w550h309/20260602/38a0-c8008839a772e9368278130ea0318168.png" alt="Anthropic Mythos" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">IT之家 / CNBC</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic Mythos 扩展至 15 国 200 家机构，已发现 1 万+高危漏洞</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">玻璃之翼项目从首批50家扩展至约200家机构 / 新增150家覆盖15个国家 / 新覆盖电力/水务/医疗/通信/硬件制造领域 / 合作机构已通过Mythos发现超1万个高危安全漏洞 / 新合作方需满足安全要求方可获得访问权限</p>
+          <div class="comment">从50到200，三个月翻了4倍——Mythos的扩展速度本身就在说明一件事：网络安全市场对AI驱动的漏洞发现存在真实需求。但扩容也是双刃剑：200家机构意味着200个潜在攻击面，Mythos的访问权限管理将成为Anthropic安全信誉的试金石。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.163.com/dy/article/KUEDLO8J0519DDQ2.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">第一财经 / 华尔街见闻</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Alphabet 史上最大融资 800 亿美元，伯克希尔 100 亿入局押注 AI 基建</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">股权融资总额800亿美元 / 伯克希尔定向增发100亿美元(A类约6%折扣/C类约8%折扣) / 承销发行300亿含强制可转换优先股 / 市价发行(ATM)400亿Q3启动 / 2026年资本支出计划1900亿美元 / 伯克希尔持仓将从约200亿升至约320亿</p>
+          <div class="comment">800亿美元股权融资不是借债，是稀释——Alphabet选择在股价历史高位增发，说明管理层认为AI基建的投资回报率远高于股权稀释成本。伯克希尔100亿以折扣价入局，Greg Abel上任后最大一笔押注落在AI而非消费。但1900亿美元资本支出对应的收入增长能否跟上？盘后2%的下跌已经表达了部分疑虑。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 推理优化 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-推理优化"></span>
+        <span class="section-title stitle-推理优化">推 理 优 化</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://finance.sina.com.cn/tech/digi/2026-06-02/doc-inhzzqck3044068.shtml" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://n.sinaimg.cn/spider20260602/651/w1440h811/20260602/eb14-7e1d5f63d5dcb4f6b840b3a195bdd104.jpg" alt="NVIDIA Spectrum-X" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-推理优化"></span>
+              <span class="card-source-name">IT之家 / 上证报</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">NVIDIA Spectrum-X 硅光 CPO 交换机全面量产，能效提升 5 倍</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">全球首款CPO以太网交换机全面量产 / 200Gb/s SerDes光电一体封装 / 能效提升5倍 / AI正常运行时间提升5倍 / 部署时间快1.3倍 / 支持Vera Rubin平台AI工厂横向+跨区域扩展 / CoreWeave/Lambda/OCI首批采用</p>
+          <div class="comment">CPO从实验室走向量产，光互联替代电互联的拐点正式落地。"电算光传"不再是纸面共识——Spectrum-X证明了共封装光学在AI工厂场景的工程可行性。5倍能效提升对十万卡集群的意义不只是省电，是打破互联瓶颈让更多GPU真正跑满。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/headroom-ai/headroom" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>6.7K Stars</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">headroom：MCP 上下文压缩，RAG／日志／Token 降 60-95%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">MCP Server + CLI / 压缩RAG文档/日志/Token 60-95% / +1,265 Stars today / 支持本地+远程部署 / 与Claude/Codex/GPT集成</p>
+          <div class="comment">Token成本是Agent规模化的隐形成本——每次调用都在烧钱，而RAG检索的冗余上下文是最大的浪费源。headroom把压缩率做到60-95%，在MCP协议层解决问题，比每个Agent单独优化更优雅。但压缩意味着信息丢失，关键场景下的精度衰减需要实测验证。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/nicepkg/hermes-webui" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>12.6K Stars</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">hermes-webui：Agent 可视化管理界面，移动端+桌面双端适配</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Hermes Agent的Web/移动端管理界面 / +1,722 Stars today / 支持Agent状态监控/任务调度/多轮对话管理 / 实时日志和执行追踪</p>
+          <div class="comment">Agent从"能用"到"好管"的工程化一步。当Agent数量从个位数到百位数，缺乏可视化调试工具的团队会第一个碰壁。hermes-webui抓住了Agent运维的刚需——但这个赛道拥挤度正在快速上升，LobeHub/AgentOps/Rudder都在做类似的事。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/github/github-mcp-server" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/af341d32f86998cdfc99a81af6a5dead94c02201f2e0546cd8a3a7ca793471f6/github/github-mcp-server" alt="GitHub MCP Server" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>30K+ Stars</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">GitHub 官方 MCP Server：22+ 工具集，OAuth 远程部署已就绪</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">GitHub官方MCP Server / 22+ toolsets覆盖Issues/PR/Actions/代码搜索 / 支持OAuth远程部署 / Docker一键启动 / 与Claude/Codex/VS Code原生集成</p>
+          <div class="comment">GitHub官方下场做MCP Server——这比任何第三方实现都更有信号价值。它意味着MCP协议正在从"社区实验"变成"平台标准"。22+工具集直接把GitHub变成Agent可编程的基础设施，而OAuth支持让企业级部署不再需要API Key硬编码。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
