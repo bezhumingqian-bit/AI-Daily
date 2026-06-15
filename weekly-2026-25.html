@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 周报 · 第 25 周</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans", "Segoe UI", "Helvetica Neue", sans-serif;
+  background: #F5F1E8;
+  color: #2C2A26;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+.container { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
+
+/* Nav */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0 14px; margin-bottom: 16px;
+}
+.nav-brand { font-size: 13px; letter-spacing: 3px; color: rgba(26,26,26,0.5); font-weight: 600; text-decoration: none; }
+.nav-right { display: flex; gap: 18px; align-items: center; }
+.nav-date { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; }
+.nav-link { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+.nav-link:hover { color: rgba(26,26,26,0.8); }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+  border: 1px solid #E6E1D6;
+  border-radius: 8px;
+  padding: 44px 32px 36px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -40%; right: -20%;
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(168,155,200,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.brand {
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: rgba(26,26,26,0.3);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.week-tag {
+  font-size: 13px;
+  color: rgba(26,26,26,0.45);
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+h1 {
+  font-size: 26px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.h1-sub {
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(26,26,26,0.5);
+  letter-spacing: 0.5px;
+  margin-bottom: 18px;
+}
+.divider { height: 1px; background: rgba(0,0,0,0.06); margin: 18px 0; }
+.summary-line {
+  font-size: 14px;
+  color: rgba(26,26,26,0.7);
+  line-height: 1.85;
+  letter-spacing: 0.2px;
+  max-width: 580px;
+}
+
+/* Section */
+.section { margin-bottom: 28px; }
+.section-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 0 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+.section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.section-dot-signal { background: #C8A892; box-shadow: 0 0 8px #C8A892; }
+.section-dot-vendor { background: #9ABE8E; box-shadow: 0 0 8px #9ABE8E; }
+.section-dot-tech { background: #A89BC8; box-shadow: 0 0 8px #A89BC8; }
+.section-dot-biz { background: #C8B468; box-shadow: 0 0 8px #C8B468; }
+.section-dot-watch { background: #9AB0BA; box-shadow: 0 0 8px #9AB0BA; }
+.section-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(26,26,26,0.85);
+  letter-spacing: 3px;
+}
+
+/* Signal Card */
+.signal-card {
+  background: #FFFEFC;
+  border: 1px solid #E6E1D6;
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin-bottom: 12px;
+  transition: box-shadow 0.3s;
+}
+.signal-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.05); }
+.signal-stars { font-size: 12px; margin-bottom: 8px; letter-spacing: 1px; }
+.signal-headline {
+  font-size: 15.5px;
+  font-weight: 500;
+  color: #2C2A26;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.signal-body {
+  font-size: 13.5px;
+  color: #5F5B53;
+  line-height: 1.75;
+  margin-bottom: 10px;
+}
+.signal-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: #7A766C;
+}
+.signal-meta span { display: flex; align-items: center; gap: 4px; }
+.signal-vendor { font-weight: 500; color: #5F5B53; }
+.signal-link { color: #9AB0BA; text-decoration: none; transition: color 0.2s; }
+.signal-link:hover { color: #2C2A26; }
+
+/* Collapsible */
+.collapsible-toggle {
+  cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11.5px; color: #7A766C;
+  padding: 6px 0;
+  user-select: none;
+  transition: color 0.2s;
+}
+.collapsible-toggle:hover { color: #2C2A26; }
+.collapsible-toggle .arrow { transition: transform 0.25s; font-size: 10px; }
+.collapsible-toggle.open .arrow { transform: rotate(90deg); }
+.collapsible-content { display: none; padding-top: 8px; }
+.collapsible-content.show { display: block; }
+
+/* Vendor Table */
+.vendor-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #FFFEFC;
+  border: 1px solid #E6E1D6;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 12.5px;
+}
+.vendor-table thead { background: #FAF7EE; }
+.vendor-table th {
+  text-align: left;
+  padding: 12px 14px;
+  font-weight: 500;
+  color: #5F5B53;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #E6E1D6;
+  font-size: 11.5px;
+}
+.vendor-table td {
+  padding: 11px 14px;
+  color: #2C2A26;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  vertical-align: top;
+  line-height: 1.55;
+}
+.vendor-table tr:last-child td { border-bottom: none; }
+.vendor-table tr:hover td { background: rgba(0,0,0,0.01); }
+.vendor-name { font-weight: 600; color: #2C2A26; white-space: nowrap; }
+
+/* Trend Item */
+.trend-item {
+  background: #FFFEFC;
+  border: 1px solid #E6E1D6;
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin-bottom: 12px;
+}
+.trend-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #2C2A26;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.trend-body {
+  font-size: 13.5px;
+  color: #5F5B53;
+  line-height: 1.75;
+}
+.trend-evidence {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0,0,0,0.04);
+  font-size: 12px;
+  color: #7A766C;
+  line-height: 1.7;
+}
+
+/* Watch Item */
+.watch-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.watch-item:last-child { border-bottom: none; }
+.watch-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #9AB0BA;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+.watch-content {}
+.watch-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2C2A26;
+  margin-bottom: 4px;
+}
+.watch-desc {
+  font-size: 12.5px;
+  color: #5F5B53;
+  line-height: 1.65;
+}
+
+/* Previous Week Review */
+.review-section {
+  background: #FAF7EE;
+  border: 1px solid #E6E1D6;
+  border-radius: 8px;
+  padding: 22px 24px;
+  margin-top: 32px;
+}
+.review-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2C2A26;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+.review-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.review-status {
+  flex-shrink: 0;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+.review-partial { background: #E5DCC4; color: #6B5F40; }
+.review-unknown { background: #E6E1D6; color: #7A766C; }
+.review-hit { background: #DAE0D2; color: #4A5340; }
+
+/* Footer */
+.footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid #E6E1D6;
+  text-align: center;
+}
+.footer-brand {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: rgba(26,26,26,0.25);
+  margin-bottom: 4px;
+}
+.footer-sub {
+  font-size: 11px;
+  color: rgba(26,26,26,0.18);
+  letter-spacing: 0.5px;
+}
+
+/* Category Tags */
+.cat-tag {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+.cat-model { background: #E2D2CB; color: #6B4F47; }
+.cat-agent { background: #DAE0D2; color: #4A5340; }
+.cat-policy { background: #E5DCC4; color: #6B5F40; }
+.cat-funding { background: #DAE0D2; color: #4A5340; }
+.cat-opensource { background: #E8E2D2; color: #5A5443; }
+.cat-inference { background: #D5DCDC; color: #4A5258; }
+.cat-safety { background: #E2C8C8; color: #6B4040; }
+.cat-frontier { background: #DDD6E8; color: #5A4A6B; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="index.html" class="nav-brand">AI DAILY</a>
+  <div class="nav-right">
+    <span class="nav-date">2026.06.08 — 06.14</span>
+    <a href="index.html" class="nav-link">← 主页</a>
+  </div>
+</nav>
+
+<!-- Header -->
+<header class="header">
+  <div class="brand">AI WEEKLY REPORT</div>
+  <div class="week-tag">第 25 周 · 2026.06.08 ～ 2026.06.14</div>
+  <h1>政府第一次关停前沿模型</h1>
+  <div class="h1-sub">Anthropic Fable 5 上线 72 小时被出口管制叫停，SpaceX $750 亿 IPO 收盘 2.1 万亿，AI 监管与资本同时加速。</div>
+  <div class="divider"></div>
+  <div class="summary-line">
+    这一周的三条主线：一是 Anthropic 的 Mythos 级模型发布即遭美国政府出口管制封杀，开创商业 AI 模型被强制下线的先例；二是 SpaceX 以「算力地主」叙事完成史上最大 IPO，Google 和 Anthropic 合计 $700 亿租约构成核心估值逻辑；三是 OpenAI 在 S-1 递交、降价狙击、收购 Ona 三线并进，IPO 前加速补齐商业短板。安全监管、算力基础设施、Agent 商业化——三条线在此交汇。
+  </div>
+</header>
+
+<!-- 维度 1：本周关键信号 -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-dot section-dot-signal"></div>
+    <div class="section-title">本 周 关 键 信 号</div>
+  </div>
+
+  <!-- Signal 1 -->
+  <div class="signal-card">
+    <div class="signal-stars">🌟 🌟 🌟</div>
+    <div class="signal-headline">美国政府首次动用出口管制强制关停前沿 AI 模型</div>
+    <div class="signal-body">
+      Anthropic 于 6 月 9 日发布首个公开版 Mythos 级模型 Fable 5，72 小时后收到美国商务部出口管制指令，要求立即切断所有外国国民访问权限。因无法在技术层面区分国籍，Anthropic 被迫对全球所有用户停服。导火索为另一家公司声称突破 Mythos 安全防护，但 Anthropic 审查后认定漏洞有限且非通用。Anthropic 公开表示该决定建立在"严重误解"之上，警告若此标准推行将实质叫停所有前沿模型部署。
+    </div>
+    <div class="signal-meta">
+      <span class="signal-vendor">Anthropic / 美国商务部</span>
+      <span class="cat-tag cat-safety">安全</span>
+      <span class="cat-tag cat-policy">政策</span>
+      <a href="https://new.qq.com/rain/a/20260613A03V7L00" class="signal-link">详情 ↗</a>
+    </div>
+    <div class="collapsible-toggle" onclick="toggleDetail(this)">
+      <span class="arrow">▶</span> 展开详情
+    </div>
+    <div class="collapsible-content">
+      <div style="font-size:12.5px;color:#5F5B53;line-height:1.75;">
+        商务部长 Howard Lutnick 致函 CEO Dario Amodei，信函未具体说明国家安全关切细节。据 Axios 报道，此前特朗普政府曾试图说服 Anthropic 暂缓发布未果。Fable 5 定价 $10/M 输入 $50/M 输出，5000 万行 Ruby 代码 1 天迁移，1000 小时越狱测试零通用破解。Mythos 5 面向政府与网络安全机构。Amazon CEO Andy Jassy 据报可能触发了安全关切上报。
+      </div>
+    </div>
+  </div>
+
+  <!-- Signal 2 -->
+  <div class="signal-card">
+    <div class="signal-stars">🌟 🌟 🌟</div>
+    <div class="signal-headline">SpaceX $750 亿史上最大 IPO，收盘市值 2.1 万亿，算力租赁年化 $260 亿</div>
+    <div class="signal-body">
+      SpaceX 6 月 12 日登陆纳斯达克，发行价 $135，首日收涨 19.6% 至 $160.95，市值 2.1 万亿美元。招股书核心逻辑：Starlink 贡献 61% 营收（$114 亿），AI 部门亏损 $64 亿，但算力租赁合同合计超 $700 亿（Anthropic 月付 $12.5 亿 + Google 月付 $9.2 亿），年化 $260 亿经常性收入。晨星给出 $7800 亿公允估值，较 IPO 定价低 56%。
+    </div>
+    <div class="signal-meta">
+      <span class="signal-vendor">SpaceX / Google / Anthropic</span>
+      <span class="cat-tag cat-funding">融资</span>
+      <a href="https://new.qq.com/rain/a/20260612A0317200" class="signal-link">详情 ↗</a>
+    </div>
+  </div>
+
+  <!-- Signal 3 -->
+  <div class="signal-card">
+    <div class="signal-stars">🌟 🌟 🌟</div>
+    <div class="signal-headline">OpenAI 三线并进：S-1 递交 $8500 亿估值 + 收购 Ona + 降价狙击 Anthropic</div>
+    <div class="signal-body">
+      OpenAI 向 SEC 秘密递交 S-1，估值 $8500 亿，高盛+大摩主承销。同周收购 Ona（原 Gitpod）补齐 Agent 云执行环境，使 Codex Agent 可在客户私有云运行。WSJ 报道 OpenAI 正考虑大幅下调 Token 收费以应对 Anthropic 竞争。Codex 周活突破 500 万（6 倍增长），企业收入占比超 40%。
+    </div>
+    <div class="signal-meta">
+      <span class="signal-vendor">OpenAI</span>
+      <span class="cat-tag cat-funding">融资</span>
+      <span class="cat-tag cat-model">大模型</span>
+      <a href="https://new.qq.com/rain/a/20260609A01J9B00" class="signal-link">详情 ↗</a>
+    </div>
+  </div>
+
+  <!-- Signal 4 -->
+  <div class="signal-card">
+    <div class="signal-stars">🌟 🌟</div>
+    <div class="signal-headline">Apple WWDC 2026：Siri 独立应用 + Gemini 底座 + 第三方 AI 切换</div>
+    <div class="signal-body">
+      Apple 首次将 Siri 从系统级助手升级为独立应用，底层由 Gemini 驱动，同时开放 ChatGPT、Claude、Gemini 的第三方 AI 切换。Core AI 框架覆盖 20 亿+ 设备。库克暗示这可能是其最后一届 WWDC 主持。
+    </div>
+    <div class="signal-meta">
+      <span class="signal-vendor">Apple / Google</span>
+      <span class="cat-tag cat-agent">Agent</span>
+      <a href="https://www.sohu.com/a/1033617201_121956424" class="signal-link">详情 ↗</a>
+    </div>
+  </div>
+
+  <!-- Signal 5 -->
+  <div class="signal-card">
+    <div class="signal-stars">🌟 🌟</div>
+    <div class="signal-headline">Alphabet 为 Anthropic 提供 $350 亿数据中心融资担保</div>
+    <div class="signal-body">
+      Google 为 5 座 Anthropic 数据中心提供租赁担保，总融资 $350 亿，部署 TPU 芯片。运营方为 Fluidstack，Google-博通-Anthropic 三方绑定加深。此前 Anthropic 已承诺 5 年向 Google Cloud 投入 $2000 亿，此次担保进一步锁定算力与芯片供应链。
+    </div>
+    <div class="signal-meta">
+      <span class="signal-vendor">Google / Anthropic / Broadcom</span>
+      <span class="cat-tag cat-funding">融资</span>
+      <a href="https://new.qq.com/rain/a/20260610A01L2H00" class="signal-link">详情 ↗</a>
+    </div>
+  </div>
+
+  <!-- Signal 6 -->
+  <div class="signal-card">
+    <div class="signal-stars">🌟 🌟</div>
+    <div class="signal-headline">AI 订阅价格战从中国打到美国：Google AI Plus 降至 $4.99/月</div>
+    <div class="signal-body">
+      Google 将 AI Plus 从 $7.99/月降至 $4.99/月，云存储从 200GB 升至 400GB，含 Omni Flash + Flow + NotebookLM。同周 WSJ 报道 OpenAI 也在考虑大幅降价。AI 消费级订阅正从"溢价增值"转向"基础套餐含 AI"。
+    </div>
+    <div class="signal-meta">
+      <span class="signal-vendor">Google / OpenAI</span>
+      <span class="cat-tag cat-model">大模型</span>
+      <a href="https://new.qq.com/rain/a/20260610A0333Q00" class="signal-link">详情 ↗</a>
+    </div>
+  </div>
+
+  <!-- Signal 7 -->
+  <div class="signal-card">
+    <div class="signal-stars">🌟 🌟</div>
+    <div class="signal-headline">Visa 支付网络接入 ChatGPT，AI Agent 可独立完成购物付款</div>
+    <div class="signal-body">
+      Visa 支付网络嵌入 ChatGPT，AI Agent 可替用户完成选购+交易全流程，覆盖所有 Visa 商户。用户可设消费上限、商户类别限制和购买审批。Visa 负责授权和欺诈监测。这是 Agent 从"信息获取"走向"资金流闭环"的关键节点。
+    </div>
+    <div class="signal-meta">
+      <span class="signal-vendor">Visa / OpenAI</span>
+      <span class="cat-tag cat-agent">Agent</span>
+      <a href="https://finance.yahoo.com/economy/policy/articles/visa-openai-partner-let-ai-184921454.html" class="signal-link">详情 ↗</a>
+    </div>
+  </div>
+
+  <!-- Signal 8 -->
+  <div class="signal-card">
+    <div class="signal-stars">🌟</div>
+    <div class="signal-headline">73 个微软开源包被植入窃密代码，AI 编程 Agent 成精准攻击目标</div>
+    <div class="signal-body">
+      73 个恶意包植入自复制凭证窃取器，专门针对 AI 编程 Agent 设计——Agent 打开即激活，窃取 Token 并传播。这是两周内第二次针对 AI 开发工具链的供应链攻击，暴露 Agent 自动化执行的安全盲区。
+    </div>
+    <div class="signal-meta">
+      <span class="signal-vendor">Microsoft / AI Agent 开发者</span>
+      <span class="cat-tag cat-safety">安全</span>
+      <a href="https://techcrunch.com/2026/06/08/microsofts-open-source-tools-were-hacked-to-steal-passwords-of-ai-developers/" class="signal-link">详情 ↗</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- 维度 2：厂商动态矩阵 -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-dot section-dot-vendor"></div>
+    <div class="section-title">厂 商 动 态 矩 阵</div>
+  </div>
+
+  <table class="vendor-table">
+    <thead>
+      <tr>
+        <th style="width:14%">厂商</th>
+        <th style="width:22%">模型</th>
+        <th style="width:22%">产品/动作</th>
+        <th style="width:20%">融资/估值</th>
+        <th style="width:22%">本周关键动向</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="vendor-name">OpenAI</td>
+        <td>GPT-5.5 / GPT-5.6 iris-alpha (150 万上下文)</td>
+        <td>ChatGPT 超级应用 + Codex 周活 500 万 + 收购 Ona + DeployCo</td>
+        <td>S-1 递交 / 估值 $8500 亿</td>
+        <td>降价狙击 Anthropic / IPO 前三线并进 / 多州 AG 调查</td>
+      </tr>
+      <tr>
+        <td class="vendor-name">Anthropic</td>
+        <td>Fable 5 / Mythos 5（已下线）</td>
+        <td>Claude 全系 / Fable 5 降智道歉</td>
+        <td>S-1 递交 / 估值 $9650 亿 / ARR $470 亿</td>
+        <td>被美出口管制强制下线 / $350 亿 Google 担保 / Amodei 呼吁 FAA 式监管</td>
+      </tr>
+      <tr>
+        <td class="vendor-name">Google DeepMind</td>
+        <td>Gemini 3.5 Live Translate / DiffusionGemma 26B MoE</td>
+        <td>AI Plus $4.99/月 / 70+ 语言实时互译</td>
+        <td>Alphabet 市值逼近 Nvidia</td>
+        <td>$350 亿为 Anthropic 担保 / 消费级降价 / 扩散模型文本生成</td>
+      </tr>
+      <tr>
+        <td class="vendor-name">SpaceX / xAI</td>
+        <td>Grok</td>
+        <td>算力租赁（月入 $21.7 亿）</td>
+        <td>$750 亿 IPO / 收盘 2.1 万亿市值</td>
+        <td>史上最大 IPO / Google+$700 亿算力合同 / 星舰 V3 试飞仍存问题</td>
+      </tr>
+      <tr>
+        <td class="vendor-name">Apple</td>
+        <td>Apple Intelligence (Gemini 底座)</td>
+        <td>Siri 独立应用 + 第三方 AI 切换</td>
+        <td>—</td>
+        <td>WWDC 2026 / Core AI 框架 20 亿设备 / 库克最后一届</td>
+      </tr>
+      <tr>
+        <td class="vendor-name">Meta</td>
+        <td>Muse Spark (API 延期至 6 月下旬)</td>
+        <td>$20 亿 Manus AI 收购被北京叫停撤销</td>
+        <td>—</td>
+        <td>内部 AI 团队 6500 人被曝"灵魂碾压" / 前工程师起诉 xAI</td>
+      </tr>
+      <tr>
+        <td class="vendor-name">阿里</td>
+        <td>千问 / Qwen3.6</td>
+        <td>Token Foundry 事业部 / 高考志愿 Agent</td>
+        <td>CEO 直管 AI 全链路</td>
+        <td>组织架构大调整 / 周靖人转首席科学家 / 五年 MaaS 破 $1000 亿目标</td>
+      </tr>
+      <tr>
+        <td class="vendor-name">小米</td>
+        <td>MiMo-V2.5 多模态</td>
+        <td>MiMo Code V0.1 终端编程 Agent</td>
+        <td>—</td>
+        <td>MIT 协议开源 / 持久记忆三重机制 / Compose 模式 1→12 协同</td>
+      </tr>
+      <tr>
+        <td class="vendor-name">DeepSeek</td>
+        <td>DeepSeek-Reasonix</td>
+        <td>原生编程 Agent / 前缀缓存优化</td>
+        <td>首轮融资 500 亿 / 估值 $515 亿</td>
+        <td>开源编程 Agent / 昇腾 910C 完成万亿参数全参数后训练</td>
+      </tr>
+      <tr>
+        <td class="vendor-name">Cohere</td>
+        <td>North Mini Code 30B MoE</td>
+        <td>单张 H100 编程 Agent</td>
+        <td>—</td>
+        <td>Apache 2.0 开源 / 3B 激活 / 256K 上下文</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 维度 3：技术演进趋势 -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-dot section-dot-tech"></div>
+    <div class="section-title">技 术 演 进 趋 势</div>
+  </div>
+
+  <div class="trend-item">
+    <div class="trend-title">扩散模型挑战自回归：文本生成新范式从论文走向工程</div>
+    <div class="trend-body">
+      Google DeepMind 发布 DiffusionGemma（26B MoE / 3.8B 激活），每次前向传播并行生成 256 tokens，单 H100 上 1000+ tok/s、RTX 5090 上 700+ tok/s，Apache 2.0 开源。相比自回归逐 token 串行生成，扩散范式在推理速度上有结构性优势——代价是双向注意力机制需要更多显存（18GB）。这不是第一个文本扩散模型，但它是第一个在工程可用性上接近自回归方案的产品级实现。同周 arXiv 上 HRM-Text 用 1B 参数跑出 7B 水平、TwinQuant 把 4-bit 量化做到近 FP16 精度——推理效率优化的方向正在分化：一条路压自回归的 KV cache（ReasonAlloc），另一条路换生成范式。
+    </div>
+    <div class="trend-evidence">
+      依据：DiffusionGemma 发布（6/11）+ HRM-Text 论文（6/9）+ TwinQuant 论文（6/1）+ ReasonAlloc KV cache 分配（6/10）
+    </div>
+  </div>
+
+  <div class="trend-item">
+    <div class="trend-title">Agent 安全从"事后审计"转向"实时门控+供应链扫描"</div>
+    <div class="trend-body">
+      本周密集出现三类 Agent 安全工具：OpenAI 发布 ChatGPT Lockdown Mode（一键关闭 Agent Mode/实时浏览/Deep Research），NVIDIA 开源 SkillSpector（静态+LLM 语义扫描 Agent 技能漏洞，64 漏洞 16 类别，0-100 评分），GitHub 上出现 agent-gate（MCP 质量门控服务器，SHA256 链式收据 + fail-closed 检查）。加上 73 个微软开源包被植入窃密代码专门针对 AI Agent——安全防御正从"模型对齐"向"Agent 执行链全链路管控"迁移。这不仅是技术选择，也是监管压力下的必然：Anthropic Fable 5 被出口管制关停的核心争议，正是安全边界如何定义。
+    </div>
+    <div class="trend-evidence">
+      依据：ChatGPT Lockdown Mode（6/7）+ NVIDIA SkillSpector（6/12）+ agent-gate（6/8）+ 微软供应链攻击（6/8）+ Anthropic 出口管制事件（6/12）
+    </div>
+  </div>
+
+  <div class="trend-item">
+    <div class="trend-title">编程 Agent 从"云端 IDE 插件"走向"终端持久化 + 多模型混编"</div>
+    <div class="trend-body">
+      小米开源 MiMo Code V0.1（持久记忆三重机制 + Compose 模式 1→12 协同 + 支持 DeepSeek/Kimi/GLM），DeepSeek 发布 Reasonix（原生编程 Agent + 前缀缓存稳定性设计），Cohere 开源 North Mini Code（30B MoE / 单 H100 可运行），OpenAI 收购 Ona 使 Codex Agent 在客户私有云持续运行。共同信号：编程 Agent 不再是浏览器里的代码补全工具，而是独立进程级的开发者助手，需要持久记忆、多模型路由、本地/私有云执行环境。小米和 DeepSeek 的加入说明中国厂商开始从"模型层"向"Agent 基础设施层"渗透。
+    </div>
+    <div class="trend-evidence">
+      依据：MiMo Code V0.1 开源（6/11）+ DeepSeek-Reasonix（6/10）+ Cohere North Mini Code（6/10）+ OpenAI 收购 Ona（6/11）
+    </div>
+  </div>
+
+  <div class="trend-item">
+    <div class="trend-title">Agent 成本优化成为独立赛道，Token 降本工具链成熟</div>
+    <div class="trend-body">
+      OpenSquilla 用微内核架构 + 智能模型路由，25 个混合任务成本从 $6.2 降至 $0.68（降幅 89%）。SkillAxe 让 LLM 自主打磨 Agent 技能，pass rate 提升 28%，弥合人类差距从 47% 缩至 67%。这不再是"换个更便宜的模型"的粗粒度优化，而是从路由策略、技能复用、执行预算分配等多个维度精细拆解 Agent 的 Token 消耗结构。当企业级 Agent 从 PoC 走向生产，成本治理将成为和功能开发同等重要的工程命题。
+    </div>
+    <div class="trend-evidence">
+      依据：OpenSquilla 微内核 Agent（6/11）+ SkillAxe 无监督技能打磨（6/10）+ Google AI Plus 降价（6/10）+ OpenAI 降价传闻（6/11）
+    </div>
+  </div>
+</section>
+
+<!-- 维度 4：商业格局变化 -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-dot section-dot-biz"></div>
+    <div class="section-title">商 业 格 局 变 化</div>
+  </div>
+
+  <div class="trend-item">
+    <div class="trend-title">AI 算力从"自建"走向"租赁"，SpaceX 成为最大第三方算力供应商</div>
+    <div class="trend-body">
+      SpaceX 招股书披露：Anthropic 月付 $12.5 亿租用孟菲斯 Colossus 1/2，Google 月付 $9.2 亿租用 11 万张 NVIDIA GPU，两份合同到 2029 年合计超 $700 亿。SpaceX 自己做 AI（xAI）年亏 $64 亿，出租算力年入 $260 亿。这个"挖金不如卖铲"的逻辑，让 SpaceX 在 IPO 估值中把 AI 基础设施叙事填进了 Starlink 和火箭发射之间的万亿美元缺口。但风险也很明确：Anthropic 合同任一方 90 天可终止，算力租赁不是长期锁定。
+    </div>
+  </div>
+
+  <div class="trend-item">
+    <div class="trend-title">AI 安全监管从"自愿框架"升级为"强制干预"，出口管制成为新工具</div>
+    <div class="trend-body">
+      美国商务部首次动用出口管制权力叫停已部署的商业 AI 模型，开创先例。此前 AI 监管主要依赖企业自愿承诺和行政命令，此次直接以国家安全为由禁运。Anthropic 自己也在同周向华盛顿提交了 AI 监管手册（10^25 FLOPs 阈值 + $5 亿 AI 收入门槛），但政府显然选择了更激进的路径。德国法院同周裁定 Google 对 AI 生成内容负法律责任。监管层面对 AI 的约束正在从"软法"转为"硬法"，从"事后追责"转为"事前禁运"。
+    </div>
+  </div>
+
+  <div class="trend-item">
+    <div class="trend-title">AI IPO 赛跑：三家巨头同周推进，但监管逆风同步加码</div>
+    <div class="trend-body">
+      SpaceX 已上市（2.1 万亿收盘），Anthropic S-1 已递交（$9650 亿估值），OpenAI S-1 秘密递交（$8500 亿）。三家公司合计 IPO 规模逼近 $2 万亿。但同周 OpenAI 遭多州 AG 调查（广告政策 + 健康数据），Anthropic 被出口管制打击，xAI 前工程师起诉安全风险被解雇。资本窗口和监管窗口同时打开，IPO 不是终点，而是监管博弈的起点。
+    </div>
+  </div>
+
+  <div class="trend-item">
+    <div class="trend-title">Agent 支付基础设施落地：Visa 接入 ChatGPT，资金流闭环成型</div>
+    <div class="trend-body">
+      Visa 支付网络嵌入 ChatGPT，Agent 首次可以独立完成从选购到付款的全流程。这不是"AI 推荐你买什么"，而是"AI 替你花出去"。消费上限和商户限制提供安全阀，但核心变化是 Agent 从信息获取工具变为交易执行者。微信 AI 开放小程序接口（京东首批内测）、阿里千问发布高考志愿 Agent——中国市场的 Agent 落地更偏服务和内容场景，而美国市场的 Agent 正在向金融和交易渗透。
+    </div>
+  </div>
+
+  <div class="trend-item">
+    <div class="trend-title">中国 AI 厂商从"模型发布"转向"组织重构+Agent 落地"</div>
+    <div class="trend-body">
+      阿里成立 Token Foundry 事业部、CEO 直管 AI 全链路、周靖人转首席科学家，这是组织层面的 AI 优先战略升级。小米开源 MiMo Code 编程 Agent。云知声发布 2660 亿参数 U2 大模型。智谱联合清华开源 SCAIL-2 动画生成。DeepSeek 首轮融资 500 亿、昇腾 910C 完成万亿参数全参数后训练。信号明确：中国厂商的竞争重心正在从"谁的模型跑分更高"转向"谁的 Agent 先落地场景+谁的算力自主可控"。
+    </div>
+  </div>
+</section>
+
+<!-- 维度 5：下周观察清单 -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-dot section-dot-watch"></div>
+    <div class="section-title">下 周 观 察 清 单</div>
+  </div>
+
+  <div class="watch-item">
+    <div class="watch-dot"></div>
+    <div class="watch-content">
+      <div class="watch-title">Fable 5/Mythos 5 下线后续：政府审查周期与 Anthropic 法律应对</div>
+      <div class="watch-desc">美政府称审查"可能需要数周"。关注 Anthropic 是否提起法律挑战、Amodei 的 FAA 式监管提案是否因此获得更多政治资本、以及该先例是否被扩展到 OpenAI 和 Google 的模型。</div>
+    </div>
+  </div>
+
+  <div class="watch-item">
+    <div class="watch-dot"></div>
+    <div class="watch-content">
+      <div class="watch-title">OpenAI 降价方案具体落地</div>
+      <div class="watch-desc">WSJ 报道的"大幅下调 Token 收费"是否在本周公布细则。关注 GPT-5.6 iris-alpha 定价策略和 Codex 企业版定价调整。</div>
+    </div>
+  </div>
+
+  <div class="watch-item">
+    <div class="watch-dot"></div>
+    <div class="watch-content">
+      <div class="watch-title">SpaceX 上市后首周走势与 AI 估值体系联动</div>
+      <div class="watch-desc">2.1 万亿市值是否稳定？晨星 $7800 亿公允估值的折价是否会在股价中体现。如果 SpaceX 走弱，可能连带影响 OpenAI/Anthropic 的 IPO 定价预期。</div>
+    </div>
+  </div>
+
+  <div class="watch-item">
+    <div class="watch-dot"></div>
+    <div class="watch-content">
+      <div class="watch-title">Mistral AI €30 亿融资进展</div>
+      <div class="watch-desc">TechCrunch 报道 Mistral 正以 €200 亿估值融资 €30 亿。如果确认，欧洲 AI 基础设施叙事进一步确立，Mistral 将成为 OpenAI/Anthropic 之外的第三极。</div>
+    </div>
+  </div>
+
+  <div class="watch-item">
+    <div class="watch-dot"></div>
+    <div class="watch-content">
+      <div class="watch-title">Meta Manus AI 收购撤销后续</div>
+      <div class="watch-desc">北京叫停 Meta $20 亿 Manus AI 收购，这是中美 AI 资产跨境 M&A 首次被明确干预。关注是否有其他跨境 AI 交易受波及，以及 Meta AI 部门 6500 人内部动荡的进一步发展。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 上期回顾 -->
+<section class="section">
+  <div class="review-section">
+    <div class="review-title">⏎ 上期判断兑现度（第 20 周 → 第 25 周）</div>
+
+    <div class="review-item">
+      <span class="review-status review-partial">部分兑现</span>
+      <div>
+        <strong>OpenAI DeployCo 首批客户公告</strong>：OpenAI 收购 Ona 补齐 Agent 云执行环境，Codex 周活破 500 万，企业收入占比超 40%。DeployCo 的独立公告尚未出现，但通过 Ona 收购实现了部署能力的实质性补齐。
+      </div>
+    </div>
+
+    <div class="review-item">
+      <span class="review-status review-unknown">未验证</span>
+      <div>
+        <strong>DeepSeek V4.1 是否如期 6 月上线</strong>：本周出现 DeepSeek-Reasonix（编程 Agent），但 V4.1 正式版发布时间未确认。昇腾 910C 已完成万亿参数全参数后训练，算力自主化进度超预期。
+      </div>
+    </div>
+
+    <div class="review-item">
+      <span class="review-status review-hit">兑现</span>
+      <div>
+        <strong>Agent 竞争从模型评分转向真实环境交付能力</strong>：本周 OpenAI 收购 Ona（云执行环境）、Visa 接入 ChatGPT（支付闭环）、小米 MiMo Code（终端持久化），全部指向交付能力而非跑分。
+      </div>
+    </div>
+
+    <div class="review-item">
+      <span class="review-status review-hit">兑现</span>
+      <div>
+        <strong>部署与实施成为 AI 公司新战场</strong>：OpenAI 收购 Ona、Alphabet 为 Anthropic 担保 $350 亿数据中心、Google AI Plus 降至 $4.99——部署和价格成为竞争主轴。
+      </div>
+    </div>
+
+    <div class="review-item">
+      <span class="review-status review-hit">兑现</span>
+      <div>
+        <strong>学术与政策层面对 AI 输出可靠性收紧红线</strong>：美政府首次出口管制关停商业模型、德国法院裁定 Google 对 AI 生成内容负责、KPMG 因 AI 幻觉撤回报告——三条线同时收紧。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-brand">AI DAILY</div>
+  <div class="footer-sub">商业·认知观察者 · 出品</div>
+</footer>
+
+</div>
+
+<script>
+function toggleDetail(el) {
+  const content = el.nextElementSibling;
+  const isOpen = el.classList.toggle('open');
+  content.classList.toggle('show');
+  el.childNodes[el.childNodes.length - 1].textContent = isOpen ? ' 收起' : ' 展开详情';
+}
+</script>
+</body>
+</html>
