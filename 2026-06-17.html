@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·23 · 2026/06/17</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  /* ── Section ── */
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  /* ── Image Card ── */
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  /* Card body */
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  /* Category dot colors */
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  /* Image Error Fallback */
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 06 / 17</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 23</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 06 ／ 17 · 周三</p>
+      </div>
+    </header>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.reuters.com/legal/transactional/spacex-buy-anysphere-60-billion-2026-06-16/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Reuters</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">SpaceX 600亿全股票收购Cursor，AI编程工具市场归入巨头版图</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">SEC 8-K文件确认以600亿美元全股票收购Anysphere（Cursor开发商）/ SPCX市值2.66万亿超越亚马逊 / Cursor年化企业收入26亿美元，份额从41%跌至26% / 4月获收购选择权，IPO后第四天行权 / 一分现金未花</p>
+          <div class="comment">马斯克用自己暴涨的股票吞下AI编程工具第一名。Cursor份额从41%跌到26%却卖了600亿——估值逻辑已从"市场份额"转向"入口价值"。xAI+Colossus+Cursor，马斯克AI版图从"有模型没用户"变成"模型+算力+入口"三件齐全。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260617A02UY800" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/news_ls/OeZUqzm7t4fz3Lkrh2Vtd7HTRnngWnV7e6zq6YU4OQM_UAA_640330/0" alt="Fable 5 Export Control" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">The Information</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Fable 5第6天仍下线，出口管制被指"武器化"</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Claude Fable 5和Mythos 5全球下线进入第6天 / 加拿大总理Carney在G7以Fable 5作为AI过度依赖风险的证据 / OpenAI公开支持外国人才但刻意与Anthropic保持距离 / 政府官员曾提议限制AI公司外籍员工访问前沿模型</p>
+          <div class="comment">出口管制的蝴蝶效应：一个AI模型被下架，变成G7峰会的谈判筹码。OpenAI的表态最微妙——一边向政府传递支持外国人才的立场，一边法务团队在内部明确划界。当投资人、政府、技术理想站在三个方向，选哪边？</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://thenextweb.com/news/g7-ai-summit-altman-amodei-hassabis" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://media.thenextweb.com/2026/06/g7-ai-summit-altman-amodei-hassabis.avif" alt="G7 AI Summit" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">The Next Web</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">G7首次AI联合午餐：Altman、Amodei、Hassabis与七国领导人同台</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">G7峰会首次设置AI工作午餐 / Altman应马克龙个人邀请出席 / 青少年在线安全为首要议程 / 预期达成自愿承诺框架（2023白宫框架的多边扩展）/ 数据中心可持续性议题因美国抵制而缩水</p>
+          <div class="comment">三位平时互为对手的AI实验室掌门同坐一桌，信号意义大于实质成果。"自愿承诺"从白宫扩展到G7，AI治理的最低共识正在多边化。但数据中心可持续性因美国抵制而缩水——竞争优先仍是底色。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260617A01V0M00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OO9p4OG9OBDVdlRRZWkxIxFSBd3YudviXYqRG58F_nOLcAA_640330/0" alt="OpenAI Financials" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">华尔街见闻</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI去年支出340亿美元，净亏损385亿，IPO目标7300亿估值</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">$34B总支出（$19B研发+$6B销售）/ 净亏损$38.5B（$30B+非现金冲销）/ 实际运营亏损约$8B / 营收2.5x至$13B / 已秘密递交IPO文件 / 估值目标$7300亿+</p>
+          <div class="comment">385亿亏损数字吓人，但剥掉公司结构转型的300亿非现金冲销，实际烧钱速度是80亿——对营收130亿、增速150%+的公司来说，这是可接受的扩张代价。真正的问题是：IPO后，投资者愿意为"亏损换增长"的逻辑买单多久？</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://tech.ifeng.com/c/8u1b2qHAdTs" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://x0.ifengimg.com/ucms/2026_25/C5268828E3AB990BCD08E57E89596B7FA040E332_size115_w746_h420.jpg" alt="GLM-5.2" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">凤凰网科技</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">GLM-5.2正式开源：Code Arena全球可用模型第一，与Claude Opus 4.8差距仅1-4%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Code Arena全球百万用户盲测第一 / SWE-bench Pro 62.1 / 与Claude Opus 4.8差距仅1-4%，开源模型中排名第一 / Day 0适配华为昇腾、平头哥等8家国产算力 / MIT协议开源，权重已在HuggingFace上线</p>
+          <div class="comment">Fable 5被禁第三天，智谱开放GLM-5.2——时机精准到像写好的剧本。"前沿智能不应只属于少数人，也不应被少数规则随时收回"，智谱的宣言本身是对出口管制最直接的回应。但开源模型能否真正替代闭源旗舰，取决于企业敢不敢把关键业务跑在MIT许可的模型上。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260617A02J6900" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/Oyg073E_THug9-766EBJxgJAx8riGd6NNV_aBdnDvwyuoAA_640330/0" alt="AI Alipay" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">财联社</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">AI版支付宝"阿宝"发布：10亿用户App全端AI化</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">全球首个全端AI化超级应用 / "往右一滑"进入对话式服务，上万种服务一句话办完 / 目前邀请测试阶段，后续逐步开放</p>
+          <div class="comment">支付宝不是在做AI助手，是在把整个超级应用的交互范式从"找功能"变成"说需求"。10亿+用户的App做这个切换，工程复杂度远大于技术本身——每个现有服务接口都得适配自然语言入口。这才是"AI原生应用"的真正含义。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260617A0268B00" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">阿里巴巴</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">阿里发布Qwen-Robot具身智能系列：操作+导航+世界模型三件套</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">三大模型：Qwen-RobotManip(VLA操作)、Qwen-RobotNav(VLN移动)、Qwen-RobotWorld(世界模型) / 覆盖具身智能"手-脚-脑"全链路</p>
+          <div class="comment">具身智能的三大件同时发布：手怎么动、脚怎么走、世界怎么理解。从"语言模型"到"物理世界模型"的关键跳跃。但具身智能的瓶颈从来不在模型，在数据——真实机器人操作数据的稀缺性，远超文本数据。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/f9d455b76d4aeabef4c2c47cd15e0ff269214577889d192db9a489361a67863c/ChromeDevTools/chrome-devtools-mcp" alt="Chrome DevTools MCP" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Chrome DevTools MCP：4.3万Stars，让AI看见浏览器现场</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">~43.2K Stars / npm 1.2.0 (2026-06-08) / 截图/Console检查/Network请求/Performance分析全链路 / Puppeteer集成 / npx一键启动</p>
+          <div class="comment">AI编程工具最大的盲区是"看不见运行结果"——代码写完不知道页面上实际发生了什么。DevTools MCP直接把浏览器现场接给AI，相当于给AI装了眼睛。前端调试从此不再靠猜。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/microsoft/fara" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/5f38f409549a8e3b6f93aa0cb747685e9c79fbf74ce79515cf24917d1589cbbe/microsoft/fara" alt="Fara-7B" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Fara-7B：微软首个Computer Use Agent模型，5.8K Stars</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Fara-7B：微软首个面向Computer Use的Agent模型 / 7B参数 / 支持屏幕理解+点击/输入操作 / GitHub Trending Python今日+97 Stars / 开源可部署</p>
+          <div class="comment">Computer Use Agent从Claude独家能力变成开源赛道——微软用7B参数做了个轻量版，说明这个方向的门槛正在快速下降。模型小意味着部署成本低，但也意味着复杂任务的天花板低。关键看后续会不会出更大参数的版本。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://arxiv.org/abs/2606.08348" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">arXiv</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Bayesian-Agent：后验引导Agent技能进化，SOP-Bench 80%→95%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">将技能/SOP视为假设，用后验分布指导patch/split/compress/retire操作 / deepseek-v4-flash上SOP-Bench 80%→95% / Lifelong AgentBench 90%→100% / RealFin-Bench 45%→65% / 支持多种Agent后端</p>
+          <div class="comment">现有Agent的技能管理是"用了就留着，出错了就反思"——没有统计学基础。Bayesian-Agent把技能当假设，每次执行都更新后验，然后决定修补、拆分、压缩还是退役。从"经验主义"到"贝叶斯"，本质上是给Agent的技能库装了一个概率方向盘。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
