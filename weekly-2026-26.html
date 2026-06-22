@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 周报 · 第26周 · 2026-06-15～06-21</title>
+<style>
+  :root {
+    --bg: #F5F1E8;
+    --card: #FFFEFC;
+    --card-sub: #FAF7EE;
+    --text: #2C2A26;
+    --text-sub: #5F5B53;
+    --text-weak: #7A766C;
+    --text-faint: #B5B0A4;
+    --border: #E6E1D6;
+    --accent: #8A8474;
+    --cat-opensource: #E8E2D2;
+    --cat-opensource-text: #5A5443;
+    --cat-agent: #DAE0D2;
+    --cat-agent-text: #4A5340;
+    --cat-policy: #E5DCC4;
+    --cat-policy-text: #6B5F40;
+    --cat-model: #E2D2CB;
+    --cat-model-text: #6B4F47;
+    --cat-reasoning: #D5DCDC;
+    --cat-reasoning-text: #4A5258;
+    --cat-funding: #DDE8D0;
+    --cat-funding-text: #4A5340;
+    --cat-security: #E8D2D2;
+    --cat-security-text: #6B4F47;
+    --cat-frontier: #E0D8EC;
+    --cat-frontier-text: #5A4870;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Noto Serif SC', 'Source Han Serif SC', serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  .nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 0; border-bottom: 1px solid var(--border);
+    font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; color: var(--text-weak);
+  }
+  .nav a { color: var(--text-sub); text-decoration: none; }
+  .nav a:hover { color: var(--text); }
+
+  /* Header */
+  .header {
+    padding: 56px 0 40px;
+    text-align: center;
+  }
+  .header .vol {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px; letter-spacing: 3px; color: var(--text-weak);
+    margin-bottom: 20px;
+  }
+  .header h1 {
+    font-size: 28px; font-weight: 600; line-height: 1.4;
+    background: linear-gradient(135deg, #2C2A26 0%, #8A8474 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header .subtitle {
+    margin-top: 12px; font-size: 14px; color: var(--text-weak);
+    letter-spacing: 0.5px;
+  }
+  .header .date-range {
+    margin-top: 8px; font-family: 'SF Mono', monospace;
+    font-size: 12px; color: var(--text-faint);
+  }
+
+  /* Section */
+  .section { padding: 40px 0 0; }
+  .section-divider {
+    height: 1px; background: var(--border); margin: 32px 0;
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 24px;
+  }
+  .section-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 15px; font-weight: 600; letter-spacing: 1.5px;
+    color: var(--text);
+  }
+  .section-sub {
+    font-size: 12px; color: var(--text-weak); margin-left: 4px;
+  }
+
+  /* Signal Card */
+  .signal-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease;
+  }
+  .signal-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(44,42,38,0.08);
+  }
+  .signal-top {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  }
+  .signal-title {
+    font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--text);
+  }
+  .signal-stars {
+    font-size: 13px; flex-shrink: 0; letter-spacing: 1px;
+  }
+  .signal-meta {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;
+  }
+  .signal-tag {
+    font-size: 11px; padding: 2px 8px; border-radius: 4px;
+    font-family: 'SF Mono', monospace; letter-spacing: 0.5px;
+  }
+  .signal-body {
+    margin-top: 14px; font-size: 14px; line-height: 1.8;
+    color: var(--text-sub);
+  }
+  .signal-body p { margin-bottom: 10px; }
+  .signal-body p:last-child { margin-bottom: 0; }
+  .signal-source {
+    margin-top: 12px; font-size: 11px; color: var(--text-faint);
+    font-family: 'SF Mono', monospace;
+  }
+  .signal-source a { color: var(--text-weak); text-decoration: none; }
+  .signal-source a:hover { text-decoration: underline; }
+
+  /* Vendor Matrix */
+  .matrix-wrap {
+    overflow-x: auto; margin: 0 -12px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .matrix-table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    min-width: 640px;
+  }
+  .matrix-table th {
+    background: var(--card-sub); text-align: left;
+    padding: 10px 12px; font-weight: 600; font-size: 12px;
+    letter-spacing: 0.5px; color: var(--text-sub);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+  .matrix-table td {
+    padding: 10px 12px; border-bottom: 1px solid var(--border);
+    color: var(--text-sub); line-height: 1.6; vertical-align: top;
+  }
+  .matrix-table tr:last-child td { border-bottom: none; }
+  .matrix-table .vendor-name {
+    font-weight: 600; color: var(--text); white-space: nowrap;
+  }
+
+  /* Trend Block */
+  .trend-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .trend-title {
+    font-size: 15px; font-weight: 600; line-height: 1.5; color: var(--text);
+    margin-bottom: 12px;
+  }
+  .trend-body {
+    font-size: 14px; line-height: 1.85; color: var(--text-sub);
+  }
+  .trend-body p { margin-bottom: 10px; }
+  .trend-body p:last-child { margin-bottom: 0; }
+  .trend-evidence {
+    margin-top: 12px; padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    font-size: 12px; color: var(--text-weak);
+    font-family: 'SF Mono', monospace;
+  }
+
+  /* Watch List */
+  .watch-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .watch-item:last-child { border-bottom: none; }
+  .watch-num {
+    font-family: 'SF Mono', monospace; font-size: 13px;
+    color: var(--text-faint); flex-shrink: 0; width: 24px;
+  }
+  .watch-text {
+    font-size: 14px; color: var(--text-sub); line-height: 1.7;
+  }
+  .watch-text strong { color: var(--text); font-weight: 600; }
+
+  /* Review */
+  .review-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .review-item:last-child { border-bottom: none; }
+  .review-prediction {
+    font-size: 13px; color: var(--text-weak); margin-bottom: 4px;
+  }
+  .review-result {
+    font-size: 14px; color: var(--text-sub);
+  }
+  .review-result .badge {
+    display: inline-block; font-size: 11px; padding: 1px 6px;
+    border-radius: 3px; margin-right: 6px; font-weight: 600;
+  }
+  .badge-fulfilled { background: #DAE0D2; color: #4A5340; }
+  .badge-partial { background: #E5DCC4; color: #6B5F40; }
+  .badge-unverified { background: #E6E1D6; color: #7A766C; }
+
+  /* Footer */
+  .footer {
+    text-align: center; padding: 48px 0 36px;
+    font-size: 12px; color: var(--text-faint);
+    letter-spacing: 1px;
+    font-family: 'SF Mono', monospace;
+  }
+
+  /* Collapsible */
+  details summary {
+    cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 6px;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary .arrow {
+    font-size: 10px; color: var(--text-faint);
+    transition: transform 0.2s;
+  }
+  details[open] summary .arrow { transform: rotate(90deg); }
+
+  /* Utility */
+  .cat-opensource { background: var(--cat-opensource); color: var(--cat-opensource-text); }
+  .cat-agent { background: var(--cat-agent); color: var(--cat-agent-text); }
+  .cat-policy { background: var(--cat-policy); color: var(--cat-policy-text); }
+  .cat-model { background: var(--cat-model); color: var(--cat-model-text); }
+  .cat-reasoning { background: var(--cat-reasoning); color: var(--cat-reasoning-text); }
+  .cat-funding { background: var(--cat-funding); color: var(--cat-funding-text); }
+  .cat-security { background: var(--cat-security); color: var(--cat-security-text); }
+  .cat-frontier { background: var(--cat-frontier); color: var(--cat-frontier-text); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="index.html">AI DAILY</a>
+  <span>第26周 · 2026-06-15～06-21</span>
+  <a href="index.html">← 主页</a>
+</nav>
+
+<!-- Header -->
+<header class="header">
+  <div class="vol">WEEKLY · VOL 03</div>
+  <h1>人才出走与支付落地<br>AI从模型竞赛进入制度博弈</h1>
+  <div class="subtitle">72 小时内 Google 连失两位顶尖科学家；SpaceX 上市四天即吞 Cursor；AI 支付中美双线并进</div>
+  <div class="date-range">2026-06-15 ～ 2026-06-21</div>
+</header>
+
+<!-- ========== 维度1：本周关键信号 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#8A8474;box-shadow:0 0 8px #8A8474"></span>
+    <span class="section-title">本 周 关 键 信 号</span>
+    <span class="section-sub">Key Signals</span>
+  </div>
+
+  <!-- Signal 1 -->
+  <details open>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">SpaceX 上市第四天 $600 亿全股收购 Cursor</span>
+          <span class="signal-stars">🌟🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-funding">融资</span>
+          <span class="signal-tag cat-agent">Agent</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>SpaceX 6月12日以 $2万亿+ 市值完成纳斯达克上市，6月16日即宣布以 $600 亿全股票收购 Cursor 母公司 Anysphere——分文现金未花。Cursor 年化企业收入约 $26 亿，去年11月估值仅 $293 亿。收购本质是 Colossus（百万 H100 等效算力）+ Cursor（开发者渠道）的算力-产品闭环。xAI 此前在 AI 编程市场落后于 OpenAI Codex 和 Anthropic Claude Code，Cursor 补齐了这一短板。</p>
+          <p>值得注意的是，4月 xAI 已从 Cursor 挖走两名工程负责人 Andrew Milich 和 Jason Ginsberg，5月 xAI 并入 SpaceX AI，6月即完成收购——从挖人到吞并，不到两个月。全股票交易意味着 Cursor 股东押注 SpaceX 股价继续走高，而非落袋为安。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://www.reuters.com/legal/transactional/spacex-buy-anysphere-60-billion-2026-06-16/">Reuters</a> · <a href="https://finance.sina.cn/tech/2026-06-16/detail-inicrivm7534980.d.html">新浪财经</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 2 -->
+  <details open>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">72 小时内 Google 连失两位顶尖科学家：Shazeer → OpenAI，Jumper → Anthropic</span>
+          <span class="signal-stars">🌟🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-model">大模型</span>
+          <span class="signal-tag cat-agent">Agent</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>6月17日，Transformer 论文核心作者、Gemini 联合负责人 Noam Shazeer 宣布加入 OpenAI，将专注新架构探索。6月20日，AlphaFold 核心缔造者、2024 诺贝尔化学奖得主 John Jumper 宣告离开 DeepMind 加盟 Anthropic。两人出走间隔仅 72 小时。</p>
+          <p>Shazeer 2024年被 Google 以 $27 亿授权交易召回，不到两年再次出走。据 The Information 报道，Google 内部多部门评审、产品迭代周期长于行业平均，是核心研究员持续流失的主因。Jumper 同时是 Google AI 编程工具团队的关键成员，他的离开意味着 Google 在 AI 编程赛道的布局再受打击——而这正是 OpenAI 和 Anthropic 增长最快的业务。</p>
+          <p>过去八年，Google 已有 20 余名里程碑论文核心作者离职。D.A. Davidson 分析师 Gil Luria 指出：前沿 AI 实验室能承诺更少层级束缚、更集中的超级智能研究方向，是人才持续外流的结构性原因。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://9to5google.com/2026/06/17/geminis-co-lead-is-leaving-google-to-join-openai/">9to5Google</a> · <a href="https://www.21jingji.com/article/20260620/herald/4ed4709b9dae362436be695f13429cc5.html">21世纪经济报道</a> · <a href="https://www.cls.cn/detail/2403495">财联社</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 3 -->
+  <details open>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">Fable 5 出口管制第 6 天仍下线；G7 首次 AI 午餐会提出"可信伙伴"框架</span>
+          <span class="signal-stars">🌟🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-policy">政策</span>
+          <span class="signal-tag cat-security">安全</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>6月12日美商务部以国家安全为由对 Anthropic Fable 5/Mythos 5 实施出口管制后，至本周末仍未恢复。管制按国籍执行（而非所在地），连 Anthropic 在美的外籍员工都无法使用，迫使公司全球断网。Anthropic 发长文反驳：政府依据的是一个窄域、非通用越狱，且 GPT-5.5 能做到同样的事——若此标准全行业适用，"将实质叫停所有前沿模型部署"。</p>
+          <p>6月17日 G7 埃维昂峰会首次设置 AI 工作午餐，Altman、Amodei、Hassabis 与七国领导人同桌。Amodei 与 Hassabis 联合提议建立美国主导的 AI 联盟，包括前沿模型分层访问、芯片贸易排除中国。加拿大总理 Carney 支持美国主导，并引用自己曾主持的金融稳定委员会（FSB）作为制度参照。但会议未产生任何有约束力的协议。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://www.anthropic.com/news/fable-mythos-access">Anthropic 官方声明</a> · <a href="https://awesomeagents.ai/news/ai-ceos-g7-evian-global-standards">AwesomeAgents</a> · <a href="https://aibusinessweekly.net/p/anthropic-google-deepmind-g7-us-ai-coalition-2026">AI Business Weekly</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 4 -->
+  <details>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">GLM-5.2 MIT 开源上线：Code Arena 全球可用模型第一，1M 上下文 + Day 0 国产算力</span>
+          <span class="signal-stars">🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-opensource">开源</span>
+          <span class="signal-tag cat-model">大模型</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>智谱 6月17日正式上线并开源 GLM-5.2。核心数据：百万用户盲测 Code Arena 全球可用模型第一；FrontierSWE 比 Claude Opus 4.8 仅低 1%，超过 GPT-5.5；Terminal-Bench 2.1 得分 81.0（前代 63.5，+17.5pp）；1M 无损上下文；MIT 协议商用无限制。</p>
+          <p>Day 0 完成华为昇腾、平头哥、摩尔线程、寒武纪、昆仑芯、沐曦、海光、壁仞共 8 家国产算力平台推理适配。训练与线上推理均未依赖海外算力。这是中国开源模型首次在编程能力上与闭源头部模型进入 1-4% 差距区间，且选择最宽松的开源协议。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://www.stdaily.com/web/gdxw/2026-06/17/content_533710.html">科技日报</a> · <a href="https://hub.baai.ac.cn/view/55608">智源社区</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 5 -->
+  <details>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">AI 支付中美双线落地：微信支付 AI 专属卡 + 支付宝"阿宝" + Visa × ChatGPT</span>
+          <span class="signal-stars">🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-agent">Agent</span>
+          <span class="signal-tag cat-policy">政策</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>6月17日微信支付发布"AI 专属卡"，内置于微信零钱，为 Agent 提供独立支付通道，首期接入 WorkBuddy；同日支付宝"阿宝"上线，用户"右滑"进入对话式服务，覆盖上万种服务；银联商务同步推出 AI 支付产品。三天前，Visa 支付网络正式接入 ChatGPT，Agent 可独立购物付款。</p>
+          <p>两条路线的差异：中国走"专属钱包 + 主账户隔离"（微信/支付宝模式），美国走"信用卡网络嵌入 + 令牌化授权"（Visa 模式）。京东更发布了国内首个智能体自主支付协议 A2P2。AI 支付从概念讨论进入产品交付阶段。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://www.cnfin.com/hb-lb/detail/20260617/4428360_1.html">中国金融信息网</a> · <a href="https://www.stcn.com/article/detail/3967793.html">证券时报</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 6 -->
+  <details>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">ChatGPT / Claude 身份验证上线，GUARD 法案参议院 22:0 通过</span>
+          <span class="signal-stars">🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-policy">政策</span>
+          <span class="signal-tag cat-security">安全</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>6月18日 ChatGPT 消费端上线 3D 活体身份验证（通过 Persona 服务），Anthropic 同步宣布 7月8日起 Claude 用户须实名认证。同周，美国参议院司法委员会以 22:0 通过 GUARD 法案——要求所有 AI 聊天机器人用户上传政府 ID 或刷脸验证年龄，覆盖范围远超未成年人保护。</p>
+          <p>AI 工具从"匿名公共设施"变为"实名管制品"的速度超出预期。法案定义极宽——任何接受开放性自然语言输入的 AI 系统均在覆盖范围内，包括客服机器人。这直接影响 Agent 的使用门槛：如果每次对话都需身份验证，企业端部署成本和用户流失率都将上升。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://36kr.com/p/3857986500170761">36氪</a> · <a href="https://www.ibtimes.co.uk/us-senate-advances-guard-act-ai-chatbot-age-verification-1795374">IBTimes</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 7 -->
+  <details>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">Salesforce $36 亿收购 Fin：Agent 赛道最大单笔交易</span>
+          <span class="signal-stars">🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-funding">融资</span>
+          <span class="signal-tag cat-agent">Agent</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>Salesforce 以 $36 亿收购 AI 客服平台 Fin（原 Intercom 旗下），为 Agentforce 产品线补齐智能客服能力。这是 AI Agent 赛道迄今最大单笔收购，远超此前 OpenAI 收购 Ona（金额未披露但估计在 $5 亿以内）。</p>
+          <p>同周 OpenAI 宣布 $1.5 亿合作伙伴网络（目标 30 万认证顾问，Accenture 已加入），以及 $5000 万非营利承诺——这是对纽约州传票的回应，也是 IPO 前企业化布局的组合拳。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://techcrunch.com/2026/06/15/salesforce-acquires-ai-customer-service-platform-fin-for-3-6b">TechCrunch</a> · <a href="https://openai.com/index/openai-partner-network/">OpenAI 官方</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 8 -->
+  <details>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">全球 AI 债务融资达 $2360 亿，重资产模式加速</span>
+          <span class="signal-stars">🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-funding">融资</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>摩根士丹利报告：全球 AI 债务融资规模已达 $2360 亿，是去年的 4 倍，主要流向数据中心建设。Google 为 Anthropic 提供 $350 亿数据中心融资担保（上周）、SpaceX 市值 $2.5 万亿、OpenAI 去年支出 $340 亿（亏损 $385 亿）——AI 竞赛已从"融资烧钱"阶段进入"举债建基础设施"阶段。</p>
+          <p>中国方面，上交所发布大模型企业科创板上市指引，明确第五套上市标准适用于大模型企业，强调"规模化应用"而非纯技术指标——为国内 AI 公司的资本退出打开通道。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://new.qq.com/rain/a/20260618A02KC100">QQ财经</a> · <a href="https://new.qq.com/rain/a/20260618A023XA00">QQ财经</a>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 维度2：厂商动态矩阵 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#6B4F47;box-shadow:0 0 8px #6B4F47"></span>
+    <span class="section-title">厂 商 动 态 矩 阵</span>
+    <span class="section-sub">Vendor Matrix</span>
+  </div>
+  <div class="matrix-wrap">
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>厂商</th>
+          <th>模型</th>
+          <th>产品 / 动作</th>
+          <th>融资 / 估值</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="vendor-name">OpenAI</td>
+          <td>GPT-5.5（6/27 退役 GPT-4.5）</td>
+          <td>合作伙伴网络 $1.5 亿 + 30 万认证顾问；$5000 万非营利承诺；Codex Record & Replay；ChatGPT 定时任务取代 Pulse；身份验证上线</td>
+          <td>去年支出 $340 亿 / 亏损 $385 亿；IPO 前纽约州传票；估值 ~$8500 亿</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Anthropic</td>
+          <td>Fable 5 / Mythos 5（仍下线）</td>
+          <td>7/8 起 Claude 实名认证；G7 提出分层访问框架；Jumper 加盟（AI 生命科学）</td>
+          <td>ARR $470 亿；估值 ~$9650 亿；Google $350 亿数据中心担保</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Google DeepMind</td>
+          <td>Gemini 3.5 Flash（AI Mode 默认模型）</td>
+          <td>Shazeer + Jumper 两连出走；AI Mode 信息智能体 7×24；Gemini 3.5 Flash 默认</td>
+          <td>Alphabet 市值逼近 Nvidia；$350 亿担保 Anthropic</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">SpaceX / xAI</td>
+          <td>Grok / Composer（Cursor 自研）</td>
+          <td>上市四天收购 Cursor $600 亿全股；Colossus 百万 H100 等效算力</td>
+          <td>市值 $2.5 万亿+；算力租赁月入 $21.7 亿</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Meta</td>
+          <td>Muse Spark</td>
+          <td>Facebook AI Mode 上线（20 亿用户）；AI 编程工具销售遇阻</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">智谱</td>
+          <td>GLM-5.2（744B MoE / MIT）</td>
+          <td>Code Arena 全球第一；1M 上下文；8 家国产算力 Day 0 适配</td>
+          <td>港股上市（02513.HK）</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">阿里</td>
+          <td>Qwen-Robot 系列</td>
+          <td>RobotManip + RobotWorld 具身智能；Token Foundry 事业部</td>
+          <td>CEO 直管 AI 全链路</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Salesforce</td>
+          <td>Agentforce</td>
+          <td>$36 亿收购 Fin 补齐客服 Agent</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 维度3：技术演进趋势 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#4A5258;box-shadow:0 0 8px #4A5258"></span>
+    <span class="section-title">技 术 演 进 趋 势</span>
+    <span class="section-sub">Technical Trends</span>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">编程 Agent 从工具变为基础设施，Cursor 被收购标志着赛道进入"平台化"阶段</div>
+    <div class="trend-body">
+      <p>本周三件事共同勾勒出 AI 编程赛道的新阶段：SpaceX 以 $600 亿收购 Cursor、Microsoft 开源 Fara-7B（Computer Use Agent 模型）、OpenAI Codex 上线 Record & Replay 功能。Cursor 的被收购意味着编程 Agent 不再是"IDE 插件"的定位，而是成为算力平台的前端交互界面——Colossus 算力 + Cursor 开发者渠道的组合，与 OpenAI（Codex + Ona）和 Anthropic（Claude Code）形成了三足鼎立的编程 Agent 基础设施格局。</p>
+      <p>另一个信号：GitHub 6月可用性跌至 88.4%，AI Agent 开的 PR 从 2025年9月的 400 万飙升到 2026年3月的 1700 万，微软被迫将 GitHub 部分算力分流到 AWS——编程 Agent 的爆发式增长已经冲击到承载它的基础设施。</p>
+    </div>
+    <div class="trend-evidence">
+      论据：SpaceX/Cursor 收购 · Fara-7B 开源 · Codex Record & Replay · GitHub 可用性 88.4%
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">Agent 自进化框架扎堆涌现：从"人类调参"到"Agent 自优化运行"</div>
+    <div class="trend-body">
+      <p>本周 arXiv 同时出现三篇 Agent 自进化框架论文：Self-Harness（Terminal-Bench 2.0 MiniMax M2.5 从 40.5%→61.9%）、MLEvolve（AlphaEvolve 思路迁移到 ML 工程）、APEX（三层自进化：harness → 原则蒸馏 → 工作流拓扑）。三篇论文的共同思路是：让 Agent 在运行中发现自身弱点、提出改进方案、验证后自动应用，无需人类介入。</p>
+      <p>结合上周的 OpenSquilla（Token-efficient 微内核 Agent，成本降 90%），方向很明确：Agent 的竞争力正从"模型能力"转向"运行效率"——同样的模型，谁能用更少的 Token、更少的迭代完成同样的任务，谁就胜出。</p>
+    </div>
+    <div class="trend-evidence">
+      论据：Self-Harness arXiv:2606.09498 · MLEvolve arXiv:2606.06473 · APEX arXiv:2606.15363 · OpenSquilla 4.1K Stars
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">开源模型在编程能力上首次逼近闭源头部，且选择了最宽松协议</div>
+    <div class="trend-body">
+      <p>GLM-5.2 在 FrontierSWE 上仅比 Claude Opus 4.8 低 1%，超过 GPT-5.5；Code Arena 盲测全球可用模型第一。这是开源模型首次在编程能力上与闭源头部进入 1-4% 差距区间。更值得注意的是协议选择：MIT 而非 Apache 2.0 或更限制性协议，意味着任何企业可直接商用、修改、再分发——对 DeepSeek（首轮融资 $515 亿）和千问系列构成了直接竞争压力。</p>
+      <p>另一层意义：训练和推理均未依赖海外算力，Day 0 适配 8 家国产芯片。在中美算力脱钩背景下，这为国产算力生态提供了第一个"可验证的顶级模型"锚点。</p>
+    </div>
+    <div class="trend-evidence">
+      论据：GLM-5.2 Code Arena 第一 · FrontierSWE 差距 1% · 8 家国产算力 Day 0 · MIT 协议
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">Computer Use Agent 成为独立技术赛道，微软和开源社区同时入场</div>
+    <div class="trend-body">
+      <p>微软开源 Fara-7B（7B 参数 Computer Use Agent 模型），CUA 项目（18K Stars）提供跨平台沙箱基础设施，Chrome DevTools MCP（43.2K Stars）让 AI Agent 可以直接操控浏览器调试。三个项目分别覆盖模型层、运行时层和工具层。</p>
+      <p>Computer Use Agent 与传统编程 Agent 的区别在于：它不操作代码，而是直接操作 GUI——像人一样点击、输入、截图。这意味着 AI 可以部署到任何软件环境（包括没有 API 的遗留系统），但同时也带来了更高的安全风险和更难的对齐问题。GUARD 法案的身份验证要求将直接影响 Computer Use Agent 的部署门槛。</p>
+    </div>
+    <div class="trend-evidence">
+      论据：Fara-7B GitHub · CUA 18K Stars · Chrome DevTools MCP 43.2K Stars
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 维度4：商业格局变化 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#6B5F40;box-shadow:0 0 8px #6B5F40"></span>
+    <span class="section-title">商 业 格 局 变 化</span>
+    <span class="section-sub">Business Landscape</span>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">AI 人才市场从"个人流动"变为"组织级挖角"，Google 成为最大人才输出方</div>
+    <div class="trend-body">
+      <p>Shazeer 和 Jumper 72 小时内先后出走 Google，不是孤立事件。过去八年 Google 有 20+ 核心论文作者离职，流向 OpenAI、Anthropic 和 Microsoft。本周的特别之处在于出走者的级别——Gemini 联合负责人和诺奖得主同时离开，且两人都去了直接竞争对手。</p>
+      <p>更深层的问题是：Google 的 AI 编程工具销售进展不顺，内部高管公开担忧无法向企业客户提供清晰方案——而 AI 编程正是 OpenAI 和 Anthropic 增长最快的业务。人才流失和业务困局互为因果：核心人出走→产品节奏放缓→收入增长不及预期→更多核心人出走。</p>
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">AI 支付基础设施落地：中美走了两条路线，但都在解决同一个问题——Agent 的资金流闭环</div>
+    <div class="trend-body">
+      <p>Visa × ChatGPT 和微信支付 AI 专属卡在同一周落地，不是巧合。Agent 要完成从"建议"到"执行"的闭环，必须解决支付问题。中国路线（专属钱包 + 主账户隔离）更像"给 AI 发一张借记卡"，美国路线（信用卡网络令牌化）更像"给 AI 一个授权码"。京东的 A2P2 协议则试图建立智能体之间的支付信任框架。</p>
+      <p>关键差异在于用户习惯：中国用户已习惯"扫码即付"，AI 支付是现有习惯的延伸；美国用户更依赖信用卡网络，AI 支付需要嵌入 Visa/Mastercard 体系。两条路线的最终目标一致：让 Agent 在人类授权范围内自主完成资金流转。</p>
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">AI 从"公司自治"走向"政府介入"，但制度供给严重滞后</div>
+    <div class="trend-body">
+      <p>Fable 5 出口管制、G7 AI 午餐会、GUARD 法案 22:0 通过、上交所科创板指引——四件事指向同一趋势：政府正在加速介入 AI 治理。但介入方式和速度极不均衡。美国商务部可以一纸行政令叫停一个模型，但 G7 无法就 AI 标准论坛达成任何有约束力的协议。Anthropic 呼吁的"基于技术事实、透明公平的法定程序"尚不存在。</p>
+      <p>中国方面，科创板指引为 AI 公司资本退出打开通道，但标准是"规模化应用"而非技术指标——这意味着还在烧钱阶段的大模型公司仍需证明商业化能力。制度供给的滞后性意味着：短期内，企业将在不确定的监管环境中做战略决策。</p>
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">AI 债务融资 $2360 亿：从股权融资到举债建设，资本结构正在变化</div>
+    <div class="trend-body">
+      <p>OpenAI 去年支出 $340 亿、亏损 $385 亿；Google 为 Anthropic 担保 $350 亿数据中心融资；全球 AI 债务融资规模达 $2360 亿（摩根士丹利数据），是去年的 4 倍。AI 竞赛的资金形态正在从"股权融资烧钱"转向"举债建基础设施"——与早期电信行业的路径相似。</p>
+      <p>债务融资意味着还款压力。如果 AI 应用收入增长不及预期（OpenAI 的 ARR 约 $127 亿 vs $340 亿支出），债务违约风险将上升。SpaceX 用全股票收购 Cursor 而非现金，某种程度上也反映了资金效率考量——用高估值股票而非真金白银完成交易。</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 维度5：下周观察清单 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#5A4870;box-shadow:0 0 8px #5A4870"></span>
+    <span class="section-title">下 周 观 察 清 单</span>
+    <span class="section-sub">Watch List</span>
+  </div>
+
+  <div class="watch-item">
+    <span class="watch-num">01</span>
+    <span class="watch-text"><strong>Fable 5 恢复时间表</strong>——Anthropic 已在华盛顿面对面善后，出口管制的审查周期和技术标准是否在本周明确，将决定"政府能否以窄域越狱为由叫停前沿模型"成为先例还是特例</span>
+  </div>
+  <div class="watch-item">
+    <span class="watch-num">02</span>
+    <span class="watch-text"><strong>7/8 Claude 实名认证落地</strong>——Anthropic 已宣布 7月8日起执行，但 GUARD 法案覆盖范围远超未成年人保护。实名验证对 API 调用量和企业端部署的影响将首次可观测</span>
+  </div>
+  <div class="watch-item">
+    <span class="watch-num">03</span>
+    <span class="watch-text"><strong>GPT-4.5 退役后 GPT-5.5 的用户迁移率</strong>——6/27 GPT-4.5 从 ChatGPT 退役，用户自动切换至 GPT-5.5。迁移是否顺畅、是否有质量回退，将验证"快速迭代-退役"策略的可行性</span>
+  </div>
+  <div class="watch-item">
+    <span class="watch-num">04</span>
+    <span class="watch-text"><strong>SpaceX/Cursor 交割进展与 Cursor 定价策略</strong>——全股收购预计 Q3 完成，Cursor 是否调整定价、是否限制竞争对手模型（OpenAI/Anthropic）接入，将决定编程 Agent 市场是否走向封闭</span>
+  </div>
+  <div class="watch-item">
+    <span class="watch-num">05</span>
+    <span class="watch-text"><strong>Google AI 编程工具的企业端推进</strong>——Jumper 离职暴露了 Google 在 AI 编程工具销售上的困境。Shazeer 和 Jumper 双双出走后，Google 是否会加速推出对标 Codex/Claude Code 的产品</span>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 上期判断兑现度 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#B5B0A4;box-shadow:0 0 8px #B5B0A4"></span>
+    <span class="section-title">上 期 判 断 兑 现 度</span>
+    <span class="section-sub">Vol.02 Predictions Review</span>
+  </div>
+
+  <div class="review-item">
+    <div class="review-prediction">Fable 5/Mythos 5 下线后续：政府审查周期与 Anthropic 法律应对</div>
+    <div class="review-result"><span class="badge badge-fulfilled">兑现</span>第6天仍下线，Anthropic 发长文反驳并赴华盛顿善后，G7 讨论"trusted partners"框架但无约束力协议</div>
+  </div>
+  <div class="review-item">
+    <div class="review-prediction">OpenAI 降价方案具体落地</div>
+    <div class="review-result"><span class="badge badge-partial">部分兑现</span>AI Plus 已降至 $4.99/月（上周），本周未有更广泛的 API 降价公布</div>
+  </div>
+  <div class="review-item">
+    <div class="review-prediction">SpaceX 上市后首周走势与 AI 估值体系联动</div>
+    <div class="review-result"><span class="badge badge-fulfilled">兑现</span>市值突破 $2.5 万亿，上市四天即以 $600 亿全股收购 Cursor，AI 估值体系与资本市场深度联动</div>
+  </div>
+  <div class="review-item">
+    <div class="review-prediction">Mistral AI €30 亿融资进展</div>
+    <div class="review-result"><span class="badge badge-unverified">未验证</span>本周无公开进展</div>
+  </div>
+  <div class="review-item">
+    <div class="review-prediction">Meta Manus AI 收购撤销后续</div>
+    <div class="review-result"><span class="badge badge-partial">部分兑现</span>Meta 上线 Facebook AI Mode 替代 Manus 路线，但未重新启动收购</div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  AI DAILY / 商业·认知观察者 · 出品
+</footer>
+
+</div>
+</body>
+</html>
