@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·28 · 2026/06/29</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  /* ── Section ── */
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  /* ── Image Card ── */
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  /* Card body */
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  /* Category dot colors */
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  /* Image Error Fallback */
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 06 / 29</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 28</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 06 ／ 29 · 周一</p>
+      </div>
+    </header>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://openai.com/index/introducing-workspace-agents-in-chatgpt/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://images.ctfassets.net/kftzwdyauwt9/5VOBXAok5WCGbcXubvIGSn/c6ec67af102f0537ff2a526fca45ff47/OAI_Blog_SEO_16x9.png?w=1600&h=900&fit=fill" alt="OpenAI Workspace Agents" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">OpenAI 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI 工作空间智能体在 ChatGPT 推出：Codex 驱动，跨团队共享</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Codex 强力驱动的 GPT 进化形态 / 团队可创建共享智能体处理复杂任务和长期工作流 / 严格遵循组织权限管控 / 云端运行，离线状态也能持续执行 / 支持 ChatGPT Business / Enterprise / Edu / 教师版套餐研究预览 / ChatGPT 与 Slack 同步协作</p>
+          <div class="comment">GPT 在企业里的位置变了——从「个人助理」跨到「团队成员」。关键不在 Codex 本身（早就有），而是在 ChatGPT 原生集成 + 权限沙箱 + 跨人共享这套组合拳。微软 Copilot 一直是单人版，OpenAI 这步是把 AI Agent 推向真正的组织工作流，竞争维度从能力升级到治理结构。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini-3-5__keywordstatement__metacard__light.width-1300.png" alt="Gemini 3.5 Flash" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Google 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Gemini 3.5 Flash 内置 computer use，4 倍速度反超 Pro</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">computer use 能力从独立模型内嵌至 3.5 Flash / OSWorld-Verified 跑分 78.4% / Antigravity 子智能体协同 / 击败 Gemini 3.1 Pro 的 agentic 任务 / 输出 tokens/秒 4 倍领先 / 浏览器、移动端、桌面系统全场景执行 / Gemini API + Enterprise Agent Platform + Browserbase demo</p>
+          <div class="comment">Flash 反超 Pro——Google 把「尺寸越大越强」的常规剧本反着写了一遍。computer use 内嵌到 Flash（最快最便宜的版本）等于把 Agent 能力的成本曲线打穿到地板：开发者部署成本能降一个量级。但安全警告也写明显了：直接操控企业系统等于把攻击面拉到屏幕级，prompt injection 防护是 Google 配套强化的核心。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.theblockbeats.info/flash/352801" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">The Block Beats</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">GPT-5.6 / Gemini 3.5 Pro 双双延期至 7 月，OpenAI Bidi 语音本周上线</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">GPT-5.6 由原定本周延至 7 月中旬 / Gemini 3.5 Pro 取消 6 月底发布计划（Google 内部对状态不满）/ 同步传出 Anthropic 已让部分企业客户提前接入 Claude Sonnet 5 / OpenAI 新一代双向语音模型 Bidi 在 ChatGPT 平台推进准备 / 15 天内新模型爆炸预测</p>
+          <div class="comment">四大模型同月发车的剧本落空，但延期背后是质量门槛在抬升。Google 主动取消 6 月底发布、Anthropic 把 Sonnet 5 给企业先验，方向都从「抢首发」转向「保口碑」。值得关注的是 Bidi——双向语音是 OpenAI 唯一明显落后于 Gemini Live 的赛道，赶在 GPT-5.6 前先上，是想用 Realtime API 拖住企业合同。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://gu.qq.com/resources/shy/news/detail-v2/index.html?_tentrees_trans=0&id=SN20260626115413b644045b" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">财联社 / 路透</span>
+              <span class="card-divider">·</span>
+              <span>3 日前</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">阿布扎比 MGX 募 500 亿美元，Menlo Ventures 30 亿，AI 资本池爆表</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">MGX 募资近 500 亿美元创年度最大 AI 投资基金纪录 / 首次以该规模向外部募资 / 投资组合覆盖 OpenAI 和 xAI / 与贝莱德、微软共同支持全球基础设施 / 目标资产管理规模 1000 亿美元以上 / 同步：Menlo Ventures 募 30 亿美元 ALL in AI（其历史最大基金）/ 已投 OpenRouter / Axiom / Skild AI / Anthropic 账面价值近 140 亿美元</p>
+          <div class="comment">主权基金和风投同周刷纪录——这不是常态，是 2026 年独有的资金供给曲线。MGX 把阿联酋从「资本输出」拉回「资本运作」，目标 1000 亿 AUM 比多数美国超大规模云厂商年资本开支都高。Menlo 投 Anthropic 一支赚 130 亿的故事，会刺激整个 VC 圈把赌注再加倍。问题：钱太多，项目不够分，估值泡沫会加速成型。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260626A0AN5300" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OJi7cCrl2s3yqNj1MCQHZ2jQlft_e7ujaPx_Cy2OQ-LtAAA_640330/0" alt="DeepSeek 融资" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">腾讯 / 路透</span>
+              <span class="card-divider">·</span>
+              <span>3 日前</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">DeepSeek 估值破 500 亿美元：梁文锋个人 30 亿 + 腾讯 + 宁德时代</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">DeepSeek 完成首轮融资，募资额约 70-74 亿美元 / 投后估值超 500 亿美元 / 创始人梁文锋个人出资 30 亿美元 / 腾讯、宁德时代参与 / 同步宣告大规模扩招应对全球 AI 加速 / 「Lean AI」策略被放弃，转向系统性建设</p>
+          <div class="comment">创始人个人 30 亿美金——这不是普通跟投，是把所有身家跟公司绑死。腾讯+宁德时代的组合也耐人寻味：腾讯补算力和云，宁德时代补能源（数据中心电力），把 DeepSeek 从「算法公司」拉成「AI 基建联合体」。500 亿估值对标 Mistral（60 亿）和 Anthropic（千亿级），性价比故事成立，但 Lean 路线彻底没了。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://theagenttimes.com/articles/hugging-face-weekly-papers-spotlight-converges-on-agentic-ai-ce8dfc49" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://qhaph2f3vltn91ho.public.blob.vercel-storage.com/hugging-face-weekly-papers-spotlight-converges-on-agentic-ai-ce8dfc49-ecjSUQ44ZYveP08Bb7jtWOj8a0qTDf.webp" alt="HuggingFace Weekly Papers" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">Hugging Face Daily Papers</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">HF 周报聚焦 Agentic AI：Qwen-AgentWorld + Wan-Streamer + PlanBench-XL</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">AK 周报精选 10 篇论文集中于 Agentic AI / 重点论文：Qwen-AgentWorld（阿里原生语言世界模型）/ Wan-Streamer v0.1（阿里实时流式交互基础模型）/ MemSlides（分层记忆 Agent 框架）/ PlanBench-XL（大规模工具调用规划评测）/ EnterpriseClawBench（企业级 Agent 评测）/ OpenRath（会话中心运行时状态）/ Grouped Query Experts（MoE on GQA）/ DataClaw0（多模态数据 Agent 精修）</p>
+          <div class="comment">从单点能力到系统集成——本周 Hugging Face Daily Papers 的关键词是「Agent 拼图」。Qwen-AgentWorld 把环境建模塞进预训练目标，Wan-Streamer 做实时流式响应，MemSlides 攻长上下文局部修订，三件套是 Agent 走向实用的基础。中文团队的产出在 Agent 研究里占比明显抬升，Qwen 系列继续是开源标杆。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/DeusData/codebase-memory-mcp" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/1166102148/c6b6a073-5cad-4f9a-81c4-16018827c144" alt="codebase-memory-mcp" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">·</span>
+              <span>今日 +2,190 ⭐</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">codebase-memory-mcp：158 语言代码库智能 MCP，单二进制零依赖</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">高性能代码智能 MCP 服务器 / 19,843 Stars / 今日 +2,190 Stars（Trending 第一）/ 把代码库索引为持久化知识图谱 / 平均 repo 索引毫秒级 / 毫秒级查询 / Token 用量减少 99% / 158 种语言 / 单一静态二进制 / 零运行时依赖</p>
+          <div class="comment">MCP 生态开始长出「基础设施层」——不是又一种 Agent 框架，而是 Agent 调用的底座。99% Token 削减是杀手锏：大 repo 喂给 Claude Code 不再被 context window 掐脖子。零依赖单二进制意味着能塞进任何 CI 流水线。对 Anthropic 推广 MCP 协议的整个生态来说，这是补完关键拼图。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/xbtlin/ai-berkshire" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/d17c974396229243a0b7185d59d5b10b39e7488d1a4d3d6ab67214a3ae1388eb/xbtlin/ai-berkshire" alt="ai-berkshire" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">·</span>
+              <span>今日 +1,445 ⭐</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">ai-berkshire：四大师方法论 + 多 Agent 对抗，价值投资研究框架</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">基于 Claude Code / Codex 的价值投资研究框架 / 5,453 Stars / 今日 +1,445 Stars / 融合巴菲特、芒格、段永平、李录四位大师方法论 / 多 Agent 并行研究 + 对抗性分析 / 专为 AI 编程助手设计</p>
+          <div class="comment">把四位价值投资大师的方法论显式编码成 Agent Prompt——这不是新点子，但踩中了「个人量化」和「Claude Code 应用」两个流量交叉口。对抗性多 Agent 是亮点：让一个 Agent 当多头、一个当空头，互相挑战结论。问题是：价值投资的核心是对人性和商业模式的理解，多 Agent 模拟的「市场博弈」真能替代真金白银的持仓纪律？</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/browser-use/video-use" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/e9b0d7d71c80dbd08aa70a413309f885aaa9abd63e42eb9a80b644d7e9ad795b/browser-use/video-use" alt="browser-use video-use" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">·</span>
+              <span>今日 +196 ⭐</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">video-use：编程 Agent 视频编辑框架，browser-use 兄弟项目</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">browser-use 团队新发布 / 11,135 Stars / 今日 +196 Stars / 通过编程 Agent（Claude Code）直接编辑视频 / 用代码指挥剪辑、特效、字幕、配乐全流程 / GitHub 持续 Trending</p>
+          <div class="comment">browser-use 把「用代码驱动浏览器」变成 Agent 标准范式，现在把同样思路搬到视频编辑——内容创作的最后一个堡垒。视频剪辑的核心是「多轨道时间线 + 状态机」，比浏览器 DOM 复杂，Agent 能稳定跑通才能进入实用。从 GitHub Trending 频次看，这是 2026 H2 第一个跨过「内容生产 Agent」门槛的框架。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
