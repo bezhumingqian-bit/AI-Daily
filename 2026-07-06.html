@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026-07-06 · VOL · 33</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 07 / 06</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 33</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 07 ／ 06 · 周一</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://openai.com/index/introducing-gpt-5-6/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">OpenAI 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI 发布 GPT-5.6 三款模型 Sol/Terra/Luna，7-9 公众开放、Sol 较 Fable 5 便宜两倍</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">OpenAI 7-5 发布 GPT-5.6 系列：Sol/Terra/Luna 三款 + 旗舰版 Sol Ultra / 7-7 至 7-9 公众开放窗口（部分机构已获 limited preview API）/ 新增"速度拨盘"允许用户在速度与质量间调节 / 内测实测 GPT-5.6 Terra 复杂 prompt 仅消耗 13% 额度，Fable 5 同类任务 21% 且反问 / Sol 定价较 Anthropic Fable 5 便宜两倍以上，token 效率领先</p>
+          <div class="comment">这刀砍在 Claude Fable 5 限额方案失效的真空期，窗口精准得像外科手术。OpenAI 没靠参数翻倍，而是用 token 效率 + 价格折扣做反杀——13% vs 21% 的额度消耗、便宜 2 倍的定价，对工程化 Agent 调用方来说几乎等于"换云能直接降本一半"。Anthropic 之前靠 Claude Code 隐写术门和 Opus 4.8 严重幻觉把市场拱手让出，现在 Fable 5 限额的真空期就成了 OpenAI 的黄金窗口。7-7 这场仗值得蹲守。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.anthropic.com/financial-agents" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.sanity.io/images/4zrzovbb/website/6d4a0d28992ade92d6fa63646fd9c9d318245c6c-2400x1260.jpg" alt="Anthropic Financial Agents" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Anthropic 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 发布 10 款金融 AI 代理，年化收入 300 亿美元冲刺 IPO，同比 +1400%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Anthropic 7-5 推出 10 款金融行业预配置 AI 代理 / 覆盖投行/资管/保险三大子赛道：Pitch builder / Earnings reviewer / Model builder / KYC screener 等 / 可独立运行或插件集成 / 公司年化收入约 300 亿美元，同比增长约 1400% / 冲刺年底 IPO</p>
+          <div class="comment">"10 款"这个数字本身就是信号——Anthropic 从通用大模型一步跨到"垂直 Agent 货架"。金融是 AI 商业化最敏感的试金石：客户付费意愿高、流程标准化程度高、合规护城河可定价。同期 Claude Tag 集成 Slack、Claude Science 剑指药物研发，三条垂直 Agent 战线在同一天摆开——这不像是产品节奏，更像是 IPO 前夜对华尔街"我们不只是模型公司、是 Agent 平台"叙事的集中演练。300 亿年化同比 +1400% 这个增速，意味着 Anthropic 已经把 OpenAI 在 B 端的差距压到了单季度可追平的距离。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.anthropic.com/news/claude-tag" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.sanity.io/images/4zrzovbb/website/6d4a0d28992ade92d6fa63646fd9c9d318245c6c-2400x1260.jpg" alt="Anthropic Claude Tag" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Anthropic 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 推出 Claude Tag 集成 Slack，AI 首次以"被 @"方式嵌入团队实时工作流</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Anthropic 7-5 正式推出 Claude Tag / 集成至 Slack 平台 / 使用方式：在频道中 @Claude Tag 即可触发 AI 参与讨论 / 标志着 AI 从"独立工具"转向"团队成员" / 配套 10 款金融代理、Claude Science 同步上线</p>
+          <div class="comment">AI 进 Slack 不稀奇，但"@Claude Tag"这种以"被点名"为主交互的设计很微妙——它把 AI 从主动对话框塞回团队异步讨论流，弱化"工具"感、强化"队友"感。配合 Anthropic 同步推出的 10 款金融 Agent 和 Claude Science，可以看出他们想从"模型 API 提供方"直接切到"企业工作流嵌入式 Agent 平台"——跟 OpenAI 死磕通用 Agent、跟 Google 死磕 Workspace 嵌入完全是第三条路。Slack 本身就是企业 IM 事实标准，Anthropic 这手等于在 Salesforce 体系内建了一条"AI 中枢神经"。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.microsoft.com/en-us/microsoft-copilot/blog/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://www.microsoft.com/en-us/microsoft-copilot/blog/wp-content/uploads/2024/05/cropped-microsoft_logo_element.png" alt="Microsoft Copilot" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Microsoft 官方</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">微软 Copilot 大重构：消费版与企业版合并 8 月上线，新增 AutoPilot 后台常驻智能体</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">微软 7-3 内部备忘录披露将全面重构 Copilot / 消费版（Copilot Pro）与企业版（Microsoft 365 Copilot）合并为单一产品 / 预计 8 月发布 / 新增 AI 编程工具 + 代号"AutoPilot"的后台智能体 / AutoPilot 可在后台持续运行，负责日程安排、邮件摘要等任务 / 微软已停用内部 Claude Code 许可证，工程师转 Copilot CLI</p>
+          <div class="comment">微软这步棋同时做三件事：把消费和企业产品线收口、推出 AutoPilot 跨进 Agent 主战场、内部禁用 Anthropic 切换自研。AutoPilot 跟 Anthropic 今天的 Claude Tag、Anthropic 金融代理是同一个范式——AI 从"对话框"变"后台常驻同事"。但微软的优势在于 Office + Teams + Outlook 这个几乎垄断的企业协同底座，AutoPilot 天然能调度邮件/日程/文档三件套。配合 7-2 微软刚宣布的 Frontier Company（6000 工程师专服头部 AI 实验室），这家公司正在把"云服务"重新定义成"AI Agent 操作系统"。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全 与 监 管</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.yicai.com/news/102575125.html" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://img.alicdn.com/imgextra/i1/O1CN014VgOox1c2HzUD67Eg_!!6000000003542-0-tps-2400-1260.jpg" alt="Qoder" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">第一财经</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">阿里内部 7-10 起全面禁用 Claude Code，转用自研 Qoder，中国互联网首例明确禁令</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">阿里 7-3 内部通知 / 7-10 起全面禁止员工在办公环境使用 Claude Code / Claude Code 2.1.193-196 被曝存在隐写术式时区/代理检测代码（暗藏 Unicode 字符标记中国用户）/ Anthropic 团队成员 @trq212 公开承认并承诺次日版本移除 / 阿里内部推荐使用自研 Qoder 替代（去年 8 月上线）</p>
+          <div class="comment">Claude Code"隐写术后门"事件已经从 Reddit 爆料升级成企业级采购禁令——这是中国头部互联网公司第一次以"安全风险"为正式理由禁用 Anthropic 产品。Qoder 作为替代方案在阿里内部快速铺开，意味着 2025 年 8 月才上线的自研 Agentic 编程平台已经具备替换 Claude Code 的工程化能力。这条禁令真正的连锁反应不在阿里本身，而在腾讯、字节、美团、京东——它们的安全部门现在都拿到了"阿里先做了"这个样板。中国 AI 编程工具的市场格局可能因此加速重构：Cursor/Copilot 之外，国产替代品多了一个明确的"安全合规"卖点。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资 与 市 场</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.quantum-systems.com/news/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Quantum Systems 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">德国 Quantum Systems 完成 12 亿美元融资估值 80 亿，AI 自主无人机成军民两用新热点</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">德国 Quantum Systems 7-5 官宣完成 12 亿美元融资 / 投后估值 80 亿美元 / 专注 AI 驱动自主无人机系统 / 业务覆盖军民两用：战场侦察 / 边境巡逻 / 农业测绘 / 物流配送 / 是当日全球 AI 硬件赛道单笔最大融资</p>
+          <div class="comment">80 亿估值单轮跳涨，背后是欧美军工 AI 化预算的全面上行。Quantum Systems 的特别之处在于"军民两用"——既能交付给 NATO 部队执行乌克兰战场的侦察任务，也能在民用场景里跑农业测绘。资本涌入的逻辑是：当无人机具备了视觉大模型 + 自主决策 + 集群协同能力，它就从"航空模型"变成了"会飞的 Agent"，而会飞的 Agent 在战场和物流这两个市场都有千亿级 TAM。这跟 Etched Sohu（7-2 报道的 8 亿融资）同属"AI 改变物理世界执行方式"这条主线——只是 Etched 改数据中心，Quantum Systems 改天空。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://subagentic.ai/posts/mcp-stateless-core-redesign-2026" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://subagentic.ai/posts/mcp-stateless-core-redesign-2026/cover.jpg" alt="MCP Stateless Redesign" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">MCP 协议规范</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">MCP 2026-07-28 协议重设计：彻底移出会话状态、引入 MCP Apps、弃用 Roots/Sampling/Logging</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">MCP 2026-07-28 规范发布候选版本（5-21 由 David Soria Parra 与 Den Delimarsky 公布）/ 核心改动：协议彻底无状态化——每个请求自包含，无需初始化握手/无 session ID/可被 round-robin LB 直接路由 / 新增 Extensions 框架 + MCP Apps（server 渲染 UI）/ Tasks 升级为 Extension / 授权模型对齐 OAuth 2.0 + OIDC / 弃用 Roots/Sampling/Logging</p>
+          <div class="comment">MCP 无状态化是协议自发布以来最大的一次重设计。核心影响：以前每个 MCP server 必须维护 session 状态、强制 sticky session、深包检测网关——这对自托管是噩梦、对 Serverless 几乎不可行。无状态后，MCP server 可以跑在 Cloudflare Workers/Vercel Edge/Lambda 任意 LB 后面，部署成本和工程负担都断崖式下降。MCP Apps（server 渲染 UI）让 MCP 从"工具数据协议"升级为"应用层协议"——这是 Anthropic 给 MCP 生态留下的最大想象空间，也是对 OpenAI 同期推 Apps SDK 的正面回应。7-28 正式发版前，所有 server 实现都该开始测 RC 了。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/mistralai/leanstral" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · Mistral AI</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Mistral 开源 Leanstral：119B 总参 6B 激活，专攻 Lean 4 形式化证明，r/LocalLLaMA 636 赞</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Mistral 7-3 开源 Leanstral（首个面向 Lean 4 形式化证明语言的开源代码 Agent）/ 总参 119B / 激活 6B（MoE 5% 激活率）/ 在 miniF2F 达到饱和 / PutnamBench 解决 587/672 个问题 / FATE-H 87% / FATE-X 34%（均 SOTA）/ r/LocalLLaMA 帖子 636 赞 74 评论 / 1M 上下文 256GB 显存可运行</p>
+          <div class="comment">"6B 激活参数吊打大模型"才是这条新闻的真正爆点。Leanstral 用 5% 激活率在数学形式化证明上做到 SOTA，等于宣告"MoE + 专项训练"对"暴力堆参数"的代际优势。意义不止于数学：它证明了在垂直任务上，专项数据密度比通用基座规模更重要。配合 1M 上下文 256GB 显存可跑（社区修复后），这意味着中小团队不必再依赖云端 API 就能本地部署 SOTA 数学 Agent——学术圈对形式化证明助手的需求会被一次性打开。Mistral 这步是"小而强"哲学在 2026 年的最新注脚，跟 DeepSeek R1 同属一条线。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/headroomlabs-ai/headroom" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/e3966dfa261c0f1546f0430159a9c3af09cf616df2ad8bec5c2d286a3b22d196/headroomlabs-ai/headroom" alt="headroom" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · headroomlabs-ai</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">headroom 上线即登顶趋势：上下文压缩层 60-95% 减 token，库/代理/MCP server 三形态发布</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">headroomlabs-ai/headroom 单日 2.5k Star / 总 Star 4.6k / 同一仓库发布三种形态：Python 库 / LLM 流量代理 / MCP server / 在工具输出、日志、文件、RAG chunks 进入 LLM 之前进行压缩 / 减幅 60-95% / 答案质量不变 / Trending 日榜前 10</p>
+          <div class="comment">"上下文通胀"是 2026 年 LLM 应用的隐性税——一个 Agent 任务跑完动辄 10 万 token，成本被 MMLU、长记忆、工具循环推得失控。headroom 的聪明之处是三形态同发：库给单进程用、代理给跨服务流量用、MCP server 给 Claude Code/Cursor 那种 AI 编程工具用。60-95% 减幅 + 答案质量不变意味着这是一层"透明优化层"，不需要改应用代码就能接进去。GitHub Trending 上线即霸榜说明市场对"中间件式省钱"的需求远大于"再训练一次模型"。这是 RAG 时代之后第一个真正落地"上下文即成本"的产品化答案。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
