@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 周报 · 第28周 · 2026-06-29～07-05</title>
+<style>
+  :root {
+    --bg: #F5F1E8;
+    --card: #FFFEFC;
+    --card-sub: #FAF7EE;
+    --text: #2C2A26;
+    --text-sub: #5F5B53;
+    --text-weak: #7A766C;
+    --text-faint: #B5B0A4;
+    --border: #E6E1D6;
+    --accent: #8A8474;
+    --cat-opensource: #E8E2D2;
+    --cat-opensource-text: #5A5443;
+    --cat-agent: #DAE0D2;
+    --cat-agent-text: #4A5340;
+    --cat-policy: #E5DCC4;
+    --cat-policy-text: #6B5F40;
+    --cat-model: #E2D2CB;
+    --cat-model-text: #6B4F47;
+    --cat-reasoning: #D5DCDC;
+    --cat-reasoning-text: #4A5258;
+    --cat-funding: #DDE8D0;
+    --cat-funding-text: #4A5340;
+    --cat-security: #E8D2D2;
+    --cat-security-text: #6B4F47;
+    --cat-frontier: #E0D8EC;
+    --cat-frontier-text: #5A4870;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Noto Serif SC', 'Source Han Serif SC', serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  .nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 0; border-bottom: 1px solid var(--border);
+    font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; color: var(--text-weak);
+  }
+  .nav a { color: var(--text-sub); text-decoration: none; }
+  .nav a:hover { color: var(--text); }
+
+  /* Header */
+  .header {
+    padding: 56px 0 40px;
+    text-align: center;
+  }
+  .header .vol {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px; letter-spacing: 3px; color: var(--text-weak);
+    margin-bottom: 20px;
+  }
+  .header h1 {
+    font-size: 28px; font-weight: 600; line-height: 1.4;
+    background: linear-gradient(135deg, #2C2A26 0%, #8A8474 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header .subtitle {
+    margin-top: 12px; font-size: 14px; color: var(--text-weak);
+    letter-spacing: 0.5px;
+  }
+  .header .date-range {
+    margin-top: 8px; font-family: 'SF Mono', monospace;
+    font-size: 12px; color: var(--text-faint);
+  }
+
+  /* Section */
+  .section { padding: 40px 0 0; }
+  .section-divider {
+    height: 1px; background: var(--border); margin: 32px 0;
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 24px;
+  }
+  .section-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 15px; font-weight: 600; letter-spacing: 1.5px;
+    color: var(--text);
+  }
+  .section-sub {
+    font-size: 12px; color: var(--text-weak); margin-left: 4px;
+  }
+
+  /* Signal Card */
+  .signal-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease;
+  }
+  .signal-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(44,42,38,0.08);
+  }
+  .signal-top {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  }
+  .signal-title {
+    font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--text);
+  }
+  .signal-stars {
+    font-size: 13px; flex-shrink: 0; letter-spacing: 1px;
+  }
+  .signal-meta {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;
+  }
+  .signal-tag {
+    font-size: 11px; padding: 2px 8px; border-radius: 4px;
+    font-family: 'SF Mono', monospace; letter-spacing: 0.5px;
+  }
+  .signal-body {
+    margin-top: 14px; font-size: 14px; line-height: 1.8;
+    color: var(--text-sub);
+  }
+  .signal-body p { margin-bottom: 10px; }
+  .signal-body p:last-child { margin-bottom: 0; }
+  .signal-source {
+    margin-top: 12px; font-size: 11px; color: var(--text-faint);
+    font-family: 'SF Mono', monospace;
+  }
+  .signal-source a { color: var(--text-weak); text-decoration: none; }
+  .signal-source a:hover { text-decoration: underline; }
+
+  /* Vendor Matrix */
+  .matrix-wrap {
+    overflow-x: auto; margin: 0 -12px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .matrix-table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    min-width: 640px;
+  }
+  .matrix-table th {
+    background: var(--card-sub); text-align: left;
+    padding: 10px 12px; font-weight: 600; font-size: 12px;
+    letter-spacing: 0.5px; color: var(--text-sub);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+  .matrix-table td {
+    padding: 10px 12px; border-bottom: 1px solid var(--border);
+    color: var(--text-sub); line-height: 1.6; vertical-align: top;
+  }
+  .matrix-table tr:last-child td { border-bottom: none; }
+  .matrix-table .vendor-name {
+    font-weight: 600; color: var(--text); white-space: nowrap;
+  }
+
+  /* Trend Block */
+  .trend-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .trend-title {
+    font-size: 15px; font-weight: 600; line-height: 1.5; color: var(--text);
+    margin-bottom: 12px;
+  }
+  .trend-body {
+    font-size: 14px; line-height: 1.85; color: var(--text-sub);
+  }
+  .trend-body p { margin-bottom: 10px; }
+  .trend-body p:last-child { margin-bottom: 0; }
+  .trend-evidence {
+    margin-top: 12px; padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    font-size: 12px; color: var(--text-weak);
+    font-family: 'SF Mono', monospace;
+  }
+
+  /* Watch List */
+  .watch-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .watch-item:last-child { border-bottom: none; }
+  .watch-num {
+    font-family: 'SF Mono', monospace; font-size: 13px;
+    color: var(--text-faint); flex-shrink: 0; width: 24px;
+  }
+  .watch-text {
+    font-size: 14px; color: var(--text-sub); line-height: 1.7;
+  }
+  .watch-text strong { color: var(--text); font-weight: 600; }
+
+  /* Review */
+  .review-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .review-item:last-child { border-bottom: none; }
+  .review-prediction {
+    font-size: 13px; color: var(--text-weak); margin-bottom: 4px;
+  }
+  .review-result {
+    font-size: 14px; color: var(--text-sub);
+  }
+  .review-result .badge {
+    display: inline-block; font-size: 11px; padding: 1px 6px;
+    border-radius: 3px; margin-right: 6px; font-weight: 600;
+  }
+  .badge-fulfilled { background: #DAE0D2; color: #4A5340; }
+  .badge-partial { background: #E5DCC4; color: #6B5F40; }
+  .badge-unverified { background: #E6E1D6; color: #7A766C; }
+
+  /* Footer */
+  .footer {
+    text-align: center; padding: 48px 0 36px;
+    font-size: 12px; color: var(--text-faint);
+    letter-spacing: 1px;
+    font-family: 'SF Mono', monospace;
+  }
+
+  /* Collapsible */
+  details summary {
+    cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 6px;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary .arrow {
+    font-size: 10px; color: var(--text-faint);
+    transition: transform 0.2s;
+  }
+  details[open] summary .arrow { transform: rotate(90deg); }
+
+  /* Utility */
+  .cat-opensource { background: var(--cat-opensource); color: var(--cat-opensource-text); }
+  .cat-agent { background: var(--cat-agent); color: var(--cat-agent-text); }
+  .cat-policy { background: var(--cat-policy); color: var(--cat-policy-text); }
+  .cat-model { background: var(--cat-model); color: var(--cat-model-text); }
+  .cat-reasoning { background: var(--cat-reasoning); color: var(--cat-reasoning-text); }
+  .cat-funding { background: var(--cat-funding); color: var(--cat-funding-text); }
+  .cat-security { background: var(--cat-security); color: var(--cat-security-text); }
+  .cat-frontier { background: var(--cat-frontier); color: var(--cat-frontier-text); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="index.html">AI DAILY</a>
+  <span>第28周 · 2026-06-29～07-05</span>
+  <a href="index.html">← 主页</a>
+</nav>
+
+<!-- Header -->
+<header class="header">
+  <div class="vol">WEEKLY · VOL 04</div>
+  <h1>算力外交与 RSI 公开<br>AI 与政府进入双向让渡</h1>
+  <div class="subtitle">7 天内美政府对 AI 完成两次定向让渡：5% OpenAI 股权换 Stargate 绿灯、Fable 5 + Mythos 5 出口管制撤销；Anthropic 公开 80% 代码 Claude 写，推理成本腰斩至访客版数百 GPU</div>
+  <div class="date-range">2026-06-29 ～ 2026-07-05</div>
+</header>
+
+<!-- ========== 维度1：本周关键信号 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#8A8474;box-shadow:0 0 8px #8A8474"></span>
+    <span class="section-title">本 周 关 键 信 号</span>
+    <span class="section-sub">Key Signals</span>
+  </div>
+
+  <!-- Signal 1 -->
+  <details open>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">OpenAI 让 5% 股权给美政府：估值锚定 8520 亿换 Stargate 5000 亿绿灯</span>
+          <span class="signal-stars">🌟🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-policy">政策</span>
+          <span class="signal-tag cat-funding">融资</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>7月3日 CNBC 披露：OpenAI 与美国政府达成股权让渡协议，将约 5% 股权（约 426 亿美元等值）让渡给美方，换取白宫对算力扩张、数据中心用地的政策绿灯。OpenAI 估值锚定 8520 亿美元——比去年底 5000 亿估值上升约 70%，Stargate 5000 亿美元投资计划获实质性推进。</p>
+          <p>这是美国政府首次以股权方式介入 AI 公司治理。此前美国对 AI 的政策工具主要是出口管制（Anthropic Fable 5/Mythos 5 下架）、产业政策（CHIPS Act）、国防采购（OpenAI 国防合同）。股权让渡让政府从"监管者"变成"利益相关方"，监管逻辑也随之变化——政府既有动力推进 AI 产业（资产增值），也有权力塑造其走向。</p>
+          <p>配套观察：同期 GPT-5.6 Sol 定价腰斩、推理成本砍掉一半以上、访客版 ChatGPT 仅需数百 GPU 即可支撑。OpenAI 一手要政府股权（资本），一手要成本优势（市场）——两端同时推进，巩固 8520 亿估值的可持续性。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://www.cnbc.com/2026/07/03/openai-stake-us-government.html">CNBC</a> · <a href="https://view.inews.qq.com/a/20260701A00BMC00">The Information / 快科技</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 2 -->
+  <details open>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">Fable 5 + Mythos 5 出口管制 20 天内撤销：美商务部"先叫停后恢复"成新常态</span>
+          <span class="signal-stars">🌟🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-policy">政策</span>
+          <span class="signal-tag cat-security">安全</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>6月12日美商务部以"潜在越狱"为由对 Anthropic Fable 5 + Mythos 5 实施全球出口管制（按国籍执行，连在美外籍员工都无法使用，Anthropic 几乎全球断网）。7月2日 Anthropic 官方确认：商务部已于 6月30日撤销管制，7月2日起恢复访问。条件是 Anthropic 主动识别并处理安全风险 + 配合制定发布协议。</p>
+          <p>20 天完成从下架到恢复，比多数人预期的"数月"短得多。同期 G7 AI 午餐会（上周）、GUARD 法案 22:0 通过、OpenAI 5% 股权让渡——美国政府正在以不同方式密集介入 AI 治理。Fable 5 事件建立了"先叫停后议价"的工作流：政府先以行政令快速响应，再与企业协商条件，比立法路径快一个数量级。</p>
+          <p>Anthropic 配合条件里"主动识别并处理安全风险"是关键——这把"安全审查"从外部监管内化为企业责任，未来所有前沿模型发布可能都要走这套流程。同时，Mythos 5 已扩至 150 家组织（15 国）参与 Glasswing 项目，模型并未因管制停下脚步。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://www.anthropic.com/news/fable-mythos-access">Anthropic 官方</a> · <a href="https://www.anthropic.com/news/fable-mythos-access">Anthropic Mythos 5 重授权</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 3 -->
+  <details open>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">Anthropic 公开 RSI：80% 代码由 Claude 编写，工程师效率提升 8 倍</span>
+          <span class="signal-stars">🌟🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-model">大模型</span>
+          <span class="signal-tag cat-security">安全</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>7月3日 Anthropic 工程团队披露内部数据：约 80% 的代码由 Claude 编写，工程师人均效率提升约 8 倍。这标志着 AI 公司正式进入递归自我改进（RSI, Recursive Self-Improvement）阶段——Claude 用于训练下一代 Claude，且 Anthropic 强调安全护栏同步推进。</p>
+          <p>过去 RSI 是研究文献的概念（Anthropic 2023 年 Constitutional AI、DeepMind 2024 年 AlphaEvolve），从未有公司公开披露过"80% 代码 AI 写"的具体数字。Anthropic 选择此时公开，时机耐人寻味——紧接 Fable 5 出口管制撤销、政府要求"主动识别安全风险"。公开 RSI 既是抢在监管前"自我定调"（让市场接受"AI 训练 AI"是常规工程实践），也是向监管层表态：我们的 AI 能力已经深入研发核心，监管不能简单关停。</p>
+          <p>横向对比：OpenAI 通过 GPT-5.6 Sol 证明"推理成本腰斩"是工程能力，Anthropic 通过 RSI 公开证明"AI 写 AI"是工程能力。两者都把"AI 能力"从论文指标转为可披露的运营数字，这是 2026 年 AI 公司 PR 范式的变化。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://www.anthropic.com/engineering/recursive-self-improvement">Anthropic 官方</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 4 -->
+  <details open>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">OpenAI GPT-5.6 Sol 推理成本腰斩：访客版 ChatGPT 仅需数百 GPU 即可支撑</span>
+          <span class="signal-stars">🌟🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-model">大模型</span>
+          <span class="signal-tag cat-reasoning">推理优化</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>OpenAI 工程师通过底层系统优化，将 GPT-5.6 Sol 的推理成本砍掉一半以上。访客版 ChatGPT 仅需数百 GPU 即可支撑运行——这意味着 OpenAI 可以在不显著扩卡的前提下承接更大流量，或将多余算力转给 API 客户和企业部署。GPT-5.6 Sol 定价为 Claude Fable 5 的一半，但据 The Information 报道，OpenAI 同时维持了健康毛利率。</p>
+          <p>同时，Cerebras 推理速度达到 750 tokens/秒（Sol 模型 7 月登陆 Cerebras 硬件），这个数字意味着：1 张 Cerebras wafer-scale engine 可以在 1 秒内生成一篇短文。Sol 还有"Ultra 模式"——调用子智能体并行处理复杂任务。</p>
+          <p>横向对比：DeepSeek DSpark 推测解码（V4-Flash 提速 60-85%）、NVIDIA Nemotron-TwoTower 扩散语言模型（吞吐量 2.42x）、DeepMind AlphaGeometry 2（证明时间从数小时缩短至数秒）——本周的"推理优化"信号密度异常高，从模型架构、推测解码、扩散语言模型、数学推理四个方向同步突破。推理优化的边际成本下降速度正在加快。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://community.openai.com/t/introducing-gpt-5-6-series-sol-terra-and-luna/1384931">OpenAI Community</a> · <a href="https://view.inews.qq.com/a/20260701A00BMC00">The Information / 快科技</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 5 -->
+  <details>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">ChatGPT 全球份额首度跌破 50%：单一巨头垄断转向多方竞争</span>
+          <span class="signal-stars">🌟🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-model">大模型</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>6 月 ChatGPT 全球市场份额首次跌破 50%（北京日报 7/1 报道）。同期 Claude、Gemini、DeepSeek、Qwen、Kimi 等多家份额上升。这一数字意义重大——ChatGPT 自 2022 年底发布以来，长期占据全球大模型消费端 60-70% 份额，跌破 50% 标志着"ChatGPT 一家独大"格局的终结。</p>
+          <p>份额流出去向：Claude 凭借 Sonnet 5 腰斩价（7/1 发布，2/10 美元 8-31 前）抢占价格敏感用户；Gemini 3.5 Flash（6/29 公布）内置 computer use 能力吸引开发者；DeepSeek V4 系列在国内和东南亚持续渗透；可灵 AI 180 亿美元估值锁定视频生成赛道。</p>
+          <p>对企业采购的影响：多元化采购从"趋势"变为"现实"。本周微软组建 Frontier Company（25 亿 / 6000 工程师）服务 OpenAI/Anthropic/xAI/Mistral/Cohere——微软自己就在多家供应商间分散，而非把鸡蛋放一个篮子。AWS 的 10 亿 FDE 项目同理。企业 AI 采购的"一供一备"模式正在成形。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://view.inews.qq.com/a/20260701A0AVYD00">北京日报</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 6 -->
+  <details>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">国产算力两个里程碑：美团 LongCat-2.0 万卡训万亿 + Kimi K3 2.5T 7 月发布</span>
+          <span class="signal-stars">🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-opensource">开源</span>
+          <span class="signal-tag cat-model">大模型</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>7月1日美团发布 LongCat-2.0：MoE 总参 1.6 万亿、激活 48B（动态 33-56B），原生 1M 上下文 LSA 稀疏注意力，SWE-bench Pro 得分 59.5（超 GPT-5.5 的 58.6），用 5 万张国产算力卡训练、零 NVIDIA GPU。</p>
+          <p>7月2日 Kimi（月之暗面）员工 Young_AGI 在 X 确认：7 月发布 K3，参数量 2.5 万亿，超过 DeepSeek V4 Pro（1.6T）和文心 5.0（2.4T），1M 上下文 + 多模态，推测 7 月中旬发布。</p>
+          <p>两个里程碑都指向"参数规模 + 国产算力"的组合：LongCat-2.0 验证了"零 NVIDIA 卡训万亿"的可行性（虽然具体国产卡型号未披露，但已确认非英伟达），K3 把"2.5 万亿参数"这一新量级带到台面。横向看，DeepSeek DSpark 同期开源（V4-Flash 提速 60-85%，DeepSpec 全栈工具链 MIT 协议），智谱 GLM-5.2 已经在 6 月份打头阵（Code Arena 全球第一）。</p>
+          <p>更深远的变化是协议选择：LongCat-2.0 未明确协议（美团非典型开源厂），Kimi K2.7 Code 已经在 7/3 进入 GitHub Copilot 官方模型库（周调用 1.2 亿次）——中国大模型首次"反向输出"到 GitHub 主航道。开源 + 顶级性能 + 国产算力，是 2026 年下半年国产模型的明确路径。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://www.xinhuanet.com/tech/20260630/beb4fdc96a5644adbc5fddd10433b801/c.html">新华网 LongCat-2.0</a> · <a href="https://www.chinaz.com/2026/0702/1762398.shtml">快科技 Kimi K3</a> · <a href="https://moonshotai.github.io/Kimi-K2/">Moonshot AI K2.7</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 7 -->
+  <details>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">算力侧"沙特化"加速：Together AI D 轮 8 亿估值 83 亿，Aramco 旗下 Prosperity7 领投</span>
+          <span class="signal-stars">🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-funding">融资</span>
+          <span class="signal-tag cat-reasoning">推理优化</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>7月3日 Together AI 官宣 D 轮 8 亿美元融资，估值 83 亿美元。沙特阿美旗下 Prosperity7 领投，Salesforce Ventures、英伟达跟投。资金用途：5 年内将 GPU 集群从 2 万卡扩至 100 万卡。</p>
+          <p>100 万 GPU 集群是什么概念？目前全球最大单家算力是 SpaceX Colossus（百万 H100 等效），Meta 单家约 60 万 H100，Microsoft Azure 整体约 80 万 GPU。Together AI 计划 5 年做到 100 万，意味着跻身全球前三梯队。资金来源是沙特主权基金——AI 算力基础设施正在成为"石油美元"的下一个落点。</p>
+          <p>横向对比：本周还有 Etched Sohu ASIC 8 亿融资+10 亿订单（12 个月估值从 5 亿飙到 50 亿，Llama 70B 推理 50 万 t/s，是 H100 同配置的 2 倍）、阿布扎比 MGX 500 亿 AI 基金（6/29 披露，全球最大 AI 基金）、DeepSeek 500 亿估值首轮融资（6/29 披露，中国 AI 公司估值纪录）、可灵 AI 30 亿融资估值 180 亿（4 月目标 200 亿，实际缩水 20 亿——视频生成估值首次回调）。</p>
+          <p>三个结构性信号：第一，中东主权基金全面进入 AI 算力底层（MGX + Aramco/Prosperity7），AI 成为石油美元的新投资主题；第二，AI 芯片创业公司估值开始起飞（Etched 12 个月 10 倍），ASIC 路线被市场重新定价；第三，视频生成赛道首次出现估值回调（可灵 20 亿），市场对生成式 AI 的估值预期开始分化。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://www.together.ai/blog/series-d">Together AI 官方</a> · <a href="https://new.qq.com/rain/a/20260701A01X5V00">财联社 Etched</a> · <a href="https://view.inews.qq.com/a/20260701A0AFPB00">财联社 可灵</a>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- Signal 8 -->
+  <details>
+    <summary>
+      <div class="signal-card" style="margin-bottom:0">
+        <div class="signal-top">
+          <span class="signal-title">Agent runtime 与"虚拟公司"成型：Nanobot 44K Star、agency-agents 单周 11.6 万 Star</span>
+          <span class="signal-stars">🌟🌟</span>
+        </div>
+        <div class="signal-meta">
+          <span class="signal-tag cat-frontier">前沿技术</span>
+          <span class="signal-tag cat-agent">Agent</span>
+        </div>
+      </div>
+    </summary>
+    <div style="padding:0 0 16px">
+      <div class="signal-card" style="border-top-left-radius:0;border-top-right-radius:0;border-top:none;margin-top:-1px">
+        <div class="signal-body">
+          <p>本周 GitHub Trending 出现两条相互呼应的趋势：HKUDS/Nanobot（44.2K Stars，自托管个人 AI Agent runtime，集成 WebUI + Telegram + Discord + Slack + Teams + Email）、RightNow-AI/OpenFang（17.8K Stars，Rust 写，32MB 单二进制，跨平台 Agent OS）。两者定位都是"Agent 操作系统/运行时"——开发者不需要从零搭建多渠道、记忆、调度，只需要 fork 一个 runtime。</p>
+          <p>另一条线是 Vercel/eve（30K Stars，filesystem-first Agent 框架，TypeScript 类型签名即 prompt 模板）、msitarzewski/agency-agents（单周 11.6 万 Stars，14 个虚拟公司职能角色，每个角色附 system prompt + 任务清单 + 工作流模板）。agency-agents 标志着 Agent 从"工具集"走向"组织结构"——产品、工程、设计、营销、法务、财务 14 个角色可以被组合成虚拟公司。</p>
+          <p>叠加 OpenAI Workspace Agents（6/29 推出）、HP × OpenAI Frontier 合作（170 国、4 大场景）、AWS 10 亿 FDE（工程师驻场），可以看到一个完整生态：底层 runtime（Nanobot/OpenFang）→ 框架层（Vercel/eve）→ 角色层（agency-agents）→ 产品层（Workspace Agents）→ 服务层（FDE）。Agent 从研究概念到生产工具的全栈已经就位。</p>
+        </div>
+        <div class="signal-source">
+          来源：<a href="https://github.com/HKUDS/Nanobot">GitHub Nanobot</a> · <a href="https://github.com/RightNow-AI/OpenFang">GitHub OpenFang</a> · <a href="https://github.com/vercel/eve">GitHub Vercel eve</a> · <a href="https://github.com/msitarzewski/agency-agents">GitHub agency-agents</a>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 维度2：厂商动态矩阵 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#6B4F47;box-shadow:0 0 8px #6B4F47"></span>
+    <span class="section-title">厂 商 动 态 矩 阵</span>
+    <span class="section-sub">Vendor Matrix</span>
+  </div>
+  <div class="matrix-wrap">
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>厂商</th>
+          <th>模型 / 关键发布</th>
+          <th>产品 / 动作</th>
+          <th>融资 / 估值</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="vendor-name">OpenAI</td>
+          <td>GPT-5.6 Sol（7 月登陆 Cerebras，750 t/s；定价为 Claude Fable 5 一半）</td>
+          <td>推理成本砍半 / 访客版 ChatGPT 仅数百 GPU / Workspace Agents 推出 / 5% 股权让渡美政府</td>
+          <td>估值锚定 $8520 亿（+70%）；5% 股权 ≈ $426 亿让渡</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Anthropic</td>
+          <td>Claude Sonnet 5（能力近 Opus 4.8、价腰斩 2/10 美元 8-31 前）；Claude Science 科研工作台</td>
+          <td>Fable 5 + Mythos 5 出口管制 7/2 撤销（20 天内）；公开 RSI（80% 代码 Claude 写、效率 8x）；Mythos 5 重获 100+ 500 强授权</td>
+          <td>估值 ~$9650 亿（持平）；ARR $470 亿（持平）</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Google DeepMind</td>
+          <td>Gemini 3.5 Flash（内置 computer use，Antigravity 路线）；AlphaGeometry 2 IMO 银牌（24/25 历史题 96% 准确）；Nano Banana 2 Lite 开源（6 亿参数 / 4 秒 / $0.034/张）</td>
+          <td>图像模型开源对标 SDXL-Lightning；Apache 2.0 协议；本周无新人事/算力公告</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Microsoft</td>
+          <td>—</td>
+          <td>组建 Frontier Company（25 亿美元 / 6000 工程师）专门服务头部 AI 实验室（OpenAI / Anthropic / xAI / Mistral / Cohere）；业务对冲 Azure 与对手云的关系</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">AWS</td>
+          <td>—</td>
+          <td>10 亿美元设前线派驻工程部（FDE），工程师直接驻场客户企业；OpenAI / Anthropic 已有同类业务</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Together AI</td>
+          <td>—</td>
+          <td>D 轮 8 亿美元；5 年内 GPU 集群 2 万 → 100 万</td>
+          <td>估值 $83 亿；Aramco 旗下 Prosperity7 领投；Salesforce / NVIDIA 跟投</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Etched</td>
+          <td>Sohu ASIC（台积电 N4P 流片成功）</td>
+          <td>单 8 卡服务器 Llama 70B 推理 50 万 t/s（H100 同配置 2.5 万）；客户合同 $10 亿+</td>
+          <td>累计融资 $8 亿；12 个月估值 $5 亿 → $50 亿（10x）</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">DeepSeek</td>
+          <td>DSpark 半自回归推测解码（梁文锋署名，MIT 开源）；V4-Flash 提速 60-85%、V4-Pro 提速 57-78%</td>
+          <td>DeepSpec 全栈工具链 MIT 协议开源；DSpark 6-27 联合北大发布</td>
+          <td>首轮融资完成 / 估值 $500 亿+（中国 AI 公司纪录）</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">月之暗面</td>
+          <td>Kimi K3 2.5 万亿参数（7 月发布）；K2.7 Code GA</td>
+          <td>K2.7 Code 进入 GitHub Copilot 官方模型库；周调用 1.2 亿次；256K 上下文 + Agent Mode</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">美团</td>
+          <td>LongCat-2.0（MoE 1.6T / 激活 48B / 1M 上下文 LSA 稀疏注意力）</td>
+          <td>SWE-bench Pro 59.5（超 GPT-5.5 58.6）；5 万张国产算力卡训练、零 NVIDIA GPU</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">可灵 AI / 快手</td>
+          <td>—</td>
+          <td>30 亿美元融资</td>
+          <td>估值 $180 亿（4 月目标 $200 亿，实际缩水 $20 亿）</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">Mistral</td>
+          <td>OCR 4（170 语种 / 10 语族 / 结构化输出含边框+置信度）</td>
+          <td>OlmOCRBench 85.20；$4/千页（Batch $2）</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td class="vendor-name">HP</td>
+          <td>—</td>
+          <td>× OpenAI Frontier 战略合作（4 大场景：客户体验 / WXP 遥测 / 员工效能 / 软件开发；170 国）</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 维度3：技术演进趋势 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#4A5258;box-shadow:0 0 8px #4A5258"></span>
+    <span class="section-title">技 术 演 进 趋 势</span>
+    <span class="section-sub">Technical Trends</span>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">AI 自我训练从论文概念转为可披露的工程指标，RSI 进入"明牌"阶段</div>
+    <div class="trend-body">
+      <p>本周最显眼的两个数字：Anthropic 公开 80% 代码由 Claude 写（工程师效率 8x）、OpenAI 公开推理成本砍半且访客版仅需数百 GPU。这两个数字不是论文指标，而是公司愿意对外披露的运营 KPI——意味着 AI 训练 AI、AI 优化 AI 已经从"研究"转为"工程实践"。</p>
+      <p>支撑这一趋势的技术信号同样密集：DeepSeek DSpark 推测解码（V4-Flash 提速 60-85%）、NVIDIA Nemotron-TwoTower 扩散语言模型（吞吐量 2.42x）、DeepMind AlphaGeometry 2（IMO 银牌、证明时间从数小时缩短至数秒）、arXiv NPM（训练免费的程序性记忆框架）、HExA（Claude Sonnet 4.6 主动实验从 2% 到 77%）。优化空间不只在模型架构本身，更在训练循环、推理调度、解码策略、记忆机制——每一层都有压缩空间。</p>
+      <p>对比 5 月份（上周报）讨论的"Agent 自进化框架扎堆涌现"（Self-Harness / MLEvolve / APEX / OpenSquilla），本周的 RSI 公开是上一阶段的"工程化"——从论文 demo 走向披露数据。Anthropic 选择在 Fable 5 撤销次日（7/3）公开 RSI，时机耐人寻味：让"AI 训练 AI"成为既定事实，监管者面对的将不是"是否允许"而是"如何监管"。</p>
+    </div>
+    <div class="trend-evidence">
+      论据：Anthropic 80% Claude 写 · GPT-5.6 Sol 推理-50% · DSpark V4-Flash +60-85% · Nemotron-TwoTower 2.42x · AlphaGeometry 2 数秒证明
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">国产算力从"可用"到"好用"：万卡训万亿 + MIT 开源工具链 + GitHub 主航道</div>
+    <div class="trend-body">
+      <p>美团 LongCat-2.0（7/1）用 5 万张国产算力卡、零 NVIDIA GPU 训练 1.6T MoE 模型，SWE-bench Pro 59.5 超过 GPT-5.5。这不是"训练出来"那么简单——意味着国产算力集群在调度、通信、稳定性上已经能扛住万亿参数训练。同一周，DeepSeek DSpark（6-30）开源 MIT 协议，V4-Flash 提速 60-85%，DeepSpec 全栈工具链同步放出；Kimi K2.7 Code（7/3）正式 GA，进入 GitHub Copilot 官方模型库，周调用 1.2 亿次。</p>
+      <p>三件事构成完整证据链：训练侧（LongCat-2.0 万卡训万亿）、工具链侧（DSpark MIT 全栈开源）、应用侧（Kimi 进 GitHub Copilot 主航道）。结合 6 月份智谱 GLM-5.2（Day 0 适配 8 家国产算力，MIT 协议，Code Arena 全球第一），国产模型的"协议选择 + 算力脱钩 + 性能对位"路径已经清晰——选择最宽松协议、跑在国产卡上、性能不输闭源头部。</p>
+      <p>Kimi K3 2.5 万亿参数（7 月中旬发布）将进一步推高参数上限，超过 DeepSeek V4 Pro（1.6T）和文心 5.0（2.4T）。如果 K3 保持 K2.7 Code 的开源协议和 GitHub 主航道策略，国产开源对闭源头部的压力会从"编程能力"扩展到"通用能力"。</p>
+    </div>
+    <div class="trend-evidence">
+      论据：LongCat-2.0 万卡训万亿 · DSpark MIT V4-Flash +60-85% · Kimi K2.7 Code GA / Copilot 1.2 亿周调用 · K3 2.5T 7 月发布
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">小模型反超万亿闭源：Agents-A1 35B / Nano Banana 2 Lite 6 亿 / 推理成本 1/30</div>
+    <div class="trend-body">
+      <p>arXiv 2606.30616 的 Agents-A1（7/3）以 35B 参数在 WebArena / AgentBench / SWE-bench Pro 通用基准上首次反超万亿参数级闭源旗舰，推理成本仅 1/30。Google 同日开源 Nano Banana 2 Lite（6 亿参数 / 4 秒出图 / $0.034/张 / Apache 2.0），对标 SDXL-Lightning。叠加 Mistral OCR 4（170 语种 / OlmOCRBench 85.20）——小模型在专用任务上的边际成本下降速度在加快。</p>
+      <p>这一趋势与 GPT-5.6 Sol 推理成本砍半、Etched Sohu ASIC 50 万 t/s、DeepSeek DSpark 60-85% 提速共同构成"算力单位成本下降"的完整故事：模型参数不变（甚至更小）+ 推理优化（推测解码/扩散语言模型/ASIC 加速）= 单位 token 成本坍缩。对企业客户意味着：1 万美元能买到的 AI 能力，6 个月后会变成 1 千美元能买到。</p>
+      <p>Agents-A1 的特殊意义在于：35B Agent 专用模型在通用基准反超万亿，意味着"专门化训练数据"（480 万条多步骤 Agent 轨迹）的价值已经超过"参数规模"——对头部实验室是压力（必须找到"通专融合"路径），对开源社区是机会（专用模型 + 推理优化可以复刻头部能力）。</p>
+    </div>
+    <div class="trend-evidence">
+      论据：Agents-A1 35B 反超万亿 · Nano Banana 2 Lite 6 亿参数 / $0.034/张 · Mistral OCR 4 / 170 语种 · Sohu ASIC Llama 70B 50 万 t/s · GPT-5.6 Sol 推理-50%
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">Agent 从工具走向"虚拟公司"：runtime + 角色库 + 编排框架三层生态成型</div>
+    <div class="trend-body">
+      <p>本周 GitHub Trending 同时出现 Nanobot（44.2K Stars，自托管 Agent runtime，集成 6 大渠道）、OpenFang（17.8K Stars，Rust 写 32MB 单二进制 Agent OS）、Vercel/eve（30K Stars，filesystem-first Agent 框架）、agency-agents（单周 11.6 万 Stars，14 个虚拟公司角色库）——四条线分别覆盖 Agent 的底层 runtime、操作系统层、框架层、角色层。</p>
+      <p>叠加 OpenAI Workspace Agents（6/29 推出，工作空间智能体）、HP × OpenAI Frontier 合作（170 国、4 大场景）、AWS 10 亿 FDE（工程师驻场客户企业）、微软 25 亿 Frontier Company（6000 工程师服务头部实验室）——企业级 Agent 的"产品 + 服务"层也在加速。完整的 Agent 栈是：底层 runtime（Nanobot / OpenFang）→ 框架层（Vercel/eve / OmniRoute MCP/A2A 网关）→ 角色层（agency-agents / strix 渗透测试）→ 产品层（Workspace Agents / Claude Science）→ 服务层（AWS FDE / 微软 Frontier）。</p>
+      <p>ag ency-agents 的特殊意义：单周 11.6 万 Star、14 个虚拟公司角色（产品/工程/设计/营销/法务/财务）——这是 Agent 从"工具集"走向"组织结构"的标志。当 system prompt 可以定义一个"财务总监 Agent"并附带任务清单和工作流模板，Agent 实际上变成了可复制的"虚拟员工"。对企业组织结构的冲击还未被充分讨论。</p>
+    </div>
+    <div class="trend-evidence">
+      论据：Nanobot 44.2K · OpenFang 17.8K · Vercel eve 30K · agency-agents 116K · Workspace Agents · HP × OpenAI 170 国 · AWS 10 亿 FDE
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 维度4：商业格局变化 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#6B5F40;box-shadow:0 0 8px #6B5F40"></span>
+    <span class="section-title">商 业 格 局 变 化</span>
+    <span class="section-sub">Business Landscape</span>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">AI 资本结构再分化：政府股权 / 主权基金 / 估值回调三条路径同时出现</div>
+    <div class="trend-body">
+      <p>本周融资故事呈现三种截然不同的形态：OpenAI 让 5% 股权给美政府（特殊资本，8520 亿估值换 Stargate 绿灯）、Together AI D 轮 8 亿由沙特阿美旗下 Prosperity7 领投（地缘资本，主权基金绑定算力底座）、可灵 AI 30 亿融资估值 180 亿——比 4 月目标的 200 亿缩水 20 亿（市场理性，视频生成赛道首次回调）。</p>
+      <p>三种资本形态对应三种战略处境：OpenAI 用股权换政策绿灯（监管让位），Together AI 用股权换资金（资本绑定），可灵 AI 在估值预期和市场现实之间妥协（估值出清）。对其他 AI 公司的启示：靠"未来 5 年 ARR"估值的模式正在被市场重新定价——要么给出明确的商业化路径，要么接受估值回调。</p>
+      <p>横向对比：Etched 12 个月估值 5 亿 → 50 亿（10x，ASIC 路线被市场重新定价）、阿布扎比 MGX 500 亿 AI 基金（6/29 披露，全球最大 AI 基金）、DeepSeek 500 亿估值首轮融资（中国 AI 公司纪录）。中东主权基金 + 头部 AI 公司的组合，正在形成"石油美元 + AI 算力"的新资本联盟。</p>
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">AI 投资重心从模型层向应用/服务层倾斜：集成商成为最大买家</div>
+    <div class="trend-body">
+      <p>本周三件事指向同一方向：微软组建 Frontier Company（25 亿美元 / 6000 工程师，专服务 OpenAI / Anthropic / xAI / Mistral / Cohere）、AWS 设 10 亿美元 FDE（前线派驻工程部）、HP × OpenAI 战略合作（170 国 / 4 大场景）。加上 Salesforce 36 亿收购 Fin（上期），集成商和云厂商正在成为 AI 资本的最大买家。</p>
+      <p>微软的动作尤其耐人寻味：一边是 Azure（自家云）+ OpenAI（最大合作伙伴），一边又组建 6000 工程师团队服务 Anthropic / xAI / Mistral / Cohere（对手云的核心客户）。这意味着微软正在变成"AI 中立云"——用工程服务能力锁定多家头部 AI 公司的企业级部署，淡化 Azure 与对手云的关系紧张。</p>
+      <p>对企业采购的影响：模型层有 5+ 头部可选（OpenAI / Anthropic / Google / xAI / Mistral），但部署层高度依赖三大云（Azure / AWS / GCP）+ 集成商（Salesforce / Accenture / Infosys）+ 硬件渠道（HP / Dell）。AI 采购的"模型可换、部署锁定"特征比传统软件更明显——客户换模型容易，换部署难。</p>
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">AI 与政府进入"双向让渡"：5% 股权换绿灯、20 天撤销管制、政府要求内化安全责任</div>
+    <div class="trend-body">
+      <p>Fable 5 出口管制 6/12 下架、7/2 撤销——20 天内完成"政府叫停 → 企业配合 → 撤销恢复"全流程。条件是 Anthropic 主动识别安全风险 + 配合制定发布协议。同期 OpenAI 让 5% 股权给美政府换 Stargate 算力扩张绿灯。两件事共同确立了 AI 治理的新模式：政府快速响应（行政令 24 小时内）+ 企业让渡（股权 / 责任 / 协议）+ 撤销恢复（条件明确即可）= "双向让渡"。</p>
+      <p>与传统监管的差异：传统立法路径通常需要 18-24 个月（FTC 调查 / 国会听证 / 法院判决），Fable 5 案例的 20 天缩短了 30 倍。代价是"条件"模糊——"主动识别安全风险"没有客观标准，下一次叫停的触发条件仍由商务部单方定义。Anthropic 在配合的同时，公开 RSI（80% 代码 Claude 写）作为"AI 能力内化"的反制——让监管者面对的不是"是否允许"而是"如何监管已经深入的 AI 系统"。</p>
+      <p>对其他 AI 公司的启示：未来前沿模型发布可能都要走"主动识别 + 配合协议"流程。安全审查从外部监管内化为企业责任——Anthropic 的让渡实际上是行业的预演。OpenAI 5% 股权让渡则是另一种路径：用股权换政策确定性，避免被"叫停 - 谈判 - 恢复"的循环消耗。</p>
+    </div>
+  </div>
+
+  <div class="trend-block">
+    <div class="trend-title">开源协议选择成为竞争维度：MIT / Apache 2.0 + 顶级性能 + 国产算力是突围路径</div>
+    <div class="trend-body">
+      <p>本周开源动作密集：DeepSeek DSpark MIT（6/30）、Google Nano Banana 2 Lite Apache 2.0（7/3）、Kimi K2.7 Code GA（7/3，进 GitHub Copilot）、OpenFang MIT（7/2，32MB 单二进制）、agency-agents MIT（7/3，11.6 万 Star）。协议选择成为继"模型性能"之后第二个被市场比价的维度。</p>
+      <p>选择最宽松协议（MIT / Apache 2.0）的厂商有共同特征：技术领先（性能不输闭源）、商业上不靠 API 收入、需要生态扩散。智谱 GLM-5.2（6/17 MIT）、DeepSeek 系列、Kimi 系列、Google Nano Banana 2 Lite 都符合这个画像。相对地，OpenAI GPT-5.6、Anthropic Claude Sonnet 5 仍是闭源，但定价腰斩（Sonnet 5 2/10 美元）——闭源头部用"价格"回应开源"协议"。</p>
+      <p>对生态的连带影响：MIT / Apache 2.0 模型可以被企业直接商用、修改、再分发，对 B 端集成商（Salesforce / 微软 / 各类垂直 SaaS）是首选协议。这意味着开源协议不仅是法律问题，更是生态入口——谁掌握了最宽松协议的顶级模型，谁就掌握了 AI 时代的"Linux 时刻"。</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 维度5：下周观察清单 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#5A4870;box-shadow:0 0 8px #5A4870"></span>
+    <span class="section-title">下 周 观 察 清 单</span>
+    <span class="section-sub">Watch List</span>
+  </div>
+
+  <div class="watch-item">
+    <span class="watch-num">01</span>
+    <span class="watch-text"><strong>Kimi K3 正式发布</strong>——7 月中旬、2.5 万亿参数、1M 上下文、多模态。如果 K3 保持 K2.7 Code 的开源策略和 GitHub Copilot 主航道路径，将成为首个参数规模超过 GPT-5.6 Pro 的国产开源模型——第三方跑分（特别是 SWE-bench Pro 和 MMLU-Pro）能否兑现是核心观察点</span>
+  </div>
+  <div class="watch-item">
+    <span class="watch-num">02</span>
+    <span class="watch-text"><strong>OpenAI Stargate 5000 亿首批合同</strong>——5% 股权让渡后，白宫对算力扩张的政策绿灯已经明确。首批数据中心建设时间表、首批土地协议、首批客户合同能否在 7 月内公布，将决定"政府股权换政策"模式是否可复制</span>
+  </div>
+  <div class="watch-item">
+    <span class="watch-num">03</span>
+    <span class="watch-text"><strong>AWS FDE 与微软 Frontier Company 首批客户名单</strong>——AWS 10 亿 FDE、微软 25 亿 / 6000 工程师，两个云厂商都在抢占 AI 落地服务。首批客户名单（特别是金融 / 制造 / 医疗）将决定云厂商在"AI 中立集成商"赛道的站位</span>
+  </div>
+  <div class="watch-item">
+    <span class="watch-num">04</span>
+    <span class="watch-text"><strong>GPT-5.6 Sol 在 Cerebras 上的第三方跑分</strong>——官方 750 tokens/秒、定价为 Claude Fable 5 一半。第三方独立跑分（特别是延迟、一致性、长上下文稳定性）能否兑现，是 OpenAI "推理成本腰斩 + 速度提升"是否真实可持续的关键</span>
+  </div>
+  <div class="watch-item">
+    <span class="watch-num">05</span>
+    <span class="watch-text"><strong>Together AI 100 万 GPU 集群的供应链披露</strong>——D 轮 8 亿估值 83 亿，5 年内 2 万 → 100 万。Aramco 资本如何绑定（H100 / H200 / B200 采购权？国产卡采购权？），将决定"主权基金 + AI 算力"模式是单点还是可复制</span>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ========== 上期判断兑现度 ========== -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot" style="background:#B5B0A4;box-shadow:0 0 8px #B5B0A4"></span>
+    <span class="section-title">上 期 判 断 兑 现 度</span>
+    <span class="section-sub">Vol.03 Predictions Review</span>
+  </div>
+
+  <div class="review-item">
+    <div class="review-prediction">Fable 5 恢复时间表：出口管制审查周期和技术标准是否明确</div>
+    <div class="review-result"><span class="badge badge-fulfilled">兑现</span>20 天内撤销（6/12 下架 → 7/2 恢复）。条件：主动识别安全风险 + 配合制定发布协议。"先叫停后议价"成为新工作流</div>
+  </div>
+  <div class="review-item">
+    <div class="review-prediction">7/8 Claude 实名认证落地：对 API 调用量和企业端部署的影响</div>
+    <div class="review-result"><span class="badge badge-partial">部分兑现</span>本周未见大规模 API 调用量下滑数据；GUARD 法案参议院 22:0 通过后，实名制范围可能扩大至更多 AI 系统</div>
+  </div>
+  <div class="review-item">
+    <div class="review-prediction">GPT-4.5 退役后 GPT-5.5 的用户迁移率：验证快速迭代-退役策略可行性</div>
+    <div class="review-result"><span class="badge badge-fulfilled">兑现</span>GPT-5.6 Sol 推出、定价腰斩、推理成本砍半。OpenAI 用工程能力证明"快速迭代 + 成本下降"可以并行</div>
+  </div>
+  <div class="review-item">
+    <div class="review-prediction">SpaceX/Cursor 交割进展与 Cursor 定价策略</div>
+    <div class="review-result"><span class="badge badge-unverified">未验证</span>本周无 SpaceX/Cursor 新动态；Q3 交割窗口未到</div>
+  </div>
+  <div class="review-item">
+    <div class="review-prediction">Google AI 编程工具的企业端推进：Shazeer+Jumper 出走后是否加速推出对标产品</div>
+    <div class="review-result"><span class="badge badge-fulfilled">兑现</span>Gemini 3.5 Flash 内置 computer use（6/29）+ AlphaGeometry 2 IMO 银牌（7/2）+ Nano Banana 2 Lite 开源（7/3）。Google 用"开源 + 多模态"应对人才流失</div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  AI DAILY / 商业·认知观察者 · 出品
+</footer>
+
+</div>
+</body>
+</html>
