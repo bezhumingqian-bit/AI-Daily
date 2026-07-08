@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026-07-08 · VOL·34</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 07 / 08</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 34</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 07 ／ 08 · 周三</p>
+      </div>
+    </header>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.sanity.io/images/4zrzovbb/website/6d4a0d28992ade92d6fa63646fd9c9d318245c6c-2400x1260.jpg" alt="Anthropic" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">Anthropic 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日生效</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 7/8 起强制人脸实名，所有 Claude 个人用户必经「政府 ID + 实时人脸」双因子</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">自 2026-07-08 起所有 Claude 个人用户须完成「政府签发 ID + 实时人脸扫描」双因子认证才能继续使用 / 使用 Persona Identities 系统（与 OpenAI/AWS/GCP 同供应商）/ 企业用户走另一认证入口 / 认证不通过即账号失效 / Discord 此前评估后因安全顾虑拒绝采用该系统</p>
+          <div class="comment">年化收入 300 亿美元的 Anthropic，比 OpenAI（240-250 亿）还急着合规——Fable 5 出口管制风波刚结束 7 天就推出「史上最严」用户验证。当 OpenAI 还在做"自愿上传身份"，Anthropic 直接把"实名"做成了"准入"，这是在用合规壁垒把中小竞品挡在政府/大企业客户门外。代价是个人开发者的迁移成本——但他们本就不是 Anthropic 的核心收入来源。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://view.inews.qq.com/a/20260707A0AHZ200" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OkpT-A6jAhwrvLlmGytaZG1Lq_at5YL5SAPiwii9iN7T4AA_640330/0" alt="中国 AI 出海" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">路透社 / 腾讯新闻</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">中国 AI 大模型出海或受限，路透：阿里、字节、智谱被约谈</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">路透社报道中国有关部门近期与阿里、字节、智谱等头部科技企业开会 / 议题：是否限制中国最先进 AI 模型的海外访问 / 上一周阿里宣布 7/10 起全面禁用 Claude Code（导火索：Anthropic 指控阿里 2.5 万账号 2880 万次交互"工业级蒸馏"）</p>
+          <div class="comment">AI 脱钩正从"美方单向出口管制"升级为"双向管制"——美方封 Fable 5 / 中国可能封自家前沿模型出海，恰好发生在阿里禁 Claude Code 一周之后。DeepSeek / Kimi / Qwen 在 HuggingFace 的开放窗口还能撑多久，是接下来 90 天最值得盯的政策变量。但反过来说，OpenRouter、阿里云 ModelStudio 这种"出海代理通道"会迎来真正的窗口期。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://view.inews.qq.com/a/20260708A0146E00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/news_ls/O1qlAzCnNAwSnLdrt91yEZAUqEKDpm5thN8MB-EiEXRm8AA_640330/0" alt="Meta Muse Image" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Meta 官方 / 全天候科技</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Meta 发布 Muse Image，MSL 实验室首个图像生成模型，Instagram/WhatsApp 内置</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Muse Image 是 Meta 超级智能实验室（MSL）成立后首个图像生成模型 / 由新任首席 AI 官 Alexandr Wang 主导 / 将嵌入 Instagram、WhatsApp 两大社交应用 / Muse Video 即将面向创作者与 Meta AI 开放</p>
+          <div class="comment">在 DALL-E 退场、Imagen 3 趋于保守的当口，Meta 把图像生成塞进全球 30 亿月活的社交基础设施——这才是 MSL 真正的产品抓手。对比 OpenAI 还在用 ChatGPT 卖图片，Meta 的逻辑是"模型即平台功能"：发 Reels 自动配图、WhatsApp 表情包即时生成，比单独订阅更具备规模放大效应。但配套而来的是版权、深度伪造、青少年保护三道关。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://view.inews.qq.com/a/20260708A001W200" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/O_2zm6lpwziKOkjqaXdrmRPYrXR9noC_cpr9NOvnXBfAgAA_640330/0" alt="Anthropic Coefficient Bio" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Anthropic 收购公告</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 4 亿美元收购 AI 制药公司 Coefficient Bio</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Anthropic 宣布以 4 亿美元收购 AI 制药公司 Coefficient Bio / 标的专注 AI 驱动的药物发现 / 收购方估值 300 亿美元（年化收入）/ 4 亿等价于年化收入 1.3% / 属"通用 LLM 切垂类纵深"典型打法</p>
+          <div class="comment">年化 300 亿收入买 4 亿制药资产，是典型「用 LLM 通用能力切垂类纵深」打法。Coefficient Bio 的技术栈和 Claude Science 工作台（7/1 上线）的耦合度，决定这次收购的回报率——如果 Coefficient Bio 是 Claude Science 的核心引擎，那这是"自产自用"；如果是独立业务线，那只是 1.3% 年化收入的纵深布局。结合昨天 TeraWulf 19 亿数据中心签约，Anthropic 正在从"纯模型公司"变成"AI 基础设施 + 行业解决方案"双轮驱动。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://view.inews.qq.com/a/20260707A077OF00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OG4vnAFDUTP4e8X5J3BG7-PQngUkKqyMJWoLlRzrRV7HwAA_640330/0" alt="墨奇智能" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">高榕资本 / 至顶科技</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">墨奇智能 10 亿+ 天使轮、70 亿估值，半年 70 亿刷新具身智能首轮纪录</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">成立仅 6 个月的具身智能企业 / 完成超 10 亿元天使轮系列融资 / 估值超 70 亿元 / 刷新国内具身智能赛道首轮融资规模纪录 / 高榕资本等参投</p>
+          <div class="comment">成立半年 70 亿估值、单轮 10 亿——这不是按 ARR 给的价，是按"未来 5 年具身智能 TAM 想象空间"给的价。把具身智能估值模型从"项目融资"切到"基础设施融资"，意味着 2026 下半年一级市场对具身智能的看法发生质变：不再是"再做一个宇树/智元"，而是"押下一个英伟达"。问题是 70 亿估值要撑起，下一轮需要找到具体的工厂/物流落地场景，否则会被"demo 估值"反噬。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L1ABVDOP05118BEE.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">昆仑万维 / 163 转载</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">昆仑万维 SkyClaw-v1.0 Agent 上线：百万 token 0.5 元，执行向 Agent 普惠化</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">昆仑万维推出 SkyClaw-v1.0 Agent 模型 / 定位"擅长执行任务而非聊天" / 输入 0.5 元/百万 tokens / 缓存命中 0.05 元 / 对标海外 Anthropic / OpenAI 的 Agent API 价格</p>
+          <div class="comment">当 OpenAI / Anthropic 在工具调用能力上做"加法"时，国内 Agent 模型已经卷到 0.5 元/百万 token 这种"白菜价"——按输入 0.5 元算，1 亿 token 任务只花 50 块，Agent 普惠化的奇点到了。但价格战副作用是"模型能力被压在成本线上"：0.5 元的 SkyClaw 能解决"查天气+写邮件"这种工作流，碰上长链推理+多步决策还是得靠 Claude / GPT。Agent 普惠化和能力高端化，可能在两个平行的产品线上分道扬镳。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://view.inews.qq.com/a/20260707A089M000" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OW9Qn6nkwl8ED9LkSpWtsFuI2XkH1xP0ingwshL52HcLoAA_640330/0" alt="腾讯吐司" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">江南都市报 / 腾讯</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">腾讯吐司 AI 应用生成 iOS 上线，移动端双平台全量覆盖</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7/7 腾讯旗下 AI 应用生成及灵感共创平台"吐司"iOS 版正式上线 / 已完成移动端 iOS+Android 双平台全量覆盖 / 底层依赖腾讯混元 Hy3（1元/百万 token + Apache 2.0 开源） / 已接入 WorkBuddy、CodeBuddy、元宝、Marvis、ima 等 12+ 核心业务</p>
+          <div class="comment">腾讯一边靠混元 Hy3 1元/百万 token 压价，一边把 Agent 能力塞进"应用生成"入口——这是 13 亿微信用户用自然语言做 App 的最后一公里。当 Agent 模型成本被 Hy3 压到 0.5-1 元区间，"按需生成 App"才有商业模型跑通。对比 Bolt.new / Lovable / V0 这种海外 Coding Agent 的付费墙模式，腾讯选的是"微信生态+免费 Agent 入口"，路径不同，但目标都是把"应用生成"做成新一代浏览器。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/b6ee2f5ccebf538e17be1729087389a2394a2acd45a31d017d596df53db0a744/NousResearch/hermes-agent" alt="Hermes Agent" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · NousResearch</span>
+              <span class="card-divider">·</span>
+              <span>7/1 发布</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Hermes Agent v0.18.0「Judgment Release」：单版本 1953 commits，381 人贡献</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">NousResearch 出品 / 2026-07-01 发布 v0.18.0 "The Judgment Release" / 单版本 1953 commits / 381 人贡献 / 关键更新：cron 可靠性提升（fail-closed on provider drift + missed-grace 一次性补跑）/ aiohttp 3.14.1 CVE 地板 / Windows gateway 重启硬化 / IDOR 漏洞修复（scope /resume 到调用方 origin）</p>
+          <div class="comment">开源 Agent 框架进入"半月小版本"节奏——单版本近 2000 commits，是 4 周前同类项目的 2-3 倍。Hermes Agent 已经在做"操作系统级别"的功能堆叠：cron 任务调度、IDOR 权限边界、CVE 地板、跨平台网关硬化——这些是 Linux kernel release notes 里才会出现的术语。开源 Agent 的"基础设施化"拐点已经过去，剩下的是"哪套 Agent OS 会被开发者默认安装"的问题。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/225df2c4667a465ab9aa62cd6e1311a018ca7d44c711a2f05cacf52df389e754/ChromeDevTools/chrome-devtools-mcp" alt="Chrome DevTools MCP" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · Google</span>
+              <span class="card-divider">·</span>
+              <span>v1.5.0 · 7/3</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Google Chrome DevTools MCP v1.5.0：45,700+ Stars，史上增长最快 MCP 项目</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Google 官方 Chrome DevTools 拆解为 44+ 个 MCP 工具 / 当前 45,700+ stars（截至 2026 年 7 月）/ 项目从 2025/9 发布到 2026/7，仅用 10 个月就成为史上增长最快的 MCP 项目之一 / v1.5.0 于 2026-07-03 发布 / 支持 20+ MCP 客户端：Claude Code、Cursor、VS Code/Copilot、Gemini CLI、JetBrains AI、Windsurf、Warp / 底层调用 Chrome DevTools 原生 trace engine、accessibility tree、CDP 协议（非简单 DOM 包装）/ 当前 903 commits + 57 个 NPM 版本</p>
+          <div class="comment">当 Chrome 官方把 DevTools 协议直接开放为 MCP 工具集，"浏览器即 Agent 运行环境"已经从概念落地为标准——AI Coding Agent 调试前端 bug，不再是"截图+猜原因"，而是直接调 performance/console/network 协议拿语义化洞察（"LCP 3.2s，最大阻塞资源 main.js 1.8s"）。Google 用 Chrome 的浏览器市场份额给 MCP 生态定标准，是 2026 年 AI 基础设施争夺战里最被低估的一步。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/evalstate/fast-agent" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/016b91559e13a010d0143a17cbcd6299e0c0115306b98231049f58e2a2017c5b/evalstate/fast-agent" alt="fast-agent" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · evalstate</span>
+              <span class="card-divider">·</span>
+              <span>v0.7.21 · 6/20</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">fast-agent v0.7.21：首个端到端测试完整的 Skills + MCP + ACP 三栈框架</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">2026-06-20 提交 v0.7.21 / 累计 1,868 commits / 关键更新：SKILL.md 协议支持 + ACP 会话/MCP 加载 + OpenAI Apps SDK（MCP-UI Skybridge）/ 首个端到端测试完整的 MCP Sampling + Elicitations 框架 / 原生支持 Anthropic、OpenAI、Google、Azure、Ollama、Deepseek 等 10+ 模型 provider / 内置 LSP/Agent Hooks/Compaction 策略 / CLI-first + TUI-style 输入 + 实时 rich 流式输出</p>
+          <div class="comment">fast-agent 在做一件行业里没人做完的事——把"Skills 协议 + MCP 工具调用 + ACP Agent 通信"三套标准同栈打通。开发者不用再纠结"用哪个 Agent 框架能同时跑 Skills 和 MCP"了。再加上 Streamable HTTP 传输诊断能力（"唯一能 inspect Streamable HTTP transport 调用的工具"），fast-agent 实际上是在做"Agent 框架的 Wireshark 级别可观测性"——这是企业级 Agent 部署从 PoC 走向生产的关键拼图。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
