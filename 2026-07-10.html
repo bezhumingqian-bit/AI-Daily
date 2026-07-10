@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL · 36 · 2026年7月10日</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<meta property="og:title" content="AI 日报 · VOL · 36">
+<meta property="og:description" content="Meta Muse Spark 1.1 打价格战、腾讯HY3开源、OpenAI推ChatGPT Work、SambaNova十亿融资——7月10日AI要闻速览">
+<meta property="og:image" content="">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 6px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="./index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026.07.10</span>
+        <a href="./index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 36</div>
+        <div class="header-title">把今天的 AI<br>一杯咖啡读完</div>
+        <div class="header-subtitle">Meta 打响模型价格战 · 腾讯 HY3 开源 · OpenAI 推出企业智能体</div>
+        <div class="header-date">2026 年 7 月 10 日 · 星期五</div>
+      </div>
+    </div>
+
+    <!-- Section: 常规要闻 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-dot dot-大模型"></div>
+        <div class="section-title stitle-大模型">常 规 要 闻</div>
+        <div class="section-line"></div>
+      </div>
+      <div class="section-sub">Global AI Signals · 2026-07-10</div>
+
+      <!-- Card 1: Meta Muse Spark 1.1 -->
+      <a href="https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/" target="_blank" rel="noopener" class="card-link">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-大模型"></div>
+              <span class="card-source-name">Meta Superintelligence Labs</span>
+              <span class="card-divider">／</span>
+              <span>今日</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <div class="headline">扎克伯格三年首发推：Meta Muse Spark 1.1 价格仅 Fable 5 十分之一</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fact">Meta 超级智能实验室发布第二代多模态推理模型 Muse Spark 1.1——100 万 Token 上下文窗口，主动管理长上下文自动压缩；定价输入 $1.25/百万 Token、输出 $4.25，仅为 Anthropic Fable 5 的十分之一。模型在税务（TaxEval）、医疗（MedScribe）、法律（Harvey Legal Agent Bench）三大专业榜单拿下第一，同时也是 Meta 首个面向外部开发者收费的模型 API。小扎三年没发推，7 月 9 日深夜连发三条，评论区马斯克凑过来回了句「Jinx」。</div>
+          <div class="comment">三年不发推，一出手就是价格屠夫。这不是一次模型发布，是 Meta 从「开源免费」到「API 收费」的战略转折——而且一上来就瞄准了 Anthropic 的高端定价。小扎选在 GPT-5.6 公开发布当天出手，时机的挑衅意味不言自明。</div>
+        </div>
+      </a>
+
+      <!-- Card 2: Tencent HY3 -->
+      <a href="https://github.com/Tencent-Hunyuan/Hy3" target="_blank" rel="noopener" class="card-link">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/e00569fda1a02f6ad6c42148823b60e3e6c40ba5ad19ce9ca42edf846e591fd8/Tencent-Hunyuan/Hy3" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-大模型"></div>
+              <span class="card-source-name">腾讯混元 · GitHub</span>
+              <span class="card-divider">／</span>
+              <span>7 月 6 日发布</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <div class="headline">腾讯 HY3 正式开源：Apache 2.0，幻觉率从 12.5% 降至 5.4%</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fact">7 月 6 日正式发布并开源的腾讯混元 Hy3，295B 总参数 MoE 架构（21B 激活），支持 256K 上下文。相较于 4 月 Preview 版，幻觉率从 12.5% 大幅降至 5.4%，多轮问题率从 17.4% 降至 7.9%。定价输入 1 元/百万 Token、输出 4 元，Apache 2.0 协议全球可商用。已接入 WorkBuddy、CodeBuddy、元宝、ima、QQ 浏览器等 12+ 核心业务，WorkBuddy 任务成功率从 72% 升至 90%——日均 Token 消耗量增长 20 倍。</div>
+          <div class="comment">HY3 这套内功练得很扎实：不拼参数拼降幻觉、拼 Agent 稳定性。不到 300B 的参数量能在 SWE-Bench Agent 场景超越 GLM-5.2，说明后训练质量和真实业务反馈的价值被低估了。Apache 2.0 + 1 元/百万 Token 的定价，对国内开发者生态是一剂强心针。</div>
+        </div>
+      </a>
+
+      <!-- Card 3: OpenAI ChatGPT Work -->
+      <a href="https://help.openai.com/en/articles/6825453-chatgpt-release-notes" target="_blank" rel="noopener" class="card-link">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-Agent"></div>
+              <span class="card-source-name">OpenAI Release Notes</span>
+              <span class="card-divider">／</span>
+              <span>7 月 9 日</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <div class="headline">OpenAI 推出 ChatGPT Work：搭 GPT-5.6 的企业级 AI 办公智能体</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fact">7 月 9 日随 GPT-5.6 公开发布，OpenAI 同步推出 ChatGPT Work——面向长周期多步骤任务的 AI Agent，覆盖桌面端/网页端/移动端。可自主起草文档、生成电子表格与演示文稿，支持定时任务（Scheduled Tasks）、连接 Slack/Teams/Google Drive 等工具，运行时长可达数小时。同步上线 ChatGPT Sites（将想法一键生成轻量化网站）。已在内部财务/销售团队达到近 100% 采用率，Codex 周活超 500 万用户。</div>
+          <div class="comment">ChatGPT Work 不是另一个 chatbot——它是一个「把用户目标翻译成完整产出」的 Agent。Codex 已经证明了 AI 编程 Agent 的可行性，Work 是把同样的逻辑搬进办公室。如果它能像 Claude Cowork 一样在云端持续运行，那企业办公工具的天花板就被重新定义了。</div>
+        </div>
+      </a>
+
+      <!-- Card 4: Perplexity Teammate -->
+      <a href="https://www.businessinsider.com/perplexity-building-ai-coding-tool-take-on-cursor-and-openai-2026-7" target="_blank" rel="noopener" class="card-link">
+        <div class="card-hero">
+          <img src="https://i.insider.com/6a4d78d2965805a2c542de3b?width=1200&format=jpeg" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-Agent"></div>
+              <span class="card-source-name">Business Insider</span>
+              <span class="card-divider">／</span>
+              <span>7 月 9 日</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <div class="headline">AI 搜索公司入局编程赛道：Perplexity 自研工具 Teammate 曝光</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fact">据 Business Insider 报道，估值 226 亿美元的 AI 搜索公司 Perplexity 已开发内部代号「Teammate（队友）」的 AI 编程工具，工程师自今年 5 月起投入使用。定位异于 Copilot 的代码补全和 Cursor 的 IDE 增强——Teammate 主打「项目全生命周期管理」：涵盖项目管理、故障排查、线上监控。多模型兼容不绑定单一 LLM，CTO 称「只要 AI 生成代码通过质量测试就不存在劣质代码」。</div>
+          <div class="comment">AI 编程工具赛道的第四种切法：Copilot 管一行，Cursor 管一个文件，Claude Code 管一个任务，Teammate 管一个项目。但「项目管理」这个定位很微妙——挑战不在于技术，在于如何让 AI 理解组织上下文、优先级和人的判断。Perplexity 的搜索基因在这里或许有独特优势。</div>
+        </div>
+      </a>
+
+      <!-- Card 5: SambaNova $1B -->
+      <a href="https://sambanova.ai/press/sambanova-completes-first-close-of-1b-financing-at-11b-valuation" target="_blank" rel="noopener" class="card-link">
+        <div class="card-hero">
+          <img src="https://sambanova.ai/hubfs/Press%20Preview.jpg" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-融资"></div>
+              <span class="card-source-name">SambaNova 官方新闻</span>
+              <span class="card-divider">／</span>
+              <span>7 月 8 日</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <div class="headline">SambaNova F 轮首关 $10 亿：AI 推理芯片估值 $110 亿，摩根大通下单</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fact">AI 推理芯片公司 SambaNova 完成 F 轮首关 $10 亿融资，估值 $110 亿。General Atlantic 领投，Seligman Ventures、T. Rowe Price、Capital Group、BlackRock、Intel Capital、卡塔尔投资局等跟投。距今年 2 月 $3.5 亿 E 轮仅 5 个月。同日宣布摩根大通将部署其 SN40/SN50 系统用于本地安全推理。SambaNova 称其 RDU 架构推理速度比竞品 GPU 快 5-10 倍。</div>
+          <div class="comment">5 个月两轮融资近 $14 亿——市场在用真金白银投票：AI 中心正从「训练」转移到「推理」。当每家企业都想跑大模型但不想付云端推理账单时，专用推理芯片就成了最佳出口。摩根大通这种「数据不出门」的金融客户是 SambaNova 最理想的目标画像。</div>
+        </div>
+      </a>
+
+      <!-- Card 6: MoWorld -->
+      <a href="https://digital.it168.com/a2026/0709/6939/000006939455.shtml" target="_blank" rel="noopener" class="card-link">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-大模型"></div>
+              <span class="card-source-name">IT168</span>
+              <span class="card-divider">／</span>
+              <span>7 月 8 日</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <div class="headline">MoWorld：全球首个国产 NPU 世界模型，50FPS 实时交互成本降 70%</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fact">7 月 8 日，魔芯科技联合浙江大学潘云鹤院士团队发布 MoWorld——全球首个基于国产 NPU 的全栈实时交互世界模型。从训练到推理全程跑通国产算力，实时交互帧率突破 50FPS，推理成本比同规模 GPU 方案降低 70%。支持 2000 帧长时训练，团队宣布近期将开源权重和代码。应用方向包括机器人训练、游戏生成和数字孪生。</div>
+          <div class="comment">「世界模型」长期困于实验室，实时性一直是商业化的最后一道天堑。MoWorld 选择国产 NPU 这条更少人走的路，却把 50FPS 做出来了——说明架构适配有时比堆算力更重要。如果开源承诺兑现，这可能是国产 AI 基础设施的一个标志性拐点。</div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Section: 前沿技术 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-dot dot-前沿技术"></div>
+        <div class="section-title stitle-前沿技术">前 沿 技 术</div>
+        <div class="section-line"></div>
+      </div>
+      <div class="section-sub">Frontier · GitHub &amp; arXiv 周边</div>
+
+      <!-- FT1: microsoft/SkillOpt -->
+      <a href="https://github.com/microsoft/SkillOpt" target="_blank" rel="noopener" class="card-link">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/b13fe387cb3d2c37a69d2d4066d138d732c9a37aeb11e1c4f83a2ee22a2ef77d/microsoft/SkillOpt" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-前沿技术"></div>
+              <span class="card-source-name">GitHub · Microsoft</span>
+              <span class="card-divider">／</span>
+              <span>11,964 ★ · +276 今日</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <div class="headline">SkillOpt：微软开源 LLM Agent 技能的文本空间优化器</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fact">微软研究院开源的文本空间优化器，无需微调模型权重即可训练可复用的自然语言 Skill。通过轨迹驱动的编辑（trajectory-driven edits）和验证门控更新（validation-gated updates），为冻结的 LLM Agent 产出最优 best_skill.md 文件。Python 实现，MIT 协议，11,964 Star、1,106 Fork。核心创新：把 Skill 优化建模为文本编辑问题而非参数更新问题。</div>
+          <div class="comment">SkillOpt 解决了一个真实痛点：Agent 的 skill 文件怎么写效果最好？以前靠人肉试错，现在靠优化器自动迭代。这个方向的意义在于——当模型本身的 weights 更新成本越来越高，「如何用好已有模型」比「如何训出更强模型」可能更经济。</div>
+        </div>
+      </a>
+
+      <!-- FT2: bytedance/deer-flow -->
+      <a href="https://github.com/bytedance/deer-flow" target="_blank" rel="noopener" class="card-link">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/6f2c1c396de4b62579892da04847cded0ad6dd844c87fc4799a023950de98727/bytedance/deer-flow" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-前沿技术"></div>
+              <span class="card-source-name">GitHub · ByteDance</span>
+              <span class="card-divider">／</span>
+              <span>76,652 ★ · +136 今日</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <div class="headline">DeerFlow：字节跳动 76K Star 开源长程 SuperAgent 框架</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fact">字节跳动开源的 long-horizon SuperAgent 框架，集成沙箱（sandbox）、记忆系统（memory）、工具链（tools）、技能库（skills）、子 Agent 编排（subagents）和消息网关（message gateway），能处理从几分钟到数小时跨度的多层次任务。Python 实现，76,652 Star、10,407 Fork。支持研究、编码和创作三类工作流。</div>
+          <div class="comment">76K Star 说明开发者对「能真正跑长任务的 Agent 框架」有巨大需求。DeerFlow 的差异化在于把沙箱、记忆、子 Agent 编排打包成一套开箱即用的方案——不是单个 Agent 的能力提升，而是 Agent 系统工程的工业化。</div>
+        </div>
+      </a>
+
+      <!-- FT3: LMCache -->
+      <a href="https://github.com/LMCache/LMCache" target="_blank" rel="noopener" class="card-link">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/8321498baabf08ce79c18c6a8ba18518f820e7e940dbd3577db8e6810a2b2d61/LMCache/LMCache" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-前沿技术"></div>
+              <span class="card-source-name">GitHub · LMCache</span>
+              <span class="card-divider">／</span>
+              <span>10,323 ★ · +98 今日</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <div class="headline">LMCache：LLM 推理最快 KV Cache 层，极致降低推理成本</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fact">专为大模型推理加速设计的 KV Cache 层，通过在 GPU/CPU/磁盘间智能缓存键值对（Key-Value cache），将重复推理的计算量降到最低。支持 vLLM、SGLang 等主流推理引擎，10,323 Star、1,512 Fork。核心原理：当多个请求共享相同前缀（如系统 Prompt）时，只需计算一次 KV 并缓存复用，大幅降低首 Token 延迟和总计算量。</div>
+          <div class="comment">KV Cache 优化是推理降本的「隐秘战场」——不像量化或蒸馏那么光鲜，但对实际部署的 TCO 影响巨大。LMCache 的 10K+ Star 背后反映了一个现实：当每家企业都在跑 Agent、跑多轮对话时，「前缀共享」带来的缓存节省从 nice-to-have 变成了 must-have。</div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-brand">AI DAILY</div>
+      <div class="footer-tag">商业 · 认知观察者 · 出品</div>
+    </div>
+
+  </div>
+</body>
+</html>
