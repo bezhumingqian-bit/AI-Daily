@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL · 37 · 2026年7月11日</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.28);
+    margin-top: 14px;
+    letter-spacing: 1.5px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .section-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .section-dot.dot-model { background: #C8A892; box-shadow: 0 0 8px #C8A892; }
+  .section-dot.dot-agent { background: #9ABE8E; box-shadow: 0 0 8px #9ABE8E; }
+  .section-dot.dot-policy { background: #C8B468; box-shadow: 0 0 8px #C8B468; }
+  .section-dot.dot-funding { background: #8CC44A; box-shadow: 0 0 8px #8CC44A; }
+  .section-dot.dot-opensource { background: #B8B098; box-shadow: 0 0 8px #B8B098; }
+  .section-dot.dot-frontier { background: #A89BC8; box-shadow: 0 0 8px #A89BC8; }
+  .section-title { font-size: 13px; letter-spacing: 4px; color: rgba(26,26,26,0.55); font-weight: 600; text-transform: uppercase; }
+  .section-subtitle { font-size: 11px; color: rgba(26,26,26,0.3); letter-spacing: 1px; margin-bottom: 4px; }
+  .cards { display: flex; flex-direction: column; gap: 22px; }
+
+  .card-link { display: block; text-decoration: none; color: inherit; background: #FFFFFF; border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s cubic-bezier(0.22,1,0.36,1); box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .card-link:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+  .card-hero { position: relative; aspect-ratio: 16/9; overflow: hidden; background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%); }
+  .card-hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.92) saturate(0.9); transition: filter 0.35s cubic-bezier(0.22,1,0.36,1); }
+  .card-link:hover .card-hero img { filter: brightness(0.98) saturate(0.95); }
+  .card-hero .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+  .card-hero .hero-title {
+    position: absolute; bottom: 20px; left: 22px; right: 22px;
+    font-size: 17px; font-weight: 700; line-height: 1.35;
+    color: #1A1A1A;
+    z-index: 2;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.5);
+  }
+  .card-hero.no-img .hero-title {
+    font-size: 21px; bottom: auto; top: 50%; left: 28px; right: 28px;
+    transform: translateY(-50%); text-align: center; text-shadow: none;
+  }
+  .card-hero.no-img::after {
+    content: ""; position: absolute;
+    right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-body { padding: 18px 22px 22px; }
+  .card-body .fact {
+    font-size: 13.5px; color: rgba(26,26,26,0.55); line-height: 1.7;
+    margin-bottom: 10px; letter-spacing: 0.2px;
+  }
+  .card-body .comment {
+    font-size: 13px; color: rgba(26,26,26,0.7); line-height: 1.7;
+    padding-left: 10px; border-left: 2px solid rgba(0,0,0,0.08);
+  }
+  .card-meta { display: flex; align-items: center; gap: 12px; padding: 0 22px 18px; }
+  .card-category { font-size: 10px; letter-spacing: 2px; font-weight: 600; }
+  .cat-model { color: #C8A892; }
+  .cat-agent { color: #9ABE8E; }
+  .cat-policy { color: #C8B468; }
+  .cat-funding { color: #8CC44A; }
+  .cat-opensource { color: #B8B098; }
+  .cat-frontier { color: #A89BC8; }
+  .card-source { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .card-time { font-size: 10.5px; color: rgba(26,26,26,0.2); margin-left: auto; }
+
+  .footer {
+    text-align: center; padding: 36px 0 20px;
+    font-size: 11px; color: rgba(26,26,26,0.2); letter-spacing: 2px;
+    border-top: 1px solid rgba(0,0,0,0.04); margin-top: 36px;
+  }
+  .footer a { color: rgba(26,26,26,0.3); text-decoration: none; }
+  .footer a:hover { color: rgba(26,26,26,0.6); }
+
+  @media (max-width: 600px) {
+    .container { padding: 16px 10px 28px; }
+    .header { padding: 28px 20px 24px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13px; }
+    .card-hero { aspect-ratio: 16/10; }
+    .card-hero .hero-title { font-size: 15px; bottom: 14px; left: 16px; right: 16px; }
+    .card-body { padding: 14px 16px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="index.html" class="nav-brand">AI DAILY</a>
+    <div class="nav-right">
+      <span class="nav-date">2026 · 07 · 11 周六</span>
+      <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="vol">VOL · 37</div>
+      <div class="header-title">把今天的 AI<br>一杯咖啡读完</div>
+      <div class="header-subtitle">苹果起诉 OpenAI / GPT-5.6 Sol 攻克数学猜想 / 中国开源模型杀进硅谷</div>
+      <div class="header-date">2026 年 7 月 11 日 · 星期六</div>
+    </div>
+  </header>
+
+  <!-- Section: 常规要闻 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-dot dot-policy"></span>
+      <span class="section-title">常 规 要 闻</span>
+    </div>
+    <div class="section-subtitle">2026-07-11 · 7 条信号</div>
+    <div class="cards">
+
+      <!-- Card 1: Apple v OpenAI -->
+      <a class="card-link" href="https://finance.sina.com.cn/stock/hkstock/hkstocknews/2026-07-11/doc-inihkyii5077464.shtml" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="hero-title">苹果起诉 OpenAI 窃取商业机密：硅谷最彻底的"友尽"</div>
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7月10日，苹果向加州北区联邦法院提起诉讼，指控 OpenAI 系统性窃取 iPhone 商业机密用于开发消费级 AI 硬件。诉状点名 OpenAI 首席硬件官 Tang Tan（前苹果产品设计副总裁，任职24年）及前 iPhone 工程师，指控其在面试中要求应聘者携带苹果"实际零件"和"CAD图稿"。苹果称已有400余名前员工入职 OpenAI，要求销毁所有侵权材料并重新设计即将推出的产品。</p>
+          <p class="comment">苹果和OpenAI从Siri集成ChatGPT的蜜月期走到对簿公堂，只用了两年。诉讼时机很微妙——OpenAI准备数月内IPO，而苹果智能眼镜项目负责人上月已跳槽。当年乔布斯对三星说"你们全盘抄袭了iPhone"，如今库克对Altman说的是同一句话。</p>
+        </div>
+        <div class="card-meta">
+          <span class="card-category cat-policy">政策／法律</span>
+          <span class="card-source">新浪财经</span>
+          <span class="card-time">今日</span>
+        </div>
+      </a>
+
+      <!-- Card 2: GPT-5.6 Sol math -->
+      <a class="card-link" href="https://new.qq.com/rain/a/20260711A036EU00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/O6y5XvJk2I0ubik3eYV9oeNk0m1UmtKdiziUznainok0oAA_640330/0" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="hero-title">GPT-5.6 Sol Ultra 调 64 个 Agent，1 小时证明 50 年数学猜想</div>
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">OpenAI宣布GPT-5.6 Sol Ultra调用64个子Agent，用时不到1小时，为1976年提出的"循环双覆盖猜想"给出完整证明。OpenAI已公开完整prompt和证明全文，并开源Lean形式化版本——相关代码已通过Lean内核检查，意味着证明在形式化意义上经得起机器验证。不过数学界尚未完成独立审查。</p>
+          <p class="comment">GPT-5.6发布才两天，数学就挨了一拳。重点不是它能解题，而是64个Agent协作+Lean形式化验证的组合——这给"AI agent集群+人类审查"的科研新模式打了样。从11天生成百万行Rust代码到1小时攻克数学猜想，Agent任务的复杂度正在跨数量级跃升。</p>
+        </div>
+        <div class="card-meta">
+          <span class="card-category cat-model">大模型</span>
+          <span class="card-source">币界网</span>
+          <span class="card-time">今日</span>
+        </div>
+      </a>
+
+      <!-- Card 3: GLM-5.2 -->
+      <a class="card-link" href="https://mlq.ai/news/databricks-switches-default-coding-ai-to-chinese-open-source-glm-52-citing-34-cost-savings-over-anthropic-opus/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="hero-title">GLM-5.2 杀进硅谷：Databricks 弃 Opus 换国产开源，省 34%</div>
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Databricks联合创始人Matei Zaharia 7月8日公布内部基准测试：GLM-5.2（753B参数MoE，MIT协议）与Opus 4.8在编程任务上统计持平（通过率82-90%），但单任务成本$1.28 vs $1.94——省34%。Coinbase将模型切换至GLM-5.2+Kimi 2.7组合后AI成本腰斩。OpenRouter平台数据显示中国模型周流量占比从11%升至30%以上，定价比西方模型低六到九成。</p>
+          <p class="comment">今天的GLM-5.2和昨天的GPT-5.6是同一片星空下的两个故事：一边是前沿模型在"能做多难的事"上拉高天花板，另一边是开源模型在"多便宜能做到"上凿穿底价。Databricks不是一家边缘创业公司——它是数据基础设施的核心玩家，它"叛逃"Opus是硅谷用钱包投票的信号。</p>
+        </div>
+        <div class="card-meta">
+          <span class="card-category cat-opensource">开源</span>
+          <span class="card-source">MLQ.ai</span>
+          <span class="card-time">7月8日</span>
+        </div>
+      </a>
+
+      <!-- Card 4: Claude Code browser -->
+      <a class="card-link" href="https://digitaltrends.com/cool-tech/claude-code-can-now-browse-the-web-without-opening-chrome" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://www.digitaltrends.com/tachyon/2026/07/Claude-Code-Featured.jpg?resize=1200%2C630" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="hero-title">Claude Code 内置浏览器上线：Agent 直接上网查文档改 Bug</div>
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7月11日，Anthropic为Claude Code桌面端加入内置浏览器面板（Cmd+Shift+B调出），Claude可直接打开技术文档、GitHub issue、设计稿等网站，读取、点击、填表，无需在编辑器和Chrome之间切屏。浏览器使用独立配置——不与个人登录状态和历史共享，首次操作网站需用户授权（允许一次/始终允许/拒绝）。购买、注册和验证码仍需用户亲手完成。</p>
+          <p class="comment">开发者的体验会变成"告诉Claude去读那个issue，然后继续写代码"而不是"打开Chrome→复制链接→粘贴到Claude→切回来"。这听着像一个small feature，实际是Agent从"代码生成器"到"开发工作台"的关键一步——agent需要的不只是推理能力，还有在真实互联网上主动获取信息的能力。</p>
+        </div>
+        <div class="card-meta">
+          <span class="card-category cat-agent">Agent</span>
+          <span class="card-source">Digital Trends</span>
+          <span class="card-time">今日</span>
+        </div>
+      </a>
+
+      <!-- Card 5: Cursor Sand -->
+      <a class="card-link" href="https://cryptobriefing.com/cursor-sand-ai-agent-productivity/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://static.cryptobriefing.com/wp-content/uploads/2026/07/09172738/https-upload-wikimedia-org-wikipedia-commons-4-4c-cursor-ai--800x420.png" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="hero-title">Cursor 秘密研发 "Sand" 全能办公助手，叫板 Claude Cowork</div>
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">The Information 7月9日报道，AI编程工具 Cursor 正秘密开发代号"Sand"的通用AI Agent——处理邮件、短信、表格等日常办公任务，定位为Claude Cowork的直接竞品。项目自4月启动（租用SpaceXAI算力），6月底已内部灰度上线。背景是SpaceX计划以600亿美元收购Cursor。此前OpenAI本周刚发布ChatGPT Work；Anthropic的Claude Cowork已有移动端。</p>
+          <p class="comment">AI编程三强——Cursor、Claude Code、Codex——全部卷入了"办公Agent"战场。这不再是技术路线的竞争，而是"谁先覆盖用户的全天工作流"。Cursor从垂直编码切入横向办公是降维打击还是自废武功，取决于它能在代码侧保持多深的护城河。600亿美元收购传言背后是SpaceXAI在代码工具赛道落后——被Anthropic切断模型授权后只能靠收购补课。</p>
+        </div>
+        <div class="card-meta">
+          <span class="card-category cat-agent">Agent</span>
+          <span class="card-source">CryptoBriefing / The Information</span>
+          <span class="card-time">7月9日</span>
+        </div>
+      </a>
+
+      <!-- Card 6: Zhipu $4B -->
+      <a class="card-link" href="https://letsdatascience.com/news/zhipu-ai-raises-4b-for-foundation-models-3bb00b1d" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://letsdatascience.com/lds_news_fallback_image.webp" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="hero-title">智谱AI港股配售募资314亿港元，中国大模型首次公开市场巨量融资</div>
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7月9日，智谱AI（知识图谱科技）通过港股配售募资约314亿港元（约$40亿），定价1588港元/股，出售1978万股。资金用于大模型研发、算力扩容、技术服务和全球扩张。就在GLM-5.2在Databricks和Coinbase斩获战果的同一窗口期，智谱用公开市场证明了资本市场对"便宜且好"的中国开源模型的押注。</p>
+          <p class="comment">中国大模型公司第一次用港股公开市场融到$40亿——这和DeepSeek的$70亿私募不同，它是接受公开市场定价和披露监管的。GLM-5.2在硅谷的势头正好给了这个故事最好的背书。但也别忘了同一周港股AI板块集体跳水——市场在用脚投票区分"有业绩支撑"和"烧钱讲故事"两类玩家。</p>
+        </div>
+        <div class="card-meta">
+          <span class="card-category cat-funding">融资</span>
+          <span class="card-source">LetsDataScience / Reuters</span>
+          <span class="card-time">7月9日</span>
+        </div>
+      </a>
+
+      <!-- Card 7: Science AI agent -->
+      <a class="card-link" href="https://new.qq.com/rain/a/20260711A02HBH00" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="hero-title">Science 刊文：AI Agent 40 分钟完成人类 60 小时实验工作</div>
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7月11日，Science期刊报道一项里程碑研究：AI Agent已能自主进行完整科学实验——规划流程、操控仪器、分析数据、迭代优化，全程无需人工干预。在材料科学任务中，40分钟完成了等效人类60小时的实验工作量，研发效率提升约90倍。该系统在物理世界中展示了与LLM领域类似的scaling效应：机器人数量越多（1台→4台→8台），完成时间越短。</p>
+          <p class="comment">这则新闻和GPT-5.6攻克数学猜想几乎同步出现——不是巧合。AI从"读论文"（2024）到"写代码"（2025）到"操控物理仪器做实验"（2026），三年走完了科研全流程闭环。最大的信号不是"快90倍"，而是"scaling效应进入物理世界"——更多机器人=更快出结果，这和大模型"更多GPU=更强能力"是同一条底层逻辑。</p>
+        </div>
+        <div class="card-meta">
+          <span class="card-category cat-agent">Agent／研究</span>
+          <span class="card-source">Science / 光锥之外AI</span>
+          <span class="card-time">今日</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Section: 前沿技术 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-dot dot-frontier"></span>
+      <span class="section-title">前 沿 技 术</span>
+    </div>
+    <div class="section-subtitle">Frontier · GitHub &amp; arXiv 周边</div>
+    <div class="cards">
+
+      <!-- Frontier 1: MCP RC -->
+      <a class="card-link" href="https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://blog.modelcontextprotocol.io/og-image.png" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="hero-title">MCP 史上最大修订：2026-07-28 RC 发布，协议全面无状态化</div>
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">MCP 协议发布自推出以来最大规模修订的 Release Candidate。核心变化：① 移除 initialize 握手和 Mcp-Session-Id，请求自包含化——任何MCP请求可落在任何服务器实例上，不再需要 sticky session；② 新增 Extensions 框架、Tasks 扩展、MCP Apps（服务端渲染UI）；③ 废弃 Roots/Sampling/Logging 三个旧特性，进入12个月迁移倒计时；④ 路由改为 Mcp-Method 头（无需解析JSON body），Tool schema 升级至 JSON Schema 2020-12。最终规范7月28日锁定，6个SEP共同实现。Python v2 / TypeScript v2 / Go / C# SDK Beta已同步发布。</p>
+          <p class="comment">从"有状态的聊天协议"到"无状态的HTTP服务协议"——MCP的这次跃迁本质上是把自己从玩具级基础设施升级为可水平扩展的生产级基础设施。移除session带来的工程简化很具体：之前需要sticky routing+共享session store的部署，现在一个nginx轮询就够了。MCP Apps的加入则意味着MCP正在从"后端工具接口"进化成"全栈应用平台"。</p>
+        </div>
+        <div class="card-meta">
+          <span class="card-category cat-frontier">前沿技术 · MCP生态</span>
+          <span class="card-source">MCP 官方博客</span>
+          <span class="card-time">7月10日</span>
+        </div>
+      </a>
+
+      <!-- Frontier 2: last30days-skill -->
+      <a class="card-link" href="https://github.com/mvanhorn/last30days-skill" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/a45f7a764ba14db786449d77afde6bea5d165acf8cfbf1ec5d436da7c274f75d/mvanhorn/last30days-skill" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="hero-title">last30days-skill：全平台 AI 研究 Agent，51K Star，277★/天</div>
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">GitHub今日Trending AI类榜首项目（277★/天，总51,480★）。这是一个AI Agent Skill——可跨越Reddit、X (Twitter)、YouTube、Hacker News、Polymarket以及全网搜索，对任意话题进行深度研究并生成结构化综合摘要。项目采用模块化skill架构设计，可嵌入Claude Code、Codex、Cursor等主流AI编程工具，本质上是一个"AI Agent自主做市场/技术调研"的即插即用模块。</p>
+          <p class="comment">51K Star说明一件事：开发者正在疯狂给AI Agent装"感官"。这个skill的本质是让Agent具备"跨平台信息聚合+分析"能力——过去分析师花半天做的竞品/scout工作，现在Agent在你喝咖啡时就跑完了。skill生态的爆发（agent-skills、superpowers、last30days-skill三连）正在把Agent从"会写代码的助手"推向"能独立研究的同事"。</p>
+        </div>
+        <div class="card-meta">
+          <span class="card-category cat-frontier">前沿技术 · Agent框架</span>
+          <span class="card-source">GitHub Trending</span>
+          <span class="card-time">今日</span>
+        </div>
+      </a>
+
+      <!-- Frontier 3: agent-governance-toolkit -->
+      <a class="card-link" href="https://github.com/microsoft/agent-governance-toolkit" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/f320aa11261e8c30a2af505d70dd3499d89db7523a6a59b4d577b869f02cc848/microsoft/agent-governance-toolkit" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="hero-title">微软开源 Agent 治理工具包：覆盖 OWASP Agentic Top 10，4.8K Star</div>
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">微软官方开源的 AI Agent 治理工具包（78★/天，总4,803★），提供策略执行、零信任身份验证、执行沙箱、可靠性工程四大能力，完整覆盖 OWASP Agentic Top 10 威胁模型。项目定位为"Agent 基础设施的安全层"，可在 Agent 接入工具前进行策略检查、调用后审计追责、异常时自动限流。支持与 Azure AI Foundry 和自托管环境集成。</p>
+          <p class="comment">Agent生态从"跑得通"进入"跑得安全"阶段，微软用开源工具抢了这个叙事。4.8K Star不算多但含金量高——这不是另一个agent framework，而是production readiness的配套基础设施。和MCP RC的协议级安全加固同期出现不是巧合：Agent部署量暴增的同时，安全治理正在从"事后审计"转向"嵌入协议和工具链的事前控制"。</p>
+        </div>
+        <div class="card-meta">
+          <span class="card-category cat-frontier">前沿技术 · Agent安全</span>
+          <span class="card-source">GitHub (Microsoft)</span>
+          <span class="card-time">今日</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    AI DAILY ／ 商业 · 认知观察者 · 出品
+  </footer>
+
+</div>
+</body>
+</html>
