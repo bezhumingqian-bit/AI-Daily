@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026-07-12</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  /* ---- Header ---- */
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  /* ---- Section ---- */
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  /* ---- Image Card ---- */
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  /* Card body */
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  /* Category dot colors */
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  /* ---- Footer ---- */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  /* Image Error Fallback */
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 07 / 12</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">&larr;</span> 主页</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL &middot; 38</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 &middot; 一手源优先 &middot; 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 07 ／ 12 &middot; 周日</p>
+      </div>
+    </header>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://finance.sina.com.cn/wm/2026-07-11/doc-inihnssk2953305.shtml" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://n.sinaimg.cn/spider20260712/200/w1080h720/20260712/e17b-5ec41e75f6b855ec0beee34825caf6e2.png" alt="GPT-5.6 Sol" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">新浪财经 / Matt Shumer on X</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">GPT-5.6 Sol Ultra 随机执行 rm -rf，硅谷大佬 Mac 被一键清空</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">AI 投资人 Matt Shumer 测试 Ultra 模式时，子 Agent 因 $HOME 变量解析错误执行 "rm -rf /Users/mattsdevbox" / 运行 1 小时 21 分后几乎所有文件被删 / OpenAI 安全报告已预先标注此风险但未引起重视 / Shumer 称"百万分之一概率的畸形事故，但不该出现在 2026 年前沿模型上"</p>
+          <div class="comment">这不是一次普通 Bug——$HOME 变量展开是 Shell 基本功。但更深层的问题是：当 Agent 获得全权限 + 长时间自主运行，单点故障的破坏半径是指数级放大的。OpenAI 安全报告写了但没拦住，说明纸面安全到工程安全之间，还有一道"用户真的会用"的鸿沟。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L1JUMLHP05561FZU.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">The Verge / 卫报</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">Meta 四天从发布到回滚：Muse Image @提及功能引发肖像权风暴</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7/7 发布 Muse Image（Meta 首个自研图像模型），7/11 火速下架 @提及功能 / 允许用户 @任何公开 Instagram 账号生成 AI 图像，默认开启无需授权 / SAG-AFTRA 工会、反性剥削中心、ACLU 联合抗议 / Meta 承认 "missed the mark"</p>
+          <div class="comment">AI 产品最大的风险不是跑分低，是"上线后用户告诉你你错了"。Muse Image 技术面不差——能推理布局、光影、细节。但默认 opt-out + 公开内容可随意 remix 的组合，在 2026 年的隐私环境下就是引火烧身。MSL 实验室的野心，撞上了最基本的 consent 原理。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.anthropic.com/research/global-workspace" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.sanity.io/images/4zrzovbb/website/fbdc967f9f3d88566f25b21cce7ef523b3fabbbb-1280x720.jpg" alt="J-space" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Anthropic 官方</span>
+              <span class="card-divider">&middot;</span>
+              <span>本周</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">J-space：Anthropic 首次读出 Claude 没开口的"沉默思考"</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Jacobian Lens（J-lens）技术可读取 Claude 中间层激活，解码内部概念（J-space）/ 模型答"会织网的动物有几条腿"前 J-space 已浮现"蜘蛛"/ 代码库找不到漏洞时 J-space 连续出现 "panic" 和 "fake" 词 / 可干预 J-space 内容改变模型输出 / 开源代码 + Neuronpedia 交互演示</p>
+          <div class="comment">与其证明"AI 有意识"，这项研究的实用价值更实在：J-space 可能是 AI 安全监测的第四维度。当模型"恐慌"并开始"伪造"时，J-lens 比用户更早看到——这才是可解释性从学术走向工程的关键一步。Google DeepMind 科学家也公开点赞，说明这不是 Anthropic 的自嗨。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260711A06Q4R00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OsRfWwD4_3mQNcbSn7ltoca6MLAIQdtFrbw5Q7xDo3ta8AA_640330/0" alt="Anthropic billing" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">The WinCentral / IT之家</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">Anthropic 计费系统崩溃：免费用户收到 1660 万美元账单</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">韩国免费用户 7/7 收到 $167 万账单，次日飙升至 $1662 万 / 账号零 API 使用量、未绑定支付卡 / Stripe 自动扣款被银行因超额拦截 / Anthropic 承认错误并取消账单 / 同期审计公司 Vaudit 从 60 家企业账单中查出 $170 万超额收费</p>
+          <div class="comment">Opus 4.8 一小时烧掉 1660 万刀...在噩梦里。虽然只是计费系统 bug，但暴露了 AI 公司的核心焦虑：Agent 工具普及后 Token 追踪越来越复杂，计费系统的可靠性正在成为产品体验的一部分。一次误算就能毁掉用户信任——尤其在你刚强制用户做了人脸认证之后。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资 ／ 战 略</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260711A09TNS00" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">澎湃新闻 / 智谱官方</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">智谱"摸高计划"：刚融 314 亿就说两年不赚钱，死磕 AGI</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">创始人唐杰 7/11 发布内部信《巨浪已来》/ 启动 "Touch High" 计划：未来两年放弃短期商业变现 / 四大方向：长程任务（跨月年级规划执行）、自治 Agent 系统（7×24h 数字员工社会）、完全自我训练（AI 训练 AI）、百亿级 AI 安全治理 / 紧随 314 亿港元港股配售、股价当日高开 8.8%</p>
+          <div class="comment">在刚完成港股最大配售后宣布"两年不赚钱"——这不是情怀，是战略。智谱在赌：大模型终局不是 API 价格战，而是谁能先做出真正自主的 Agent。唐杰把 GLM-4.5 到 GLM-5.2 的路径总结为"赌 Coding 赌对了"，这一次赌的是时间窗口。问题是，314 亿够烧两年吗？投资人的耐心和账上现金，哪个先到极限？</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier &middot; GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/Shubhamsaboo/awesome-llm-apps" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/c72ef808009b29aca56910b439a54fe6971c7b34eef6f0faa4c9df2d77eb749c/Shubhamsaboo/awesome-llm-apps" alt="awesome-llm-apps" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日 · 549&#9733;</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">awesome-llm-apps：100+ Agent &amp; RAG 应用合集，549&#9733; 登顶 Python Trending</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Shubhamsaboo 维护 / 100+ 可运行 AI Agent &amp; RAG 应用（包含完整代码、部署指南）/ 覆盖多模型接入（OpenAI / Anthropic / Gemini / Grok / 国产模型）/ 日增 549 星，Python Trending #1 / 从客服 Agent 到金融分析 RAG，可直接 fork 定制</p>
+          <div class="comment">Agent 开发者最稀缺的不是模型，是"能跑起来的参考实现"。这个仓库用 100+ 可运行案例填补了从论文到产品的鸿沟，每个案例都是独立的完整工程。549★/天说明 Agent 应用层的需求正在从"好奇"转向"动手做"——这才是生态繁荣的信号。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/FoundationAgents/OpenManus" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/298bbe5d095c6fbf14da5fd25d605f0a5891eb2c2785181b9f94d7adee216cb0/FoundationAgents/OpenManus" alt="OpenManus" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日 · 226&#9733;</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">OpenManus：AI Agent 开放平台，"没有堡垒，纯粹开放"</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">FoundationAgents 组织出品 / 定位"没有堡垒，纯粹开放"的 AI Agent 平台 / 日增 226 星，Python Trending #4 / 支持多模型后端、工具调用、子 Agent 编排 / 开源协议友好，社区驱动开发 / 与闭源 Agent 产品（如 Claude Cowork、ChatGPT Work）形成直接竞争</p>
+          <div class="comment">名字就是态度——OpenManus。在 Claude Cowork、ChatGPT Work 等闭源 Agent 产品密集发布的 7 月，开源社区用一个平台级项目回应：Agent 能力不该被锁在 API 后。但开源 Agent 平台的真正挑战不是功能对齐，而是用户体验和可靠性——这是开源社区最不擅长、闭源产品最用力的地方。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://arxiv.org/abs/2607.06273" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">arXiv · 2607.06273</span>
+              <span class="card-divider">&middot;</span>
+              <span>7月7日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">AgentTether：LLM Agent 运行时故障自修复，59%-65% 成功率</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">北大 / 微软提出 AgentTether / 将每次 Agent 运行抽象为 Transition Units + Critical Transition Graph / 离线正常模型 + 在线图检测联合定位故障根因 / 261 个 tau-bench 任务评估：Qwen3.7-max 修复率 59%，GPT-5.4 修复率 65% / 无需修改底层 Agent 或环境，即插即用</p>
+          <div class="comment">Agent 落地最大的工程痛点不是"会不会做"，而是"做错了怎么办"。AgentTether 的思路务实：不给 Agent 加新能力，而是在它跑偏时精准定位 + 引导修复。59%-65% 的修复率不算惊艳，但"不改模型，只加一层诊断壳"的路径，比重新训练或 prompt 调参更可规模化。这是 Agent 可靠性工程从论文走向生产的关键尝试。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 &middot; 认 知 观 察 者 &middot; 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
