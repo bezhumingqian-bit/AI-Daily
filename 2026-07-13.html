@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026-07-13</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-dot.model { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.5); }
+  .section-dot.agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.5); }
+  .section-dot.policy { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.5); }
+  .section-dot.funding { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.5); }
+  .section-dot.opensource { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.5); }
+  .section-dot.frontier { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.5); }
+  .section-title {
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: rgba(26,26,26,0.65);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .section-divider {
+    height: 1px;
+    background: rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+  }
+  .section-subtitle {
+    font-size: 11px;
+    color: rgba(26,26,26,0.3);
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    margin-left: 16px;
+  }
+
+  .card-link { text-decoration: none; color: inherit; display: block; }
+  .card {
+    background: #FFFFFF;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .card-link:hover .card {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  .card-hero {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #E8E4DA;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.92);
+    transition: filter 0.4s ease;
+  }
+  .card-link:hover .card-hero img { filter: brightness(0.98); }
+  .card-hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.85) 30%, transparent 100%);
+  }
+  .card-hero-title {
+    position: absolute;
+    bottom: 20px; left: 22px; right: 22px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1A1A1A;
+    line-height: 1.35;
+    letter-spacing: -0.2px;
+    z-index: 2;
+    text-shadow: none;
+  }
+  .card-hero-title .star-badge {
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin-left: 6px;
+  }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .card-hero.no-img::after {
+    content: "";
+    position: absolute;
+    right: -20px; top: -20px;
+    width: 100px; height: 100px;
+    background: radial-gradient(circle, rgba(168,155,200,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .card-hero-title {
+    position: static;
+    text-align: center;
+    font-size: 21px;
+    padding: 0 28px;
+  }
+  .card-body { padding: 18px 22px 22px; }
+  .fact {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.85);
+    line-height: 1.7;
+    letter-spacing: 0.2px;
+  }
+  .comment {
+    font-size: 12.5px;
+    color: rgba(26,26,26,0.45);
+    margin-top: 10px;
+    line-height: 1.6;
+    letter-spacing: 0.2px;
+  }
+  .comment::before {
+    content: "／ ";
+    color: rgba(26,26,26,0.2);
+    font-size: 11px;
+  }
+
+  /* Frontier-specific */
+  .frontier-card .card-hero { aspect-ratio: 16 / 10; }
+  .frontier-card .card-body { padding: 14px 22px 20px; }
+  .frontier-card .fact { font-size: 12.5px; }
+  .frontier-card .card-hero-title { font-size: 16px; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px 0 20px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 2px;
+  }
+  .footer-line {
+    width: 28px; height: 1px;
+    background: rgba(26,26,26,0.08);
+    margin: 0 auto 16px;
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 16px 12px 32px; }
+    .header { padding: 28px 20px 24px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13px; }
+    .vol { font-size: 10px; letter-spacing: 3px; }
+    .card { border-radius: 12px; margin-bottom: 14px; }
+    .card-hero-title { font-size: 15px; bottom: 14px; left: 16px; right: 16px; }
+    .card-hero.no-img .card-hero-title { font-size: 17px; }
+    .card-body { padding: 14px 16px 18px; }
+    .fact { font-size: 12.5px; }
+    .comment { font-size: 11.5px; }
+    .section-title { font-size: 12px; letter-spacing: 2px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="index.html" class="nav-brand">AI DAILY</a>
+    <div class="nav-right">
+      <span class="nav-date">2026.07.13 周一</span>
+      <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <div class="vol">VOL · 39</div>
+      <div class="header-title">把今天的 AI<br>一杯咖啡读完</div>
+      <div class="header-subtitle">Google 开源双响炮／阶跃星辰 AI 手机今晚发布<br>拟人化新规落地倒数／可灵 30 亿美元 BAT 同台</div>
+      <div class="header-date">周一 · 2026 年 7 月 13 日</div>
+    </div>
+  </div>
+
+  <!-- Section: Regular -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot model"></div>
+      <span class="section-title">今 日 要 闻</span>
+    </div>
+    <div class="section-divider"></div>
+
+    <!-- Card 1: Gemma 4 -->
+    <a class="card-link" href="https://blog.google/technology/developers/gemma-4/" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero no-img">
+          <div class="card-hero-title">谷歌 Gemma 4 全系 Apache 2.0 开源：端侧原生多模态，31B 挑战闭源前沿<span class="star-badge">🌟🌟🌟</span></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Google DeepMind 发布 Gemma 4 全系，Apache 2.0 协议 / 涵盖 2.3B 至 31B 四种规格 + MoE 26B(A4B)变体 / 12B 版创新"无编码器"架构——砍掉传统视觉/音频编码器，原始像素和音频波形直接投影至 LLM 统一嵌入空间 / 31B 在 AIME 2026 数学测试超 Gemma 3 27B 25 分，LiveCodeBench v6 近三倍 / 4 位 QAT 量化后 12B 仅需 6.7GB 显存，MacBook 可本地跑原生多模态交互</p>
+          <p class="comment">这次 Gemma 4 真正的颠覆不在跑分——而在于它证明了端侧模型不再是云端的廉价替代品。无编码器架构直接干掉了几代多模态模型"必须先用编码器预处理"的铁律。结合 Thinking 模式、128K 上下文窗口和量化感知训练，Google 给开发者递了一整套本地部署方案。但"Apache 2.0 开源"和"Google 控制生态"之间的张力，值得长期观察。</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 2: Gemini 3.5 Pro -->
+    <a class="card-link" href="https://tech.ifeng.com/c/8uYj4XZlyoI" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://x0.ifengimg.com/ucms/2026_28/EB7E81FEB1D39DCA324012BCF05B453A7DE93478_size16_w640_h359.jpg" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('no-img'); this.style.display='none';">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">谷歌 Gemini 3.5 Pro 定档 7 月 17 日：200 万上下文，Deep Think 推理，定价低于 GPT-5.6<span class="star-badge">🌟🌟🌟</span></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">消息源爆料 Gemini 3.5 Pro 将于 7/17 日在 WAIC 期间发布 / 200 万 Token 上下文窗口，是 GPT-5.6 的两倍 / 全新"Deep Think"深度推理模式（锁定 Ultra 订阅层级，$250/月）/ 定价预计 $15/M 输入、$60/M 输出 token / 前端生成能力在泄露测试中超越 Claude Fable 5 / 因数学推理和 SVG 生成问题，Google 曾推倒原架构从零重建</p>
+          <p class="comment">"推倒重建"在 AI 行业是极其罕见的决策——Google 愿意多等一个多月而不是修补旧架构，说明内部对 Fable 5 和 GPT-5.6 的压力感知非常真实。200 万上下文 + 更低定价 + Deep Think 推理模式，Google 的策略很清楚：用"更长+更便宜"从开发者端撕开 OpenAI 和 Anthropic 的防线。但 Deep Think 锁在 $250/月订阅后，免费用户能用到什么程度的推理能力，将是 7/17 的关键看点。</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 3: 阶跃星辰 AI 手机 -->
+    <a class="card-link" href="https://tech.sina.cn/2026-07-10/detail-inihhvki5196553.d.html" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://n.sinaimg.cn/spider20260710/644/w1298h1746/20260710/c475-23cf5bf3e7cc7472ac1302296a587c27.jpg" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('no-img'); this.style.display='none';">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">阶跃星辰今晚 19:00 发布全球首款 AI 智能体手机<span class="star-badge">🌟🌟</span></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7/13 晚 19:00 线上发布会 / 将推出独立 AI 终端品牌 + Agent 操作系统 + 首款 AI 智能体手机 / 华勤技术代工，非贴牌模式 / 自研大模型直接嵌入系统底层，从"能对话"升维到"会干活"——可自主完成点外卖、预约挂号等跨应用任务 / 国内 60% 头部手机品牌已合作，模型装机量超 4200 万台 / OpenAI 也公开押注 AI 终端（计划 2027），阶跃星辰抢先落地</p>
+          <p class="comment">大模型厂商做手机是一个充满张力的选择：OpenAI 计划 2027 年出终端，苹果在起诉 OpenAI 的同时自研模型，而阶跃星辰用"系统级嵌入"的方案率先抢跑。但华米 OV 主流厂商尚按兵不动，AI 手机更像是一场由边缘玩家发起的试探。今晚发布会将回答最核心的问题：一台真正由 AI 驱动的手机，到底和"装了 AI 助手的手机"有什么本质区别？</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 4: AI拟人化新规 -->
+    <a class="card-link" href="https://www.sohu.com/a/1045755191_161795" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://q4.itc.cn/q_70/images03/20260704/44fa6327f396435c861c57a6fc9be06c.jpeg" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('no-img'); this.style.display='none';">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">AI 拟人化新规 7/15 实施：豆包、千问、元宝集体下架智能体<span class="star-badge">🌟🌟</span></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">国家网信办等五部门《人工智能拟人化互动服务管理暂行办法》7/15 正式施行 / 字节豆包、阿里千问将于 7/15 同步下线用户自建智能体功能 / 腾讯元宝已于 6/30 提前下架 / 新规红线：禁止向未成年人提供虚拟伴侣/亲密关系服务、禁止"诱导情感依赖"、连续使用超 2 小时强制弹窗提醒 / 网易云音乐"妙时"AI 陪伴 App 也已停运</p>
+          <p class="comment">这不是 AI 智能体的"集体退潮"，而是监管从"发文引导"进入"倒逼落地"的关键节点。平台一刀切下线是最省事的合规选择，但一刀切也暴露出行业在"情感边界识别""过度依赖预警"等要求面前缺乏成熟技术方案。真正的问题不是要不要管，而是合规落地的技术成本，将对中小 AI 创业公司形成实质性挤出。</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 5: 可灵AI融资 -->
+    <a class="card-link" href="https://www.21jingji.com/article/20260708/herald/a6262284d7108304d65cc9a1d848c4c9.html" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero no-img">
+          <div class="card-hero-title">可灵 AI 30 亿美元融资落地：BAT 历史性同台参投，估值 180 亿美元<span class="star-badge">🌟🌟</span></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">快手公告可灵 AI 完成独立分拆融资，上限 30 亿美元 / 投后估值 180 亿美元，签约额约 28 亿美元 / 投资阵容：CPE 源峰、腾讯、阿里云、百度、中关村科学城基金等 34 家机构 / 腾讯出资 13.63 亿元，阿里云出资 13.63 亿元，百度出资 3.41 亿元 / 腾讯四天后场外减持快手 126 亿港元，"左手卖快手、右手买可灵" / 可灵 2026 Q1 营收超 6.5 亿元，ARR 近 5 亿美元 / 设置五年上市对赌</p>
+          <p class="comment">BAT 在 AI 视频赛道首次同台，信号比金额更重要。腾讯"减持快手、重仓可灵"的操作本质是一次资产置换：从"旧红利"（消费互联网）撤出，涌向"新叙事"（AI 基建）。但 180 亿美元估值约占快手市值的 80%，而可灵年营收占比不足快手 1%——这是资本市场在用两套完全不同的定价体系打量同一家公司。</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 6: Coinbase AI代理 -->
+    <a class="card-link" href="https://view.inews.qq.com/a/20260712A070CC00" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero no-img">
+          <div class="card-hero-title">Coinbase 部署 1200 个 AI 代理，运营成本削减 50%<span class="star-badge">🌟🌟</span></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Coinbase CEO Brian Armstrong 披露已部署 1200 个 AI Agent / 覆盖客服、风控、合规、交易监控等环节 / 整体运营成本同比削减 50% / 客服首次响应时间从 30 分钟降至实时 / Coinbase 也是最早大规模采用中国大模型（DeepSeek V4）的美国企业之一 / 此前 Discord 社区已部署 AI Agent 处理 90% 的 Tier 1 客服工单</p>
+          <p class="comment">1200 个 AI 代理在真实生产环境中运行并产生可量化的成本下降——这是目前为止企业级 AI Agent 落地最硬的一个数据点。Coinbase 作为合规压力极大的金融科技公司敢这么干，说明 Agent 在风控场景的可靠性已经过了内部验证。但降本 50% 的背后，有多少是 AI 替代人工、多少是流程重构，需要更细颗粒度的拆解。</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 7: AI终端补贴 -->
+    <a class="card-link" href="https://view.inews.qq.com/a/20260712A09G1N00" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OEgHCmTXSZZHNRdcce822Qasy7kUY4LOOo0H289GCS3nQAA_640330/0" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('no-img'); this.style.display='none';">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">国家 AI 终端补贴落地：AI 手机最高 500 元，人形机器人 1500 元<span class="star-badge">⭐</span></div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7/12 国家 AI 终端消费补贴政策正式落地 / 购买 AI 手机最高获 500 元补贴，人形机器人最高 1500 元 / 政策与阶跃星辰 AI 手机发布几乎同期，形成"产业供给+政策需求"双轮驱动 / 国产十万卡级昇腾算力集群也已建成 / 中国 AI 大模型在 OpenRouter 平台连续十周 Token 调用量超美国</p>
+          <p class="comment">补贴金额不大，但信号明确：国家正在从"鼓励研发"转向"鼓励消费"，推动 AI 从实验室走向大众市场。配合阶跃星辰今晚的手机发布和 DeepSeek V4 定档 7/15，"国产 AI 消费级落地"正在形成一个紧凑的叙事闭环。但千元机利润空间本就稀薄，500 元补贴能否撬动起换机潮，取决于 AI 功能到底能解决什么"非买不可"的痛点。</p>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Section: Frontier -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-dot frontier"></div>
+      <span class="section-title">前 沿 技 术</span>
+    </div>
+    <div class="section-subtitle">Frontier · GitHub &amp; arXiv 周边</div>
+    <div class="section-divider"></div>
+
+    <!-- Frontier 1: colibri -->
+    <a class="card-link" href="https://github.com/JustVugg/colibri" target="_blank" rel="noopener">
+      <div class="card frontier-card">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/19a35cac4845dc9cce71a488a75aede543b74d7527b481f63203c8735f17f0e4/JustVugg/colibri" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('no-img'); this.style.display='none';">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">colibri · 纯 C 在 25GB 消费级机器运行 744B MoE 大模型</div>
+        </div>
+        <div class="card-body">
+          <p class="fact">JustVugg/colibri · C 语言 · 4.6K★ / 无需任何依赖，在 25GB RAM 消费级机器上运行 GLM-5.2（744B MoE）/ experts 流式加载，按需从磁盘读取 / 零外部依赖，单一可执行文件 / 日增数千星，Hacker News 首页热议</p>
+          <p class="comment">将 744B 参数的 MoE 模型塞进一台普通笔记本——colibri 做的事本质上是在挑战"大模型必须依赖云端 GPU 集群"的固有认知。纯 C、零依赖、流式加载这三个设计选择的组合，让它在工程美学和实用性之间找到了罕见平衡。这是"端侧大模型"从口号走向落地的关键基础设施。</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Frontier 2: stitch-skills -->
+    <a class="card-link" href="https://github.com/google-labs-code/stitch-skills" target="_blank" rel="noopener">
+      <div class="card frontier-card">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/9a9aa43385525c17416cc674d2208935bbabcba678f4fb45898d23d67138ca68/google-labs-code/stitch-skills" alt="" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('no-img'); this.style.display='none';">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">stitch-skills · Google 官方 Agent Skills 库，兼容主流编程 Agent</div>
+        </div>
+        <div class="card-body">
+          <p class="fact">google-labs-code/stitch-skills · TypeScript · 7K★ / Google 官方出品的 Agent Skills 库 / 遵循 Agent Skills 开放标准 / 兼容 Claude Code、Cursor、Gemini CLI、Antigravity 等主流编程 Agent / 配合 Stitch MCP Server 使用，提供标准化技能接入层</p>
+          <p class="comment">Google Labs 在这个时间点推出一套跨 Agent 的标准化 Skills 库，不是巧合。Agent Skills 的协议层碎片化正在成为开发者痛点——每个 Agent 都有自己的 skill 格式。stitch-skills 试图用"开放标准"统一这一层。但有意思的是它选择了兼容 Claude Code 和 Cursor 而非仅限 Gemini 生态——这比封闭生态策略聪明得多。</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Frontier 3: MrFlow -->
+    <a class="card-link" href="https://arxiv.org/abs/2607.01642" target="_blank" rel="noopener">
+      <div class="card frontier-card">
+        <div class="card-hero no-img">
+          <div class="card-hero-title">MrFlow · 北航领衔：扩散模型图像生成 10 倍加速，无需训练、即插即用</div>
+        </div>
+        <div class="card-body">
+          <p class="fact">arXiv 2607.01642 · 北航 + 南洋理工 + 中科院计算所 + 中科大 + ETH Zurich 联合研究 / 无需训练的图像生成加速方案 / 专攻主流 Text-to-Image 扩散模型，10 倍加速不损失画质 / 与现有蒸馏方法正交兼容，叠加可达 25 倍加速 / 无需专用硬件、无需修改原模型、无需收集运行时统计</p>
+          <p class="comment">AI 图像生成过去一年拼的是"质量"，未来一年拼的是"速度"。MrFlow 的优雅之处在于不做任何模型改动——这意味着它可以立刻让现有的 Stable Diffusion、Flux 等生态提速一个数量级。"即插即用+正交兼容"的组合，让它可能成为扩散模型加速的默认选项。</p>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-line"></div>
+    AI DAILY ／ 商业·认知观察者·出品
+  </div>
+
+</div>
+</body>
+</html>
