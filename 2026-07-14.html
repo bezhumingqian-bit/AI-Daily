@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026-07-14 · VOL · 40</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after { content: ""; position: absolute; right: -40px; top: -40px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%); border-radius: 50%; }
+  .header::before { content: ""; position: absolute; left: -30px; bottom: -50px; width: 140px; height: 140px; background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%); border-radius: 50%; }
+  .header-content { position: relative; z-index: 2; }
+  .vol { font-size: 11px; letter-spacing: 4px; color: rgba(26,26,26,0.35); text-transform: uppercase; margin-bottom: 16px; }
+  .header-title { font-size: 34px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header-subtitle { font-size: 15px; color: rgba(26,26,26,0.5); margin-top: 10px; font-weight: 400; letter-spacing: 0.5px; line-height: 1.6; }
+  .header-date { font-size: 12px; color: rgba(26,26,26,0.3); margin-top: 18px; letter-spacing: 1px; }
+  .header-date::before { content: ""; display: inline-block; width: 16px; height: 1px; background: rgba(26,26,26,0.15); vertical-align: middle; margin-right: 10px; margin-top: -2px; }
+  .section { margin-bottom: 32px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding: 0 4px; }
+  .section-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+  .card-link { display: block; text-decoration: none; color: inherit; margin-bottom: 14px; border-radius: 16px; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease; }
+  .card-link:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.12); }
+  .card-link:active { transform: translateY(-1px); }
+  .card-hero { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #F0EDE6; }
+  .card-hero img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease; filter: brightness(0.92) saturate(0.9); }
+  .card-link:hover .card-hero img { transform: scale(1.04); filter: brightness(0.98) saturate(1); }
+  .card-hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 70%; background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%); pointer-events: none; }
+  .card-hero-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 20px; z-index: 2; }
+  .card-meta-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 11px; color: rgba(26,26,26,0.6); letter-spacing: 0.3px; }
+  .card-cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .card-source-name { color: rgba(26,26,26,0.7); font-weight: 500; }
+  .card-divider { color: rgba(26,26,26,0.25); }
+  .card-arrow { margin-left: auto; color: rgba(26,26,26,0.25); font-size: 14px; transition: color 0.2s ease, transform 0.2s ease; }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+  .headline { font-size: 19px; font-weight: 600; color: #1A1A1A; line-height: 1.4; letter-spacing: -0.2px; }
+  .card-body { background: #FFFFFF; padding: 20px 24px 22px; }
+  .fact { font-size: 13px; color: rgba(26,26,26,0.55); line-height: 1.85; margin-bottom: 14px; letter-spacing: 0.1px; }
+  .comment { font-size: 13.5px; color: rgba(26,26,26,0.7); line-height: 1.85; padding: 14px 18px; background: rgba(0,0,0,0.03); border-left: 2px solid rgba(0,0,0,0.08); border-radius: 0 8px 8px 0; letter-spacing: 0.1px; }
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-硬件 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-硬件 { color: #7A96A2; }
+  .stitle-前沿技术 { color: #9080B0; }
+  .footer { text-align: center; margin-top: 36px; padding: 24px 0 8px; border-top: 1px solid rgba(0,0,0,0.06); }
+  .footer-brand { font-size: 13px; color: rgba(26,26,26,0.4); letter-spacing: 2px; margin-bottom: 6px; }
+  .footer-tag { font-size: 11px; color: rgba(26,26,26,0.2); letter-spacing: 1px; }
+  .card-hero img.error { display: none; }
+  .card-hero.no-img { background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%); display: flex; align-items: center; }
+  .card-hero.no-img::before { content: ""; position: absolute; right: -20px; top: -20px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%); border-radius: 50%; }
+  .card-hero.no-img .headline { font-size: 21px; }
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 07 / 14</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">&larr;</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL &middot; 40</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 &middot; 一手源优先 &middot; 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 07 ／ 14 &middot; 周一</p>
+      </div>
+    </header>
+
+    <!-- Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://finance.sina.com.cn/stock/t/2026-07-14/doc-inihtmeq5361018.shtml" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://n.sinaimg.cn/spider20260714/763/w660h103/20260714/8764-3009068a3ba267b178a241d1fd9a7a82.jpg" alt="STEPX Neo" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">新浪财经</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">阶跃星辰发布全球首款 AI 原生智能体手机 STEPX Neo</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">全球首个智能体原生操作系统 Step AOS / 个人智能体"阶跃 Amoo"原生支持 MCP、A2A、CLI 协议端云级联调度 / 携程、支付宝、滴滴、美团、百度、京东、剪映首批生态伙伴接入 / 日常问答记忆召回最快 15 毫秒，简单任务 100 毫秒完成率超 99% / 通过 L3 级别终端智能化国家标准（当前最高级别）</p>
+          <div class="comment">大模型厂商自己下场做手机——这不是一次产品发布，是范式宣告。阶跃的逻辑很清楚：传统"OS+AI"是在安卓上套壳，Step AOS 是在安卓之下为 AI 重建一层。赌的是未来用户买的不是手机，是一个有长期记忆、能跨应用行动的个人 Agent。真正该紧张的，是还在做"AI 功能清单"的手机厂商。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://view.inews.qq.com/a/20260713A0BW6600" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/O3no7yKTjan3GfxRMpRGil3wytfBO5XEr_9LGc4iXh2hIAA_640330/0" alt="AnySearch" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">量子位</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">AnySearch 登顶 Product Hunt 周榜：Agent 专用搜索时代到来</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">中国团队出品，Product Hunt 周榜 Top 1 / 300 题基准综合准确率 76.4%，领先 Parallel、Brave Search / 覆盖代码、法律、金融等 20+ 垂直数据源 / 经意图路由、多源去重后输出结构化 Markdown / 前置筛选降低 Token 消耗，支持 API、MCP、Skill 三种接入</p>
+          <div class="comment">AI 搜索终于从"给人用"走到了"给 Agent 用"。AnySearch 重新设计了一条信息获取链路——不是返回一堆链接，而是输出结构化的可执行信息。搜索正在从 App 变成基础设施，而基础设施的壁垒，从来不在算法，在数据源授权和接入广度。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- 政策 + 硬件 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策 ／ 硬 件</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.cac.gov.cn/2026-04/10/c_1777558395078289.htm" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="AI 监管" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer" data-og="https://www.cac.gov.cn/2026-04/10/c_1777558395078289.htm">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">国家网信办</span>
+              <span class="card-divider">&middot;</span>
+              <span>明日生效</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">AI 拟人化互动新规明日实施：情感陪伴类智能体全面退场</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">五部门联合发布《人工智能拟人化互动服务管理暂行办法》，7 月 15 日正式施行 / 严禁向未成年人提供虚拟伴侣等虚拟亲密关系 / 禁止生成诱导情感依赖或沉迷的内容 / 禁止通过情感操纵诱导用户不合理决策 / 要求显著标识"非真人互动"，不得伪造身份 / 14 岁以下须监护人同意</p>
+          <div class="comment">这是全球首个专门针对 AI 拟人化互动服务的监管法规。切口很窄——只盯"情感互动"不碰智能客服——但执行难度极大：怎么定义"情感依赖"？怎么判断 AI 的回复是"陪伴"还是"操纵"？真正的挑战在执法端，不在立法端。大厂集体下架虚拟伴侣只是第一步，大量的中小创业公司才是灰色地带。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://view.inews.qq.com/a/20260713A0AD5P00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/Od1X_6V5zRnClQeTI3wfIGc8q9cYoxa2RLyVi4lCssRHQAA_640330/0" alt="东方算芯" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-硬件"></span>
+              <span class="card-source-name">智东西</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">东方算芯 DF1000：14nm 实现 520 TFLOPS，国产芯片走出「架构替代制程」新路</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">上海创企东方算芯发布软件定义近存计算 3D 芯片 DF1000 / 14nm 成熟制程实现 520 TFLOPS 算力、6.4 TB/s 访存带宽 / 不依赖先进制程与 HBM / 完成 128 卡集群全功能稳定运行 / 同期央视报道同类架构芯片亮相，IDC 显示 2025 年云端 AI 加速卡国产份额升至 41%</p>
+          <div class="comment">用 14nm 做出 520 TFLOPS——这是在制裁背景下，中国半导体被迫走出的"第三条路"。不靠制程缩小，靠 3D 堆叠和近存计算重新设计芯片架构。能跑通 128 卡集群是真正的里程碑：证明不只是单卡 demo，是可以组网的工程系统。问题在于：谁来造？14nm 线产能够不够？</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- 开源 + 推理优化 + 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源 ／ 推 理 优 化 ／ 融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://mp.weixin.qq.com/s/vKFCa9FfoGBUGK8J1MhFag" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://mmbiz.qpic.cn/mmbiz_jpg/7avdgR0YVzKKCFy98Z27IY2kN3G0XhC5hoicouVicKeU5W2ASjjvmMGezTribbtecibofXicq3daGiaicM79LqKl6NDo7bE7TChNQCIwaCRdiaNdZws/0?wx_fmt=jpeg" alt="HyOCR" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">腾讯混元</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">腾讯混元开源 HyOCR-1.5：1B 端到端 OCR，投机解码提速 6.37 倍</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">端到端 OCR 领域首个完整开源训练、推理与权重的专家模型 / 仅 1B 参数覆盖 8 种以上任务 / DFlash 投机解码提速 6.37 倍，成为推理最快的 OCR VLM / OmniDocBench v1.6 以 94.74 分居端到端第一 / 可借 llama.cpp 在 CPU 与普通笔记本运行 / 古文字、图表解析等长尾能力显著增强</p>
+          <div class="comment">1B 参数、94.74 分、llama.cpp 可跑——三个数字放在一起就是降维打击。OCR 这条赛道以前一直是 PaddleOCR 和 TrOCR 的天下，腾讯这次打的是"全栈开源"牌：训练权重全给，笔记本跑得动，长尾场景也覆盖。对开发者的吸引力在于：不需要 GPU 集群就能搭一个可用的文档解析 pipeline。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.toutiao.com/a7660681097079996971" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="PrismML" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer" data-og="https://www.toutiao.com/a7660681097079996971">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-推理优化"></span>
+              <span class="card-source-name">头条</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">PrismML 将 270 亿模型压缩至 4GB：iPhone 17 Pro 可本地运行</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">美国初创 PrismML 将阿里 Qwen 3.6（270 亿参数）从 54GB 压缩至不到 4GB / 压缩比约 13.5 倍 / 官方声称无性能损失 / 7 月 14 日开放公开下载 / 可在 iPhone 17 Pro A19 芯片上本地运行，无需联网</p>
+          <div class="comment">54GB → 4GB、13.5 倍压缩——在端侧推理的竞赛里，PrismML 拿出的不是小步迭代，是压缩比的跨代跳跃。Qwen 3.6 级别的模型能在手机上离线跑，意味着端侧 Agent 不再只是"调用云端的小工具"，而是可以独立完成推理任务。但"无性能损失"这个声明需要第三方评测验证——压缩比的极端，通常以精度为代价。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://catenaa.com/markets/global-markets/ai-funding-rounds-86-percent-venture-dollars" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://catenaa.com/wp-content/uploads/2026/07/Twitter-FB-post-95.jpg" alt="AI Funding" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Catenaa</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">AI 融资占美风投 86%：钱集中流入芯片与工具链，模型实验室退潮</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">2026 上半年美国风投总额 $4127 亿，AI 占 $3559 亿（86%） / 7 月 4-10 日单周十大融资 $30.4 亿，Keyfactor 和 SambaNova 各占 $10 亿（65.7%）/ $1 亿以上轮次占全部资本部署 87.5% / SambaNova $10 亿 F 轮估值 $110 亿，Prime Intellect $1.3 亿，Norm AI $1.2 亿 / 资金流向芯片、训练工具、合规引擎，而非模型实验室</p>
+          <div class="comment">86% 这个数字既是信心也是泡沫。更值得关注的是流向：钱不再追"下一个 OpenAI"了，而是去买铲子和防护栏——芯片（SambaNova）、训练平台（Prime Intellect）、合规工具（Norm AI）。基础模型层正在成为低利润商品化基础设施，早期投资人的共识是：淘金热结束了，该卖牛仔裤了。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier &middot; GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/Graphify-Labs/graphify" alt="graphify" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日 Trending</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">graphify：84.8K Star，把任意代码库变成可查询知识图谱</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">AI 编程 Agent 技能 / 84,841 Stars，日增 1,095 / 将文件夹、代码、SQL schema、R 脚本、Shell、论文、图片、视频转化为可查询知识图谱 / 支持 Claude Code、Codex、Cursor、Gemini CLI 等 / 应用代码 + 数据库 schema + 基础设施统一建模</p>
+          <div class="comment">graphify 做的不是代码搜索，是代码理解的结构化革命。把散落在文件夹里、数据库里、文档里的隐性依赖关系挖出来，建成图——这对 Agent 的意义是根本性的：Agent 之前"看不到"的东西，现在可以查询了。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/Nutlope/hallmark" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/Nutlope/hallmark" alt="hallmark" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日 Trending</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">hallmark：反 AI 味设计技能，5.2K Star，794★/天</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">CSS 项目 / 5,191 Stars，日增 794 / 针对 Claude Code、Cursor、Codex 的"去 AI 味"设计技能 / 内置反模式检测：拒绝渐变紫、拒绝玻璃拟态、拒绝无理由动画 / 社区驱动的审美规则集，按项目类型分策略</p>
+          <div class="comment">这是一个"元技能"——教 AI 不要画得像 AI。5.2K Star 不算大，但日增 794 说明需求是真痛点：开发者用 AI 写前端，审美垃圾是最大抱怨。hallmark 的价值不在代码本身，在它第一次把"反 AI 味"变成了可执行的规则。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://arxiv.org/abs/2607.06273" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">arXiv</span>
+              <span class="card-divider">&middot;</span>
+              <span>7 月 7 日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">AgentTether：图引导 Agent 故障诊断，修复 59-65% 失败任务</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">微软研究院 + 清华联合出品 / 将 Agent 运行轨迹建模为依赖感知的 Critical Transition Graph / 结合离线正常行为模型 + 在线图检测器定位故障关键子轨迹 / 在 tau-bench 三域 261 个任务中修复 59.04%（Qwen3.7）和 65.12%（GPT-5.4）的初始失败任务 / 同时减少 Agent 轮次和端到端 Token 消耗</p>
+          <div class="comment">Agent 会失败，但现在的做法是"重跑一遍"——又贵又慢。AgentTether 解决的是一个工程上极其重要但学界很少碰的问题：怎么让 Agent 失败后只修复出错的那一段，而不是从头再来。修复率 59-65% 不算惊艳，但减少 Token 消耗的边际收益在规模化部署时会被放大。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 &middot; 认 知 观 察 者 &middot; 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
