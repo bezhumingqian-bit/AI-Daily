@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026-07-16</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol { font-size: 11px; letter-spacing: 4px; color: rgba(26,26,26,0.35); text-transform: uppercase; margin-bottom: 16px; }
+  .header-title {
+    font-size: 34px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .header-subtitle { font-size: 15px; color: rgba(26,26,26,0.5); margin-top: 10px; font-weight: 400; letter-spacing: 0.5px; line-height: 1.6; }
+  .header-date { font-size: 12px; color: rgba(26,26,26,0.3); margin-top: 18px; letter-spacing: 1px; }
+  .header-date::before { content: ""; display: inline-block; width: 16px; height: 1px; background: rgba(26,26,26,0.15); vertical-align: middle; margin-right: 10px; margin-top: -2px; }
+
+  .section { margin-bottom: 32px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding: 0 4px; }
+  .section-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block; text-decoration: none; color: inherit; margin-bottom: 14px;
+    border-radius: 16px; overflow: hidden; border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1); border-color: rgba(0,0,0,0.12); }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #F0EDE6; }
+  .card-hero img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease; filter: brightness(0.92) saturate(0.9); }
+  .card-link:hover .card-hero img { transform: scale(1.04); filter: brightness(0.98) saturate(1); }
+
+  .card-hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 20px; z-index: 2; }
+  .card-meta-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 11px; color: rgba(26,26,26,0.6); letter-spacing: 0.3px; }
+  .card-cat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .card-source-name { color: rgba(26,26,26,0.7); font-weight: 500; }
+  .card-divider { color: rgba(26,26,26,0.25); }
+  .card-arrow { margin-left: auto; color: rgba(26,26,26,0.25); font-size: 14px; transition: color 0.2s ease, transform 0.2s ease; }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+  .headline { font-size: 19px; font-weight: 600; color: #1A1A1A; line-height: 1.4; letter-spacing: -0.2px; }
+  .card-body { background: #FFFFFF; padding: 20px 24px 22px; }
+  .fact { font-size: 13px; color: rgba(26,26,26,0.55); line-height: 1.85; margin-bottom: 14px; letter-spacing: 0.1px; }
+  .comment { font-size: 13.5px; color: rgba(26,26,26,0.7); line-height: 1.85; padding: 14px 18px; background: rgba(0,0,0,0.03); border-left: 2px solid rgba(0,0,0,0.08); border-radius: 0 8px 8px 0; letter-spacing: 0.1px; }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before { content: ""; position: absolute; right: -20px; top: -20px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%); border-radius: 50%; }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  .footer { text-align: center; margin-top: 36px; padding: 24px 0 8px; border-top: 1px solid rgba(0,0,0,0.06); }
+  .footer-brand { font-size: 13px; color: rgba(26,26,26,0.4); letter-spacing: 2px; margin-bottom: 6px; }
+  .footer-tag { font-size: 11px; color: rgba(26,26,26,0.2); letter-spacing: 1px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 07 / 16</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">&larr;</span> 主页</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL &middot; 41</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 &middot; 一手源优先 &middot; 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 07 ／ 16 &middot; 周四</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Card 1: Inkling -->
+      <a class="card-link" href="https://thinkingmachines.ai/news/introducing-inkling/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://thinkingmachines.ai/news/introducing-inkling/images/cover-social-inkling-post.png" alt="Inkling" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Thinking Machines 官方</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">Mira Murati 首秀：9750 亿参数 Inkling 开源，SWE-bench 77.6% 冲击前沿</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">MoE 架构，975B 总参 ／ 41B 激活 ／ 1M 上下文窗口 ／ 45T token 预训练（文本+图像+音频+视频）／ AIME 2026 得分 97.1% ／ GPQA Diamond 87.2% ／ SWE-bench Verified 77.6% ／ Design Arena 1257 分持平 Claude Opus 4.6 ／ TermBench 2.1 仅用 Nemotron 3 Ultra 三分之一 Token ／ Apache 2.0 许可证 ／ 架构借鉴 DeepSeek-V3，后训练使用 Kimi K2.5 数据 ／ 支持调节「思考强度」</p>
+          <div class="comment">穆拉蒂用一句话定义了 Inkling——「不是最强的模型，但是最好改的模型」。975B 参数选择 Apache 2.0 全开，搭配 Tinker 微调平台，打法很清晰：不在闭源旗舰赛道上和 OpenAI／Anthropic 拼刺刀，而是在定制化底座上抢生态。最耐人寻味的是技术路线：架构学 DeepSeek-V3，后训练靠 Kimi K2.5——前 OpenAI CTO 的第一枪，弹药全从中国货架上拿的。</div>
+        </div>
+      </a>
+
+      <!-- Card 2: Seedance 2.5 -->
+      <a class="card-link" href="https://view.inews.qq.com/a/20260715A0BQBV00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OZy7ESg3Ls8bihE4xrv5rjJL1RSKgg_JFqh-Pzjm7LvfkAA_640330/0" alt="Seedance 2.5" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">IT之家</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">字节 Seedance 2.5 全量开放 API，视频生成赛道进入价格血战</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">字节 Seedance 2.5 于 7 月 16 日全量开放 API ／ 2026 年春节前横空出世后迅速对可灵 AI 形成压迫性优势 ／ 对家可灵 AI 刚完成 30 亿美元首轮融资（估值 180 亿美元，ARR 近 5 亿美元）／ 字节联合中兴努比亚推出多款豆包 AI 手机，备货约 20 万台</p>
+          <div class="comment">Seedance 2.5 在可灵 30 亿美元融资落地两周后全量开放 API，时机绝非巧合。字节的打法和当初豆包一模一样：先把模型拉到竞品水平线以上，再用 API 价格和分发生态碾压。可灵有 ARR 近 5 亿美元、1 亿用户的基本盘，但 Seedance 2.5 背靠抖音的 C 端分发和火山引擎的 B 端渠道——视频生成赛道的战局，比融资数字显示的更激烈。</div>
+        </div>
+      </a>
+
+      <!-- Card 3: Hunyuan Hy3 -->
+      <a class="card-link" href="https://view.inews.qq.com/a/20260715A0711400" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OQ96hKQbd47DlPCg1JatbtM9auHJhofeDKasmS3PZ42hgAA_640330/0" alt="Hunyuan Hy3" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">证券时报</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">腾讯混元 Hy3 调用量一周暴增 68 倍，登顶 OpenRouter 全球第一</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">发布一周后 Hy3 总调用量较 Hy2 增长超 68 倍 ／ 登顶 OpenRouter 全球大模型调用量总榜第一 ／ 此前 GLM-5.2 在 Databricks 内部测试打平 Claude Opus 4.8 ／ 阿里千问同步密集释放技术进展 ／ 国产大模型从「追跑分」进入「拼实际调用量」阶段</p>
+          <div class="comment">Hy3 的 68 倍增长不只说明模型好用，更揭示了当前大模型竞争的真实维度——从「谁跑分高」变成了「谁用得多」。OpenRouter 榜单是开发者用脚投票的结果，比任何 Benchmark 都诚实。国内大模型去年还在追 GPT-4，现在已经进入互相 PK 实际调用量的分化阶段，格局在加速洗牌。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Card 4: xAI Grok Build -->
+      <a class="card-link" href="https://github.com/xai-org/grok-build" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://avatars.githubusercontent.com/u/130314967?s=400&amp;v=4" alt="Grok Build" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">xAI 开源 Grok Build 全量代码：数据泄露危机后的断臂求生</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Rust 编写 ／ Apache 2.0 许可证 ／ 含 Agent 核心循环 + TUI 渲染 + 工具调用分发 + MCP 服务器 + Skills + Subagents 完整逻辑 ／ 支持完全本地离线运行 ／ 此前被安全研究者截获上传 5.1GB 代码至 Google Cloud（含 .env 密钥与完整 git 历史）／ 用户数据已全部删除，云端存储已关闭 ／ 同步重置所有用户用量上限</p>
+          <div class="comment">这不是一次心态开放的开源，而是一次被数据泄露丑闻逼出来的透明化。但效果一样——GitHub 上现在能看到 Grok Build 的完整 Agent 循环、工具分发、MCP 集成和 TUI 渲染逻辑。对 Agent 开发者来说，这是迄今为止开源的最完整的终端编码 Agent 工程参考。马斯克赌的是：把代码摊开，既消解信任危机，又吸引开发者自己跑本地实例——比起道歉，开源更管用。</div>
+        </div>
+      </a>
+
+      <!-- Card 5: Xiaomi Robotics-U0 -->
+      <a class="card-link" href="https://github.com/XiaomiRobotics/Xiaomi-Robotics-U0" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/3b77211fafb77a14eaea25ae951e5b967612dde713cb36ce60ac505f85067c0b/XiaomiRobotics/Xiaomi-Robotics-U0" alt="Xiaomi Robotics-U0" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">&middot;</span>
+              <span>本周</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">小米开源 Robotics-U0：380 亿参数统一具身模型，WorldArena 登顶全球第一</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">380 亿参数多模态自回归模型 ／ 统一架构覆盖场景生成+轨迹迁移+交互视频+文生图四类任务 ／ WorldArena 综合排名第一（126 个模型参评）／ 五维解耦结构化控制（布局/物体/无关物体/光照/背景独立可调）／ FlashAR+ 加速方案：1024&times;1024 图片生成从 7.5 分钟压缩至 5.44 秒（82.9 倍）／ 真机 OOD 场景任务完成度 +26.3% ／ 可控性 91.60 分大幅领先 GPT-Image-2.0 ／ GitHub + HuggingFace 全量开源</p>
+          <div class="comment">小米在具身智能上的打法值得关注——不是做炫技 Demo，而是解决最实际的工程瓶颈：具身训练数据太贵太少。U0 本质上是一个「具身数据工厂」，把真实世界采集不到的场景批量生成出来，而且生成图片和机械臂位姿保持几何一致——GPT-Image-2.0 做不到的事。82.9 倍加速意味着从几天生成一个场景变成几分钟，规模化落地有了工程基础。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Card 6: Codex Micro -->
+      <a class="card-link" href="https://openai.com/zh-Hans-CN/supply/co-lab/work-louder/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://images.ctfassets.net/kftzwdyauwt9/3TMq0o4cH73IqJZA26rphi/d23e8a7f0fe28e447988bd59c79f0508/Frame_2147262134.png?w=1600&amp;h=900&amp;fit=fill" alt="Codex Micro" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">OpenAI 官方</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">OpenAI 首款硬件 Codex Micro：230 美元把 Agent 状态变成实体按钮</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">13 枚机械键 + 摇杆 + 旋钮 + 触摸区 ／ 6 颗 RGB 灯实时显示 Agent 状态（思考／运行／等待／完成／空闲）／ 旋钮无级调节推理强度 ／ 摇杆一键触发审查 PR、调试、重构等工作流 ／ 蓝牙+USB-C 双模 ／ CNC 铝合金机身 + PBT 键帽 ／ 230 美元（约 1556 元）／ 7 月 24 日发货 ／ 与 Work Louder 联名</p>
+          <div class="comment">OpenAI 的第一块硬件不是手机、不是音箱，是一块给 Codex 配的「遥控器」——Work Louder 的 Creator Micro 换了一套信仰键帽加 API 联动。但它传递的信号比产品本身重要：实体按键对应「接受」「拒绝」这种高频操作，意味着 OpenAI 认为人管 Agent 这件事已经高频到值得为它造外设了。程序员正在从自己写代码，变成同时盯一排 Agent 干活——键盘就是管理面板。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Card 7: Apple Intelligence -->
+      <a class="card-link" href="https://www.163.com/dy/article/L1TKM3BD0514R9OJ.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">环球网</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">Apple 智能通过中国备案，阿里千问成为国行底层模型</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7 月 15 日网信办公告 ／ 7 款手机端侧 AI 服务同步备案：Apple 智能、华为小艺、OPPO AndesGPT、vivo 蓝心、小米澎湃 AI、三星盖乐世 AI、努比亚豆包 ／ 阿里千问确认集成至 iOS／iPadOS／macOS／visionOS ／ 百度参与 Siri 与视觉搜索协作 ／ 今年 3 月曾短暂上线 6 小时后撤回</p>
+          <div class="comment">国行 iPhone 用户等了快两年，终于看到 Apple 智能落地的一线曙光。但更值得关注的结构性变化：全球最值钱的硬件生态，在中国区的 AI 大脑是阿里千问而不是苹果自研模型。这是中国大模型在全球科技供应链中地位的一次实质性证明——不是靠出海，是靠被集成。Apple 在中国选千问而非自研，本质上是对中国 AI 基础能力的变相投票。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier &middot; GitHub &amp; arXiv 周边</p>
+
+      <!-- Frontier Card 1: prime-rl -->
+      <a class="card-link" href="https://github.com/PrimeIntellect-ai/prime-rl" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/085256c1e29594d72a116efe5b056f7bf5dc7aa4e4b94f183beecb469c57e9c8/PrimeIntellect-ai/prime-rl" alt="prime-rl" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日 Trending</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">prime-rl：开源异步 Agentic RL 框架，支持千卡级分布式强化学习训练</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Prime Intellect 发布 ／ Apache 2.0 许可证 ／ 异步强化学习框架，支持 FSDP2 训练 + vLLM 推理后端 ／ 可扩展至 1000+ GPU 多节点部署 ／ 原生集成 Environments Hub（500+ RL 环境）／ 此前用此框架训练出 INTELLECT-3（100B+ MoE，512 张 H200）／ 1.6K Stars ／ Python</p>
+          <div class="comment">prime-rl 解决的是 Agent 训练最核心的工程瓶颈——RL 训练不是 Demo 能跑的，要真正规模化需要千卡级的分布式基础设施。Prime Intellect 把训练 INTELLECT-3 的完整栈开源，意味着创业公司不再需要自建 RL 训练平台也能开始 Agentic RL。这对 Agent 生态的意义，类似于 PyTorch 对深度学习——把基础设施变成公共品，降低整个赛道的准入门槛。</div>
+        </div>
+      </a>
+
+      <!-- Frontier Card 2: Deja-vu -->
+      <a class="card-link" href="https://github.com/vshulcz/deja-vu" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/80243bdf55035c74bdd7914e330961a039b6097261d892d737d324d7506f2ac5/vshulcz/deja-vu" alt="Deja-vu" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">&middot;</span>
+              <span>本周</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">Deja-vu：为编码 Agent 打造的零依赖记忆层，189 Star，解决跨工具记忆碎片化</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Go 编写 ／ 零依赖单二进制文件 ／ 搜索各编码 Agent（Claude Code、Codex、opencode）的 Session 日志 ／ 自动注入上下文 + 敏感信息脱敏 ／ 跨设备 SSH 同步 ／ 直接复用现有 Agent 已有日志无需额外配置 ／ 189 Stars</p>
+          <div class="comment">同时用 Claude Code、Codex、opencode 的开发者都会遇到同一个痛点：每个 Agent 的记忆是孤立的，换工具就丢上下文。Deja-vu 不做自己的 Agent，而是在现有 Agent 之上加一层统一记忆——思路类似 RAG 但不限于文档，而是把「你上次让 Claude 做的那个事」跨工具传递。189 星刚起步，但方向精准地踩在了 Agent 基建最被忽视的坑上。</div>
+        </div>
+      </a>
+
+      <!-- Frontier Card 3: destructive_command_guard -->
+      <a class="card-link" href="https://github.com/Dicklesworthstone/destructive_command_guard" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/1130004860/d884ccb9-be1a-4723-91b2-be115743c633" alt="destructive_command_guard" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日 Trending</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">destructive_command_guard：4.8K Star，给 AI Agent 的命令行装上刹车</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Rust 编写 ／ +471 Stars 今日 ／ 4.8K 总 Star ／ 拦截危险的 git（push --force、hard reset）和 shell 命令（rm -rf、chmod 777）／ 支持 Claude Code、Codex 等编码 Agent ／ 规则可配置、开箱即用 ／ 非侵入式部署</p>
+          <div class="comment">Agent 在本地跑 shell 的最大风险不是它不会写代码，而是它偶尔 `rm -rf` 或 `git push --force` 时你来不及拦——groan-inducing 的损失面前，4.8K Star 说明这不是一个人的焦虑，是整个 Agent 社区的共识。destructive_command_guard 的逻辑简单但刚需：在执行前做一层语法和语义检查，给命令行 Agent 装一个物理刹车。这种工具越普及，Agent 才能越放心地放权。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 &middot; 认 知 观 察 者 &middot; 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
