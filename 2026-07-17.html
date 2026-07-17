@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026年7月17日</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<meta property="og:title" content="AI 日报 · VOL·42 · 2026年7月17日">
+<meta property="og:description" content="把今天的 AI，一杯咖啡读完">
+<meta property="og:type" content="article">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 ／ 07 ／ 17</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 42</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 07 ／ 17 · 周五</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- Kimi K3 -->
+      <a class="card-link" href="https://www.kimi.com/zh-cn/blog/kimi-k3" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">月之暗面 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Kimi K3 发布：2.8 万亿参数，全球首个开源 3T 级模型，逼近 Fable 5 和 Sol</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">2.8T 总参数 / 896 专家仅激活 16 个 / 100 万 token 上下文 / KDA (Kimi Delta Attention) + 注意力残差新架构 / 综合智能仅次于 Claude Fable 5 和 GPT-5.6 Sol / 长周期软件工程评测突出 / 完整权重 7/27 前发布 / 年内 6 轮融资估值 315 亿美元 / ARR 突破 3 亿美元 API 占比超 70%</p>
+          <div class="comment">月之暗面用 2.8T 参数把开源模型的天花板推到了前所未有的高度——"仅次 Fable 5 和 Sol"这个定位本身就说明问题。更值得关注的是架构创新：KDA 混合线性注意力 + Attention Residuals + 896 选 16 的极端稀疏 MoE，相比 K2 实现 2.5 倍 scaling efficiency。真正的悬念在于 7/27 发布的完整权重——以及这个规模的模型到底需要多少张卡才能跑起来。</div>
+        </div>
+      </a>
+
+      <!-- Noetra -->
+      <a class="card-link" href="https://m.10jqka.com.cn/20260717/c678237422.shtml" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">每经 / 同花顺</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">日本 AI 联盟 Noetra 采购 2.75 万枚英伟达 Rubin GPU，2028 年上线</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">由索尼、软银、NEC、本田等牵头 / 计划部署约 27,500 枚英伟达 Rubin GPU / 2028 年 6 月投运 / 目标开发多模态 AI 基础模型（图像、视频、音频、物理空间理解）/ 重点布局机器人 AI / 英伟达同步扩大向日本企业提供机器人基础模型 Cosmos</p>
+          <div class="comment">日本在 AI 领域的动作正在从"观望"变成"下注"。Noetra 的阵容堪称日本产业界的全明星队——索尼的硬件基因、软银的资本、本田的机器人积累。2.75 万枚 Rubin GPU 的规模在全球范围来看并不算最大，但日本胜在制造业场景的真实落地需求：工厂、机器人、老龄化社会的服务场景，这些才是 Noetra 真正的差异化战场。</div>
+        </div>
+      </a>
+
+      <!-- 云知声 -->
+      <a class="card-link" href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0717/2026071700075.pdf" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">港交所公告</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">云知声 U2-Med 三医大模型落地多家三甲医院，医疗 LLM 商业化进入复制期</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">发布行业首个覆盖医疗+医保(含商保)+医药的"三医大模型" / 近期连续中标佑安医院、山东省立医院、南京同仁医院等多家三甲 / 公司公告称已建立成熟标准化交付体系实现快速复制 / 港股上市(9678.HK)</p>
+          <div class="comment">AI 在医疗领域的落地一直是"雷声大雨点小"，云知声 U2-Med 的差异化在于不走通用模型路线，而是把医疗、医保、医药三个环节打通——这意味着从诊断到报销的全链路覆盖。多家三甲连续中标 + 港交所公告宣布"可规模复制"，这是一个明确的商业化信号：医疗 AI 正在从 POC 走向产线。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- EU DMA -->
+      <a class="card-link" href="https://english.news.cn/20260716/b67f8ea19d7d4a57b386d5c3eec01876/c.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">新华社</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">EU DMA 重拳：强制谷歌向第三方 AI 助手开放安卓，共享搜索数据</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">欧盟委员会 7/16 发布两项具有法律约束力的 DMA 规范 / 要求谷歌允许第三方 AI 助手获得与 Gemini 同等的安卓系统级权限（语音唤醒、跨应用执行、屏幕上下文）/ 要求谷歌向竞品搜索引擎和 AI 聊天机器人共享匿名化搜索数据 / 搜索数据共享 2027 年 1 月起、安卓互操作 2027 年 7 月起执行</p>
+          <div class="comment">这不是"建议"，这是有法律约束力的行政命令。DMA 对谷歌的两次重拳——开放安卓 AI 接口和共享搜索数据——本质上是把谷歌花了二十年建立的数据护城河拆掉一块砖。60% 欧盟用户用安卓，一旦 ChatGPT/Claude 能像 Gemini 一样唤醒、读屏、跨应用操作，AI 助手市场的竞争格局将彻底改写。谷歌的应对策略将决定这场博弈的走向。</div>
+        </div>
+      </a>
+
+      <!-- 世界AI合作组织 -->
+      <a class="card-link" href="https://new.qq.com/rain/a/20260717A022QS00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/Oy-1jrpJLHccSrit8u5OBUFfybozaUPl_vDf5-TLtzoMsAA_640330/0" alt="世界AI合作组织" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">新华社</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">世界人工智能合作组织成立，总部设在上海</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7 月 16 日在上海签署成立协定 / 独立的政府间国际组织 / 遵循联合国宪章宗旨 / 秉持共商共建共享理念 / 旨在促进 AI 国际合作和全球治理 / 总部设在上海 / 正值 2026 世界人工智能大会前夕</p>
+          <div class="comment">在 EU 用 DMA 规制科技巨头的同时，中国主导成立了全球首个以 AI 治理为宗旨的政府间组织。总部设在上海而非日内瓦或纽约，这是一个明确的信号：中国希望在 AI 全球治理的制度建设上扮演规则制定者的角色。但国际组织的真正影响力取决于成员国的广度与执行力——目前协定的签署国名单和具体治理机制尚未公开，观望空间很大。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <!-- DeepSeek -->
+      <a class="card-link" href="https://www.businesstimes.com.sg/startups-tech/technology/deepseek-prepares-ipo-filing-soon-2026-eyes-us71-billion-valuation-ft" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Reuters / Bloomberg</span>
+              <span class="card-divider">·</span>
+              <span>2 日前</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">DeepSeek 启动 $740 亿第二轮融资，年内冲刺科创板 IPO</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">目标投前估值 4800 亿人民币（约 $710 亿）、投后约 5000 亿（$740 亿）/ 较 6 月首轮 $520 亿估值涨 40% / 拟募至少 100 亿人民币 / 年化收入 $4-5 亿 / 市销率约 148 倍 / 首轮刚结束一个月即启动二轮 / 本轮开放海外资金（QFLP 机制）、解除 SPV 禁令和五年锁仓 / 内部目标年内提交 IPO 申请、2027 登陆科创板</p>
+          <div class="comment">从"永不融资"到"一个月两轮"，梁文锋的战略转向速度令人咋舌。推动力是赤裸裸的算力军备竞赛：4 月初 Anthropic Mythos 突破后，梁文锋意识到仅靠自有资金已经不够。$740 亿估值对应 148 倍年化收入——这个倍数放在美国 AI 公司中不算夸张，但在中国资本市场堪称天价。真正的考验在 IPO：科创板第五套标准刚刚为 AI 开绿灯，但 DeepSeek 的盈利路径仍然是最大的问号。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <!-- hallmark -->
+      <a class="card-link" href="https://github.com/Nutlope/hallmark" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/ae6e292d4573e69147439dc9c1e05359a4573c60d7ec90df23f10679cd835edd/Nutlope/hallmark" alt="hallmark" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>今日 Trending</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">hallmark：5.2K Star，AI 编码 Agent 的"去 AI 味"设计技能包</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">今日 GitHub Trending Top 1 / 日增 3,372 Star / 累计 10,955 Star / 为 Claude Code、Cursor、Codex 提供"反 AI 审美"设计技能 / CSS 实现 / 帮助 AI 生成的 UI 摆脱千篇一律的赛博朋克紫和居中卡片布局</p>
+          <div class="comment">AI 编码 Agent 写代码越来越强，但审美趋同是个真实痛点——你用 Claude Code 生成的 UI 和我的大同小异。hallmark 的价值在于把"设计判断"也变成 Agent 的可调用技能：不是教 AI 怎么写 CSS，而是教它怎么写出不像 AI 写的 CSS。这种"元技能"思路代表了 Agent 进化的下一个方向：从"能干活"到"干出风格"。</div>
+        </div>
+      </a>
+
+      <!-- openinterpreter -->
+      <a class="card-link" href="https://github.com/openinterpreter/openinterpreter" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/666299222/30894a76-2a46-4988-a903-ababff8ac2fe" alt="openinterpreter" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>今日 Trending</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Open Interpreter 用 Rust 重写，原生支持 Kimi K3 等开源模型</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">65,990 Star / 今日 Trending / Rust 重写版本上线 / 原生支持 Kimi K3 等开源大模型作为后端 / 从 Python 到 Rust 的架构迁移大幅降低资源占用和启动延迟 / 本地代码执行 Agent</p>
+          <div class="comment">Open Interpreter 的重写意味深长：Rust 不仅是性能选择，更是信号——这个项目正在从"实验性工具"转向"生产级 Agent 运行时"。支持 Kimi K3 作为后端则说明，开源模型的能力边界正在快速逼近闭源模型，足以驱动真实的 Agent 工作流。Python → Rust 的迁移趋势在 AI Agent 赛道值得关注。</div>
+        </div>
+      </a>
+
+      <!-- arXiv Agent failure -->
+      <a class="card-link" href="https://arxiv.org/abs/2607.05775" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">arXiv</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">LLM Agent 失败模式全景图：跨 27 篇论文、19 个基准的系统性审计</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">跨 27 篇基准/审计论文（2023-2026）合成 / 覆盖 19 个不同基准 / 识别 6 大失败集群：工具调用参数错误、规划约束失败、长程上下文退化、多 Agent 协调失败、安全漏洞、测量有效性缺陷 / 发现失败随任务长度非线性复合 / 子任务性能不等于端到端成功率</p>
+          <div class="comment">这篇论文做了一件行业急需但没人做的事：把所有 Agent 评测论文的失败案例汇总成一张地图。核心发现令人警醒——Benchmark 分数在涨，但 Agent 在真实长程任务中的可靠性并未同步提升。失败不是线性叠加的，而是"非线性复合"：任务越长，前面步骤的微小错误会在后面被指数放大。这对所有在"Agent 已准备好生产部署"叙事上投入的公司是个冷水澡。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
