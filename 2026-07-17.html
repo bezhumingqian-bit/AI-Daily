@@ -3,11 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<title>AI 日报 · 2026年7月17日</title>
+<title>AI 日报 · 2026-07-17</title>
 <meta name="description" content="把今天的 AI，一杯咖啡读完">
-<meta property="og:title" content="AI 日报 · VOL·42 · 2026年7月17日">
-<meta property="og:description" content="把今天的 AI，一杯咖啡读完">
-<meta property="og:type" content="article">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body {
@@ -28,6 +25,7 @@
   .nav-back-arrow { font-size: 13px; }
   .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
 
+  /* Header */
   .header {
     background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
     border: 1px solid rgba(0,0,0,0.06);
@@ -95,6 +93,7 @@
     margin-top: -2px;
   }
 
+  /* Section */
   .section { margin-bottom: 32px; }
   .section-header {
     display: flex;
@@ -112,6 +111,7 @@
   .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
   .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
 
+  /* Image Card */
   .card-link {
     display: block;
     text-decoration: none;
@@ -200,6 +200,7 @@
     letter-spacing: -0.2px;
   }
 
+  /* Card body */
   .card-body {
     background: #FFFFFF;
     padding: 20px 24px 22px;
@@ -222,6 +223,7 @@
     letter-spacing: 0.1px;
   }
 
+  /* Category dot colors */
   .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
   .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
   .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
@@ -240,6 +242,7 @@
   .stitle-安全 { color: #C05050; }
   .stitle-前沿技术 { color: #9080B0; }
 
+  /* Footer */
   .footer {
     text-align: center;
     margin-top: 36px;
@@ -258,6 +261,7 @@
     letter-spacing: 1px;
   }
 
+  /* Image Error Fallback */
   .card-hero img.error { display: none; }
   .card-hero.no-img {
     background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
@@ -271,6 +275,7 @@
   }
   .card-hero.no-img .headline { font-size: 21px; }
 
+  /* Mobile */
   @media (max-width: 480px) {
     .container { padding: 16px 12px 32px; }
     .nav { padding: 8px 2px 10px; }
@@ -292,10 +297,10 @@
 
     <!-- Nav -->
     <nav class="nav">
-      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <a class="nav-brand" href="index.html">AI DAILY</a>
       <div class="nav-right">
-        <span class="nav-date">2026 ／ 07 ／ 17</span>
-        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+        <span class="nav-date">2026 · 07 · 17</span>
+        <a class="nav-back" href="index.html"><span class="nav-back-arrow">←</span> 主页</a>
       </div>
     </nav>
 
@@ -304,155 +309,163 @@
       <div class="header-content">
         <div class="vol">VOL · 42</div>
         <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
-        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
-        <p class="header-date">2026 ／ 07 ／ 17 · 周五</p>
+        <p class="header-subtitle">Kimi K3 重返开源牌桌／Google Gemini 延期市值蒸发／WAICO 上海落地／小米验证具身 Scaling Law</p>
+        <p class="header-date">2026 年 7 月 17 日 · 星期五</p>
       </div>
     </header>
 
-    <!-- Section: 大模型 -->
+    <!-- Section: 常规要闻 -->
     <section class="section">
       <div class="section-header">
-        <span class="section-dot dot-大模型"></span>
-        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-dot dot-大模型"></div>
+        <span class="section-title stitle-大模型">常 规 要 闻</span>
         <div class="section-line"></div>
       </div>
 
-      <!-- Kimi K3 -->
-      <a class="card-link" href="https://www.kimi.com/zh-cn/blog/kimi-k3" target="_blank" rel="noopener">
+      <!-- Card 1: 月之暗面 Kimi K3 -->
+      <a class="card-link" href="https://www.kimi.com/blog/kimi-k3" target="_blank" rel="noopener">
         <div class="card-hero no-img">
+          <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img')" referrerpolicy="no-referrer">
           <div class="card-hero-content">
             <div class="card-meta-row">
-              <span class="card-cat-dot dot-大模型"></span>
-              <span class="card-source-name">月之暗面 官方博客</span>
-              <span class="card-divider">·</span>
-              <span>今日</span>
+              <div class="card-cat-dot dot-大模型"></div>
+              <span class="card-source-name">月之暗面</span>
+              <span class="card-divider">／</span>
+              <span>大模型</span>
               <span class="card-arrow">→</span>
             </div>
-            <h2 class="headline">Kimi K3 发布：2.8 万亿参数，全球首个开源 3T 级模型，逼近 Fable 5 和 Sol</h2>
+            <h2 class="headline">月之暗面发布 Kimi K3：全球首个开源3T级模型，综合实力逼近 GPT-5.6 Sol</h2>
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">2.8T 总参数 / 896 专家仅激活 16 个 / 100 万 token 上下文 / KDA (Kimi Delta Attention) + 注意力残差新架构 / 综合智能仅次于 Claude Fable 5 和 GPT-5.6 Sol / 长周期软件工程评测突出 / 完整权重 7/27 前发布 / 年内 6 轮融资估值 315 亿美元 / ARR 突破 3 亿美元 API 占比超 70%</p>
-          <div class="comment">月之暗面用 2.8T 参数把开源模型的天花板推到了前所未有的高度——"仅次 Fable 5 和 Sol"这个定位本身就说明问题。更值得关注的是架构创新：KDA 混合线性注意力 + Attention Residuals + 896 选 16 的极端稀疏 MoE，相比 K2 实现 2.5 倍 scaling efficiency。真正的悬念在于 7/27 发布的完整权重——以及这个规模的模型到底需要多少张卡才能跑起来。</div>
+          <p class="fact">7月17日凌晨，月之暗面发布 Kimi K3——2.8万亿参数 MoE 架构，基于自研 KDA（Kimi Delta Attention）和注意力残差（AttnRes）构建，原生视觉理解，100万 token 上下文窗口。这是全球首个开源3T级模型。架构效率较 K2 提升约2.5倍，有效激活16/896个专家。评测综合水平仅次于 Claude Fable 5 和 GPT-5.6 Sol。完整权重将于7月27日前开源。年内已完成6轮融资，投前估值315亿美元，ARR 突破3亿美元（API 收入占比超七成）。</p>
+          <p class="comment">月之暗面以接近 GPT-5.6 Sol 和 Claude Fable 5 的实力重返开源牌桌，标志着国产 AI 从"能用"走向"能打"。2.8T 参数 + 100万上下文 + KDA 新架构的组合，让开源模型的"天花板"首次上移到接近闭源旗舰的水准。这一信号叠加 DeepSeek 估值冲刺、WAICO 在上海落地——中国 AI 在同一天完成了"技术发布 + 资本定价 + 制度构建"的三线叙事。</p>
         </div>
       </a>
 
-      <!-- Noetra -->
-      <a class="card-link" href="https://m.10jqka.com.cn/20260717/c678237422.shtml" target="_blank" rel="noopener">
+      <!-- Card 2: Google Gemini 3.5 Pro 延期 -->
+      <a class="card-link" href="https://www.163.com/dy/article/L2152JV705198NMR.html" target="_blank" rel="noopener">
         <div class="card-hero no-img">
+          <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img')" referrerpolicy="no-referrer">
           <div class="card-hero-content">
             <div class="card-meta-row">
-              <span class="card-cat-dot dot-大模型"></span>
-              <span class="card-source-name">每经 / 同花顺</span>
-              <span class="card-divider">·</span>
-              <span>昨日</span>
+              <div class="card-cat-dot dot-大模型"></div>
+              <span class="card-source-name">彭博 ／ Google</span>
+              <span class="card-divider">／</span>
+              <span>大模型</span>
               <span class="card-arrow">→</span>
             </div>
-            <h2 class="headline">日本 AI 联盟 Noetra 采购 2.75 万枚英伟达 Rubin GPU，2028 年上线</h2>
+            <h2 class="headline">Google Gemini 3.5 Pro 发布延期：编程能力未达预期，市值蒸发2000亿美元</h2>
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">由索尼、软银、NEC、本田等牵头 / 计划部署约 27,500 枚英伟达 Rubin GPU / 2028 年 6 月投运 / 目标开发多模态 AI 基础模型（图像、视频、音频、物理空间理解）/ 重点布局机器人 AI / 英伟达同步扩大向日本企业提供机器人基础模型 Cosmos</p>
-          <div class="comment">日本在 AI 领域的动作正在从"观望"变成"下注"。Noetra 的阵容堪称日本产业界的全明星队——索尼的硬件基因、软银的资本、本田的机器人积累。2.75 万枚 Rubin GPU 的规模在全球范围来看并不算最大，但日本胜在制造业场景的真实落地需求：工厂、机器人、老龄化社会的服务场景，这些才是 Noetra 真正的差异化战场。</div>
+          <p class="fact">据彭博社7月16日报道，Google 旗舰 AI 模型 Gemini 3.5 Pro 发布已滞后数月，主因编程能力未达内部预期。上月底曾更新训练数据试图补齐短板，但结果令人失望。消息公布后 Google 股价跌4.43%，市值蒸发约2000亿美元。10名现任及前任员工透露，内部挫败感蔓延，部分 AI 研究员已跳槽至 Anthropic。多团队（DeepMind、Cloud、Android）并行开发 AI 编程工具，资源分散加剧了拖延。此前发布的 3.5 Flash 口碑参差不齐，部分用户已转向 Claude Sonnet 5。</p>
+          <p class="comment">这不是 Google 第一次在模型发布时间线上食言——但这次不同。过去 Google 可以靠搜索数据优势和工程规模兜底，如今 Anthropic 在代码和 Agent 场景持续断层领先、OpenAI 在最快迭代节奏中已形成正循环，Gemini 的编程能力短板让它连"综合第一梯队"的定位都在动摇。创始人 Brin 推动布局被内部派系消解、部分工程师仍秉持"代码应由人类编写"原则——一家以系统工程能力自豪的公司，如今最大的敌人可能是自己的组织架构。</p>
         </div>
       </a>
 
-      <!-- 云知声 -->
-      <a class="card-link" href="https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0717/2026071700075.pdf" target="_blank" rel="noopener">
+      <!-- Card 3: WAIC 2026 开幕 -->
+      <a class="card-link" href="https://www.163.com/dy/article/L21H78TA0519DTSV.html" target="_blank" rel="noopener">
         <div class="card-hero no-img">
+          <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img')" referrerpolicy="no-referrer">
           <div class="card-hero-content">
             <div class="card-meta-row">
-              <span class="card-cat-dot dot-大模型"></span>
-              <span class="card-source-name">港交所公告</span>
-              <span class="card-divider">·</span>
-              <span>今日</span>
+              <div class="card-cat-dot dot-政策"></div>
+              <span class="card-source-name">WAIC ／ 上海</span>
+              <span class="card-divider">／</span>
+              <span>政策 · 生态</span>
               <span class="card-arrow">→</span>
             </div>
-            <h2 class="headline">云知声 U2-Med 三医大模型落地多家三甲医院，医疗 LLM 商业化进入复制期</h2>
+            <h2 class="headline">2026 WAIC 今日开幕：超300款AI产品全球首发，上海展览面积首破10万m²</h2>
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">发布行业首个覆盖医疗+医保(含商保)+医药的"三医大模型" / 近期连续中标佑安医院、山东省立医院、南京同仁医院等多家三甲 / 公司公告称已建立成熟标准化交付体系实现快速复制 / 港股上市(9678.HK)</p>
-          <div class="comment">AI 在医疗领域的落地一直是"雷声大雨点小"，云知声 U2-Med 的差异化在于不走通用模型路线，而是把医疗、医保、医药三个环节打通——这意味着从诊断到报销的全链路覆盖。多家三甲连续中标 + 港交所公告宣布"可规模复制"，这是一个明确的商业化信号：医疗 AI 正在从 POC 走向产线。</div>
-        </div>
-      </a>
-    </section>
-
-    <!-- Section: 政策 -->
-    <section class="section">
-      <div class="section-header">
-        <span class="section-dot dot-政策"></span>
-        <span class="section-title stitle-政策">政 策</span>
-        <div class="section-line"></div>
-      </div>
-
-      <!-- EU DMA -->
-      <a class="card-link" href="https://english.news.cn/20260716/b67f8ea19d7d4a57b386d5c3eec01876/c.html" target="_blank" rel="noopener">
-        <div class="card-hero no-img">
-          <div class="card-hero-content">
-            <div class="card-meta-row">
-              <span class="card-cat-dot dot-政策"></span>
-              <span class="card-source-name">新华社</span>
-              <span class="card-divider">·</span>
-              <span>昨日</span>
-              <span class="card-arrow">→</span>
-            </div>
-            <h2 class="headline">EU DMA 重拳：强制谷歌向第三方 AI 助手开放安卓，共享搜索数据</h2>
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="fact">欧盟委员会 7/16 发布两项具有法律约束力的 DMA 规范 / 要求谷歌允许第三方 AI 助手获得与 Gemini 同等的安卓系统级权限（语音唤醒、跨应用执行、屏幕上下文）/ 要求谷歌向竞品搜索引擎和 AI 聊天机器人共享匿名化搜索数据 / 搜索数据共享 2027 年 1 月起、安卓互操作 2027 年 7 月起执行</p>
-          <div class="comment">这不是"建议"，这是有法律约束力的行政命令。DMA 对谷歌的两次重拳——开放安卓 AI 接口和共享搜索数据——本质上是把谷歌花了二十年建立的数据护城河拆掉一块砖。60% 欧盟用户用安卓，一旦 ChatGPT/Claude 能像 Gemini 一样唤醒、读屏、跨应用操作，AI 助手市场的竞争格局将彻底改写。谷歌的应对策略将决定这场博弈的走向。</div>
+          <p class="fact">7月17日-20日，2026世界人工智能大会在上海开幕，主题"智能伙伴，共创未来"。展览总面积首次突破10万平方米，1100余家企业参展，3000余项展品，超300款 AI 产品全球首发。9位图灵奖/诺奖得主参会，强化学习之父 Richard Sutton 作主旨演讲。首设 WAIC Academic 国际学术会议，姚期智任主席。华为 Atlas 950 真机、阶跃 Agent OS、MiniMax M3、近存计算3D芯片、全球首款 AI 智能体手机 STEPX Neo 等重磅新品亮相。大会累计达成162亿元意向合作。</p>
+          <p class="comment">九届 WAIC，从"PPT 展会"变成"实物竞价场"——今年的标志性转变是：厂商带来的不是概念视频而是量产产品。机器人展区从"能不能动"进化到"能不能进厂干活"，AI 从"能聊"走向"能干"。300款全球首发背后是1100家企业抢展位的竞争烈度——中国 AI 产业已从"讲故事"进入"比交付"的新阶段。</p>
         </div>
       </a>
 
-      <!-- 世界AI合作组织 -->
-      <a class="card-link" href="https://new.qq.com/rain/a/20260717A022QS00" target="_blank" rel="noopener">
-        <div class="card-hero">
-          <img src="https://inews.gtimg.com/om_ls/Oy-1jrpJLHccSrit8u5OBUFfybozaUPl_vDf5-TLtzoMsAA_640330/0" alt="世界AI合作组织" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+      <!-- Card 4: 小米 Robotics-1 -->
+      <a class="card-link" href="https://robotics.xiaomi.com/xiaomi-robotics-1.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img')" referrerpolicy="no-referrer">
           <div class="card-hero-content">
             <div class="card-meta-row">
-              <span class="card-cat-dot dot-政策"></span>
-              <span class="card-source-name">新华社</span>
-              <span class="card-divider">·</span>
-              <span>昨日</span>
+              <div class="card-cat-dot dot-大模型"></div>
+              <span class="card-source-name">小米机器人</span>
+              <span class="card-divider">／</span>
+              <span>大模型 · 具身智能</span>
               <span class="card-arrow">→</span>
             </div>
-            <h2 class="headline">世界人工智能合作组织成立，总部设在上海</h2>
+            <h2 class="headline">小米发布 Robotics-1：10万小时数据预训练，国内首次系统性验证具身智能 Scaling Law</h2>
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">7 月 16 日在上海签署成立协定 / 独立的政府间国际组织 / 遵循联合国宪章宗旨 / 秉持共商共建共享理念 / 旨在促进 AI 国际合作和全球治理 / 总部设在上海 / 正值 2026 世界人工智能大会前夕</p>
-          <div class="comment">在 EU 用 DMA 规制科技巨头的同时，中国主导成立了全球首个以 AI 治理为宗旨的政府间组织。总部设在上海而非日内瓦或纽约，这是一个明确的信号：中国希望在 AI 全球治理的制度建设上扮演规则制定者的角色。但国际组织的真正影响力取决于成员国的广度与执行力——目前协定的签署国名单和具体治理机制尚未公开，观望空间很大。</div>
+          <p class="fact">7月16日，小米发布具身基座模型 Xiaomi-Robotics-1，基于10万小时真实世界操作轨迹预训练 + 约1.1万小时跨本体数据后训练。国内首次在机器人策略模型中系统性验证 Scaling Law：预训练数据和模型参数增大时，真机成功率持续稳定提升。四项真实任务上平均成功率75%（每任务 <10h 演示数据），远超 π0.5 的40%。RoboDojo 基准 13.93% 断档第一（第二 8.80%），RoboCasa、VLABench 四榜均第一。小米三天三连发：7/14工厂实习 → 7/15统一生成模型 U0 → 7/16基座模型，完成"本体—数据—模型"闭环。</p>
+          <p class="comment">小米这波密集发布信号清楚：具身智能不再是"能不能动"的炫技，而是"能不能复现 Scaling Law"的系统工程。10万小时真实数据的壁垒不是烧钱能堆出来的——需用自研 UMI 设备逐帧采集、标注、清洗。当别家还在纠结硬件方案，小米已把战火烧到"数据规模驱动能力进化"层面。具身智能的"ChatGPT 时刻"还远，但工业化路径已有人画出图纸。</p>
         </div>
       </a>
-    </section>
 
-    <!-- Section: 融资 -->
-    <section class="section">
-      <div class="section-header">
-        <span class="section-dot dot-融资"></span>
-        <span class="section-title stitle-融资">融 资</span>
-        <div class="section-line"></div>
-      </div>
-
-      <!-- DeepSeek -->
-      <a class="card-link" href="https://www.businesstimes.com.sg/startups-tech/technology/deepseek-prepares-ipo-filing-soon-2026-eyes-us71-billion-valuation-ft" target="_blank" rel="noopener">
+      <!-- Card 5: DeepSeek 估值 -->
+      <a class="card-link" href="https://www.nbd.com.cn/articles/2026-07-16/4475229.html" target="_blank" rel="noopener">
         <div class="card-hero no-img">
+          <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img')" referrerpolicy="no-referrer">
           <div class="card-hero-content">
             <div class="card-meta-row">
-              <span class="card-cat-dot dot-融资"></span>
-              <span class="card-source-name">Reuters / Bloomberg</span>
-              <span class="card-divider">·</span>
-              <span>2 日前</span>
+              <div class="card-cat-dot dot-融资"></div>
+              <span class="card-source-name">每日经济新闻 ／ Reuters</span>
+              <span class="card-divider">／</span>
+              <span>融资</span>
               <span class="card-arrow">→</span>
             </div>
-            <h2 class="headline">DeepSeek 启动 $740 亿第二轮融资，年内冲刺科创板 IPO</h2>
+            <h2 class="headline">DeepSeek 估值首度公开确认：约3500亿元人民币，已启动第二轮融资</h2>
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">目标投前估值 4800 亿人民币（约 $710 亿）、投后约 5000 亿（$740 亿）/ 较 6 月首轮 $520 亿估值涨 40% / 拟募至少 100 亿人民币 / 年化收入 $4-5 亿 / 市销率约 148 倍 / 首轮刚结束一个月即启动二轮 / 本轮开放海外资金（QFLP 机制）、解除 SPV 禁令和五年锁仓 / 内部目标年内提交 IPO 申请、2027 登陆科创板</p>
-          <div class="comment">从"永不融资"到"一个月两轮"，梁文锋的战略转向速度令人咋舌。推动力是赤裸裸的算力军备竞赛：4 月初 Anthropic Mythos 突破后，梁文锋意识到仅靠自有资金已经不够。$740 亿估值对应 148 倍年化收入——这个倍数放在美国 AI 公司中不算夸张，但在中国资本市场堪称天价。真正的考验在 IPO：科创板第五套标准刚刚为 AI 开绿灯，但 DeepSeek 的盈利路径仍然是最大的问号。</div>
+          <p class="fact">7月16日晚，开润股份/汤臣倍健公告间接持股 DeepSeek，首次公开确认其外部融资估值：约3250亿-3509亿元（约520亿美元）。汤臣倍健以1.3亿元间接持股0.04%，开润股份4000万元间接持股0.0114%。首轮（A轮）融资约510亿元，腾讯、宁德时代、网易、京东等参投。创始人梁文锋以360亿美元身价位列彭博亿万富豪榜第63位。已启动第二轮融资（投前约710亿美元），内部目标年内提交科创板 IPO 申请。</p>
+          <p class="comment">一家做箱包和一家卖保健品的上市公司公告，意外成了 DeepSeek 估值的"官宣窗口"。这本身就是中国 AI 产业资本化的一个诡异切片——最受瞩目的 AI 公司全程沉默，估值靠供应链上下游的零星披露拼凑。但数字本身不诡异：520亿美元投后估值意味着 DeepSeek 已超过大多数已上市 AI 公司的市值，而它才刚完成第一轮外部融资。第二轮710亿美元投前估值和科创板 IPO 的弦外之音很清楚：这家公司正在从"技术奇才"转型为"资本巨兽"。</p>
+        </div>
+      </a>
+
+      <!-- Card 6: WAICO 成立 -->
+      <a class="card-link" href="https://en.chinadiplomacy.org.cn/2026-07/17/content_118603468.shtml" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img')" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-政策"></div>
+              <span class="card-source-name">新华社 ／ 外交部</span>
+              <span class="card-divider">／</span>
+              <span>政策 · 全球治理</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">世界人工智能合作组织（WAICO）成立：29国签署协定，总部设在上海</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7月16日，29国代表在上海签署《成立世界人工智能合作组织协定》（WAICO），总部设在上海。王毅代表中国政府签署协定，哈萨克斯坦、老挝、巴基斯坦、俄罗斯、印尼等29国成为创始成员国。联合国秘书长古特雷斯出席仪式。组织定位为独立政府间国际组织，遵循《联合国宪章》宗旨，秉持共商共建共享原则。中国于2025年7月首次提出该倡议。组织仍对后续新成员国家开放，围绕科学研究、技术开发、系统安全、全球治理四大方向构建合作。</p>
+          <p class="comment">在 WAIC 开幕前一天签署 WAICO 协定，时间窗口的精心设计不言自明。29个创始成员国以全球南方国家为主体——这不是 G7 主导的 AI 治理框架，而是另一条多边路线的制度性落地。总部设在上海、古特雷斯站台、王毅亲自签署，这套组合拳表明中国在 AI 全球治理领域已从"议题参与者"升级为"规则搭建者"。</p>
+        </div>
+      </a>
+
+      <!-- Card 7: Noetra × NVIDIA -->
+      <a class="card-link" href="https://nvidianews.nvidia.com/news/japan-government-industrial-leaders-and-nvidia-launch-the-worlds-first-national-ai-infrastructure" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img')" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-融资"></div>
+              <span class="card-source-name">NVIDIA ／ 日本经产省</span>
+              <span class="card-divider">／</span>
+              <span>融资 · 算力基建</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">日本 Noetra × NVIDIA：全球首个国家级物理 AI 基础设施，2.75万颗 Rubin GPU</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7月16日，NVIDIA 宣布与日本 Noetra 合作建设全球首个国家级物理 AI 基础设施。该 AI 工厂配备13,750颗 Vera CPU 和27,500颗 Rubin GPU（382个 NVL72 机柜），总功率140MW，基于 NVIDIA DSX 平台和 Spectrum-X 网络构建。项目隶属日本 FRONTia 国家计划，由经济产业省支持。Noetra 由索尼、软银、NEC、本田牵头，44家企业和机构参与。首年拨款3873亿日元（约24亿美元），5年总预算最高1万亿日元。计划2027年4月开工，2028年6月投运，目标到2040年占据全球 AI 机器人市场30%以上。</p>
+          <p class="comment">这不是一次普通的 GPU 采购——这是一个主权国家将"AI 基础设施建设"提升到与高速公路、电网同等级别的战略性投入。140MW、2.75万颗下一代 Rubin GPU、2028年投运——时间线和投资规模放在全球都是第一梯队。值得注意的是 Noetra 选择"开源预训练权重+广泛共享"而非封闭自用，这让 FRONTia 具备了公共品属性。日本的真正赌注不在模型本身，而在机器人产业。</p>
         </div>
       </a>
     </section>
@@ -460,81 +473,81 @@
     <!-- Section: 前沿技术 -->
     <section class="section">
       <div class="section-header">
-        <span class="section-dot dot-前沿技术"></span>
+        <div class="section-dot dot-前沿技术"></div>
         <span class="section-title stitle-前沿技术">前 沿 技 术</span>
         <div class="section-line"></div>
       </div>
       <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
 
-      <!-- hallmark -->
-      <a class="card-link" href="https://github.com/Nutlope/hallmark" target="_blank" rel="noopener">
-        <div class="card-hero">
-          <img src="https://opengraph.githubassets.com/ae6e292d4573e69147439dc9c1e05359a4573c60d7ec90df23f10679cd835edd/Nutlope/hallmark" alt="hallmark" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
-          <div class="card-hero-content">
-            <div class="card-meta-row">
-              <span class="card-cat-dot dot-前沿技术"></span>
-              <span class="card-source-name">GitHub</span>
-              <span class="card-divider">·</span>
-              <span>今日 Trending</span>
-              <span class="card-arrow">→</span>
-            </div>
-            <h2 class="headline">hallmark：5.2K Star，AI 编码 Agent 的"去 AI 味"设计技能包</h2>
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="fact">今日 GitHub Trending Top 1 / 日增 3,372 Star / 累计 10,955 Star / 为 Claude Code、Cursor、Codex 提供"反 AI 审美"设计技能 / CSS 实现 / 帮助 AI 生成的 UI 摆脱千篇一律的赛博朋克紫和居中卡片布局</p>
-          <div class="comment">AI 编码 Agent 写代码越来越强，但审美趋同是个真实痛点——你用 Claude Code 生成的 UI 和我的大同小异。hallmark 的价值在于把"设计判断"也变成 Agent 的可调用技能：不是教 AI 怎么写 CSS，而是教它怎么写出不像 AI 写的 CSS。这种"元技能"思路代表了 Agent 进化的下一个方向：从"能干活"到"干出风格"。</div>
-        </div>
-      </a>
-
-      <!-- openinterpreter -->
-      <a class="card-link" href="https://github.com/openinterpreter/openinterpreter" target="_blank" rel="noopener">
-        <div class="card-hero">
-          <img src="https://repository-images.githubusercontent.com/666299222/30894a76-2a46-4988-a903-ababff8ac2fe" alt="openinterpreter" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
-          <div class="card-hero-content">
-            <div class="card-meta-row">
-              <span class="card-cat-dot dot-前沿技术"></span>
-              <span class="card-source-name">GitHub</span>
-              <span class="card-divider">·</span>
-              <span>今日 Trending</span>
-              <span class="card-arrow">→</span>
-            </div>
-            <h2 class="headline">Open Interpreter 用 Rust 重写，原生支持 Kimi K3 等开源模型</h2>
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="fact">65,990 Star / 今日 Trending / Rust 重写版本上线 / 原生支持 Kimi K3 等开源大模型作为后端 / 从 Python 到 Rust 的架构迁移大幅降低资源占用和启动延迟 / 本地代码执行 Agent</p>
-          <div class="comment">Open Interpreter 的重写意味深长：Rust 不仅是性能选择，更是信号——这个项目正在从"实验性工具"转向"生产级 Agent 运行时"。支持 Kimi K3 作为后端则说明，开源模型的能力边界正在快速逼近闭源模型，足以驱动真实的 Agent 工作流。Python → Rust 的迁移趋势在 AI Agent 赛道值得关注。</div>
-        </div>
-      </a>
-
-      <!-- arXiv Agent failure -->
-      <a class="card-link" href="https://arxiv.org/abs/2607.05775" target="_blank" rel="noopener">
+      <!-- Frontier Card 1: NeuronSoup -->
+      <a class="card-link" href="https://arxiv.org/abs/2607.15217" target="_blank" rel="noopener">
         <div class="card-hero no-img">
+          <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img')" referrerpolicy="no-referrer">
           <div class="card-hero-content">
             <div class="card-meta-row">
-              <span class="card-cat-dot dot-前沿技术"></span>
-              <span class="card-source-name">arXiv</span>
-              <span class="card-divider">·</span>
-              <span>本周</span>
+              <div class="card-cat-dot dot-前沿技术"></div>
+              <span class="card-source-name">arXiv · 2607.15217</span>
+              <span class="card-divider">／</span>
+              <span>底层架构</span>
               <span class="card-arrow">→</span>
             </div>
-            <h2 class="headline">LLM Agent 失败模式全景图：跨 27 篇论文、19 个基准的系统性审计</h2>
+            <h2 class="headline">NeuronSoup：无反向传播的异步神经网络，遗传算法进化生成，模型仅115KB</h2>
           </div>
         </div>
         <div class="card-body">
-          <p class="fact">跨 27 篇基准/审计论文（2023-2026）合成 / 覆盖 19 个不同基准 / 识别 6 大失败集群：工具调用参数错误、规划约束失败、长程上下文退化、多 Agent 协调失败、安全漏洞、测量有效性缺陷 / 发现失败随任务长度非线性复合 / 子任务性能不等于端到端成功率</p>
-          <div class="comment">这篇论文做了一件行业急需但没人做的事：把所有 Agent 评测论文的失败案例汇总成一张地图。核心发现令人警醒——Benchmark 分数在涨，但 Agent 在真实长程任务中的可靠性并未同步提升。失败不是线性叠加的，而是"非线性复合"：任务越长，前面步骤的微小错误会在后面被指数放大。这对所有在"Agent 已准备好生产部署"叙事上投入的公司是个冷水澡。</div>
+          <p class="fact">7月16日提交 arXiv（2607.15217）。NeuronSoup 提出全新神经网络架构：用异步、时延调制的信号传播替代同步逐层处理，共享神经元池替代独立层。204条路径通过266个隐藏神经元（156个被多路径共享），用遗传算法（14,602个基因）进化而非反向传播训练。10,000代后 MNIST 分类达85.9%，模型仅115KB。信号在共享神经元上产生相长/相消干扰，类似生物神经元的突触交互。</p>
+          <p class="comment">这更像概念验证而非实用突破，但它触碰到的核心问题是真问题：反向传播是人类目前训练神经网络几乎唯一的范式，但它有根本局限——需要可微计算图、固定计算深度、无法自然处理异步信号。NeuronSoup 用进化算法绕开这些，虽然精度不足以实用，但"异步信号干扰"机制在神经科学中有天然对应。如果这个方向能走下去，最有趣的不是替代反向传播，而是催生出真正模拟生物神经元的异构计算硬件。</p>
+        </div>
+      </a>
+
+      <!-- Frontier Card 2: 腾讯混元 HiLS-Attention -->
+      <a class="card-link" href="https://arxiv.org/abs/2607.02980" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img')" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-前沿技术"></div>
+              <span class="card-source-name">arXiv · 2607.02980</span>
+              <span class="card-divider">／</span>
+              <span>注意力机制</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">腾讯混元 HiLS-Attention：分层地标稀疏注意力，512K 上下文推理加速14倍</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">腾讯混元联合多所高校提出 HiLS-Attention（Hierarchical Landmark Sparse Attention）分层地标稀疏注意力机制。在512K超长上下文场景中，推理速度较全量注意力提升近14倍，长文本检索准确率显著提升。核心思路："不是所有 token 都值得同等计算权重"——通过分层地标策略在保持检索精度的同时大幅压缩注意力计算量。论文已开源。</p>
+          <p class="comment">长上下文的高效推理是当前所有大模型工程化部署中绕不过去的瓶颈。HiLS-Attention 的价值在于把"力大砖飞"的全注意力计算，变成了更有结构效率的稀疏策略。14倍加速在512K上下文这个尺度上，意味着原本需要高端 GPU 集群才能跑的长文档任务，现在单卡也许就能处理——这对 RAG、代码库理解、长文档 QA 等实际场景的部署成本影响不小。</p>
+        </div>
+      </a>
+
+      <!-- Frontier Card 3: CubeSandbox -->
+      <a class="card-link" href="https://github.com/TencentCloud/CubeSandbox" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/eaf8e622b69a2fc6ba8357f9cc3657518b55def39fb43e1e485d57e4976fd725/TencentCloud/CubeSandbox" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img')" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <div class="card-cat-dot dot-前沿技术"></div>
+              <span class="card-source-name">GitHub · TencentCloud</span>
+              <span class="card-divider">／</span>
+              <span>Agent 基础设施</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">腾讯云开源 CubeSandbox：AI Agent 即时安全沙箱，GitHub 今日665星</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">腾讯云开源 CubeSandbox，Rust 编写，为 AI Agent 提供即时、并发、安全的轻量级沙箱环境。支持容器化和微 VM 隔离，可实现秒级启动，适用于 Agent 执行代码、运行命令等高风险操作场景。GitHub 今日665星，累计8,437星。与 AWS Firecracker 同源的微 VM 思路，但更轻量、更面向 Agent 场景。</p>
+          <p class="comment">Agent 安全沙箱正在从"nice to have"变成"must have"。随着 Agent 从对话走向实际执行代码/命令/文件操作，沙箱化的需求已经从安全团队的 checklist 变成了 Agent 基础设施的标配。腾讯云在这个赛道的开源投入，某种程度上是在为"Agent 时代的计算基础设施标准"提前占位——谁先定义 Agent 运行环境的安全边界，谁就有可能在下一轮生态竞争中拿到话语权。</p>
         </div>
       </a>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-      <div class="footer-brand">A I &nbsp; D A I L Y</div>
-      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+      <div class="footer-brand">AI DAILY</div>
+      <div class="footer-tag">商业 · 认知观察者 · 出品</div>
     </footer>
-
   </div>
 </body>
 </html>
