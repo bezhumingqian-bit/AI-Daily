@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026-07-20 · VOL · 44</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 11px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── Section ── */
+  .section { margin-bottom: 24px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .section-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #1A1A1A;
+  }
+  .section-subtitle {
+    font-size: 11px;
+    color: rgba(26,26,26,0.35);
+    margin-left: auto;
+    letter-spacing: 1px;
+  }
+
+  /* ── Cards ── */
+  .cards { display: flex; flex-direction: column; gap: 18px; }
+  .card-link { text-decoration: none; color: inherit; display: block; }
+  .card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+  }
+  .card-link:hover .card {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+  }
+  .card-hero img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(0.92) saturate(0.9);
+    transition: filter 0.35s ease;
+  }
+  .card-link:hover .card-hero img { filter: brightness(0.98) saturate(1); }
+  .card-hero-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+  .card-hero-title {
+    position: absolute;
+    bottom: 16px; left: 20px; right: 20px;
+    font-size: 18px; font-weight: 700;
+    line-height: 1.35;
+    color: #1A1A1A;
+    z-index: 2;
+    letter-spacing: -0.2px;
+  }
+  .card-hero.no-img { display: flex; align-items: center; justify-content: center; }
+  .card-hero.no-img img { display: none; }
+  .card-hero.no-img .card-hero-overlay { display: none; }
+  .card-hero.no-img .card-hero-title {
+    position: static; font-size: 21px; padding: 0 24px;
+    text-align: center; color: #1A1A1A; max-width: 90%;
+  }
+  .card-hero.no-img::after {
+    content: "";
+    position: absolute;
+    right: -20px; top: -20px;
+    width: 100px; height: 100px;
+    background: radial-gradient(circle, rgba(168,155,200,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .card-body { padding: 16px 20px 20px; }
+  .card-body .fact {
+    font-size: 14px; color: rgba(26,26,26,0.55);
+    line-height: 1.7; margin-bottom: 10px;
+  }
+  .card-body .comment {
+    font-size: 13.5px; color: rgba(26,26,26,0.7);
+    line-height: 1.7; font-style: italic;
+  }
+
+  /* ── Category badge ── */
+  .card-meta {
+    display: flex; align-items: center; gap: 8px;
+    padding: 0 20px 16px;
+  }
+  .cat-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  }
+  .cat-label {
+    font-size: 10.5px; letter-spacing: 1.5px;
+    color: rgba(26,26,26,0.35); text-transform: uppercase;
+  }
+  .cat-source {
+    font-size: 10.5px; color: rgba(26,26,26,0.25);
+    margin-left: auto; letter-spacing: 0.5px;
+  }
+
+  /* ── Category colors ── */
+  .dot-model { background: #C8A892; box-shadow: 0 0 8px #C8A892; }
+  .dot-agent { background: #9ABE8E; box-shadow: 0 0 8px #9ABE8E; }
+  .dot-policy { background: #C8B468; box-shadow: 0 0 8px #C8B468; }
+  .dot-funding { background: #8CC44A; box-shadow: 0 0 8px #8CC44A; }
+  .dot-opensource { background: #B8B098; box-shadow: 0 0 8px #B8B098; }
+  .dot-infer { background: #9AB0BA; box-shadow: 0 0 8px #9AB0BA; }
+  .dot-security { background: #D07070; box-shadow: 0 0 8px #D07070; }
+  .dot-frontier { background: #A89BC8; box-shadow: 0 0 8px #A89BC8; }
+
+  /* ── Frontier section modifier ── */
+  .section-frontier .section-header { border-bottom-color: rgba(168,155,200,0.15); }
+  .section-frontier .section-dot { background: #A89BC8; box-shadow: 0 0 8px #A89BC8; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center; padding: 40px 0 20px;
+    font-size: 11px; color: rgba(26,26,26,0.25);
+    letter-spacing: 1px;
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .container { padding: 16px 12px 32px; }
+    .header { padding: 28px 20px 28px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13px; }
+    .card-hero-title { font-size: 15px; left: 14px; right: 14px; bottom: 10px; }
+    .card-hero.no-img .card-hero-title { font-size: 18px; }
+    .card-body { padding: 12px 14px 16px; }
+    .card-body .fact { font-size: 13px; }
+    .card-body .comment { font-size: 12.5px; }
+    .card-meta { padding: 0 14px 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a class="nav-brand" href="index.html">AI DAILY</a>
+    <div class="nav-right">
+      <span class="nav-date">2026 · 07 · 20</span>
+      <a class="nav-back" href="index.html"><span class="nav-back-arrow">←</span> 主页</a>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="vol">VOL · 44</div>
+      <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+      <p class="header-subtitle">从 Qwen 2.4T 旗舰开源到 Kimi 算力告急，国产大模型进入「产能竞赛」新阶段</p>
+      <div class="header-date">Monday · July 20, 2026</div>
+    </div>
+  </header>
+
+  <!-- Section: 常规要闻 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-dot dot-model"></div>
+      <h2 class="section-title">今 日 要 闻</h2>
+      <span class="section-subtitle">News</span>
+    </div>
+    <div class="cards">
+
+      <!-- Card 1: Qwen3.8 -->
+      <a class="card-link" href="https://www.163.com/dy/article/L27C771P0511B8LM.html" target="_blank" rel="noopener">
+        <article class="card">
+          <div class="card-hero no-img">
+            <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" referrerpolicy="no-referrer">
+            <div class="card-hero-overlay"></div>
+            <h3 class="card-hero-title">阿里 Qwen3.8-Max 预览版上线：2.4T 参数，宣称仅次于 Fable 5</h3>
+          </div>
+          <div class="card-body">
+            <p class="fact">7 月 19 日，阿里官宣 Qwen3.8 即将发布并全量开源，参数量 2.4T。预览版已登陆 Token Plan、Qoder 及 QoderWork，内部实测全栈开发 / 数据分析 / Office 多 Agent 长程任务匹敌前沿模型。限时白天 credit 1 折，Token Plan 月费低至 35 元。</p>
+            <p class="comment">Kimi K3 开源刚把热度拉满，Qwen 不到 48 小时就掏出 2.4T 参数回应——国产大模型不是「追赶」，是在互卷中完成了连续能力供给的工业化。</p>
+          </div>
+          <div class="card-meta">
+            <span class="cat-dot dot-model"></span>
+            <span class="cat-label">大模型</span>
+            <span class="cat-source">IT 之家</span>
+          </div>
+        </article>
+      </a>
+
+      <!-- Card 2: Kimi K3 GPU -->
+      <a class="card-link" href="https://xueqiu.com/6824503346/401049820" target="_blank" rel="noopener">
+        <article class="card">
+          <div class="card-hero no-img">
+            <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" referrerpolicy="no-referrer">
+            <div class="card-hero-overlay"></div>
+            <h3 class="card-hero-title">Kimi K3 暂停新增付费用户：GPU 供给跟不上需求爆发</h3>
+          </div>
+          <div class="card-body">
+            <p class="fact">因 Kimi K3 上线后推理需求逼近现有 GPU 容量上限，月之暗面 7 月 19 日起暂停新增订阅，优先保障存量会员。后续会员将拆分为通用版与 KimiCode（编程工作流）版，以更精确分配算力。K3 开源后 48 小时内海内外开发者涌入测试，需求远超预期。</p>
+            <p class="comment">AI 行业第一次如此赤裸地展示了「模型好 ≠ 能服务好」。大模型竞赛的下半场不是参数多少，是推理产能、调度能力和定价体系的三重博弈。</p>
+          </div>
+          <div class="card-meta">
+            <span class="cat-dot dot-model"></span>
+            <span class="cat-label">大模型 ／ 商业</span>
+            <span class="cat-source">雪球 ／ CCTV</span>
+          </div>
+        </article>
+      </a>
+
+      <!-- Card 3: MiniMax M3 Pro -->
+      <a class="card-link" href="https://t.cj.sina.com.cn/articles/view/2545415291/97b7f47b00101kucu" target="_blank" rel="noopener">
+        <article class="card">
+          <div class="card-hero no-img">
+            <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" referrerpolicy="no-referrer">
+            <div class="card-hero-overlay"></div>
+            <h3 class="card-hero-title">MiniMax 完成 160 亿港元再融资，M3 Pro 2.5-3T 参数即将开源</h3>
+          </div>
+          <div class="card-body">
+            <p class="fact">7 月 10 日，港股 AI 公司 MiniMax 完成约 160 亿港元（约 138 亿人民币）再融资，百余家机构 7 倍认购覆盖。据 The Information 报道，新一代大语言模型 M3 Pro 参数规模达 2.5-3 万亿，计划开源。创始人闫俊杰宣布实现 AGI 前不再领取薪酬，个人持股 5% 用于员工激励及开源社区支持。</p>
+            <p class="comment">百亿融资 + 3T 级开源计划，MiniMax 的野心已经很清楚了：不是做中国的 OpenAI，是做一个有开源底座的商业化 AI 基础设施公司。</p>
+          </div>
+          <div class="card-meta">
+            <span class="cat-dot dot-funding"></span>
+            <span class="cat-label">融资 ／ 开源</span>
+            <span class="cat-source">新浪财经 ／ The Information</span>
+          </div>
+        </article>
+      </a>
+
+      <!-- Card 4: MiniCPM5-2B -->
+      <a class="card-link" href="https://www.163.com/dy/article/L289K45S05561FZP.html" target="_blank" rel="noopener">
+        <article class="card">
+          <div class="card-hero no-img">
+            <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" referrerpolicy="no-referrer">
+            <div class="card-hero-overlay"></div>
+            <h3 class="card-hero-title">面壁智能 MiniCPM5-2B：全球 4B 以下模型第一，17 分登顶 AA 榜单</h3>
+          </div>
+          <div class="card-body">
+            <p class="fact">7 月 19 日 WAIC 上，面壁智能联合 OpenBMB 推出 MiniCPM5-2B 端侧模型，在 Artificial Analysis 综合评测中拿下 17 分，登顶全球 4B 以下模型榜首。原生支持 512K 超长上下文、混合思考切换、工具调用和深度搜索。已适配 AMD / 英特尔 / 联发科 / 高通，并完成华为昇腾等 9 款国产芯片 Day0 适配。</p>
+            <p class="comment">2B 参数塞进 512K 上下文 + 端侧 Agent 能力，这不是「小模型也不错」，是端侧 AI 的临界点：手机 / 座舱 / PC 本地跑一个真正能用的 AI 助手，今天开始不需要等。</p>
+          </div>
+          <div class="card-meta">
+            <span class="cat-dot dot-model"></span>
+            <span class="cat-label">大模型 ／ 端侧</span>
+            <span class="cat-source">网易 ／ WAIC</span>
+          </div>
+        </article>
+      </a>
+
+      <!-- Card 5: SenseNova U1 Pro -->
+      <a class="card-link" href="https://dy.163.com/article/L292EPT70534A4SC.html" target="_blank" rel="noopener">
+        <article class="card">
+          <div class="card-hero no-img">
+            <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" referrerpolicy="no-referrer">
+            <div class="card-hero-overlay"></div>
+            <h3 class="card-hero-title">商汤 SenseNova U1 Pro：原生多模态 Agent 基座，长程任务「一次交付」</h3>
+          </div>
+          <div class="card-body">
+            <p class="fact">7 月 18 日 WAIC，商汤发布 SenseNova U1 Pro，基于 NEO-unify 内核架构实现语言和视觉统一表征，定位「交付级原生多模态智能体基座」。解决多模态产品「反复抽卡」困境，从单点内容生成升级为闭环完成复杂长程任务。预览版已开启邀请测试，正式版预计 8 月上线并推出 API。</p>
+            <p class="comment">「交付」而非「生成」——商汤这一刀切在了多模态 Agent 的最大痛点：用户要的不是一堆候选，是一个可以拿出来用的结果。</p>
+          </div>
+          <div class="card-meta">
+            <span class="cat-dot dot-agent"></span>
+            <span class="cat-label">Agent</span>
+            <span class="cat-source">界面新闻 ／ WAIC</span>
+          </div>
+        </article>
+      </a>
+
+      <!-- Card 6: Fable 5 permanent -->
+      <a class="card-link" href="https://www.anthropic.com/claude/fable" target="_blank" rel="noopener">
+        <article class="card">
+          <div class="card-hero">
+            <img src="https://cdn.sanity.io/images/4zrzovbb/website/b7055119423427c40a0e4d84054aed17682b50a2-2880x1620.png" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" referrerpolicy="no-referrer">
+            <div class="card-hero-overlay"></div>
+            <h3 class="card-hero-title">Anthropic 推翻下线计划：Claude Fable 5 永久对外，Kimi K3 催生「竞争性开放」</h3>
+          </div>
+          <div class="card-body">
+            <p class="fact">7 月 19 日，Anthropic 推翻原定 7 月 25 日下线 Fable 5 的计划，宣布 Fable 5 永久对外开放。此前 Fable 5 推广期至 7 月 19 日截止，但 Kimi K3 发布次日 Anthropic 紧急调整决策。同时 Anthropic 推出 Claude for Teachers，向全美 K-12 教师免费开放高级能力。</p>
+            <p class="comment">Kimi K3 开源 48 小时内，Anthropic 从「限量供应」变成了「永久开放」——这不是巧合，是开源竞争力对闭源定价权的直接冲击。好模型不怕竞争，怕的是用户货比三家。</p>
+          </div>
+          <div class="card-meta">
+            <span class="cat-dot dot-policy"></span>
+            <span class="cat-label">大模型 ／ 产业格局</span>
+            <span class="cat-source">Anthropic 官方</span>
+          </div>
+        </article>
+      </a>
+
+      <!-- Card 7: Agentar 2.0 -->
+      <a class="card-link" href="https://dy.163.com/article/L292EPT70534A4SC.html" target="_blank" rel="noopener">
+        <article class="card">
+          <div class="card-hero no-img">
+            <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" referrerpolicy="no-referrer">
+            <div class="card-hero-overlay"></div>
+            <h3 class="card-hero-title">蚂蚁数科 Agentar 2.0：200 个岗位级数字专家模板，Agent 工业化落地</h3>
+          </div>
+          <div class="card-body">
+            <p class="fact">7 月 19 日 WAIC，蚂蚁数科发布商业智能体超级工厂平台 Agentar 2.0，首批预置 200 个岗位级数字专家模板，提供数百个可订阅的 Skills 级开箱可用智能体工具。同期阿里云百炼上线 HappyOyster 1.0 开放式世界模型，输入一句话或一张图即可生成可交互 AI 数字世界。</p>
+            <p class="comment">200 个「岗位级」模板意味着蚂蚁不是在做一个 Agent 平台，是在做一套岗位替代方案。Agent 从开发者玩具变成 HR 采购清单上的条目，这一步跨得很大。</p>
+          </div>
+          <div class="card-meta">
+            <span class="cat-dot dot-agent"></span>
+            <span class="cat-label">Agent ／ 产品</span>
+            <span class="cat-source">界面新闻 ／ WAIC</span>
+          </div>
+        </article>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Section: Frontier -->
+  <section class="section section-frontier">
+    <div class="section-header">
+      <div class="section-dot dot-frontier"></div>
+      <h2 class="section-title">前 沿 技 术</h2>
+      <span class="section-subtitle">Frontier · GitHub &amp; arXiv 周边</span>
+    </div>
+    <div class="cards">
+
+      <!-- Frontier Card 1: wigolo -->
+      <a class="card-link" href="https://github.com/KnockOutEZ/wigolo" target="_blank" rel="noopener">
+        <article class="card">
+          <div class="card-hero">
+            <img src="https://repository-images.githubusercontent.com/1208642537/3c1c5337-b8b8-4977-a44e-f029908ab734" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" referrerpolicy="no-referrer">
+            <div class="card-hero-overlay"></div>
+            <h3 class="card-hero-title">wigolo：面向 AI Agent 的本地优先 MCP 搜索引擎，首日 595★</h3>
+          </div>
+          <div class="card-body">
+            <p class="fact">基于 MCP 协议的本地优先搜索 / 抓取 / 爬取工具，面向 AI 编程 Agent 设计。零 API 密钥、零云服务、$0 / 次查询，公开 Beta 版本。TypeScript 编写，首日 GitHub Trending 获得 595 星，累计 1,855 星。</p>
+            <p class="comment">「无需 API 密钥的 MCP 搜索」击中了一个真实痛点：Agent 要访问大量外部信息源，但每个源都要申请 key 的管理成本太高。wigolo 用本地化路线绕过了这个瓶颈。</p>
+          </div>
+          <div class="card-meta">
+            <span class="cat-dot dot-frontier"></span>
+            <span class="cat-label">前沿技术 ／ MCP 生态</span>
+            <span class="cat-source">GitHub Trending · 今日</span>
+          </div>
+        </article>
+      </a>
+
+      <!-- Frontier Card 2: code-review-graph -->
+      <a class="card-link" href="https://github.com/tirth8205/code-review-graph" target="_blank" rel="noopener">
+        <article class="card">
+          <div class="card-hero">
+            <img src="https://opengraph.githubassets.com/c601aeb786f23d622a8424867aabe8261bcba0c20238b68386dc366c51738477/tirth8205/code-review-graph" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" referrerpolicy="no-referrer">
+            <div class="card-hero-overlay"></div>
+            <h3 class="card-hero-title">code-review-graph：MCP + 本地代码知识图谱，首日 663★</h3>
+          </div>
+          <div class="card-body">
+            <p class="fact">面向 AI 编程工具的本地优先代码智能图谱，支持 MCP 和 CLI 接口。为 AI 编程 Agent 构建持久化代码库地图，在代码审查和大仓库工作流中实现经基准测试验证的上下文缩减。Python 编写，首日 GitHub Trending 获得 663 星，累计 21,278 星。</p>
+            <p class="comment">21K 星说明这个需求是真实的：AI 编程 Agent 最大的瓶颈不是模型能力，而是对代码库「全局理解」的缺失。知识图谱作为 Agent 的长期记忆层，这条路正在被验证。</p>
+          </div>
+          <div class="card-meta">
+            <span class="cat-dot dot-frontier"></span>
+            <span class="cat-label">前沿技术 ／ Agent 基础设施</span>
+            <span class="cat-source">GitHub Trending · 今日</span>
+          </div>
+        </article>
+      </a>
+
+      <!-- Frontier Card 3: Multi-Head Latent Control -->
+      <a class="card-link" href="https://arxiv.org/abs/2607.14277" target="_blank" rel="noopener">
+        <article class="card">
+          <div class="card-hero no-img">
+            <img src="" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" referrerpolicy="no-referrer">
+            <div class="card-hero-overlay"></div>
+            <h3 class="card-hero-title">Multi-Head Latent Control：从隐状态直接决策路由，大模型调用量减 90%</h3>
+          </div>
+          <div class="card-body">
+            <p class="fact">arXiv:2607.14277（7 月 15 日）。研究提出一种轻量级控制层，从冻结 LLM/VLM 的隐状态轨迹中直接预测部署时控制信号——能力头判断是否应 defer 到更强模型，解析头选择工具调用 / 澄清 / 拒绝 / 直接回答。在 AndroidWorld 上将大模型调用量减少 90.7%，工具调用决策提升 158%。</p>
+            <p class="comment">这可能是当下最务实的 Agent 成本优化路线：不改模型、不训 RL，只在推理时加一层轻量 probe，让系统自己学会「什么时候该用大模型、什么时候不该用」。90% 的节省是实实在在的 token 账单。</p>
+          </div>
+          <div class="card-meta">
+            <span class="cat-dot dot-frontier"></span>
+            <span class="cat-label">前沿技术 ／ 推理优化</span>
+            <span class="cat-source">arXiv · 2026-07-15</span>
+          </div>
+        </article>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    AI DAILY ／ 商业·认知观察者·出品
+  </footer>
+
+</div>
+</body>
+</html>
