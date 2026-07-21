@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL · 45 · 2026-07-21</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.35;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-sub {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    margin-top: 10px;
+    letter-spacing: 1px;
+  }
+
+  /* ── Section ── */
+  .section { margin-bottom: 28px; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .section-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .section-dot.main { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .section-dot.frontier { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+  .section-title {
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.45);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .section-subtitle {
+    font-size: 11px;
+    color: rgba(26,26,26,0.28);
+    letter-spacing: 0.5px;
+    margin-left: 16px;
+  }
+  .section-divider {
+    height: 1px;
+    background: rgba(0,0,0,0.06);
+    margin-bottom: 16px;
+    margin-top: 8px;
+  }
+
+  /* ── Card ── */
+  .card-link { text-decoration: none; color: inherit; display: block; }
+  .card {
+    background: #FFFFFF;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s cubic-bezier(0.22,1,0.36,1);
+  }
+  .card-link:hover .card {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  }
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #E8E4DA;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.92) saturate(0.9);
+    transition: filter 0.35s ease;
+  }
+  .card-link:hover .card-hero img { filter: brightness(0.98) saturate(1); }
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+  .card-hero-title {
+    position: absolute;
+    bottom: 20px;
+    left: 22px;
+    right: 22px;
+    z-index: 3;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #1A1A1A;
+    letter-spacing: 0.3px;
+  }
+
+  /* No-img fallback */
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .card-hero.no-img::before {
+    content: "";
+    position: absolute;
+    right: -30px; top: -30px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img::after {
+    background: none;
+  }
+  .card-hero.no-img .card-hero-title {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    font-size: 21px;
+    padding: 0 24px;
+    text-shadow: none;
+    z-index: 2;
+  }
+
+  /* ── Card Body ── */
+  .card-body { padding: 16px 22px 20px; }
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .card-category {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .card-source {
+    font-size: 10.5px;
+    color: rgba(26,26,26,0.35);
+    letter-spacing: 0.3px;
+  }
+  .card-fact {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: rgba(26,26,26,0.55);
+    margin-bottom: 10px;
+  }
+  .card-comment {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(26,26,26,0.7);
+    padding-left: 10px;
+    border-left: 2px solid rgba(0,0,0,0.08);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 28px 0 16px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: rgba(26,26,26,0.22);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .container { padding: 16px 12px 32px; }
+    .header { padding: 28px 20px 24px; border-radius: 14px; }
+    .header-title { font-size: 22px; }
+    .card-hero-title { font-size: 15px; bottom: 14px; left: 16px; right: 16px; }
+    .card-hero.no-img .card-hero-title { font-size: 17px; }
+    .card-body { padding: 12px 16px 16px; }
+    .card-fact { font-size: 12.5px; }
+    .card { border-radius: 12px; margin-bottom: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="index.html" class="nav-brand">AI DAILY</a>
+  <div class="nav-right">
+    <span class="nav-date">2026 · 07 · 21</span>
+    <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+  </div>
+</nav>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-content">
+    <div class="vol">VOL · 45</div>
+    <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+    <p class="header-sub">2026 年 7 月 21 日 · 星期二</p>
+  </div>
+</header>
+
+<!-- ── 常规要闻 ── -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-dot main"></span>
+    <span class="section-title">常 规 要 闻</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- Card 1: DeepSeek V4 -->
+  <a href="https://api-docs.deepseek.com/news/news260424/" class="card-link" target="_blank" rel="noopener">
+    <div class="card">
+      <div class="card-hero">
+        <img src="https://api-docs.deepseek.com/img/deepseek-social-card.jpeg" alt="DeepSeek V4" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+        <div class="card-hero-title">DeepSeek V4 GA 正式版开源：1.6T MoE 参数 + 行业首创峰谷计价</div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category" style="color:#C8A892">大模型</span>
+          <span class="card-source">DeepSeek 官方博客</span>
+          <span class="card-source">· 今日</span>
+        </div>
+        <p class="card-fact">V4-Pro：MoE 架构 1.6T 总参 / 49B 激活，Codeforces Rating 3206 超越 GPT-5.4；V4-Flash：284B / 13B 激活，输出 $0.28/百万 Token。双版本 MIT 协议开源，原生 1M 上下文，旧版接口 7 月 24 日下线。首次引入峰谷分时计费——工作日 9:00-12:00 和 14:00-18:00 价格翻倍，将 AI 推理定价推入"电力市场"模式。</p>
+        <p class="card-comment">峰谷计价的信号意义远超商业策略本身——当 DeepSeek 把 AI 推理当成电力一样按时段收费，它在告诉市场：模型推理已经从奢侈品变成了基础设施级别的刚需。1.6T MoE 的性能 + MIT 开源的彻底性 + 峰谷计价的中国时区红利，三重组合让 Fable 5 和 Opus 4.8 同时感到压力。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- Card 2: AMD Helios -->
+  <a href="https://www.amd.com/en/newsroom/press-releases/2026-7-20-microsoft-to-deploy-next-gen-amd-instinct-and-amd-.html" class="card-link" target="_blank" rel="noopener">
+    <div class="card">
+      <div class="card-hero">
+        <img src="https://newsroom.amd.com/images/2026/07/df3b7076-3ebc-4fd7-83d9-49b7f39bca77.jpg" alt="AMD Helios" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+        <div class="card-hero-title">AMD Helios 机架级 AI 系统亮相，微软 Meta OpenAI 确认采购</div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category" style="color:#9AB0BA">硬件</span>
+          <span class="card-source">AMD 官方新闻稿</span>
+          <span class="card-source">· 今日</span>
+        </div>
+        <p class="card-fact">AMD 首款机架级 AI 系统 Helios：72 颗 MI455X GPU + 31TB HBM4，FP4 峰值 2.9 exaFLOPS。微软确认将在 Azure 部署，Meta、OpenAI、甲骨文、塔塔咨询同步采购。2026 下半年开始发货。Futurum Group 估计 Helios 成本 500-550 万美元/机架，分析师预测 AMD 数据中心 GPU 份额有望从 4.5% 升至 20-25%。</p>
+        <p class="card-comment">英伟达在数据中心 GPU 市场的 95%+ 份额终于迎来了第一个真正的挑战者。Helios 不是单卡而是整机架方案，这意味 AMD 不再玩"性价比追赶"游戏，而是直接对标英伟达的 Grace Blackwell / Vera Rubin 机架体系。苏姿丰的底牌很清楚：开放标准（OCP + UALink + Ultra Ethernet）vs 英伟达的封闭生态。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- Card 3: Qwen3.7-Plus -->
+  <a href="https://qwen.ai/blog?id=qwen3.7-plus" class="card-link" target="_blank" rel="noopener">
+    <div class="card">
+      <div class="card-hero no-img">
+        <div class="card-hero-title">阿里 Qwen3.7-Plus 发布：多模态 Agent 基座，统一 GUI + CLI 交互</div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category" style="color:#9ABE8E">Agent</span>
+          <span class="card-source">Qwen 官方博客</span>
+          <span class="card-source">· 昨日</span>
+        </div>
+        <p class="card-fact">Qwen3.7-Plus 在 Qwen3.7 文本底座上全面升级视觉语言能力，核心定位为"多模态交互混合 Agent"。支持 GUI 屏幕操作 + CLI 命令行 + 视觉感知 + 代码生成，跨 Claude Code、OpenClaw、Qwen Code 等框架一致运行。官方称可 11 小时完成真实 APP 开发全流程，Vision Arena 排行榜表现强劲。</p>
+        <p class="card-comment">Qwen3.7-Plus 的有趣之处不在模型参数，而在它的「跨 Harness 泛化」——同一个模型放进 Claude Code、OpenClaw 或 Qwen Code 都能稳定工作。这验证了上交大那篇 54 页综述的核心判断：Agent 可靠性的提升越来越不取决于模型本身，而取决于它被放进什么认知环境里。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- Card 4: SenseNova-Vision -->
+  <a href="https://www.sensetime.com/cn/news-detail/51170760?categoryId=72" class="card-link" target="_blank" rel="noopener">
+    <div class="card">
+      <div class="card-hero no-img">
+        <div class="card-hero-title">商汤 SenseNova-Vision 开源：统一视觉大模型登顶 HF 排行榜</div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category" style="color:#B8B098">开源</span>
+          <span class="card-source">商汤科技官方</span>
+          <span class="card-source">· 本周</span>
+        </div>
+        <p class="card-fact">商汤全面开源 SenseNova-Vision，以单一原生统一架构覆盖目标检测、图像分割、深度估计、3D 重建四大经典视觉任务，不再使用"专家模型拼盘"路线。HuggingFace Any-to-Any 排行榜登顶全球第一，为首家在该基准夺冠的中国视觉 AI 公司。同步开源 5000 万样本高质量视觉语料库。</p>
+        <p class="card-comment">商汤这一步的行业意义在于宣告「缝合怪」时代的终结。过去视觉 AI 的检测、分割、深度各自为政，SenseNova-Vision 把大语言模型的推理能力直接注入视觉理解，反过来几十年的视觉标注数据也在反哺 LLM 底座。视觉 AI 的"GPT 时刻"也许真的来了。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- Card 5: 自研芯片潮 -->
+  <a href="https://www.toutiao.com/article/7664766508102337059/" class="card-link" target="_blank" rel="noopener">
+    <div class="card">
+      <div class="card-hero no-img">
+        <div class="card-hero-title">大模型公司集体"造芯"：DeepSeek 推理芯片 + Google Frozen v2 + Anthropic 引入 AMD</div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category" style="color:#C8A892">大模型</span>
+          <span class="card-source">路透社 / The Information</span>
+          <span class="card-source">· 昨日</span>
+        </div>
+        <p class="card-fact">三条芯片线并行曝光：① DeepSeek 秘密自研 AI 推理芯片已约一年，目标降低对外部供应商依赖；② Google 研发 Frozen v2 芯片，将 Gemini 模型架构直接固化到硬件中，单位功耗 Token 处理能力可达 TPU 的 6-10 倍，最早 2028 年部署；③ Anthropic 被曝引入 AMD 作为新 GPU 供应商，此前已与 Google TPU、三星合作，正系统性拓展算力来源。Forrester 分析师直言：自研芯片是成为真正 AI 巨头的关键。</p>
+        <p class="card-comment">从 DeepSeek 秘密自研到 Google 把模型"烧"进硅片，再到 Anthropic 摆脱单一 GPU 依赖——2026 年的 AI 芯片格局正在从"英伟达一家独大"裂变为"每家都得有自己的筹码"。这不再是技术竞赛，是供应链生存战。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- Card 6: Etched -->
+  <a href="https://www.163.com/dy/article/L2B7Q01D05561FZV.html" class="card-link" target="_blank" rel="noopener">
+    <div class="card">
+      <div class="card-hero no-img">
+        <div class="card-hero-title">Etched 估值目标 200 亿美元：低电压 AI 芯片赛道急速升温</div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category" style="color:#8CC44A">融资</span>
+          <span class="card-source">WSJ / IT之家</span>
+          <span class="card-source">· 3 日前</span>
+        </div>
+        <p class="card-fact">低电压 AI 推理芯片初创公司 Etched 正洽谈以 200 亿美元估值进行新一轮融资，由 Jane Street 领投。此前红杉资本刚领投了 100 亿美元估值轮次。Etched 的 4nm 推理加速器已完成 A0 步进流片，芯片数学模块电压比竞品低 50% 以上。2025 年 12 月估值还只有 50 亿美元——不到 8 个月翻了 4 倍。作为参照，英伟达与 Groq 的非独占技术授权协议价值为 200 亿美元。</p>
+        <p class="card-comment">一家芯片还没量产的初创公司，估值 8 个月从 50 亿飙到 200 亿，这不是正常估值逻辑，这是市场对"替代英伟达"这件事的巨大饥渴在定价。但别忘了——Sohu 芯片只能跑 Transformer 架构，万一 MoE 或扩散语言模型成为主流，这个故事就会迎来最残酷的反转。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- Card 7: 风和 -->
+  <a href="https://new.qq.com/rain/a/20260721A02UDE00" class="card-link" target="_blank" rel="noopener">
+    <div class="card">
+      <div class="card-hero no-img">
+        <div class="card-hero-title">中国气象局发布"风和"千亿参数开源气象大语言模型</div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category" style="color:#C8B468">政策</span>
+          <span class="card-source">人民日报</span>
+          <span class="card-source">· 今日</span>
+        </div>
+        <p class="card-fact">中国气象局联合雄安气象 AI 创新研究院、智谱等发布全球首个千亿参数级开源气象大语言模型"风和"，训练 5000 万词元高质量气象服务语料。同步启动全球开源计划，开放完整模型权重、API、云服务及定制化部署方案。国际版已融入联合国早期预警倡议，支持中英文智能问答与风险分析。同时宣布启动中泰气象灾害智能预测预警联合实验室。</p>
+        <p class="card-comment">"风和"的有趣之处不在技术参数本身，而在于它示范了一种「公共部门 + 头部 AI 公司 + 国际组织」的垂直落地范式。气象 AI 的壁垒从来不是模型架构，而是数据——几十年的气象观测数据、卫星遥感、雷达回波，这些东西商业公司拿不到。"风和"开源意味着气象 AI 的门槛被一把拉平。</p>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<!-- ── 前沿技术专栏 ── -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-dot frontier"></span>
+    <span class="section-title">前 沿 技 术</span>
+    <span class="section-subtitle">Frontier · GitHub &amp; arXiv 周边</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- Frontier Card 1: jcode -->
+  <a href="https://github.com/1jehuang/jcode" class="card-link" target="_blank" rel="noopener">
+    <div class="card">
+      <div class="card-hero">
+        <img src="https://opengraph.githubassets.com/841ce8f1ffb781ee922cbe77e35ac0874ef0014c5d784d2f74c09177a5ac28f5/1jehuang/jcode" alt="jcode" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+        <div class="card-hero-title">jcode：Rust 编写的下一代代码 Agent 基础设施，日增 568⭐</div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category" style="color:#9ABE8E">Agent</span>
+          <span class="card-source">GitHub</span>
+          <span class="card-source">· 今日 Trending</span>
+        </div>
+        <p class="card-fact">jcode（9,672⭐）自称为"最智能的代码 Agent 工具套件"（The most intelligent agent harness for code），使用 Rust 构建，强调极低延迟和高并发处理。项目定位于为 Claude Code、Codex 等主流 Coding Agent 提供底层加速和编排能力，涵盖上下文管理、工具调用优化和子 Agent 调度。</p>
+        <p class="card-comment">Rust 写 Agent 基础设施是个有趣的信号——当 Agent 的瓶颈从"推理能力"转移到"编排效率"，内存安全和零成本抽象的 Rust 就比 Python 有了天然优势。568 星/天说明开发者正在认真寻找"Agent 中间件"这个新品类。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- Frontier Card 2: wigolo -->
+  <a href="https://github.com/KnockOutEZ/wigolo" class="card-link" target="_blank" rel="noopener">
+    <div class="card">
+      <div class="card-hero">
+        <img src="https://repository-images.githubusercontent.com/1208642537/3c1c5337-b8b8-4977-a44e-f029908ab734" alt="wigolo" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+        <div class="card-hero-title">wigolo：零成本 MCP 网络搜索工具，日增 689⭐</div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category" style="color:#A89BC8">MCP 生态</span>
+          <span class="card-source">GitHub</span>
+          <span class="card-source">· 今日 Trending</span>
+        </div>
+        <p class="card-fact">wigolo（2,578⭐）为 AI 编码 Agent 提供本地优先的网络搜索、抓取、爬取和 MCP 研究能力。核心卖点：无需 API 密钥、无需云端依赖、$0/次查询。采用 TypeScript 构建，公开测试中。通过 MCP 协议与 Claude Code、Codex 等主流 Coding Agent 无缝集成。</p>
+        <p class="card-comment">"零成本 MCP 搜索工具"这个概念精准命中了开发者痛点——当你的 Agent 每做一次网络搜索都要走付费 API，规模化使用就成了问题。wigolo 把搜索能力本地化，本质上是在 MCP 生态里打"去中心化搜索"这张牌。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- Frontier Card 3: ktransformers -->
+  <a href="https://github.com/kvcache-ai/ktransformers" class="card-link" target="_blank" rel="noopener">
+    <div class="card">
+      <div class="card-hero">
+        <img src="https://opengraph.githubassets.com/cccb5be094a2b36352589e62a81fd559ddaa1b760da0c1b449b6a94a4e178766/kvcache-ai/ktransformers" alt="ktransformers" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+        <div class="card-hero-title">ktransformers：异构 LLM 推理优化框架，日增 458⭐，19K 总星</div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category" style="color:#A89BC8">推理优化</span>
+          <span class="card-source">GitHub</span>
+          <span class="card-source">· 今日 Trending</span>
+        </div>
+        <p class="card-fact">ktransformers（18,755⭐）是一个灵活的 LLM 推理/微调优化框架，支持在异构硬件（CPU + GPU 混合）上运行大模型。核心技术包括 KV Cache 量化、推测解码、混合精度推理等，可在消费级硬件上运行百亿参数模型。近日再次登上 GitHub Trending，日增 458⭐，累计近 19K 星。</p>
+        <p class="card-comment">ktransformers 的持续热度反映了一个底层趋势：推理优化正在从"论文里的酷炫方法"变成"开发者工具箱里的必备技能"。当 DeepSeek V4 这种 1.6T 参数的模型都能 MIT 开源，如何在本地或低成本硬件上跑动它们，就是下一个战场。</p>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  AI DAILY ／ 商业·认知观察者·出品
+</footer>
+
+</div>
+</body>
+</html>
