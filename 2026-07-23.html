@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026-07-23 · VOL · 47</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技�� { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 07 / 23</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 47</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 07 ／ 23 · 周四</p>
+      </div>
+    </header>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://openai.com/index/introducing-openai-presence/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">OpenAI 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI Presence 发布：企业级 Agent 平台正式上线，自营客服已替代 75% 人工</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7/22 OpenAI 发布 Presence 企业 Agent 平台 / 支持实时语音+聊天 Agent / 自营电话客服(1-888-GPT-0090)已解决 75% 入站工单无需人工 / Codex 驱动的改进循环 10 天内人工转接率降 15 个百分点 / BBVA、SoftBank、IAG 为首批设计合作伙伴 / 由 Forward Deployed Engineers 驻场部署，暂不开放自助</p>
+          <div class="comment">OpenAI 从模型供应商向企业软件商的转型，Presence 是最明确的一步。与 Anthropic Ode 咨询业务正面交锋，但 OpenAI 选择卖可部署产品而非纯咨询——前者规模化更快，后者单客户利润更高。75% 自主解决率是一个不回避责任的数字：自己先用、自己先扛。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://blogs.nvidia.com/blog/hugging-face-lerobot-models-frameworks-open-robotics/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://blogs.nvidia.com/wp-content/uploads/2026/07/nv-gr00t-e2r-letobot-2up-KV-r2-1600x900-1.jpg" alt="NVIDIA GR00T LeRobot" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">NVIDIA 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">NVIDIA 联姻 Hugging Face：GR00T 1.7 机器人基础模型全面开放，1500 万下载量</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">NVIDIA Isaac GR00T 1.7 首个开源商用机器人 VLA 模型接入 Hugging Face LeRobot / Isaac Teleop 开源遥操作数据采集框架 / Cosmos 3 世界模型即将入驻 / 最大开源物理 AI 数��集 1500 万+ 下载，含 35 万轨迹 + 5700 万抓取 / 连接 NVIDIA 300 万机器人开发者 + HF 1600 万 AI 构建者</p>
+          <div class="comment">NVIDIA 把 GR00T 放进 Hugging Face 不是在送温暖——是在抢占机器人开发的入口标准。谁控制了从数据采集到仿真到部署的全链路工具链，谁就控制了物理 AI 时代的基础设施。Thomas Wolf 说得直白：「开源是让前沿研究变成可学习、可适配、可建造之物。」</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.wccftech.com/nvidia-vera-rubin-shipments-july-2026/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Wccftech / NVIDIA</span>
+              <span class="card-divider">·</span>
+              <span>��日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">NVIDIA Vera Rubin 正式出货：首个 3nm AI 芯片平台，单机架造价 1.8 亿美元</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7/22 首批 Vera Rubin 出货至微软 / Google / Amazon / Meta / Oracle / TSMC 3nm 工艺制造 / HBM4 显存 + 256GB SOCAMM2 LPDDR5X / 单 AI 服务器机架估价 1.8 亿美元 / 七芯片互联 + 全新软件栈 / 2026 下半年 Foxconn / Quanta / Wistron 全面量产</p>
+          <div class="comment">Vera Rubin 出货��味着下一代训练和推理算力进入倒计时。1.8 亿美元一个机架——这个定价已经把 NVIDIA 的 AI 芯片可寻址市场推向万亿美元量级。但首批只出货北美五大云厂商，「缺芯」的焦虑至少还要持续到 Q3。同期微软-Mistral 的欧洲大单点名要用 Vera Rubin，需求侧完全不愁。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://theagenttimes.com/articles/poolside-releases-open-weight-coding-model-that-fits-single--e5b31f82" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://qhaph2f3vltn91ho.public.blob.vercel-storage.com/poolside-releases-open-weight-coding-model-that-fits-single--e5b31f82-84642Z29gBJH6tmJ8jDB2ypR1ySGF0.webp" alt="Poolside Laguna S 2.1" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">The Agent Times / Poolside</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Poolside Laguna S 2.1：118B MoE 编程模型，单台 DGX 可跑，9 周 4096 H200 训出</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7/22 Poolside 发布 Laguna S 2.1 / 118B MoE 开源权重，8B 激活每 Token / Terminal-Bench 2.1 得分 70.2% / NVFP4 量化版单 DGX Spark 或 Mac Studio 可跑 / 仅 4096 张 H200 训练不到 9 周 / NVIDIA 投资，估值 120 亿美元 / 采用自研「Model Factory」自动化架构搜索+RL 平台</p>
+          <div class="comment">4096 块 H200、9 周训练就做出对标前沿的编程模型——Poolside 用「少即是多」挑战了参数军备竞赛的叙事。NVFP4 量化单 DGX 可跑是更大的信号：编程 Agent 正在从云端走向桌面。Nathan Benaich 的评价精准：「美国开源权重选手也在追赶前沿了。」</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://news.microsoft.com/source/2026/07/21/microsoft-and-mistral-expand-strategic-partnership-to-give-enterprises-and-regulated-industries-frontier-ai-they-can-control/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://news.microsoft.com/source/wp-content/uploads/2026/07/2-Mistral-Microsoft_Logo_Lockup_white-background_1024x512.png" alt="Microsoft Mistral" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Microsoft 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">微软与 Mistral 签数十亿美元欧洲 AI 基建大单，数千颗 Vera Rubin 押注主权 AI</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7/21 微软与 Mistral 达成数十亿美元战略合作 / 扩大欧洲 GPU 基础设施，使用数千颗 Vera Rubin GPU / Mistral Medium 3.5 + OCR 4 入驻 Microsoft Foundry 和 Copilot Studio / 支持 Azure Local 断网部署(金融 / 医疗 / 制造) / Mistral 目标 2030 年达 1GW 算力 / NVIDIA Ian Buck 背书</p>
+          <div class="comment">欧洲「主权 AI」叙事正在兑现为数十亿美元的合同。美国商务部暂停 Anthropic 模型出口后，Mistral 成为唯一能同时满足监管合规和前沿能力的欧洲选手——微软这步棋既卡了地缘政治的位，又绑定了下一代算力基础设施。Mistral 1GW 的目标野心不小：目前欧洲最大数据中心无非几百 MW。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://aitoolly.com/en/ai-news/2026-07-23" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://p1.meituan.net/meituantechblog/35efbf027537c65e69fa6e395e11825d366277.png" alt="Meituan LongCat-2.0" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">美团技术团队</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">美团开源 LongCat-2.0：1.6 万亿参数，首个全流程国产算力训练的万亿大模型</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7/23 美团正式开源 LongCat-2.0 / 1.6T 总参数(MoE)，约 48B 激活参数 / 首个在 5 万张国产算力卡集群上完成全流程训推的万亿参数模型 / 原生 100 万 Token 长上下文 / LongCat Sparse Attention + N-gram Embedding 两项架构创新 / 针对 Agentic Coding 任务优化 / 提供国产硬件推理代码</p>
+          <div class="comment">5 万张国产卡跑出 1.6T 参数的模型——这不是又一个「类 GPT」，而是国产算力生态的里程碑式验证。Sparse Attention + N-gram Embedding 的长上下文方案值得关注，但真正的考验是开源后的开发者采纳：有没有人愿意在国产卡上跑它做 Agentic Coding？</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260722A0FMVL00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/O19pg62vjr2gmuY_hLFCAn1wLK28FhXo60gioVcSQ37GEAA_640330/0" alt="WeRide WITT" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">南方都市报</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">文远知行发布 WITT 物理 AI 大模型：事实错误率仅通用模型 1/3，节省 98% Token</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">文远知行发布自研 WeRide WITT 物理 AI 认知基础模型 / 引入「最小物理事实单元」概念拆解真实场景 / 事实错误率约为通用大模型的 1/3 / 节省 98% Token 成本 / 单卡日处理 1 万分钟车载视频 / 专治自动驾驶感知幻觉</p>
+          <div class="comment">「最小物理事实单元」这个提法值得认真对待——自动驾驶需要的不是更聪明的通用模型，而是不会产生幻觉的物理世界理解。WITT 把事实准确率做到通用模型 3 倍、Token 效率提升 50 倍，证明专用化可能是比 Scaling 更靠谱的安全路径。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/microsoft/SkillOpt" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/670302776afab5f3a3b58a07d5960e27f0c067e0b72895b7d553879872aa0f06/microsoft/SkillOpt" alt="SkillOpt" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">微软 SkillOpt：像训练神经网络一样训练 Agent 技能，52 项基准全最优，14.5K Star</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">微软开源 SkillOpt / 将 Agent 技能��档视为可训练状态，轨迹驱动编辑 + 验证门控迭代优化 / 部署时零额外模型调用 / 在 6 基准 × 7 模型 × 3 执行方式共 52 单元全部最优或并列最优 / GPT-5.5 Direct Chat +23.5 分，Codex Loop +24.8 分 / 14,496 ⭐ / MIT 许可</p>
+          <div class="comment">SkillOpt 的核心洞察力：Agent 技能不是 prompt engineering，而是一个可优化的参数空间。零推理开销意味着技能训练和部署完全解耦——工程上极其实用。微软用 52/52 全刷榜比论文本身更有说服力，自带的 SkillOpt-Sleep 夜间自进化引擎进一步降低了持续优化的运维成本。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/AstrBotDevs/AstrBot" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/a1ce631c0e5a326642616f11f47e01a57bb309e6a367fffd57ea37ed311c5754/AstrBotDevs/AstrBot" alt="AstrBot" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">AstrBot：37.8K Star 全能 Agent 平台，集成 15+ IM + MCP + 沙箱执行</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">AstrBot v4.26.7 / 开源全能 Agent 聊天机器人平台 / 5,017 Commits, 255 Tags, 176 Branches / 支持 QQ、企微、飞书、钉钉、Telegram、Discord、LINE 等 15+ IM 平台 / 原生 MCP 协议 + Skills 技能系统 + Agent 沙箱(会话级资源复用) / 1000+ 插件可一键安装 / 37,793 ⭐</p>
+          <div class="comment">AstrBot 是目前 IM-Agent 集成最完整的开源方案——不是又一个 Agent 框架，而是在「把 Agent 连接一切即时通讯」这件事上做到了工程上限。255 个 Tag 说明维护节奏健康，15+ IM 覆盖意味着它是真正的「基础设施」而非 Demo。MCP 原生 + 沙箱执行是安全部署的关键差异化。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/PJHkorea/Continuous_Wave_Field_LLM_Brain" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/a5fee8120cc6326d0c19601c7f29ab8a4a1c61a06bc50be636441ad2b7621be3/PJHkorea/Continuous_Wave_Field_LLM_Brain" alt="CW Field LLM" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>本周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">连续波场 LLM 引导：0MB 显存、无 Autograd 推理，用流体力学替代反向传播</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">开源 Continuous_Wave_Field_LLM_Brain / 0MB VRAM 零拷贝混合引导层，基于 CUDA 裸机 + JAX / PyTorch 桥接 / 无 Autograd，使用粘性 Burgers 方程 + 交叉轴涡量反演替代反向传播 / 0ns 指针互锁的零拷贝数据传输 / 质心积分逆解码器替代 Softmax / Apache 2.0 许可 / 防御性现有技术注册</p>
+          <div class="comment">用流体力学方程替代反向传播——这是近来最大胆的推理优化提案之一。0MB 显存、0ns 互锁的数字听起来悬乎，但 CUDA 裸机互锁 + JAX XLA HLO 内联融合的技术栈是认真的。「防御性现有技术注册」意味着作者不打算商业化，而是开放给社区验证。真正的考验：在 Llama 级模型上的实际基准。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
