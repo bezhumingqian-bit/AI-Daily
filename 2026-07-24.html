@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026-07-24</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 07 / 24</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">&larr;</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL &middot; 48</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 &middot; 一手源优先 &middot; 看见 AI 浪��的真实方向</p>
+        <p class="header-date">2026 ／ 07 ／ 24 &middot; 周五</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://agihunt.info/e/19f8fce375b209cd3631cb2e705" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://pbs.twimg.com/media/HN7l4fOaAAAPspW.jpg" alt="Grok 4.5" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">AGI Hunt / xAI 官方</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">xAI 发布 Grok 4.5，全平台推送：1.5T 参数，编程成本仅为 Fable 5 的 1/5</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">xAI 今日全平台推送 Grok 4.5，iOS / Android / Web / X 全端可用。1.5 万亿参数 V9 基座，与 Cursor 联合训练，编程任务成本 $2.49（vs Fable 5 的 $11.80），推理速度 80 token/s。定价 $2/1M 输入、$6/1M 输出。</p>
+          <div class="comment">马斯克在 AI 竞赛中打了一张"够强 + 够便宜 + 全平台"的组合牌。Cursor 联合训练是差异化数据壁垒——用真实代码库交互数据训练，不是通用爬虫。但 1.5T 参数与 Opus 比仍有差距，性价比才是它的真实卖点。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://theneuralfeed.com/article/deepseek-announces-retirement-of-legacy-models-and-imminent-official-v4-launch-w/wt5QUGZ6" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://theneuralfeed.com/og/article-wt5QUGZ6.png" alt="DeepSeek V4" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">DeepSeek 官方</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">DeepSeek V4 遗产模型今日退役：deepseek-chat / reasoner 永久下线，警惕隐蔽降级陷阱</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">deepseek-chat 和 deepseek-reasoner 今日 15:59 UTC 永久退役，无 grace period。V4 Flash（284B / 13B active）和 V4 Pro（1.6T）接管。1M context，输出 $0.28-0.87/M tokens。关键坑点：旧 reasoner 默认映射到 V4 Flash thinking mode 而非 V4 Pro。</p>
+          <div class="comment">三个月宽限期结束。对于还在用 deepseek-reasoner 的生产系统，今天是迁移 D-Day——不改就会挂。最容易被忽视的坑：旧 reasoner 映射到 Flash 而非 Pro，盲目重命名意味着推理质量静默降级。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://so.html5.qq.com/page/real/search_news?docid=70000021_2316a629fb280552" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">每日经济新闻</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">阿里真武 M890 成功运行 Qwen3.8：国产芯片首破 2 万亿参数推理</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">阿里真武 M890 超节点成功适配 Qwen3.8（2.4T 参数），64 张芯片通过 ICN Switch 1.0 实现 800GB/s 互联，显存 9TB。国内首个成功运行超 2 万亿参数大模型的国产芯片超节点，已上线阿里云百炼平台。</p>
+          <div class="comment">自研芯片 + 自研模型 + 自研云服务——阿里在构建与英伟达生态差异化的闭环。但这是单实例 demo 还是可规模化的生产就绪？稳定性、性价比、生态丰富度才是真正考验。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.toutiao.com/article/7665902257392730651/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">钛媒体</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">OpenAI 宣布 Atlas AI 浏览器 8 月停运：独立 AI 浏览器路线的终结</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">OpenAI 宣布 Atlas 浏览器 2026 年 8 月 9 日正式停止运作，9 个月实验终止。仅 macOS 单版本，未推 Windows / 移动端。浏览器能力并入 ChatGPT 桌面端。竞品 Tabbit（美团 / 光年之外）Agent 任务成功率已达 91.8%。</p>
+          <div class="comment">不是一款产品的谢幕，而是"独立 AI 浏览器"这个品类的终结。9 个月实验验证了两件事：用户不会为 AI 换浏览器，以及提示词注入风险高到不可接受。浏览器从入口降格为 AI 应用的附属模块。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://mp.weixin.qq.com/s/Qdp49GohP7ZM-MEYTj-p6g" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://mmbiz.qpic.cn/mmbiz_jpg/Rvq8Ow69CYW6xW7YCEp0RHxtxJo7c5FXdWjInP7X3BECSqIiaFTicWsic2OEJqMDXibZo78kvGvibribZgmq8KEkiaia5n6WgunfpuDDBsfvOB7PfcM/0?wx_fmt=jpeg" alt="Anthropic CMA" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">腾讯研究院</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">Anthropic CMA 技能上限 20&rarr;500，思考力度五档调速：从 API 到平台的关键一跃</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Anthropic CMA 一次推出六项更新：技能上限 20&rarr;500，low 至 max 五档思考力度调速，种子会话最多 50 条初始事件，新增七种 webhook 覆盖环境与记忆存储全生命周期，子 Agent 可观测性下探到线程级。</p>
+          <div class="comment">500 个技能 &asymp; 把整个企业的操作手册塞进 Agent 上下文。思考力度调速是聪明的成本管理——不同任务用不同算力。Anthropic 在 Agent 的工程化上比对手多走了一步：从卖模型到卖平台。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://so.html5.qq.com/page/real/search_news?docid=70000021_2316a629fb280552" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">北京市政府</span>
+              <span class="card-divider">&middot;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">北京发布智能体引领发展若干措施：Harness Engineering 首次写入市级政策</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">北京市多部门联合印发《关于加快智能体引领发展的若干措施》，支持驾驭层工程（Harness Engineering），围绕上下文工程优化、任务持久化、多智能体协作、系统可扩展等夯实智能体共性底座，即日起实施。</p>
+          <div class="comment">Harness Engineering 被写入市级政策文件——智能体的工程化落地已从社区热词变成政府关注的基础设施层。这不是监管文件而是产业政策：重点不在"怎么管"，而在"怎么建"。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://dreaming.press/posts/2026-07-24-founders-wire-gemini-36-flash-china-persona-law-databricks-188b.html" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://dreaming.press/images/2026-07-24-founders-wire-gemini-36-flash-china-persona-law-databricks-188b.png" alt="Apple Intelligence" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">TechCrunch</span>
+              <span class="card-divider">&middot;</span>
+              <span>本周</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">Apple Intelligence 中国获批：集成阿里 Qwen 和百度搜索，22 个月审批终落地</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">经过约 22 个月审批，Apple Intelligence 通过集成阿里 Qwen（语言与图像理解）和百度（搜索）获中国监管批准。架构需支持模型按区域可插拔——中国区自动路由到国内合规模型。阿里股价受此消息上涨。</p>
+          <div class="comment">不是数据驻留 checkbox，是模型切换。中国的合规逻辑迫使苹果做了一件反而有长期价值的事——让底层模型可插拔。这套区域化模型路由架构，未来可能有比合规更大的商业弹性价值。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier &middot; GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.7.20" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/9e90addb7424c8e1889ea9cb92b7b8ac53ece99cf8fd9b7f45e4c215dbcc526a/NousResearch/hermes-agent/releases/tag/v2026.7.20" alt="Hermes Agent" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub / NousResearch</span>
+              <span class="card-divider">&middot;</span>
+              <span>4 天前</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">Hermes Agent v0.19.0「水银快闪」：2,245 commits，首轮响应提速 80%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">NousResearch 发布 Hermes Agent v0.19.0，自 v0.18.0 起 2,245 次 commits、1,065 个 PR、450+ 贡献者。首轮响应延迟降低约 80%，新增智能审批、密钥管理、多 Profile 路由。已发布 Docker / PyPI / 自托管部署。</p>
+          <div class="comment">开源 Agent 框架从"能跑"跨越到"跑得快、跑不丢、管得住"。2,245 个 commits 不是小修小补而是底层基础设施重构——速度、稳定性、治理一块补，Agent 框架的工业化进程开始了。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/diegosouzapw/OmniRoute" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/6dbddd1acc8d43a8420d9d7c2be237955e41230b10691690df546633445665ce/diegosouzapw/OmniRoute" alt="OmniRoute" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">&middot;</span>
+              <span>本周</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">OmniRoute 27.2K&starf;：一个 endpoint 接入 290+ 模型供应商的 MIT 免费网关</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">OmniRoute 今日 1,929 stars，总计 27.2K。MIT 协议，一个 endpoint 接入 290+ 提供商（90+ 免费），500+ 模型。支持 RTK + Caveman 压缩节省 15-95% token，内置 MCP / A2A 协议，500+ 贡献者。</p>
+          <div class="comment">MCP 生态正在从"协议层"向"路由层"堆叠。底层是 MCP 标准接口，中层是 OmniRoute 这样的统一网关。一个 endpoint 打天下的愿景越来越近——但对模型厂商来说，这是好事还是坏事？</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/alibaba/open-code-review" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/1241960226/27bf01cb-17df-44d5-9b7b-bcf17c970c6d" alt="open-code-review" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub / 阿里巴巴</span>
+              <span class="card-divider">&middot;</span>
+              <span>本周</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">阿里开源 open-code-review 11.6K&starf;：确定性 AST + LLM Agent 混合代码审查</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">阿里开源 open-code-review，今日 180 stars，总计 11.6K。Go 语言，混合架构：确定性 AST 管道 + LLM Agent 推理，精确行级评论。内置 NPE / 线程安全 / XSS / SQL 注入规则集，阿里内部规模化验证，兼容 OpenAI &amp; Anthropic API。</p>
+          <div class="comment">不是又一个"让 AI 看看代码"的玩具。确定性规则 + Agent 推理的混合架构意味着能落 CI Pipeline——100% 自动化的代码审查比 100% 准确的更有实际价值。阿里内部验证的规则集是真正的护城河。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 &middot; 认 知 观 察 者 &middot; 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
