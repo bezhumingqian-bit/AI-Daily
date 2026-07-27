@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026-07-27</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 07 / 27</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 49</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">Kimi K3 开源权重落地 · Claude Code 系统提示词瘦身八成 · AI 医疗与语音 Agent 齐发</p>
+        <p class="header-date">2026 ／ 07 ／ 27 · 周一</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.kimi.com/zh-cn/blog/kimi-k3" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Moonshot 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Kimi K3 今日开源 2.8T 权重，全球首个 3T 级开放模型落地</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">2.8 万亿参数 MoE 架构，896 专家激活 16 个 / KDA 混合线性注意力 6.3× 长上下文解码加速 / Frontend Code Arena #1 (1679 Elo)，超越 Fable 5 (1631) 和 GPT-5.6 Sol (1618) / 7 月 16 日发布 API，今日完整权重开放下载，Modified MIT 协议</p>
+          <div class="comment">K3 开源不是「又一个中国模型」，而是第一次有开源模型在编程赛道上正面击败所有闭源对手。Arena #1 的意义远不止一个榜单——开发者现在有了一个不需要 API key、不需要按 token 付费的 SOTA 编程助手选项。Moonshot 的算盘很清楚：用开源抢生态，用 API 做商业化。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://openai.com/index/health-in-chatgpt/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">OpenAI 官方</span>
+              <span class="card-divider">·</span>
+              <span>3 天前</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">ChatGPT Health 全量上线，OpenAI $1 亿收购 Torch 押注医疗</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7 月 23 日向美国 18+ 用户全量开放，接入 Apple Health + Epic 电子病历 / 用户可直接对话分析化验单、准备就诊、追踪健康趋势 / OpenAI 斥资 1 亿美元收购医疗数据公司 Torch / 同步面临诉讼：用户指控 ChatGPT 给出危险医疗建议导致延误就医</p>
+          <div class="comment">一边上线健康功能，一边被诉医疗建议失误——OpenAI 选的时间窗口堪称大胆。$1 亿收购 Torch 说明这不是试水，是战略级押注。但医疗场景的容错率为零，一个幻觉可能就是一条命。OpenAI 赌的是「用户会区分 AI 建议和医生诊断」，现实可能没这么乐观。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a639c6b2e881afef80764c6_og_the-new-rules-of-context-engineering-for-claude-5-generation-models.jpg" alt="Claude Code" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">Anthropic 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>3 天前</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Claude Code 删除 80% 系统提示词，编程评测零损失</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Anthropic 7 月 24 日披露：Opus 5 / Fable 5 的 Claude Code 系统提示词被砍掉 80%+ / 内部编程评测无任何可测量性能下降 / 旧模型仍需完整提示词，新模型凭自身判断力即可正确处理 / 新范式：让模型自行判断而非硬编码规则，CLAUDE.md 建议控制在 60 行内</p>
+          <div class="comment">这件事比 Opus 5 本身更有信号意义。过去两年，整个行业都在往系统提示词里塞规则——安全护栏、行为约束、格式规范，越塞越多。Anthropic 现在反过来说：模型够聪明的时候，大部分规则是冗余的。这不仅仅是省钱省 token，而是对 AI 能力边界的一次重新校准。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.sohu.com/a/1055048777_455313" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fr066h0cz7lkyo2l36amm.png" alt="Codex Voice" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">OpenAI 官方 / Sohu</span>
+              <span class="card-divider">·</span>
+              <span>3 天前</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Codex 上线实时语音 + 屏幕感知，Karpathy 称 vibe coding 进入第二阶段</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">基于 GPT-Live 的实时语音上线 Codex，支持自然打断式对话 / Appshots 可读取当前活动窗口画面和文字，无需手动截图 / 戴耳机离开电脑即可随时查询进度、修改需求 / Karpathy 评价「语音输入适合复杂任务，能低成本倒出完整上下文」</p>
+          <div class="comment">从「自然语言写代码」到「把想法和画面直接交给 Agent」——Karpathy 的总结很精准。Codex 的语音不是锦上添花的交互方式，而是改变了 Agent 的信息输入带宽：键盘一分钟打 60 字，语音一分钟能倒出 200 字的完整意图加随手截图。当 Agent 能「看见」你的屏幕，IDE 就不再是必经之路了。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260724A07TAY00" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">每日经济新闻</span>
+              <span class="card-divider">·</span>
+              <span>5 天前</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI 发布 Presence 企业 Agent 平台：从卖模型到卖企业方案</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7 月 22 日发布 Presence Agent 运营平台 / 打通企业内部数据与业务系统，实现客服、销售全自动化 / 标志 OpenAI 从模型 API 供应商向企业软件方案商转型 / 目前有限度开放</p>
+          <div class="comment">OpenAI 终于迈出了从「卖铲子」到「开矿」的一步。Presence 不只是一个 Agent 平台，它是 OpenAI 对「模型层越来越卷」的直接回应——当模型能力趋同时，差异化在方案层。但企业级软件的销售周期、定制化需求、安全合规这些坑，不是模型能力强就能填平的。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://huggingface.co/Motif-Technologies/Motif-3-Beta" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn-thumbnails.huggingface.co/social-thumbnails/models/Motif-Technologies/Motif-3-Beta.png" alt="Motif-3" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">HuggingFace</span>
+              <span class="card-divider">·</span>
+              <span>6 天前</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">韩国 Motif-3-Beta 开源：314B 仅激活 13B，AA 指数 44 并列 DeepSeek V4 Pro</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">韩国 Motif Technologies 发布 Motif-3 Beta / 314B 总参数，仅激活 13B（4%）/ 384 专家路由 Top-8 + 1 共享专家 / 256K 上下文 / AA 智能指数 44，并列 DeepSeek V4 Pro，全球开源模型第三 / 韩国政府 ₩5300 亿国家 AI 基础模型计划核心成果</p>
+          <div class="comment">中美之外第一个真正能打的模型出现了。314B 只激活 13B 的「懒人 MoE」策略跟 DeepSeek 如出一辙——用极低激活比例换取推理效率。但韩国政府的 ₩5300 亿计划才是真正的护城河：这不是一家创业公司在战斗，是国家意志在下注。8 月最终版发布后，全球开源格局可能从「中美两强」变成「三国杀」。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.chosun.com/english/industry-en/2026/07/21/C66HLBGLXFCDRORTJ44H3EROBA/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">朝鲜日报英文版</span>
+              <span class="card-divider">·</span>
+              <span>6 天前</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">韩国 AI 基础模型国家计划：Motif 成为中美之外唯一顶级开源模型</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Motif-3 在 AAII 综合评测得分 44，中美之外排名第一 / 参评全球模型排名第 11 / 韩国政府 ₩5300 亿（约 $3.6 亿）资助 5 家企业竞争开发 / 8 月将进行第二轮评估决定后续资助 / Motif CEO 林正焕：「证明韩国能以技术而非资本进入全球 AI 前沿」</p>
+          <div class="comment">韩国 AI 的策略值得关注：不是砸钱训练一个千亿参数模型去刷榜，而是通过政府招标、多轮淘汰、竞争性资助的方式培育多个团队。这种「国家做裁判、企业赛跑」的模式，可能比单纯补贴更有效率。但最终能否跑出一个商业上可持续的模型，8 月评估是关键节点。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 推理优化 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-推理优化"></span>
+        <span class="section-title stitle-推理优化">推 理 优 化</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.itbear.com.cn/html/2026-07/1463342.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-推理优化"></span>
+              <span class="card-source-name">蚂蚁百灵官方</span>
+              <span class="card-divider">·</span>
+              <span>3 天前</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">蚂蚁 Ling-3.0-flash：124B 仅激活 5.1B，长文本 TTFT 降 60%–80%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">蚂蚁百灵 7 月 24 日发布 / 124B 总参，5.1B 激活参数 / 原生混合线性注意力（5:1 KDA + MLA）+ 1/64 稀疏 MoE / 扩展 10,000+ 交互训练环境 / 长文本 TTFT 降 60%–80% / 免费 API 至 8 月 3 日，之后开源权重，Apache 2.0 协议</p>
+          <div class="comment">蚂蚁也在走「小激活、高效率」路线。5.1B 激活参数声称对标上一代 1T 旗舰，这个效率杠杆接近 200×。但公开 benchmark 数据缺失是个硬伤——「声称」对标和「独立验证」是两回事。免费期结束后能否兑现承诺，才是真正的考验。有意思的是，Ling 和 Kimi K3 都用了 KDA 注意力，技术路线在收敛。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/citrolabs/ego-lite" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/1212503250/1e62fd1c-4ca2-40f1-aae4-6aec4614e726" alt="ego-lite" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">ego-lite：最快 AI Agent 浏览器，零配置零成本，900+ Stars 今日</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">GitHub 今日 Trending #1，900+ Stars / 专为 AI Agent 设计的浏览器自动化工具 / 支持与 Codex、Claude Code 等共享浏览器登录态 / 零配置、零成本、开箱即用 / JavaScript 实现，GitHub 仓库：citrolabs/ego-lite</p>
+          <div class="comment">AI Agent 做网页自动化一直有个痛：每次都要重新登录、重新过验证码。ego-lite 用一个简单但关键的方法解决了——共享已登录的浏览器状态。当 Agent 不再被登录墙挡住，网页自动化的效率能提升一个数量级。Codex 刚上线 Appshots，ego-lite 就在浏览器层面补齐了 Agent 的「视力」，工具链在快速成熟。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/tirth8205/code-review-graph" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/36450e656d36b222ef49b701c05bb7af53c9539f388dcd5c0b28f9e12e8140f0/tirth8205/code-review-graph" alt="code-review-graph" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">code-review-graph：本地代码智能图谱，1526 Stars，为 MCP 构建知识库</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">GitHub 今日 1526 Stars / 本地优先代码智能图谱，构建代码库持久化映射 / 支持 MCP + CLI，大幅减少 AI 编码工具上下文占用 / 无云依赖，全部本地运行 / GitHub 仓库：tirth8205/code-review-graph</p>
+          <div class="comment">当 AI 编码工具越来越依赖上下文时，本地代码知识图谱的价值就体现出来了。code-review-graph 的思路不是「上传代码到云端分析」，而是「在本地建立一个可查询的代码地图」——这对企业代码安全场景尤其关键。MCP 生态的「本地化」趋势越来越明显：数据不出机器，Agent 在本地完成推理和检索。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
