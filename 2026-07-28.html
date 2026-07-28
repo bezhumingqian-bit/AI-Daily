@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI DAILY · VOL · 50 · 2026年7月28日</title>
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #F5F1E8;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .nav {
+    max-width: 720px; margin: 0 auto; padding: 20px 24px 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-brand {
+    font-size: 13px; font-weight: 700; letter-spacing: 3px; color: #1A1A1A; text-decoration: none;
+    opacity: 0.6; transition: opacity 0.2s;
+  }
+  .nav-brand:hover { opacity: 1; }
+  .nav-right { font-size: 12px; color: rgba(26,26,26,0.5); }
+  .nav-right a { color: rgba(26,26,26,0.5); text-decoration: none; transition: color 0.2s; }
+  .nav-right a:hover { color: #1A1A1A; }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 24px 60px; }
+  .header {
+    text-align: center; padding: 48px 0 36px;
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    margin: 0 -24px;
+  }
+  .header-vol {
+    font-size: 12px; font-weight: 600; letter-spacing: 4px; color: rgba(26,26,26,0.35); margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 32px; font-weight: 700; line-height: 1.35; letter-spacing: 1px;
+    background: linear-gradient(180deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .header-sub {
+    font-size: 13px; color: rgba(26,26,26,0.4); margin-top: 12px; letter-spacing: 0.5px;
+  }
+  .header-date {
+    font-size: 12px; color: rgba(26,26,26,0.3); margin-top: 6px;
+  }
+  .section { margin-top: 40px; }
+  .section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .section-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  }
+  .section-dot.regular { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.5); }
+  .section-dot.frontier { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.5); }
+  .section-title {
+    font-size: 14px; font-weight: 700; letter-spacing: 4px; color: #1A1A1A;
+  }
+  .section-sub {
+    font-size: 11px; color: rgba(26,26,26,0.35); margin-left: 4px; letter-spacing: 1px;
+  }
+  .section-divider {
+    height: 1px; background: rgba(0,0,0,0.06); margin: 10px 0 24px;
+  }
+  .cards { display: flex; flex-direction: column; gap: 20px; }
+  .card-link { text-decoration: none; color: inherit; display: block; }
+  .card {
+    background: #FFFFFF; border-radius: 12px; overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card-link:hover .card {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  .card-hero {
+    position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #EDE9E0;
+  }
+  .card-hero img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.92) saturate(0.9);
+    transition: filter 0.35s ease;
+  }
+  .card-link:hover .card-hero img { filter: brightness(0.98) saturate(1); }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+  }
+  .card-hero.no-img .card-hero-overlay { display: none; }
+  .card-hero-title {
+    position: absolute; left: 20px; right: 20px; bottom: 20px;
+    font-size: 20px; font-weight: 700; line-height: 1.35; color: #1A1A1A;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+    letter-spacing: 0.5px;
+  }
+  .card-hero.no-img .card-hero-title {
+    position: static; font-size: 21px; text-align: center; padding: 0 24px;
+    text-shadow: none; color: #1A1A1A;
+  }
+  .card-body { padding: 16px 20px 20px; }
+  .card-category {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; margin-bottom: 10px;
+  }
+  .card-cat-dot { width: 5px; height: 5px; border-radius: 50%; }
+  .card-fact { font-size: 14px; color: rgba(26,26,26,0.55); line-height: 1.65; margin-bottom: 8px; }
+  .card-comment {
+    font-size: 13px; color: rgba(26,26,26,0.7); line-height: 1.6;
+    padding-left: 10px; border-left: 2px solid rgba(0,0,0,0.08);
+  }
+  .card-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.04);
+    font-size: 11px; color: rgba(26,26,26,0.3);
+  }
+  .footer {
+    text-align: center; padding: 40px 0 30px; font-size: 11px; color: rgba(26,26,26,0.25);
+    letter-spacing: 1px; border-top: 1px solid rgba(0,0,0,0.04); margin-top: 48px;
+  }
+  @media (max-width: 600px) {
+    .container { padding: 0 16px 40px; }
+    .header { margin: 0 -16px; padding: 36px 0 28px; }
+    .header-title { font-size: 26px; }
+    .card-hero-title { font-size: 17px; left: 14px; right: 14px; bottom: 14px; }
+    .card-body { padding: 12px 14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand">AI DAILY</a>
+  <span class="nav-right">2026.07.28 · <a href="index.html">← 主页</a></span>
+</nav>
+
+<div class="container">
+
+<header class="header">
+  <div class="header-vol">VOL · 50</div>
+  <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+  <div class="header-sub">AI 产业要闻与前沿技术 · 2026年7月28日 · 周二</div>
+  <div class="header-date">第 50 期 · 9 条精选信号</div>
+</header>
+
+<!-- ====== 常规要闻 ====== -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-dot regular"></div>
+    <span class="section-title">常 规 要 闻</span>
+    <span class="section-sub">Today's Signals</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="cards">
+
+    <!-- Card 1: MCP Spec Stateless -->
+    <a href="https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/" class="card-link" target="_blank" rel="noopener">
+      <article class="card">
+        <div class="card-hero">
+          <img src="https://blog.modelcontextprotocol.io/og-image.png" alt="MCP Spec" referrerpolicy="no-referrer" loading="lazy"
+               onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">MCP 协议史上最大改版落地：告别 Session，Agent 基础设施进入 Stateless 纪元</h2>
+        </div>
+        <div class="card-body">
+          <div class="card-category"><span class="card-cat-dot" style="background:#C8A892;"></span>大模型 / 基础设施</div>
+          <p class="card-fact">MCP 2026-07-28 规范今日正式发布，是自 2024 年 11 月发布以来最大改版：移除 initialize 握手与 Mcp-Session-Id，任何请求可到达任意服务实例，无需 sticky session。同步推出 Extensions 框架、MCP Apps（服务端渲染 iframe UI）、Tasks 异步任务扩展、OAuth/OIDC 对齐授权。HTTP+SSE 传输进入 12 个月废弃窗口。新增 Mcp-Method/Mcp-Name 头支持无 body 检查的路由分发，W3C Trace Context 实现开箱即用的分布式追踪。</p>
+          <p class="card-comment">从"一个客户粘在一个实例上"变成"任意请求落到任意实例"，这是 Agent 基础设施从玩具到云的成人礼。12 个月的废弃窗口给足迁移时间，但先动的人才能吃到 Stateless 的红利。</p>
+          <div class="card-meta"><span>MCP 官方博客</span><span>今日</span></div>
+        </div>
+      </article>
+    </a>
+
+    <!-- Card 2: OpenAI & Anthropic Voice -->
+    <a href="https://new.qq.com/rain/a/20260728A0045H00" class="card-link" target="_blank" rel="noopener">
+      <article class="card">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OqSe3vhZFqu54iT-x0vgFLf5YECFV0I4wcGtq1wuNSnbsAA_640330/0" alt="OpenAI and Anthropic Voice" referrerpolicy="no-referrer" loading="lazy"
+               onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">OpenAI、Anthropic 同日发布语音重大更新，但方向截然不同</h2>
+        </div>
+        <div class="card-body">
+          <div class="card-category"><span class="card-cat-dot" style="background:#C8A892;"></span>大模型</div>
+          <p class="card-fact">OpenAI 推出 GPT-Live，将 ChatGPT 语音功能从对话拓展至跨应用任务编排，支持 macOS/Windows 双平台桌面客户端，并发布 Appshots 功能（感知当前活跃应用上下文）。ChatGPT Remote 已上线 iOS。Anthropic 同期升级 Claude 语音模式，定位为"深度思考伙伴"——支持用户口述想法、要求 Claude 多轮迭代完善方案。Claude Code 同步支持语音输入提示词、终端命令与代码改动。</p>
+          <p class="card-comment">一方要做语音 OS，一方要做语音搭档。同一天发语音更新不是巧合——语音正从"对话"变成 AI 交互的第一入口，键盘的重要性正在下降。</p>
+          <div class="card-meta"><span>腾讯新闻 / OpenAI X · 官方</span><span>今日</span></div>
+        </div>
+      </article>
+    </a>
+
+    <!-- Card 3: Kimi K3 GPU optimization -->
+    <a href="https://www.toutiao.com/article/7667372810955670022" class="card-link" target="_blank" rel="noopener">
+      <article class="card">
+        <div class="card-hero no-img">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">Kimi K3 技术细节曝光：24 小时内自主优化 4 种 GPU 内核，部署能力突破英伟达生态</h2>
+        </div>
+        <div class="card-body">
+          <div class="card-category"><span class="card-cat-dot" style="background:#9AB0BA;"></span>推理优化</div>
+          <p class="card-fact">Kimi K3 技术报告披露：K3 在 24 小时内自主完成 AttnRes、DeepSeek Sparse Attention、KDA、MLA 共 4 种代表性 GPU 内核优化。AttnRes 延迟从 283.6ms 降至 114.4ms（↓59.7%），DSA 和 KDA 分别减少 55.1% 和 73.6%。测试覆盖 NVIDIA H200 与国产 GPGPU。同步完成 45nm 推理芯片原型设计。该表现与 Claude Fable 5 持平，显著优于 Claude Opus 4.8 和 GPT-5.6 Sol。</p>
+          <p class="card-comment">一个模型不仅自己能写代码，还能给自己写 CUDA kernel。这不是 benchmark 竞赛，是模型工程能力的自我证明——而且跨芯片架构的表现暗示了去英伟达依赖的技术可行性。</p>
+          <div class="card-meta"><span>第一财经 · 引用 Kimi 技术报告</span><span>今日</span></div>
+        </div>
+      </article>
+    </a>
+
+    <!-- Card 4: 37 enterprises safety alliance -->
+    <a href="https://www.163.com/dy/article/L2TMK5EO05119FMA.html" class="card-link" target="_blank" rel="noopener">
+      <article class="card">
+        <div class="card-hero no-img">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">英伟达牵头，微软 / IBM / Adobe 等 37 家企业成立开放安全 AI 联盟</h2>
+        </div>
+        <div class="card-body">
+          <div class="card-category"><span class="card-cat-dot" style="background:#D07070;"></span>安全</div>
+          <p class="card-fact">NVIDIA、Microsoft、Adobe、SpaceXAI、IBM、SAP、Dell、Cisco 等 37 家企业于 7 月 27 日宣布成立"开放安全人工智能联盟"（Open Safe AI Alliance），旨在构建和共享开源 AI 安全工具，推动 AI 的负责任使用。组织方强调开源软件是现代经济的核心支柱，网络安全是最大的受益领域之一。</p>
+          <p class="card-comment">巨头们终于开始认真对待 AI 安全基础设施的公共品属性了。37 家的阵容不像作秀，但关键看产出的不是白皮书而是可用的开源工具——这是行业判断这个联盟是否认真的唯一标准。</p>
+          <div class="card-meta"><span>极客公园 / 网易</span><span>昨日</span></div>
+        </div>
+      </article>
+    </a>
+
+    <!-- Card 5: Anthropic open weight clarification -->
+    <a href="https://view.inews.qq.com/a/20260728A022CP00" class="card-link" target="_blank" rel="noopener">
+      <article class="card">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/news_ls/OpTPsJKnqx46GeDRG9YgdBjzzucxMcpE-86UGV7LDLR5YAA_640330/0" alt="Anthropic" referrerpolicy="no-referrer" loading="lazy"
+               onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">Anthropic CEO 公开澄清：从未主张禁止开放权重 AI 模型</h2>
+        </div>
+        <div class="card-body">
+          <div class="card-category"><span class="card-cat-dot" style="background:#B8B098;"></span>开源 / 政策</div>
+          <p class="card-fact">7 月 28 日，Anthropic CEO 达里奥·阿莫代伊公开声明：公司从未倡导禁止开放权重 AI 模型，且不同意"开放权重模型天然更有利于 AI 安全防护"的观点。此番言论回应了近期关于 Anthropic 在 AI 监管政策中推动限制开源模型的争议说法。与此同时，Kimi K3 以 2.8T 参数规模全面开源，正在全球引发关于开源 vs 闭源的新一轮讨论。</p>
+          <p class="card-comment">在 Kimi K3 全面开源的当口，Anthropic 急忙跟"反开源"标签撇清关系。这不是巧合——开源模型的能力正在逼近闭源，谁都不想在这场叙事战里站错队。</p>
+          <div class="card-meta"><span>财联社</span><span>今日</span></div>
+        </div>
+      </article>
+    </a>
+
+    <!-- Card 6: Microsoft AI Security -->
+    <a href="https://arstechnica.com/security/2026/07/microsoft-unveils-ai-security-tools-it-says-outperform-competing-platforms" class="card-link" target="_blank" rel="noopener">
+      <article class="card">
+        <div class="card-hero no-img">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">微软发布 MAI-Cyber-1-Flash：AI 安全大模型，5 分钟完成企业安全评估</h2>
+        </div>
+        <div class="card-body">
+          <div class="card-category"><span class="card-cat-dot" style="background:#D07070;"></span>安全</div>
+          <p class="card-fact">微软发布专为网络安全训练的 MAI-Cyber-1-Flash 大模型，声称在 5 分钟内完成中型企业完整安全评估，CVE 漏洞识别准确率达 98.7%，响应速度比传统人工审计快 100 倍。同步推出 MDASH（自动漏洞利用验证框架），可模拟真实攻击手法验证漏洞可利用性。整合至 Perception 安全感知平台统一编排。实测数据来自官方披露，独立第三方验证尚未完成。</p>
+          <p class="card-comment">安全赛道正在变成 AI 大厂的军备竞赛：微软 98.7% 准确率 + 5 分钟全扫描的指标如果属实，传统渗透测试团队的饭碗确实在被掏空。但在没有独立审计的情况下，"声称"和"实测"之间的差距值得警惕。</p>
+          <div class="card-meta"><span>Ars Technica</span><span>今日</span></div>
+        </div>
+      </article>
+    </a>
+
+    <!-- Card 7: EU ADIA -->
+    <a href="https://weibo.com/5747187288/5325580826575083" class="card-link" target="_blank" rel="noopener">
+      <article class="card">
+        <div class="card-hero no-img">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">欧盟通过《AI 数据完整性法》：在欧洲训练模型必须做数据来源审计</h2>
+        </div>
+        <div class="card-body">
+          <div class="card-category"><span class="card-cat-dot" style="background:#C8B468;"></span>政策</div>
+          <p class="card-fact">欧盟正式通过《AI 数据完整性法》（ADIA），要求所有在欧盟范围内训练 AI 模型的企业进行数据来源审计，防止训练数据投毒与版权侵犯。违规企业面临高额罚款。新规同时要求模型开发商披露训练数据来源，合规审计赛道预计将因此受益。这是继欧盟 AI 法案之后，欧洲在 AI 治理领域的又一标志性立法。</p>
+          <p class="card-comment">数据来源审查从行业倡议变成法律要求，这比 AI 法案落地更直接地改变模型训练的成本结构。合规成本将成为新的护城河——小团队和小公司首当其冲。</p>
+          <div class="card-meta"><span>微博 AI 科技早报</span><span>今日</span></div>
+        </div>
+      </article>
+    </a>
+
+  </div>
+</div>
+
+<!-- ====== 前沿技术 ====== -->
+<div class="section">
+  <div class="section-head">
+    <div class="section-dot frontier"></div>
+    <span class="section-title">前 沿 技 术</span>
+    <span class="section-sub">Frontier · GitHub &amp; arXiv 周边</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="cards">
+
+    <!-- Frontier 1: grok-build -->
+    <a href="https://github.com/xai-org/grok-build" class="card-link" target="_blank" rel="noopener">
+      <article class="card">
+        <div class="card-hero no-img">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">xAI 开源 Grok Build：50K Star 级编程 Agent CLI，Agent Loop 全栈可读</h2>
+        </div>
+        <div class="card-body">
+          <div class="card-category"><span class="card-cat-dot" style="background:#9ABE8E;"></span>Agent 框架</div>
+          <p class="card-fact">xAI 将 Grok 编程栈的完整 Agent Loop 以 Apache 2.0 协议开源：包含上下文处理引擎、工具执行系统、插件架构、Skills 管理、MCP 集成。代码完全可读可编译，全屏 TUI 交互、支持鼠标操作。GitHub 50.7K Star，当前 Trending 热门新项目。xAI 声明不接受外部 PR 贡献，但公开了 Grok 编程能力的核心技术栈。</p>
+          <p class="card-comment">马斯克把 Grok 编程引擎摊开给你看——不让你改代码，但让你看清楚 Agent Loop 到底怎么转。这是 xAI 首次在 Agent 基础设施层面大幅开源，比发一个新模型更有信号意义。</p>
+          <div class="card-meta"><span>GitHub · xai-org/grok-build</span><span>50.7K ★</span></div>
+        </div>
+      </article>
+    </a>
+
+    <!-- Frontier 2: impeccable -->
+    <a href="https://github.com/pbakaus/impeccable" class="card-link" target="_blank" rel="noopener">
+      <article class="card">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/4d714f6c2195e13949eb3afa0be547591df62b0126e2e1ec9e1b520a95c401e4/pbakaus/impeccable" alt="Impeccable" referrerpolicy="no-referrer" loading="lazy"
+               onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">Impeccable：51K Star，让 AI 编程 Agent 产出专业级 UI 的设计语言</h2>
+        </div>
+        <div class="card-body">
+          <div class="card-category"><span class="card-cat-dot" style="background:#9ABE8E;"></span>Agent 工具</div>
+          <p class="card-fact">Impeccable 是一套专为 AI 编程 Agent（Claude Code、Cursor、Codex 等）打造的设计系统规范，定义严谨的 Design Token：颜色体系、间距、排版、圆角、阴影。旨在终结 AI 生成 UI "一眼 AI 味"的问题——字体过大、间距离谱、配色随机。GitHub 51.6K Star，单日 +847 Star。已集成到多个主流 Agent Skills 生态中。</p>
+          <p class="card-comment">AI 写代码的能力已经不是瓶颈了，做出来的东西"好不好看"才是。Impeccable 做的事很简单——给 Agent 一套设计规范作为 guardrail——但在 AI 生成前端代码泛滥的当下，这套约束比模型能力本身更实用。</p>
+          <div class="card-meta"><span>GitHub · pbakaus/impeccable</span><span>51.6K ★</span></div>
+        </div>
+      </article>
+    </a>
+
+  </div>
+</div>
+
+<footer class="footer">
+  AI DAILY / 商业·认知观察者·出品
+</footer>
+
+</div>
+</body>
+</html>
