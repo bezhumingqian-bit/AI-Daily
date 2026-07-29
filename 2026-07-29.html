@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI DAILY · VOL · 51 · 2026年7月29日</title>
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #F5F1E8;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .nav {
+    max-width: 720px; margin: 0 auto; padding: 20px 24px 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-brand {
+    font-size: 13px; font-weight: 700; letter-spacing: 3px; color: #1A1A1A; text-decoration: none;
+    opacity: 0.6; transition: opacity 0.2s;
+  }
+  .nav-brand:hover { opacity: 1; }
+  .nav-right { font-size: 12px; color: rgba(26,26,26,0.5); }
+  .nav-right a { color: rgba(26,26,26,0.5); text-decoration: none; transition: color 0.2s; }
+  .nav-right a:hover { color: #1A1A1A; }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 24px 60px; }
+  .header {
+    text-align: center; padding: 48px 0 36px;
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    margin: 0 -24px;
+  }
+  .header-vol {
+    font-size: 12px; font-weight: 600; letter-spacing: 4px; color: rgba(26,26,26,0.35); margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 32px; font-weight: 700; line-height: 1.35; letter-spacing: 1px;
+    background: linear-gradient(180deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .header-sub {
+    font-size: 13px; color: rgba(26,26,26,0.4); margin-top: 12px; letter-spacing: 0.5px;
+  }
+  .header-date {
+    font-size: 12px; color: rgba(26,26,26,0.3); margin-top: 6px;
+  }
+  .section { margin-top: 40px; }
+  .section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .section-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  }
+  .section-dot.regular { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.5); }
+  .section-dot.frontier { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.5); }
+  .section-title {
+    font-size: 14px; font-weight: 700; letter-spacing: 4px; color: #1A1A1A;
+  }
+  .section-sub {
+    font-size: 11px; color: rgba(26,26,26,0.35); margin-left: 4px; letter-spacing: 1px;
+  }
+  .section-divider {
+    height: 1px; background: rgba(0,0,0,0.06); margin: 10px 0 24px;
+  }
+  .cards { display: flex; flex-direction: column; gap: 20px; }
+  .card-link { text-decoration: none; color: inherit; display: block; }
+  .card {
+    background: #FFFFFF; border-radius: 12px; overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card-link:hover .card {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  .card-hero {
+    position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #EDE9E0;
+  }
+  .card-hero img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.92) saturate(0.9);
+    transition: filter 0.35s ease;
+    referrerpolicy="no-referrer";
+  }
+  .card-link:hover .card-hero img { filter: brightness(0.98) saturate(1); }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .card-hero.no-img::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .card-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+  }
+  .card-hero.no-img .card-hero-overlay { display: none; }
+  .card-hero-title {
+    position: absolute; left: 20px; right: 20px; bottom: 20px;
+    font-size: 20px; font-weight: 700; line-height: 1.35; color: #1A1A1A;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+    letter-spacing: 0.5px;
+  }
+  .card-hero.no-img .card-hero-title {
+    position: static; font-size: 21px; text-align: center; padding: 0 24px;
+    text-shadow: none; color: #1A1A1A;
+  }
+  .card-body { padding: 16px 20px 20px; }
+  .card-category {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; margin-bottom: 10px;
+  }
+  .card-cat-dot { width: 5px; height: 5px; border-radius: 50%; }
+  .card-fact { font-size: 14px; color: rgba(26,26,26,0.55); line-height: 1.65; margin-bottom: 8px; }
+  .card-comment {
+    font-size: 13px; color: rgba(26,26,26,0.7); line-height: 1.6;
+    padding-left: 10px; border-left: 2px solid rgba(0,0,0,0.08);
+  }
+  .card-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.04);
+    font-size: 11px; color: rgba(26,26,26,0.3);
+  }
+  .card-star {
+    display: inline-flex; align-items: center; gap: 3px;
+  }
+  .card-star .star-icon { font-size: 12px; }
+  .card-star.gold { color: #C8B468; }
+  .card-star.silver { color: rgba(26,26,26,0.25); }
+  .footer {
+    text-align: center; padding: 40px 0 30px; font-size: 11px; color: rgba(26,26,26,0.25);
+    letter-spacing: 1px; border-top: 1px solid rgba(0,0,0,0.04); margin-top: 48px;
+  }
+  @media (max-width: 600px) {
+    .container { padding: 0 16px 40px; }
+    .header { margin: 0 -16px; padding: 36px 0 28px; }
+    .header-title { font-size: 26px; }
+    .card-hero-title { font-size: 17px; left: 14px; right: 14px; bottom: 14px; }
+    .card-body { padding: 12px 14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand">AI DAILY</a>
+  <span class="nav-right">2026.07.29 · <a href="index.html">← 主页</a></span>
+</nav>
+
+<div class="container">
+
+<header class="header">
+  <div class="header-vol">VOL · 51</div>
+  <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+  <div class="header-sub">AI 产业要闻与前沿技术 · 2026年7月29日 · 周三</div>
+  <div class="header-date">第 51 期 · 10 条精选信号</div>
+</header>
+
+<!-- ====== 常规要闻 ====== -->
+<div class="section">
+  <div class="section-head">
+    <span class="section-dot regular"></span>
+    <span class="section-title">常 规 要 闻</span>
+    <span class="section-sub">Industry Signals</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="cards">
+
+    <!-- Card 1: Pacing the Frontier -->
+    <a class="card-link" href="https://www.163.com/dy/article/L30742HE0511ABV6.html" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero no-img">
+          <h2 class="card-hero-title">1134名AI员工联名请愿：建立国际AI控速机制，Dario Amodei等实名签署</h2>
+        </div>
+        <div class="card-body">
+          <span class="card-category">
+            <span class="card-cat-dot" style="background:#D07070;"></span>安全 / 政策
+          </span>
+          <p class="card-fact">7月29日，来自OpenAI、Anthropic、谷���、Meta等12家公司的1134名员工联名发起"Pacing the Frontier"请愿，要求美国政府推动建立国际机制来调节AI研发速度。签署者包括OpenAI首席科学家Jakub Pachocki、首席研究官Mark Chen，Anthropic CEO Dario Amodei及四位联合创始人，Meta首席科学家赵晟佳。46.2%签署者来自Anthropic。请愿书将风险焦点放在"递归自我改进"——当AI开始参与研发下一代AI，能力增长可能超过人类控制速度，而没有任何公司愿单方面减速。</p>
+          <p class="card-comment">这不是普通的"AI危险论"——签名者名单读起来就是AI行业的名人录，80%为实名。在Kimi K3刚证明开源模型逼近前沿、Claude Mythos自主攻破密码学算法的同一周，从业者用脚投票说"我们需要刹车"。但国际协调机制从未在核武器之外的任何技术领域成功过。</p>
+          <div class="card-meta">
+            <span>pacingthefrontier.com</span>
+            <span class="card-star gold"><span class="star-icon">★</span>3</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 2: Google+Apple AI phone -->
+    <a class="card-link" href="https://www.163.com/dy/article/L2VC8DB605561FZW.html" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero no-img">
+          <h2 class="card-hero-title">谷歌苹果同时上线AI替用户打电话：对接200万商家，语音Agent从单向变双向</h2>
+        </div>
+        <div class="card-body">
+          <span class="card-category">
+            <span class="card-cat-dot" style="background:#9ABE8E;"></span>Agent
+          </span>
+          <p class="card-fact">过去两周，谷歌和苹果几乎同时做出同一个判断：让AI替消费者打电话给商家。谷歌AI代理���在购物时直接致电实体店确认库存，运行在云端虚拟机上的Gemini Spark关闭笔记本也不停止。苹果WWDC 2026重构的Siri拥有屏幕感知和多轮对话能力。同期，AI代理创业公司7月单月融资约18亿美元，平均估值环比涨约40%，语音成为最热投资方向。此前行业格局是企业端疯狂部署AI接电话，消费者端却没有AI能替他们打出去——这道不对称的裂口正在合拢。</p>
+          <p class="card-comment">语音Agent终于从"企业接电话"走向"替用户打电话"，但场景窄得可怜——基本只围绕购物查库存。真正让人头疼的电话（改约牙医、处理账单纠纷、在航司客服排40分钟队）各家还没碰。是务实还是保守？两种解读都成立。</p>
+          <div class="card-meta">
+            <span>码上��叙 / 163.com</span>
+            <span class="card-star gold"><span class="star-icon">★</span>3</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 3: Claude Mythos crypto -->
+    <a class="card-link" href="https://www.anthropic.com/research/discovering-cryptographic-weaknesses" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://www.anthropic.com/api/opengraph-illustration?name=Object-LaptopSecure&backgroundColor=sky" alt="" onerror="this.parentElement.classList.add('no-img');this.style.display='none'" referrerpolicy="no-referrer">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">Claude Mythos自主攻破HAWK和AES：密码学审阅进入AI时代，单次成本10万美元</h2>
+        </div>
+        <div class="card-body">
+          <span class="card-category">
+            <span class="card-cat-dot" style="background:#C8A892;"></span>大���型
+          </span>
+          <p class="card-fact">Anthropic 7月28日披露，其Claude Mythos Preview模型帮助研究人员发现了密码学算法层面的新攻击：HAWK后量子签名候选方案的密钥强度从2^64降至2^38（减半），7轮AES-128攻击速度提升200-800倍。Mythos在约60小时工作中自主完成大部分发现，新技术"Möbius Bridge"是在约束模型不使用已知攻击方法后自主发明的。每个结果消耗约10万美元API成本。两项结果均不影响当前部署的生产系统（HAWK尚未成为标准，AES攻击仅针对研究用简化版本）。Anthropic同步发布开源验证代码（Apache 2.0）和CryptanalysisBench评测基准。</p>
+          <p class="card-comment">从"找代码实现的bug"到"找算法本身的数学弱点"——这是AI安全能力的质变。10万美元API成本听起来贵，但顶级密码学家团队年薪远超这个数。NIST的标准化选拔流程可能需要重新考虑：一个周末的AI审查可能抵得上一年的专家评审。</p>
+          <div class="card-meta">
+            <span>Anthropic 官方博客</span>
+            <span class="card-star gold"><span class="star-icon">★</span>3</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 4: Amazon Nova -->
+    <a class="card-link" href="https://aidailypost.com/news/amazon-scales-back-nova-ai-models" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero no-img">
+          <h2 class="card-hero-title">亚马逊Nova Premier/Omni/Reel/Canvas进入"只维护"状态，押注Abbeel前沿模型</h2>
+        </div>
+        <div class="card-body">
+          <span class="card-category">
+            <span class="card-cat-dot" style="background:#C8A892;"></span>大模型 / 商业
+          </span>
+          <p class="card-fact">据Business Insider 7月28日报道，亚马逊已将Nova Premier、Omni、Reel视频模型、Canvas图像模型转入"KTLO"（保持灯火通明）维护模式，不再配置核心研发资源。此前AGI部门已裁员并关闭2024年收购Adept后组建的AGI实验室。资源转向由Pieter Abbeel（通过收购Covariant加入）领导的Frontier Model Research项目，目标秋季re:Invent大会亮相新旗舰模型。Nova 2 Sonic/Lite和Nova Forge保留研发。亚马逊同时是Anthropic和OpenAI最大外部投资方之一，投资总额或超千亿美元。</p>
+          <p class="card-comment">从2024年12月高调发布Nova家族，到18个月后把旗舰模型转入维护——这个速度比外界预期快得多。关掉AGI实验室、留住Abbeel团队，亚马逊似乎在做一道选择题：与其自研拼不过，不如把资源集中到一个有差异化方向的人身上。外部对Anthropic和OpenAI的百亿级投资，成了某种安全网。</p>
+          <div class="card-meta">
+            <span>Business Insider / AI Daily Post</span>
+            <span class="card-star silver"><span class="star-icon">★</span>2</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 5: China 33T tokens -->
+    <a class="card-link" href="https://www.toutiao.com/a7667742257474208292" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero no-img">
+          <h2 class="card-hero-title">中国大模型全球使用量连续13周第一：周调用33万亿词元，OpenRouter占比60%</h2>
+        </div>
+        <div class="card-body">
+          <span class="card-category">
+            <span class="card-cat-dot" style="background:#C8A892;"></span>大模型
+          </span>
+          <p class="card-fact">据人民日报7月29日报道，OpenRouter平台数据显示，7月20日至26日中国大模型周调用量达33万亿词元，连续13周位居全球首位。高盛分析认为中国开源模型的智能水平正达到全球扩散的"临界点"，预计2026年下半年可能出现更多2万亿至5万亿参数的大模型。目前中国模型在OpenRouter上的整体使用量占比约60%。海外基础设施厂商Nebius、Baseten、Fireworks等已实现Kimi K3 Day 0适配，Cognition将K3接入Devin桌面客户端。</p>
+          <p class="card-comment">33万亿词元这个数字背后是中国模型从"能跑"到"被全球开发者主动选择"的转折。高盛的"临界点"判断指向一个更深远的变化：当使用量成为事实标准，API生态和开发者习惯会形成自增强循环——这是比benchmark排名更难撼动的护城河。</p>
+          <div class="card-meta">
+            <span>人民日报</span>
+            <span class="card-star silver"><span class="star-icon">★</span>2</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 6: NVIDIA Agent Toolkit -->
+    <a class="card-link" href="https://nvidianews.nvidia.com/news/nvidia-expands-nvidia-agent-toolkit-with-nvidia-physicsnemo-and-cuda-x-libraries-to-transform-how-the-world-engineers-designs-and-builds" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://www.nvidia.com/content/dam/en-zz/Solutions/navigation/intelligent-machines.png" alt="" onerror="this.parentElement.classList.add('no-img');this.style.display='none'" referrerpolicy="no-referrer">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">NVIDIA将PhysicsNeMo+CUDA-X装进Agent Toolkit：AI工程师开始懂得物理推理</h2>
+        </div>
+        <div class="card-body">
+          <span class="card-category">
+            <span class="card-cat-dot" style="background:#9AB0BA;"></span>基础设施
+          </span>
+          <p class="card-fact">NVIDIA 7月28日宣布将重构后的PhysicsNeMo库和更新的CUDA-X库集成到Agent Toolkit，开发者可构建具备AI物理技能、加速求解器和量子化学能力的自主AI工程师。新增能力：cuISS迭代稀疏求解器（加速物理仿真）、cuDSS直接稀疏求解器（EDA电路仿真）、cuEST量子化学（密度泛函理论）。Cadence已基于cuDSS将PCB设计验证效率提升15倍，同步在Millennium M2000超算上运行AuraStack AI超级Agent。Nemotron 3 Ultra在Agent级RTL编码基准上领先开放模型。所有库Apache 2.0许可。</p>
+          <p class="card-comment">芯片设计行业每年在验证工作上消耗数十亿计算小时——15倍效率提升意味着什么，做EDA的人很清楚。NVIDIA的玩法也清楚：工具免费，但只能跑在自家GPU上。用Agent Toolkit做钩子，把芯片设计管线更深地绑进CUDA生态。</p>
+          <div class="card-meta">
+            <span>NVIDIA 官方新闻室</span>
+            <span class="card-star silver"><span class="star-icon">★</span>2</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 7: Delta Intelligence -->
+    <a class="card-link" href="https://www.cs.com.cn/ssgs/01/2026/07/28/detail_2026072810027759.html" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero no-img">
+          <h2 class="card-hero-title">德塔智能半年六轮近5亿融资：UCLA博士团队做"人形机器人的GPT"</h2>
+        </div>
+        <div class="card-body">
+          <span class="card-category">
+            <span class="card-cat-dot" style="background:#8CC44A;"></span>融资
+          </span>
+          <p class="card-fact">人形机器人基础模型公司德塔智能（Delta Intelligence）7月28日完成近5亿元天使++轮融资，投资方包括多家上市公司产业方和头部财务机构。这是公司2026年1月成立以来的第六轮融资，此前资方包括智元机器人、乐聚机器人、星海图三家本体厂商（同时获得三家投资的唯一具身基础模型公司），以及高瓴创投、元禾控股、联想创投等。团队由三位UCLA博士创立，CEO马晓健曾任Google Robotics和NVIDIA Research。同期发布头戴式全身数据采集设备Delta D1，无需机器人本体即可采集全身交互数据，全局定位精度2��米以内。</p>
+          <p class="card-comment">不造机器人、专做"具身智能的基座模型"——德塔智能的定位类似机器人时代的操作系统公司。半年六轮融资的节奏说明资本在赌一件事：具身智能会像大语言模型一样，最终由少数基础模型提供商定义生态，而非每家本体厂商自研。同时获得三家头部本体厂商投资的股权结构，本身就是一种生态绑定。</p>
+          <div class="card-meta">
+            <span>中国证券报</span>
+            <span class="card-star"><span class="star-icon">★</span>1</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div><!-- /cards -->
+</div><!-- /section -->
+
+<!-- ====== 前沿技术 ====== -->
+<div class="section">
+  <div class="section-head">
+    <span class="section-dot frontier"></span>
+    <span class="section-title">前 沿 技 术</span>
+    <span class="section-sub">Frontier · GitHub &amp; arXiv 周边</span>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="cards">
+
+    <!-- Frontier 1: LLaDA2.2-flash -->
+    <a class="card-link" href="https://huggingface.co/inclusionAI/LLaDA2.2-flash" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://cdn-thumbnails.huggingface.co/social-thumbnails/models/inclusionAI/LLaDA2.2-flash.png" alt="" onerror="this.parentElement.classList.add('no-img');this.style.display='none'" referrerpolicy="no-referrer">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">LLaDA2.2-flash：100B扩散语言模型首次胜任Agent，吞吐达自回归1.64倍</h2>
+        </div>
+        <div class="card-body">
+          <span class="card-category">
+            <span class="card-cat-dot" style="background:#A89BC8;"></span>Agent 新范式
+          </span>
+          <p class="card-fact">蚂蚁inclusionAI团队开源LLaDA2.2-flash，MoE架构约100B参数，原生128K上下文，Apache 2.0许可。核心突破是引入"莱文斯坦编辑"机制——允许扩散模型在并行去噪过程中删除、插入和替换Token，实现自我纠错，首次让扩散语言模型能完成多轮Agent任务。7项Agent基准平均53.83分，逼近同规模自回归模型Ling-2.6-flash的55.74分；τ²-Bench（多轮工具交互）以80.33分领先。解码吞吐保持1.64倍优势，任务越长优势越明显。HuggingFace权重已可下载。</p>
+          <p class="card-comment">扩散语言模型一直被看作"偏科生"——吞吐快但不会思考。LLaDA2.2用"编辑替代预测"的思路让扩散模型在Agent任务上首次有了跟自回归对话的资格。Agent任务需要数十轮推理，1.64倍的吞吐优势会逐轮放大——如果这个路线能走通，Agent推理的成本结构会被彻底重塑。</p>
+          <div class="card-meta">
+            <span>HuggingFace · inclusionAI</span>
+            <span>arXiv: 2607.05471</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Frontier 2: StateAct -->
+    <a class="card-link" href="https://arxiv.org/html/2607.22798v1" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://arxiv.org/html/2607.22798v1/x1.png" alt="" onerror="this.parentElement.classList.add('no-img');this.style.display='none'" referrerpolicy="no-referrer">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">StateAct：放弃逐像素看屏幕改读程序状态，OSWorld 2.0成功率+30%，成本降9倍</h2>
+        </div>
+        <div class="card-body">
+          <span class="card-category">
+            <span class="card-cat-dot" style="background:#A89BC8;"></span>Agent 底层技术
+          </span>
+          <p class="card-fact">多机构合作的StateAct提出"state-grounding"新范式：Agent主循环不依赖截图，直接读写文件、后端和DOM等程序状态，仅在约1.1%需要视觉判断的步骤调用GUI子Agent。在OSWorld 2.0（108个长程真实任务，中��人类操作1.6小时）上，Claude Opus 4.8任务成功率从20.6%提升至26.9%，Token消耗从22.4万降至约2.5万，成本降幅约9倍。但纯代码模式（无GUI子Agent）的部分得分仅45.9%，低于截图基线的54.8%——说明视觉在某些任务中仍不可替代。</p>
+          <p class="card-comment">这个结果揭示了一个反直觉的事实：Agent不是"看不清"而是"想不清"——把感知瓶颈换成推理瓶颈后，总体表现反而更好。9倍成本降幅比6.3个百分点成功率提升的意义更大：省下来的Token就是真金白银，对实际部署来说这才是关键指标。</p>
+          <div class="card-meta">
+            <span>arXiv · 多机构合作</span>
+            <span>arXiv: 2607.22798</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Frontier 3: Graphify -->
+    <a class="card-link" href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/7c1899daa5967bee7273937ae6b285c49e45f1202a7a4d782f9d752b31eda831/Graphify-Labs/graphify" alt="" onerror="this.parentElement.classList.add('no-img');this.style.display='none'" referrerpolicy="no-referrer">
+          <div class="card-hero-overlay"></div>
+          <h2 class="card-hero-title">Graphify：一键生成代码知识图谱，App+数据库+基础设施放进同一张图里</h2>
+        </div>
+        <div class="card-body">
+          <span class="card-category">
+            <span class="card-cat-dot" style="background:#A89BC8;"></span>MCP / 知识图谱
+          </span>
+          <p class="card-fact">Graphify是一个AI编程助手Skill（支持Claude Code、Codex、Cursor、Gemini CLI等），可将任意文件夹中的代码、SQL Schema、R脚本、Shell脚本、文档、论文、图片甚至视频转为可查询的知识图谱。核心价值在于打破代码库的信息孤岛：应用代码、数据库结构、基础设施配置放入同一张图中，Agent可以跨层推理依赖关系而非按文件逐个盲搜。GitHub 1.2K Stars，今日+101 Stars，属于Skills生态爆发浪潮中的新星项目。</p>
+          <p class="card-comment">"理解代码库"是当前Agent最大的瓶颈之一——跟人类接手新项目时先画架构图一样，Agent也需要一张地图。Graphify用知识图谱做这件事，比传统RAG向量检索更适合处理代码之间结构化依赖关系。在Agent Skills生态爆发的当下，这种"给Agent装认知地图"的工具正在成为基础设施。</p>
+          <div class="card-meta">
+            <span>GitHub · Graphify-Labs</span>
+            <span>⭐ 1,200 · +101今日</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div><!-- /cards -->
+</div><!-- /section -->
+
+<!-- Footer -->
+<div class="footer">
+  AI DAILY ／ 商业·认知观察者·出品
+</div>
+
+</div><!-- /container -->
+
+</body>
+</html>
