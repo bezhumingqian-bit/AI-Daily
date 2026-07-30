@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL 52 · 2026-07-30</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 07 / 30</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">&#8592;</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL &#183; 52</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 &#183; 一手源优先 &#183; 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 &#65295; 07 &#65295; 30 &#183; 周四</p>
+      </div>
+    </header>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260730A03VBD00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OTXj3ZyPDadwc-eYb9pAw9IGG298EUjC124_CBtD3JFeAAA_640330/0" alt="月之暗面融资" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">彭博社 / TechWeb</span>
+              <span class="card-divider">&#183;</span>
+              <span>今日</span>
+              <span class="card-arrow">&#8594;</span>
+            </div>
+            <h2 class="headline">月之暗面完成35亿美元F轮融资，投后估值350亿美元，启动Pre-IPO</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">原计划募资10-20亿美元，超额认购数倍提前关闭 / 投后估值350亿美元 / 国家人工智能产业投资基金领投 / Kimi K3发布后日销售额增6倍 / 已启动Pre-IPO轮目标500亿美元投前估值 / 计划年内港股上市，中金+高盛联合承销</p>
+          <div class="comment">7个月内估值从43亿飙到350亿美元——Kimi K3的开源引爆效应比任何路演都管用。但350亿对应一个尚未盈利的AI公司，资本市场在赌的不是财务数据，是"中国版Anthropic"的故事。本轮融资额35亿美元位列中国大模型单轮第二大，仅次于DeepSeek的74亿。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://claude.com/blog/bringing-mcp-2026-07-28-to-claude" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6905137f403a1564673d63ca_og_claude-code-remote-mcp.jpg" alt="MCP 2026-07-28" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Anthropic 官方博客</span>
+              <span class="card-divider">&#183;</span>
+              <span>2 天前</span>
+              <span class="card-arrow">&#8594;</span>
+            </div>
+            <h2 class="headline">Anthropic发布MCP第五版规范：转向无状态架构，SDK月下载突破4亿</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">核心协议从有状态双向连接转为无状态请求/响应模式 / 可无缝部署于AWS Lambda、Vercel、Cloudflare Workers等Serverless平台 / SDK月度下载突破4亿、年增4倍 / TypeScript和Python SDK累计均超10亿次下载 / Claude应用商店MCP服务器超950个 / MCP Apps对话内渲染UI / Tasks异步长任务 / EMA企业级管理认证 / Figma、Zoom、Intuit、Netlify背书</p>
+          <div class="comment">MCP从"Agent的USB接口"变成了"Agent的操作系统"。无状态化是最关键的转变——它让MCP服务器终于可以像普通HTTP API一样水平扩展，不再需要管理会话粘性和共享状态。950个服务器、Figma/Zoom等巨头背书，生态壁垒正在以季度为单位加深。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260729A02EUS00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/news_ls/Ovk4slr3MYSY0jgMZX1YTsf0EEqRhxpi20zpdyAEvjcEsAA_640330/0" alt="GPT Transcribe" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">OpenAI 官方 / IT之家</span>
+              <span class="card-divider">&#183;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&#8594;</span>
+            </div>
+            <h2 class="headline">OpenAI发布两款语音转录模型，语义准确率大幅提升，错误率仅为Whisper一半</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">GPT-Transcribe(文件转录)每分钟$0.0045，比Whisper-1便宜25% / GPT-Live-Transcribe(实时转录)每分钟$0.017 / 真实世界录音词错误率8.98%（Whisper-1为15.21%）/ Common Voice 22种语言错误率19.27%（Whisper-1为40.37%）/ 语义准确率45.2% / 支持prompt、keywords、languages三类上下文提示</p>
+          <div class="comment">把语音转录拆成"文件"和"实时"两条产品线，是商业上聪明的做法——文件转录走低价量贩、实时转录收溢价。但真正值得关注的是准确率：错误率砍半，不再以"还行"为标准，而是以"可商用"为标准。这对客服、会议纪要、字幕制作等领域是直接降维打击。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L323O32P05198NMR.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">华尔街见闻</span>
+              <span class="card-divider">&#183;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&#8594;</span>
+            </div>
+            <h2 class="headline">谷歌发布Lyria 3.5 AI音乐生成模型，精准控制节奏时长，对标Suno和OpenAI</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">四大升级方向：音乐性(Musicality)、歌词生成、AI人声(Vocals)、创作控制(Creative Control) / 可精准控制节奏(tempo)与时长(duration) / AI人声发音准确率改善、情感表达更自然 / 支持自然语言迭代修改歌曲 / 集成Google Labs Flow Music / 对标Suno、Udio、OpenAI的文本到歌曲生成赛道</p>
+          <div class="comment">谷歌在AI音乐赛道上终于认真了。Lyria 3.5的重点不在"生成一段旋律"，而在"精准控制"——这恰恰是专业创作者最需要的。但AI音乐的版权和法律问题才是真正的天花板：Suno被三大唱片公司起诉至今未有定论，谷歌能否避开这个雷区？</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L32G493205561FZM.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">网易 / 全栈遛狗员</span>
+              <span class="card-divider">&#183;</span>
+              <span>今日</span>
+              <span class="card-arrow">&#8594;</span>
+            </div>
+            <h2 class="headline">黄仁勋等20+公司联名公开信支持开放权重模型，Anthropic拒绝签字</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Meta、微软、NVIDIA、HuggingFace、Cohere等20+公司签署公开信 / OpenAI、Google、Amazon同样缺席签名 / Anthropic CEO Dario Amodei发文解释：担心中国通过蒸馏缩小差距至"仅落后数月" / Anthropic另联合1200+AI从业者呼吁国际协作控速 / 公开信背景直指美国政府计划封禁中国开放权重模型</p>
+          <div class="comment">这封信暴露出AI行业最大的断层线——不在"开源vs闭源"，而在"卖模型的公司vs用模型的公司"。黄仁勋支持开放权重因为GPU卖得更多，Anthropic拒绝因为卖的就是模型本身。利益决定立场，没有一方是纯粹的技术理想主义者。用得起，才是这场辩论的终局裁判。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://github.com/huggingface/speech-to-speech" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/8e1bc361df07bd0804b542fece1acd70bfd22a8fd62d1685ef805840e633999b/huggingface/speech-to-speech" alt="HuggingFace speech-to-speech" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">GitHub &#183; HuggingFace</span>
+              <span class="card-divider">&#183;</span>
+              <span>今日</span>
+              <span class="card-arrow">&#8594;</span>
+            </div>
+            <h2 class="headline">HuggingFace开源speech-to-speech，本地构建语音Agent，827 Stars Today</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">7,914 Stars，827 stars today / Python / 使用开源模型本地构建全链路语音Agent / 无需API调用、无需外部付费服务 / GitHub Trending Python榜 #1 今日 / 端到端语音交互零成本运行</p>
+          <div class="comment">HuggingFace加入语音Agent赛道，打法一如既往：开源、本地、不锁供应商。在OpenAI GPT-Live-Transcribe按分钟收费的背景下，speech-to-speech提供的是一条不交税的路。但开源模型的语音质量和延迟能否接近闭源方案，以及多语言支持深度，还有待验证。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier &#183; GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://alphasignal.ai/news/tencent-open-sources-angelspec-hitting-2-86x-faster-inference-on-hunyuan-3" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://alphasignal.ai/image/1785333666602-s12osq.png" alt="AngelSpec" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">腾讯混元官方 &#183; AlphaSignal</span>
+              <span class="card-divider">&#183;</span>
+              <span>昨日</span>
+              <span class="card-arrow">&#8594;</span>
+            </div>
+            <h2 class="headline">腾讯混元开源AngelSpec投机解码框架，最高2.86倍推理加速，DFly达SOTA</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">投机解码全链路框架，覆盖drafter训练、架构设计到线上部署 / DFly架构六大Benchmark平均加速1.98-2.40倍、峰值2.86倍 / 平均接受长度4.79（比DFlash高30%，约为MTP的1.6倍）/ 支持6种drafter架构（DFly/DFlash/DFlare/Eagle3/DSpark/MTP）/ D-cut高并发下额外提升15.7%吞吐 / MTP+TTT将对话场景接受率从52.8%提至66.4% / 同步开源Hy3-A21B权重 / 训练与推理GPU池通过Mooncake RDMA分离扩缩</p>
+          <div class="comment">AngelSpec的野心不在"比别人快一点"，而在"让投机解码变成大模型推理的默认配置"——六个drafter一套pipeline，训练和推理独立扩缩，这是生产级的设计思路。腾讯这次的开源完整度很高：不只是放模型权重，是放了一套工业级加速引擎。接受长度4.79意味着每次forward pass产出近5个token，成本结构直接改变。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/microsoft/agent-governance-toolkit" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/ab9b6c1ef415f95bf2571d4f1bd45eafaae6992c10fd9ecd815c4d5159e26326/microsoft/agent-governance-toolkit" alt="Agent Governance Toolkit" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub &#183; Microsoft</span>
+              <span class="card-divider">&#183;</span>
+              <span>今日</span>
+              <span class="card-arrow">&#8594;</span>
+            </div>
+            <h2 class="headline">微软开源Agent治理工具包，覆盖OWASP Agentic Top 10全部10项，5.4K Stars</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">5,466 Stars，442 stars today / Python / 四大模块：策略执行(Policy Enforcement)、零信任身份(Zero-Trust Identity)、执行沙箱(Execution Sandboxing)、可靠性工程(Reliability Engineering) / 完整覆盖OWASP Agentic Top 10 / Microsoft官方出品 / GitHub Trending上榜</p>
+          <div class="comment">Agent安全治理从"应该有人做"变成了"微软已经做了"。OWASP Agentic Top 10刚发布不久，微软就把工具包开源了——这反应速度说明大厂在抢"Agent时代的标准制定者"身份。零信任+沙箱+策略执行这三位一体，瞄准的是企业级Agent部署的安全合规刚需。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/virgiliojr94/book-to-skill" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/af6d38d618034fe5be038e9ac889516b8c37677b02eac99305054fba23f4c98a/virgiliojr94/book-to-skill" alt="book-to-skill" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">&#183;</span>
+              <span>今日</span>
+              <span class="card-arrow">&#8594;</span>
+            </div>
+            <h2 class="headline">book-to-skill：12.8K Stars，把技术书PDF转成Claude Code可执行Skill</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">12,841 Stars，1,421 stars today / Python / 将任何技术书PDF自动转换为Claude Code Skills / 知识蒸馏为可执行Agent技能——Agent可以"引用"整本书的知识 / 独立开发者项目 / GitHub Trending Python榜 #6</p>
+          <div class="comment">这是知识消费方式的一次边界试探——不再"读完一本书"，而是"把书变成Agent的肌肉记忆"。1,421 stars today表明社区对这个方向有真实需求。但"知识蒸馏"的准确性和版权问题悬而未决：书里的过时信息或错误会不会被原封不动地"蒸馏"进Agent，然后被当作权威引用？</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 &#183; 认 知 观 察 者 &#183; 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
