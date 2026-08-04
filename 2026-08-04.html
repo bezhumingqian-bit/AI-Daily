@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026年8月4日</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-dot.dot-frontier { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.5); }
+  .section-title {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: rgba(26,26,26,0.45);
+    text-transform: uppercase;
+  }
+  .section-subtitle {
+    font-size: 11px;
+    color: rgba(26,26,26,0.25);
+    letter-spacing: 1px;
+    margin-left: auto;
+  }
+
+  .cards { display: flex; flex-direction: column; gap: 24px; }
+  .card-link { text-decoration: none; color: inherit; display: block; }
+  .card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s cubic-bezier(0.22,1,0.36,1);
+  }
+  .card-link:hover .card {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 12px 28px rgba(0,0,0,0.08);
+  }
+  .card-hero {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+  }
+  .card-hero.no-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card-hero.no-img::after {
+    content: "";
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(168,155,200,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.92) saturate(0.9);
+    transition: filter 0.35s ease;
+  }
+  .card-link:hover .card-hero img { filter: brightness(0.98) saturate(0.95); }
+  .card-hero img.error { display: none; }
+  .card-hero img.error + .card-hero-overlay { display: none; }
+  .card-hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+  .card-hero-title {
+    position: absolute;
+    bottom: 28px;
+    left: 28px;
+    right: 28px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.3px;
+    color: #1A1A1A;
+    text-shadow: none;
+    z-index: 3;
+  }
+  .card-hero.no-img .card-hero-title {
+    position: relative;
+    bottom: auto; left: auto; right: auto;
+    font-size: 21px;
+    z-index: 2;
+    text-align: center;
+  }
+  .card-body { padding: 20px 28px 24px; }
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .card-cat {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 6px;
+    background: rgba(0,0,0,0.04);
+    color: rgba(26,26,26,0.5);
+  }
+  .card-source {
+    font-size: 11px;
+    color: rgba(26,26,26,0.35);
+    letter-spacing: 0.5px;
+  }
+  .card-time {
+    font-size: 11px;
+    color: rgba(26,26,26,0.25);
+    margin-left: auto;
+  }
+  .card-fact {
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(26,26,26,0.55);
+    margin-bottom: 12px;
+  }
+  .card-comment {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: rgba(26,26,26,0.7);
+    font-style: italic;
+    padding-left: 12px;
+    border-left: 2px solid rgba(0,0,0,0.08);
+    margin-top: 8px;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 16px 12px 32px; }
+    .header { padding: 28px 20px 24px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13px; }
+    .card-hero-title { font-size: 17px; bottom: 20px; left: 18px; right: 18px; }
+    .card-hero.no-img .card-hero-title { font-size: 18px; }
+    .card-body { padding: 16px 18px 20px; }
+    .card-fact { font-size: 13px; }
+    .card-comment { font-size: 12.5px; }
+    .section-title { font-size: 13px; letter-spacing: 2px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Nav -->
+<div class="nav">
+  <a class="nav-brand" href="https://ai-daily-36o.pages.dev/">AI DAILY</a>
+  <div class="nav-right">
+    <span class="nav-date">2026.08.04</span>
+    <a class="nav-back" href="https://ai-daily-36o.pages.dev/"><span class="nav-back-arrow">&#8592;</span> 主页</a>
+  </div>
+</div>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="vol">VOL &#183; 55</div>
+    <div class="header-title">把今天的 AI<br>一杯咖啡读完</div>
+    <div class="header-subtitle">精选 10 条信号，涵盖大模型、安全、Agent、开源、融资与前沿技术</div>
+    <div class="header-date">2026 年 8 月 4 日 &#183; 星期二</div>
+  </div>
+</div>
+
+<!-- Section: 常规要闻 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-dot" style="background:#C8A892;box-shadow:0 0 8px rgba(200,168,146,0.5)"></div>
+    <div class="section-title">常 规 要 闻</div>
+  </div>
+
+  <div class="cards">
+
+    <!-- 1. Qwen3.8-Max -->
+    <a class="card-link" href="https://www.cnbc.com/2026/08/03/alibaba-ai-model-qwen-rival-anthropic.html" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://image.cnbcfm.com/api/v1/image/108343633-1785747292462-gettyimages-2236988295-kokovlis-notitle250925_nppmo.jpeg?v=1785747307&w=1920&h=1080" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">阿里发布 Qwen3.8-Max：2.4万亿参数旗舰，Arena 全球第二</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-cat">大模型</span>
+            <span class="card-source">CNBC &#183; 阿里官方</span>
+            <span class="card-time">今日</span>
+          </div>
+          <div class="card-fact">总参数 2.4T / MoE 架构 / 推理仅激活 95B / 1M 上下文窗口 / 支持视觉理解。Arena 编程第 4、视觉第 2、文本第 5。自主连续运行 16 天完成 Agent 框架"oh-my-cli"开发，125 小时自主科研复现论文并超越。API 国内 &#165;12/M 输入、&#165;36/M 输出，国际价格仅为 Opus 5 的 40%/24%。模型权重下周开源，同步推出企业级 Agent 产品"千问办公"。</div>
+          <div class="card-comment">2.4T 参数 + MoE 架构 + 下周开源 = 三连击。Arena 榜单仅次于 Claude 系列，编程自主运行 16 天不崩盘——这不是"能写代码"，是"能当工程师用"。定价锚定 Opus 5 的 40%，中国企业级落地节奏已经拉开。</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 2. GPT-Live -->
+    <a class="card-link" href="https://openai.com/blog/continuous-voice-interaction-with-gpt-live" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://images.ctfassets.net/kftzwdyauwt9/yTlvMCvVXsIfkU2OOi99f/157c83857ebe75544195add9e1f75039/gpt-live-responsive-seo-card.png" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">OpenAI 上线 GPT-Live 全双工语音：听与说同时进行</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-cat">大模型</span>
+            <span class="card-source">OpenAI 官方博客</span>
+            <span class="card-time">今日</span>
+          </div>
+          <div class="card-fact">推理引擎 Go 重写，p95 延迟降至旧版 p50。WebRTC + 自研 WARP 协议，媒体会话启动从 6 次网络往返压缩到 1 次。支持 stateful inference：热替换模型实例 + context 预填充 + 无中断压缩。对话中自动将复杂任务委派给 GPT-5.5 等前沿模型，用户零感知。已支撑 ChatGPT 桌面端 Computer Control 和 Agent 编排。</div>
+          <div class="card-comment">把语音从"轮询模式"升级到"真全双工"，底层是 Go 重写推理引擎 + 自研 WARP 协议。真正的工程信号是：廉价模型扛对话 + 昂贵模型做推理，中间切换用户无感——这是"实时语音成为委派界面"的开始。</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 3. Claude Mythos HAWK -->
+    <a class="card-link" href="https://www.anthropic.com/research/discovering-cryptographic-weaknesses" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://www.anthropic.com/api/opengraph-illustration?name=Object-LaptopSecure&amp;backgroundColor=sky" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">Claude Mythos 从数学层面破解 NIST 后量子密码候选</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-cat">安全</span>
+            <span class="card-source">Anthropic 研究博客</span>
+            <span class="card-time">本周</span>
+          </div>
+          <div class="card-fact">Mythos 发现 HAWK 格结构中非平凡自同构，将有效密钥强度砍半。HAWK 历经两年两轮 NIST 专家评审未被发现。耗时约 60 小时，API 成本约 $10 万。HAWK 团队已主动撤回 NIST 候选。同时发现 AES 约简版"M&#246;bius Bridge"新攻击路径，速度提升 200-800 倍。Anthropic 联合 ETH Zurich、特拉维夫大学发布 CryptanalysisBench 基准。</div>
+          <div class="card-comment">不是"找到 bug"，是在数学层面瓦解了一个经过两年专家审查的密码方案。$10 万 API 费 + 60 小时 = 干掉一个 NIST 候选。Anthropic 坦承验证模型输出比发现攻击本身更耗时——"发现"不再是瓶颈，"验证"才是。</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 4. Anthropic Unhobbling -->
+    <a class="card-link" href="https://www.anthropic.com/engineering/claude-code-unhobbling" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://cdn.sanity.io/images/4zrzovbb/website/6d4a0d28992ade92d6fa63646fd9c9d318245c6c-2400x1260.jpg" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">Anthropic 删除 80% Claude Code 系统提示词，编码评测零损失</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-cat">Agent</span>
+            <span class="card-source">Anthropic 工程博客</span>
+            <span class="card-time">本周</span>
+          </div>
+          <div class="card-fact">Claude Code 团队在 Opus 5/Fable 5 上删除超 80% 系统提示词，内部编码评测"无任何可测性能损失"。操作命名为"Unhobbling"（解除桎梏）。例：旧版"Never write multi-paragraph docstrings" → 新版"Write code that reads like the surrounding code"。从"禁止做什么"变成"定义一个可观测的目标"。</div>
+          <div class="card-comment">过去两年整个 LLM 工程界的共识是"提示词越长越全越好"。Anthropic 用数据打脸——旧模型的保姆式规则到了新一代就成了紧箍咒。提示工程正在从"约束模型"转向"对齐目标"，模型自身的判断力已经超越了死规则覆盖的边界。</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 5. HuggingFace CEO -->
+    <a class="card-link" href="https://www.cnbc.com/2026/08/03/hugging-face-china-ai-race-open-models.html" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://image.cnbcfm.com/api/v1/image/108343878-1785771033709-gettyimages-2151606047-BLOOMBERG_TECHNOLOGY_SUMMIT.jpeg?v=1785771160&w=1920&h=1080" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">HuggingFace CEO：中国开源模型年底将追平美国头部</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-cat">开源</span>
+            <span class="card-source">CNBC &#183; Business Insider</span>
+            <span class="card-time">今日</span>
+          </div>
+          <div class="card-fact">HF CEO Clement Delangue 接受 CNBC 专访，预测中国开源模型最快今年年底与美国头部企业技术齐平。分析称核心优势在于"开放的科研协作与模型共享体系"，而美国多数前沿实验室采用封闭式独立研发。预判未来大多数 AI 网络攻击将源自闭源私有模型，开源模型将成为安全核心。英伟达、微软、Meta、OpenAI 等二十余家科技企业联合发公开信呼吁不要限制开放权重模型。</div>
+          <div class="card-comment">一个欧洲人、全球最大开源模型平台 CEO，在美国媒体上说中国开源路线赢了——这不只是观点，是信号。结合 Qwen3.8-Max 本周 Arena 排名 + MiniMax H3 开源，中国 AI 的"开放生态"叙事正在从地缘政治话术变成技术现实。</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 6. Valar Atomics $1B -->
+    <a class="card-link" href="https://techstartups.com/2026/08/03/venture-capital-startup-funding-roundup-august-3-2026-atreides-battery-ventures-nea-sequoia-point72-more/" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero no-img">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">Valar Atomics 获 10 亿美元 B 轮，用核微反应堆为 AI 供电</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-cat">融资</span>
+            <span class="card-source">TechStartups</span>
+            <span class="card-time">今日</span>
+          </div>
+          <div class="card-fact">Sequoia 领投，估值 60 亿美元，另有 $2 亿信用额度。工厂预制模块化核微反应堆，专为 AI 数据中心供电。7 月已实现用核能直接为 NVIDIA AI 芯片供电。计划建 30MW 设施与 NVIDIA 合作。Atreides、Point72、Snowpoint 跟投。CEO 表示"AI 正在极速建设，每个方向都需要大量电力"。</div>
+          <div class="card-comment">这不是"清洁能源故事"，是 AI 算力瓶颈的下游解法。当 hyperscaler 的电力需求撞墙，VC 就把钱投到核反应堆工厂。Sequoia 领投 10 亿的逻辑很清楚：算力拐点到来之前，先买电。</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 7. Cloudflare @cloudflare/computer -->
+    <a class="card-link" href="https://blog.cloudflare.com/cloudflare-computer/" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://blog.cloudflare.com/_emdash/api/media/file/01KZ0Q5WSFNF56H4SS5SERCGQ1.png" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">Cloudflare 推出 @cloudflare/computer：给每个 AI Agent 一台"电脑"</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-cat">Agent</span>
+            <span class="card-source">Cloudflare 官方博客</span>
+            <span class="card-time">今日</span>
+          </div>
+          <div class="card-fact">开源 Agent 运行时，动态编排 Isolate（快、省、可水平扩展）和 Linux 容器（完整用户空间）。虚拟文件系统由 Durable Objects + SQLite 持久化，Agent 空闲时休眠、唤醒时状态无损。提供 node:fs 兼容 API + AI SDK 工具集（read/write/edit/ls/exec）。核心设计哲学：容器只在必要时唤醒，而非每个 Agent 独占一个容器。</div>
+          <div class="card-comment">"容器只是工具，不应该是一个家"——这是对 Agent 基础设施的重新定义。背后是简单算术：全世界没有足够容器支撑数十亿并发 Agent。Agent 运行时正在从"给每个 Agent 一个容器"变成"给每个 Agent 一个持久文件系统 + 按需执行环境"。</div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- Section: 前沿技术 -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-dot dot-frontier"></div>
+    <div class="section-title">前 沿 技 术</div>
+    <div class="section-subtitle">Frontier &#183; GitHub &amp; arXiv 周边</div>
+  </div>
+
+  <div class="cards">
+
+    <!-- F1. Graphify -->
+    <a class="card-link" href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/bb2b4b82be595fe06539abe91db99dcbf383101c9e3adbd155cfe17a9ead5333/Graphify-Labs/graphify" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">Graphify &#8212; 将任意代码库变成可查询的知识图谱</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-cat">前沿技术</span>
+            <span class="card-source">GitHub</span>
+            <span class="card-time">&#9733; 101,892 / +840 今日</span>
+          </div>
+          <div class="card-fact">TypeScript 项目，一键将代码库（含文档、SQL schema、配置文件、PDF）转化为可查询的知识图谱。作为 Claude Code / Cursor / Codex / Gemini CLI 的 /graphify 技能使用。支持多语言代码库的跨文件语义查询和编辑。已积累 101.9K Stars。</div>
+          <div class="card-comment">解决的是 Agent 理解大型代码库的"全局视野"问题——当项目超过 50 个文件，Agent 的上下文窗口装不下全貌。Graphify 相当于给 Agent 装了一个可查询的项目地图，10 万星说明这个需求是刚需。</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- F2. DeepSeek-Reasonix -->
+    <a class="card-link" href="https://github.com/esengine/DeepSeek-Reasonix" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/github-production-repository-image-32fea6/1216785679/7d891983-5b92-40d4-81e3-7ebc365ce645" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">DeepSeek-Reasonix &#8212; DeepSeek 原生的终端 AI 编程 Agent</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-cat">前沿技术</span>
+            <span class="card-source">GitHub</span>
+            <span class="card-time">&#9733; 29,978 / +883 今日</span>
+          </div>
+          <div class="card-fact">Go 语言项目，围绕 DeepSeek 前缀缓存稳定性设计，可长时间运行不中断。终端原生体验，支持多文件编辑、shell 命令执行、Git 操作。专为 DeepSeek V4 系列模型优化推理效率，充分利用 V4 Flash &#165;2/M token 价格优势。</div>
+          <div class="card-comment">工程亮点是"前缀缓存稳定"——大多数 AI 编程 Agent 在长时间会话中因上下文偏移退化，Reasonix 的架构直接针对这个痛点。V4 Flash &#165;2/M token + 这个工具，对 Cursor/Copilot 的经济账冲击不小。</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- F3. LiveKit Agents -->
+    <a class="card-link" href="https://github.com/livekit/agents" target="_blank" rel="noopener">
+      <div class="card">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/f98c8dc807fadf324d6403223c1999cddeee0c9724fc0382b0b194f6b8a7dc1a/livekit/agents" alt="" referrerpolicy="no-referrer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');">
+          <div class="card-hero-overlay"></div>
+          <div class="card-hero-title">LiveKit Agents &#8212; 实时语音 AI Agent 框架</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-cat">前沿技术</span>
+            <span class="card-source">GitHub</span>
+            <span class="card-time">&#9733; 12,027 / +148 今日</span>
+          </div>
+          <div class="card-fact">Python 项目，专为构建实时语音 AI Agent 设计，支持 WebRTC 全双工通信。内置语音活动检测（VAD）、语音转文本（STT）、LLM 推理、文本转语音（TTS）完整管线。已与 OpenAI、ElevenLabs、Deepgram 等主流模型和 API 集成。</div>
+          <div class="card-comment">GPT-Live 发布同一天，开源社区也有全双工语音 Agent 方案在 trending。12K 星说明实时语音 Agent 正从"大厂自研"变成"社区标配"——基础设施层的民主化速度在加快。</div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">AI DAILY / 商业&#183;认知观察者&#183;出品</div>
+
+</div>
+</body>
+</html>
