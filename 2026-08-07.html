@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · 2026年8月7日</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+  .dot-硬件 { background: #8CA8B8; box-shadow: 0 0 8px rgba(140,168,184,0.4); }
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+  .stitle-硬件 { color: #7090A0; }
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 08 / 07</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">&larr;</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL &middot; 58</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 &middot; 一手源优先 &middot; 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 08 ／ 07 &middot; 周五</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://openai.com/index/improving-gpt-5-6-sol-in-chatgpt/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://images.ctfassets.net/kftzwdyauwt9/5ufNl1zzui8XrAogWs5j89/13fdcb619e5f1e31a3efd34f425477ac/Art_Card_16x9__1_.png?w=1600&amp;h=900&amp;fit=fill" alt="OpenAI GPT-5.6" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">OpenAI 官方博客</span>
+              <span class="card-divider">&middot;</span>
+              <span>12 小时前</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">OpenAI 升级 GPT-5.6：免费用户无限聊，事实错误率暴降 68%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">GPT-5.6 Sol 事实错误较 GPT-5.5 Instant 减少 68%，Luna 减少 62% / 免费用户默认升至 GPT-5.6 Luna，下周起无限文本聊天 / Plus/Pro 获 Sol 更新 + 思考滑块调推理深度 / 免费用户新增 Think 按钮调用深度推理 / ChatGPT 周活突破 10 亿</p>
+          <div class="comment">从限流到无限，OpenAI 这一步不是降价——是直接不收钱了。10 亿周活的底牌让免费不是慈善而是护城河：用户数据回流训练、生态锁定、竞品获客成本飙升。代价是 Sol 的 Work/Codex 版本保持不变——最赚钱的产品线没动，动的是大众市场。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.orcarouter.ai/blog/grok-4-6-release-date" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cms.orcarouter.ai/api/media/file/grok-4-6-1-1200x630.png" alt="Grok 4.6" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">xAI / Arena.ai</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">Grok 4.6 今日发布：1.5T 参数不变，靠后训练追上 Opus 4.8</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">架构与 Grok 4.5 相同（1.5T MoE V9），仅改进 SFT + RL 后训练 / 前代 Grok 4.5 成本为 Opus 4.8 的 1/5 / Grok 4.7（2.1T 参数）数周后跟进 / Arena Agent 排行榜本周上线评测 / Musk 称将达 Kimi K3 与 Opus 4.8 水平</p>
+          <div class="comment">xAI 的玩法变了：不再是堆参数，而是在一个架构上反复压榨后训练。4.6 如果保持 4.5 的 $2/$6 定价而追平 Opus 4.8，最慌的不是 Anthropic——是正在签大单的企业客户，刚买的旗舰模型一个月就贬值。但 4.5 的幻觉率高达 54%，后训练能不能压住才是真考验。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L3NISTK205118O92.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">钛媒体 / 财经</span>
+              <span class="card-divider">&middot;</span>
+              <span>12 小时前</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">DeepSeek 宣布 API 整体涨价，同时低调重启 500 亿二轮融资</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">V4-Flash 调用量一周内升至全球第一 / API 整体提价预计涨幅较大 / 持有约 2 万张 H 系等效芯片训推共用 / 二轮融资计划募资 500 亿元，投前估值约 5000 亿元（较首轮 +43%）/ 7 月底曾因「投资者会议实录」事件暂停，现已重启</p>
+          <div class="comment">V4-Flash 正式版一周冲到全球调用量第一，然后涨价——这个顺序很梁文锋：先证明东西好用，再证明你该多付钱。2 万张卡的训推共用已经吃紧，涨价本质上是算力再分配。融资 500 亿的底气来自调用量，但投资人赌的是 V4-Pro 正式版能不能守住在 Agent 基准上的领先。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260807A05IS600" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">经济参考报</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">可灵 AI 完成近 $30 亿融资：BAT 史上首次同台入股，投后估值 $180 亿</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">近 30 亿美元融资，创视频大模型单轮最大纪录 / 腾讯、阿里云、百度首次同时出现在一家公司股东名册 / 腾讯阿里各出约 ¥13.6 亿（各持股 1.1%），百度 ¥3.4 亿（0.28%），无董事会席位 / Q1 营收超 ¥6.5 亿（+300% YoY），ARR 近 $5 亿 / 近三月 AI 视频赛道四家融资合计近 ¥300 亿 / 含 IPO 对赌：2031 年 10 月前未上市可按年化 8% 单利回购</p>
+          <div class="comment">BAT 在同一个项目里当小股东——上一次可能是互联网诞生之前。三家不争控制权、只占小股，本质上是对字节跳动 Seedance 强势追击的联合防御：字节的 Seedance+剪映+TikTok 全链条太完整，三家各自攒不足视频生成能力，只能联手押可灵。IPO 对赌把窗口收窄到 5 年。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.sohu.com/a/1059717925_455313" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">腾讯研究院 / 阿里</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">阿里 Wan3.0 视频模型开启公测：单次生成 30 秒，支持一镜到底</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">新一代视频生成模型 Wan3.0 开启公测 / 单次可生成 30 秒视频 / 支持连续运镜、一镜到底等复杂镜头语言 / 智能时长适配 / 字节 Seedance 2.5 同期发布（同样 30 秒）/ AI 短剧制作成本已从传统 ¥30-50 万压缩至 ¥3-5 万</p>
+          <div class="comment">视频生成赛道从「能跑就行」进入了「谁能稳定产出可商用内容」的阶段。30 秒 + 一镜到底是硬指标——这意味着模型不仅要逐帧生成合理画面，还要保持镜头内物体一致性。阿里和字节几乎同时攻到这个关口，真正的胜负手不在模型，在谁能把推理成本降到让短剧公司愿意切过来。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 硬件 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-硬件"></span>
+        <span class="section-title stitle-硬件">硬 件</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260807A03F8W00" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-硬件"></span>
+              <span class="card-source-name">The Information / IT之家</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">NVIDIA 拟降 Rubin Ultra 显存配置，HBM 短缺倒逼芯片「缩水」</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">NVIDIA 内部过去数周测试了至少 3 种低 HBM 配置的 Rubin Ultra / 原定 HBM4E 可能降至 HBM4，12Hi 降至 8Hi / 三大 DRAM 原厂 HBM4E 验证进度存在变量 / 显存缩减后运行大模型需部署更多 GPU，系统成本或进一步上升 / SK 海力士股价当日跌近 5%</p>
+          <div class="comment">NVIDIA 主动降配，暴露的不是技术问题，是整个 AI 产业的物理天花板。HBM 制造复杂、良率低、扩产慢——供需缺口已经不是涨价能解决的。对云厂商而言，Rubin Ultra 如果「缩水」意味着花更多钱买更多卡才能跑同样规模的模型，AI 基础设施成本曲线可能不是下降而是上翘。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://weibo.com/2099539611/5329203831506288" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-硬件"></span>
+              <span class="card-source-name">SpaceX / 马斯克 X</span>
+              <span class="card-divider">&middot;</span>
+              <span>12 小时前</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">马斯克启动 Terafab：$168 亿 AI 芯片工厂，总投 $1190 亿</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">SpaceX 联合特斯拉在得州启动 Terafab 项目 / 初期投资 $168 亿，扩建后总投 $1190 亿 / 目标年产 1TW 算力 / 配套自建天然气发电厂 + 储能电池阵列 / Optimus 机器人消耗约 25% 产能，航天 AI 消耗 75% / 已与英特尔达成芯片制造合作</p>
+          <div class="comment">Terafab 的逻辑不是「造芯片卖给别人」，而是「造芯片给自己用」。Optimus 需要推理芯片、SpaceX 需要航天 AI 芯片——马斯克正在把 Tesla、SpaceX、xAI 和 Neuralink 的芯片需求从外部采购变成自给自足。$1190 亿看似疯，但如果这笔钱替代的是未来十年从 NVIDIA 进货的账单，账就好算了。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier &middot; GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/huangruiteng/loopx" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/0af2721dcdbda40e9d5ace373b9090a06926b5677205f1890896638330918255/huangruiteng/loopx" alt="loopx" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">loopx：轻量级 Agent 循环工程内核，847 Stars/天，跨 Codex/Claude Code</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">GitHub 2.9K Stars / 今日 +847 Stars / Python / Agent-loop agnostic 跨 Codex、Claude Code、Cursor / 持久化目标管理 + 配额感知自动唤醒 + 可执行 TODO + 证据日志 + 可验证交接 / 长时程多 Agent 团队运行时</p>
+          <div class="comment">loopx 解决的问题很具体：多个 AI Agent 长时间协作时，怎么记住「做到哪了」、怎么在失败后恢复、怎么在不同 Agent 框架间传递状态。2.9K Star 不算大，但 847/day 的增速说明这个需求正在从少数人的痛点变成普遍需求——「Agent 的工程基础设施」可能是下一个大方向。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/uber/ADR" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/8580203c63a2755bf3493ececbf1f846513c90a99e48f0ca3d00e2c8b8706f38/uber/ADR" alt="Uber ADR" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">&middot;</span>
+              <span>今日</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">Uber 开源 ADR：企业级 AI Agent 可观测性与安全框架，已在 Uber 部署</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">GitHub 1.2K Stars / 今日 +289 Stars / Python / 可观测性 + 安全基准测试 + 威胁检测三位一体 / 已在 Uber 生产环境部署 / 面向企业 AI Agent 的全栈安全方案 / 安全基准测试覆盖 Agent 常见攻击面</p>
+          <div class="comment">Agent 安全终于从「讨论原则」变成了「有开源工具」。Uber 敢把它部署到生产环境再开源，说明不是实验室玩具。ADR 代表了一个趋势：Agent 大规模落地的瓶颈已经从「能不能干活」变成「干活的时候会不会闯祸」——可观测性和安全测试正在变成 Agent 基础设施的标配。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://arxiv.org/abs/2608.02113" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">arXiv</span>
+              <span class="card-divider">&middot;</span>
+              <span>4 天前</span>
+              <span class="card-arrow">&rarr;</span>
+            </div>
+            <h2 class="headline">MemArbiter：Agent 记忆仲裁框架，ALFWorld 成功率 92.5%，超基线 25 个百分点</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">arXiv 2608.02113 / 功能感知记忆仲裁框架 / 五种功能记忆库 + 焦点-环境双通道表示 + 时间呈现门控 / ALFWorld 500-token 预算成功率 82.8%，750-token 达 92.5% / 比最强基线高 20.9-25.4 个百分点 / 显著改善失败后恢复并减少重复动作</p>
+          <div class="comment">现有 Agent 框架的记忆管理基本是「把所有东西都塞进去」，MemArbiter 的贡献是证明了「知道什么时候回忆什么」比「记住一切」更重要。92.5% 在极其受限的 750 token 预算下是相当硬的数字——尽管只在 ALFWorld 上验证，但方向是对的：Agent 的记忆不是仓库，是调度系统。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 &middot; 认 知 观 察 者 &middot; 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
