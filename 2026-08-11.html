@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·60 · 2026-08-11</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 08 / 11</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 60</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 08 ／ 11 · 周二</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.sohu.com/a/1061193334_455313" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="OpenAI GPT-5.6" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">腾讯研究院 / TechCrunch</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI 三连发：GPT-5.6 Luna 免费无限聊天 + Cyber 安全模型 + Daybreak 双层级</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">GPT-5.6 Luna 取代 Instant 成为免费用户默认模型，纯文字聊天不再限制条数；Plus/Pro 上线 GPT-5.6 Sol 优化版 + 思考强度滑块；全新 GPT-5.6-Cyber 安全模型向 Daybreak Red 合作方（埃森哲/IBM/普华永道等）开放</p>
+          <div class="comment">OpenAI 今天打了一套组合拳：免费端用 Luna 抢用户心智，付费端用 Sol + 思考滑块提升粘性，企业端用 Cyber 占安全市场。三重分层意图明确——从「一种模型服务所有人」到「不同场景不同模型」。但 Cyber 仅向白名单开放也说明：OpenAI 对模型自主攻击能力的恐惧，可能不亚于它的客户。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260811A03D3N00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OwuyehPsuviAbfMHS5WSkF1Y3yS_h5kXixQiY5VVX1XJsAA_640330/0" alt="Claude 黎曼猜想" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Anthropic 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Claude 冲击黎曼猜想：60 个 Agent 协同 36h，零点比例下界从 41.6% 跃至 67.2%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Claude 拉起约 60 个子智能体在 Claude Code 里跑了一天半 / 执行 2,400 条 Shell 命令、数百个 Python 脚本 / 消耗 3,100 万输出 token / 将黎曼 ζ 函数满足临界线条件的零点比例下界从人类数十年推进的 41.6% 一举推至 67.2% / 关键贡献来自 2 个 Agent</p>
+          <div class="comment">这不是「AI 解了一道题」，而是「AI 自主组织了一场小型数学研讨」。Anthropic 员工只是晨跑时给了个目标，剩下的——方法论选择、子 Agent 分工、验证、写论文——全由 Claude 完成。37 年人类推进 0.8%，AI 一个周末推进 25.6%。真正重要的不是数字，是 AI 从「工具」变成「科研合伙人」的角色跃迁。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.sohu.com/a/1061193334_455313" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="Sonnet 5.5" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">华尔街见闻 / 36氪</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic Sonnet 5.5「Fennec」泄露：200 万 token 上下文，直指 DeepSeek V4 Flash</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">内部代号 Fennec / 上下文窗口翻倍至 200 万 token / 推理速度更快、延迟更低 / 工具调用（浏览器/终端）大幅改善 / 综合能力逼近旗舰 Fable 5 / 定价维持 Sonnet 档位 / 最早下月发布</p>
+          <div class="comment">Sonnet 5.5 的定位很微妙：性能逼近旗舰但价格维持中端。Anthropic 的打法是用 Sonnet 吃掉 Haiku 的性价比位，同时向上挤压 Fable。在 DeepSeek V4 Flash 已经把价格打到地板的情况下，Anthropic 的选择不是降价而是翻倍上下文——用能力而非价格来防守。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.sohu.com/a/1061259860_130887" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://q0.itc.cn/q_70/images03/20260811/fa29ea68968d4fcba5f2fb0a5366b130.png" alt="Claude Code 自动模式" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">Anthropic 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic Sonnet 5 永久冻结原价 + Claude Code 8/14 起默认自动模式</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Sonnet 5 原定 8 月底涨价 50% 的计划永久取消 / API 费用不再上调 / Claude Code Pro/Max/Team 用户 8/14 起新会话默认启用自动模式 / 自动模式拦截 89% 危险命令 vs 人工审查仅 13.6% / Anthropic 承担额外 token 开销</p>
+          <div class="comment">两项决策背后同一种逻辑：降低开发者迁移成本。Sonnet 5 不涨价 = 锁住已接入的企业工作流；自动模式默认启用 = 减少人工审批摩擦——毕竟当人类同意率 97% 时，审批已经是表演。89% vs 13.6% 的差距说明：信任机器的判断，比信任人的注意力更靠谱。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.36kr.com/p/3934265198345348" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://img.36krcdn.com/hsossms/20260811/v2_f68f8d81639740318bdebca2e50d3688@5091053@ai_oswg884866oswg1053oswg495_img_png~tplv-1marlgjv7f-ai-v3:600:400:600:400:q70.jpg" alt="Muse Glimmer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">Meta 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Meta 开源 30B Agent 模型 Muse Glimmer + Spark 1.2 全权重开放，Apache 2.0</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">300 亿参数 Agent 模型，4bit 量化仅需 24GB 显存 / 128K 上下文 / 推测解码：草稿模型先生成、主模型验证优化 / 蒸馏自 Muse Spark 旗舰模型 / Apache 2.0 协议，支持商用 / 支持 100+ 语言、工具调用、多步推理、失败重试 / 同时开放 Spark 1.2 权重</p>
+          <div class="comment">扎克伯格一面应付 1.4 万亿天价索赔，一面把最强开源 Agent 砸出来。30B 塞进消费级 GPU、Apache 2.0 全开放——这不是技术炫技，是对生态的精确一步。当 OpenAI/Anthropic 在卷云端 Agent 时，Meta 在把 Agent 塞进你的 Mac。端侧 Agent 不需要最强的模型，需要刚刚好能跑的那一个。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.cnr.cn/tech/techyw/kan/20260811/t20260811_527757424.shtml" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="中国开源AI" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">央广网</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">中国开源模型下载量占全球 41%，MiniMax H3 登顶 HuggingFace 热度榜首</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">中国研发的开源模型下载量占全球总量 41%，跃居世界第一 / MiniMax H3 上线三天登顶 HuggingFace / 全球主流大模型调用榜前六全部来自中国团队 / 80% 美国 AI 初创公司路演使用中国开源模型 / Stable Diffusion 创始人公开「向 MiniMax 致敬」</p>
+          <div class="comment">不再是一家模型的偶然走红，而是系统性工程：DeepSeek、Kimi、Qwen、MiniMax——从文本到视频到多模态，中国开源已形成产品矩阵。41% 的全球占比不是终点，关键是生态深度：芯片适配、框架对接、应用落地都在加速。开源不是道德选择，是商业策略中最激进的那一种。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L41P6O1G0534A4SC.html" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="NVIDIA 5000亿" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">MarketWatch / 界面新闻</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">NVIDIA 联手六大华尔街巨头，组建 5000 亿美元 AI 基础设施独立融资平台</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">合作方：Apollo/贝莱德/黑石/Brookfield/高盛/KKR / 目标逐步调动 5,000 亿美元第三方资本 / 以债务融资为主，向 AI 实验室/企业/云商提供芯片采购贷款 / 黄仁勋：「算力即收入」/ 将 GPU 集群重新定义为「可投资基建资产」而非快速贬值硬件 / NVIDIA 可提供最高 25% 的信用增信</p>
+          <div class="comment">黄仁勋在做一件比造芯片更难的事：重新定义 GPU 的金融属性。把 GPU 从「三年折旧的电子垃圾」变成「可抵押、可流转、能产生现金流的基础设施资产」，本质是在为 AI 产业搭建金融高速公路。六大巨头合计管理资产超 5 万亿美元——他们不是在押注 AI，是在押注「AI 需要借钱」这件事本身。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/PrimeIntellect-ai/prime-agent" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/c8084cc4591deb2fcabc320cfc35e1afdfbec69b083d19cae392966ab74e2f7b/PrimeIntellect-ai/prime-agent" alt="prime-agent" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">prime-agent：自进化的 RLM 编码 Agent，单日 +2,642★，总 13.1K★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">自改进强化学习 Agent 框架 / 面向编码工作流和长时间自主任务 / TypeScript / 2026-08-11 单日新增 2,642 Stars（总 13.1K）/ 支持长时间自主运行、多步编码任务 / Reinforcement Learning from Mistakes (RLM) 机制</p>
+          <div class="comment">单日 2,642 星的增长不是偶然——RLM（从错误中学习）的概念正在从学术走向工程。与传统的 function-calling Agent 不同，prime-agent 试图让 Agent 在执行中自我纠正和优化。但「自进化」的双刃剑在于：错误纠正和胡乱尝试之间，边界谁来划？</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/semantica-agi/semantica" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/cc0bd6088ca87b3e95f246d3971205a288deb15abe77e5dd34239d58fd5ae390/semantica-agi/semantica" alt="semantica" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Semantica：图原生 AI 基础设施，单日 +970★，为 Agent 提供可审计上下文</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Graph-Native Infrastructure / Python / MIT 协议 / 2026-08-11 单日新增 970 Stars（总 4.2K）/ 定位「AI Agent 的开源 Palantir」/ 知识图谱驱动的上下文管理和可问责 AI 系统 / pip install 即用，支持 MCP</p>
+          <div class="comment">当 Agent 越来越自主，可审计性就成了刚需。Semantica 用图结构管理 Agent 的上下文和决策链——不是让 Agent 更聪明，而是让 Agent 的每一步都可追溯。MCP 生态正在从「工具连接」进化到「上下文治理」，这是基础设施层的一步关键填空。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/addyosmani/agent-skills" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/b42c95e84a300b7f746f350adfd6055c751aa161a3105c61f4f3cab1747847de/addyosmani/agent-skills" alt="agent-skills" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">agent-skills：生产级 AI 编码 Agent 技能库，单日 +659★，总 85.8K★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Addy Osmani（Google Chrome 工程总监）开源 / JavaScript / 2026-08-11 单日新增 659 Stars（总 85.8K）/ 将资深工程师的工作流、质量门禁和最佳实践编码为可复用 Skills / 覆盖开发全阶段 / 支持 Claude Code、Codex 等主流 Agent</p>
+          <div class="comment">85.8K 星的体量说明一件事：Agent Skills 已经从个人偏好进化为行业标准层。Osmani 把「一个 senior engineer 脑子里怎么干活」变成了 Agent 可执行的指令集。这不是给 Agent 新能力，而是给 Agent 加规范——而规范，恰恰是 Agent 从 Demo 走向 Production 的最后一块拼图。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
