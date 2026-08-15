@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·63 · 2026-08-15</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 08 / 15</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 63</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 08 ／ 15 · 周六</p>
+      </div>
+    </header>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.anthropic.com/news/claude-text-watermark" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://www.anthropic.com/api/opengraph-illustration?name=Hand%20Quill&amp;backgroundColor=heather" alt="Claude 文本水印" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">Anthropic 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Claude 全文加水印：SynthID-Text 上线，全球生效</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/15 Anthropic 官宣：未来 Claude 生成文本将内嵌不可见水印，采用 Google DeepMind 的 SynthID-Text 方案，为遵守欧盟《AI 法案》8/2 生效的透明度规则。官方称对输出质量无实际影响、读者无法区分、不加额外 token、不携带身份信息，与多家主流 AI 提供商同步实施，全球用户统一生效</p>
+          <div class="comment">水印最妙的地方在于：对读者无感、对模型无伤，却能给「谁写的」留一道鉴定口。Anthropic 没有自研而是直接借谷歌的 SynthID-Text，说明水印这种「行业公共品」上巨头反而抱团。但「无统计学显著差异」「影响可以忽略」这类限定词叠了一整篇——恰恰说明影响没法被证明是零。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L4C6HK6E0511BLFD.html" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="Anthropic Model 2" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">cnBeta / Anthropic 风险报告</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 拒发更强「Model 2」：风险上调，评估失准</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/15 Anthropic 发布风险评估报告：内部超旗舰模型「Model 2」多项内部任务表现显著进步，但公司明确无对外发布计划。受近期网络安全事件影响，高风险场景下模型失控概率从「极低」上调为「低」。团队坦言传统任务式评估已难捕捉模型能力真实增长，评估信心下降</p>
+          <div class="comment">最有价值的不是「不发布」，而是那句「传统评估已经测不准了」。当模型能力跑得比评估方法快，AGI 的「安全刹停」就从工程问题变成认识论问题——你连它多强都测不准，凭什么证明它安全？OpenAI 缓发 Astra、Anthropic 扣下 Model 2，两大前沿厂同时踩刹车，这本身就是比任何新模型都重要的信号。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L49M17S305118O8G.html" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="DeepMind 重组" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">爱范儿独家 / Reuters</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">DeepMind 停掉前沿大模型，转攻 Flash 传裁员 1/3</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/14 爱范儿独家：谷歌 DeepMind 将停止前沿大模型研发，全面转向性价比更高的 Flash 轻量模型。GDM 团队约 7000-8000 人，可能裁员 1/3 或更高，部分团队已并入谷歌其他业务线。此前 8/5 Hassabis 卸任 CEO 转任董事长，Gemini 3.5 Pro 已延期数月，核心团队被指从未把 Gemini 当日常主力</p>
+          <div class="comment">发明 Transformer 的老大哥公开认怂：烧钱追旗舰，不如卖 Flash。路透点名三座大山——算力被搜索/Cloud/YouTube 抢走、项目负责人内讧、层级太多发版慢。谷歌这波不是「放弃 AI」，是承认「旗舰军备赛打不起」。当连谷歌都不追 SOTA，闭源旗舰的定价逻辑就要松动了。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://mp.weixin.qq.com/s?__biz=MzkyMzI3NzQ0Mg%3D%3D&amp;mid=2247494084&amp;idx=1&amp;sn=a2e5cd9a534a4825feb3633ea1b6d49208" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="GLM-5.3" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">智谱官方公众号</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">智谱 GLM-5.3：不换底座，靠后训练提升 50%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/14 智谱发布 GLM-5.3，7400 亿参数与 5.2 同底座，靠极致后训练 Scaling 使编程能力较前代提升 50%，Terminal Bench 3.0 等公开基准开源第一、接近 Claude Fable 5。同步涌现网络安全能力：白盒代码审查持平 Mythos 5、CyberGym 得分 84.5%，现实代码库累计识别 2436 个漏洞。权重两周后开源</p>
+          <div class="comment">别人换底座冲参数，智谱拿同一副身体练出 50% 提升——后训练 Scaling 还有大把矿可挖。更有意思的是「编程与安全」被捏成同一种能力：会写代码的模型，天然会审代码、挖漏洞。开源前先晒安全成绩单，既立技术人设，又提前给监管递话。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://cursor.com/blog/joining-spacex" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/uploads/close-og-image-1-B5D1caLmbVsj0JInrL2qKgXzLPMGoU.png" alt="SpaceX 收购 Cursor" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Cursor 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">SpaceX 正式收购 Cursor：白捡全球最大 GPU 集群</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/14 Cursor 官方博客确认被 SpaceX 收购，完成自 4 月启动的收购流程。合并后 Cursor 将获得全球最大 GPU 集群，自建更强、运行成本更低的模型并以更低价格交付；本周发布的 Grok 4.6 被视为双方合作的早期成果</p>
+          <div class="comment">程序员最爱的编辑器，成了马斯克算力帝国的前台。逻辑很简单：Grok 需要 Agent 入口，Cursor 需要 GPU——两家互补得近乎天作之合。但「全球最大 GPU 集群」加持下，Cursor 涨价或生态排他只是时间问题。OpenAI 和 Anthropic 的编辑器争夺战，突然多了一个带火箭的玩家。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://view.inews.qq.com/a/20260815A03PCP00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="OpenAI 企业收入" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">鞭牛士 / 凤凰网</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI 企业收入首超消费者，年化破 400 亿美元</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/15 OpenAI CFO Sarah Friar 透露：企业业务收入已超过由 ChatGPT 主导的消费者业务，7 月运营率环比增长 20%、企业客户增长 32%，年化营收突破 400 亿美元；广告业务年化收入接近 10 亿美元；公司强调「智能单位成本」取代「token 最大化」成为新考核指标</p>
+          <div class="comment">ChatGPT 是门面，企业 API 才是印钞机——OpenAI 的收入结构正式完成 to B 化。400 亿美元年化听着吓人，但对照 Anthropic 被传的 470 亿，OpenAI 反而显得慢了。当考核从「token 最大化」转向「智能单位成本」，等于官方承认：这轮竞争比的不是谁吐字多，是谁干的活便宜。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.thehindu.com/sci-tech/technology/apple-trains-its-own-ai-model-for-china-market-with-alibabas-support-sources-say/article71344070.ece" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://th-i.thgim.com/public/incoming/ob1gi4/article71344072.ece/alternates/LANDSCAPE_1200/2026-08-14T042405Z_211866694_RC2VYLAIE4QH_RTRMADP_3_APPLE-ALIBABA-AI.JPG" alt="苹果中国专属模型" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">Reuters / The Hindu</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">苹果在阿里支持下自训中国专属大模型</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/14 路透社独家：苹果已在阿里巴巴支持下专门为中国市场训练大语言模型，标志其从「依赖第三方」转向「自有模型」。Apple Intelligence 预计数月内随 iOS 更新在中国上线，苹果有望成为首家获北京批准在华提供自研模型的外国公司；阿里千问仍将集成进国行 Apple 设备</p>
+          <div class="comment">苹果在中国的 AI 策略从「租模型」变成「自己造」，但造还得靠阿里递算力。双轨并行的精妙在于：自研模型保体验一致性，千问/百度保合规备案，两头都不落下。华为们用 AI 抢走的份额，苹果要拿一个「中国特供大脑」抢回来。中美 AI 博弈的大背景下，这可能是最现实的一种合作范式。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.explainx.ai/blog/chatgpt-google-docs-sheets-slides-integration-august-2026" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://explainx.ai/og/blog/chatgpt-google-docs-sheets-slides-integration-august-2026.webp" alt="ChatGPT Google Docs" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">OpenAI 官方 X</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">ChatGPT 直接在聊天里编辑 Google 文档表格幻灯片</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/14 OpenAI 官方 @ChatGPT 发布：ChatGPT 可在聊天窗口内直接打开并编辑 Google Docs/Sheets/Slides，边说边改、无需切换标签页，向 Plus/Pro/Business/Enterprise 开放，网页端上线，路由 Google Drive 文件；上线数小时视频观看超 13 万次；暂不支持修订模式与多账号</p>
+          <div class="comment">干掉的不是文档工具，是「切换」这个动作本身。当 AI 能直接在 Drive 文件里改稿，ChatGPT 就从聊天框升级成工作台——谷歌文档反而成了它的文件系统。组合拳更狠：ChatGPT Work 上月刚破 800 万用户，今天又伸手进 Google Workspace。办公软件的护城河，正被「对话即操作」一点点拆掉。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/cathrynlavery/diagram-design" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/797ff4d0f2c1e8b0df0cf745b66d62fc82c249d5753b3f567b7fefe170779bec/cathrynlavery/diagram-design" alt="cathrynlavery/diagram-design" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">diagram-design 单日 +3.6K★：给 Claude Code 发一套图表语言</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">cathrynlavery/diagram-design，今日 GitHub Trending 榜首，单日 +3,646★、总 17.3K★。29 种 Claude Code 编辑型图表类型，自包含 HTML+SVG，无阴影、弃 Mermaid 风格，Agent 可直出可编辑的专业图表，被视为 AI 编程可视化新范式</p>
+          <div class="comment">图表是 LLM 的盲区——token 是线性的，版面是二维的，Claude 们一直画不好图。这个项目把 29 种图表做成「自包含 HTML」，等于给 Agent 配了一套可编辑的视觉语言。单日 3.6K 星说明一个朴素的痛点正在爆发：代码写对还不够，汇报时那张图也得能看。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/K-Dense-AI/scientific-agent-skills" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/d1e424d62bc134f2ed38f947dc5159c49800f2417b997a6ebe951bafe301a5e6/K-Dense-AI/scientific-agent-skills" alt="K-Dense-AI/scientific-agent-skills" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">scientific-agent-skills：33.5K★ 技能库把 Agent 变成 AI 科学家</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">K-Dense-AI/scientific-agent-skills，33.5K★，今日再登 Trending。161 个经验证的科研技能 + 100+ 科学数据库，覆盖生物/化学/医学/药物发现，兼容 Cursor、Claude Code、Codex、Pi 与开放 Agent Skills 标准，自称 17 万+ 科学家用户</p>
+          <div class="comment">Agent 技能正从「写代码」扩散到「做科研」——这个库押的是 open Agent Skills 标准：一份技能文件，Cursor/Claude Code/Codex 通用，等于把学科知识变成 Agent 的可移植能力。当 161 个实验技能变成可调用插件，实验室里的重复劳动，正在被第一波 Agent 自动化。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/volcengine/OpenViking" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/e77e82f0114f2c021b669d6328b8eb7047c14307d86ad955e91b6ef379e8dda5/volcengine/OpenViking" alt="volcengine/OpenViking" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">火山引擎开源 OpenViking：给 Agent 造统一记忆中枢</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">volcengine/OpenViking，28.5K★，今日登 Trending。自进化上下文数据库，统一 Agent Memory、知识 RAG 与 Skills 三大能力，让 Agent 跨会话记住、检索、复用上下文，直指「每次新会话从零开始」的冷启动成本</p>
+          <div class="comment">Agent 的记性一直是硬伤：开个新会话，之前干过的活全忘。OpenViking 把记忆、RAG、技能三件事揉进一个自进化数据库——记忆不再是补丁，而是基础设施。国内云厂商集体下场做 Agent 记忆层，说明「模型军备赛」正在让位给「上下文工程」。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
