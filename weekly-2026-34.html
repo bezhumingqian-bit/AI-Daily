@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 趋势周报 · 第 34 周 · 2026-08-10 ～ 2026-08-16</title>
+<meta name="description" content="Anthropic 财务爆发与 IPO 竞速、DeepMind 战略收缩、中国开源登顶——AI 竞争从模型竞赛转向商业化与格局定型">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #2C2A26;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: #7A766C; font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: #2C2A26; }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: #B5B0A4; letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: #7A766C; text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-back:hover { color: #2C2A26; }
+  .container { max-width: 780px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  /* Header */
+  .header {
+    background: #FFFEFC;
+    border: 1px solid #E6E1D6;
+    border-radius: 16px;
+    padding: 44px 36px 38px;
+    margin-bottom: 26px;
+    position: relative;
+  }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #7A766C;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .header-week {
+    font-size: 13px;
+    color: #8A8474;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .header-title {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.35;
+    color: #2C2A26;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: #5F5B53;
+    margin-top: 14px;
+    line-height: 1.8;
+    padding-top: 14px;
+    border-top: 1px solid #E6E1D6;
+  }
+  .header-meta {
+    font-size: 12px;
+    color: #7A766C;
+    margin-top: 16px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Section */
+  .section {
+    background: #FFFEFC;
+    border: 1px solid #E6E1D6;
+    border-radius: 14px;
+    padding: 30px 32px;
+    margin-bottom: 22px;
+  }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #2C2A26;
+  }
+  .section-count {
+    font-size: 11px;
+    color: #B5B0A4;
+    letter-spacing: 1px;
+    margin-left: auto;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: #E6E1D6;
+  }
+  .section-sub { font-size: 13px; color: #7A766C; margin: -10px 0 20px; line-height: 1.7; }
+
+  /* Signal cards */
+  .signal {
+    border: 1px solid #E6E1D6;
+    border-radius: 10px;
+    background: #FAF7EE;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .signal summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    user-select: none;
+  }
+  .signal summary::-webkit-details-marker { display: none; }
+  .signal summary:hover { background: rgba(0,0,0,0.015); }
+  .signal-stars {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #B08D5A;
+    flex-shrink: 0;
+    padding-top: 3px;
+    width: 52px;
+  }
+  .signal-title { font-size: 15px; font-weight: 600; color: #2C2A26; line-height: 1.5; flex: 1; }
+  .signal-arrow {
+    color: #B5B0A4;
+    font-size: 12px;
+    flex-shrink: 0;
+    padding-top: 4px;
+    transition: transform 0.2s;
+  }
+  .signal[open] .signal-arrow { transform: rotate(90deg); }
+  .signal-body {
+    padding: 2px 18px 16px 80px;
+    font-size: 13.5px;
+    color: #5F5B53;
+    line-height: 1.85;
+  }
+  .signal-body p { margin-bottom: 8px; }
+  .signal-body p:last-child { margin-bottom: 0; }
+  .signal-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+  .tag-开源 { background: #E8E2D2; color: #5A5443; }
+  .tag-Agent { background: #DAE0D2; color: #4A5340; }
+  .tag-政策 { background: #E5DCC4; color: #6B5F40; }
+  .tag-大模型 { background: #E2D2CB; color: #6B4F47; }
+  .tag-推理 { background: #D5DCDC; color: #4A5258; }
+  .tag-融资 { background: #E8E2D2; color: #5A5443; }
+  .tag-安全 { background: #E5DCC4; color: #6B5F40; }
+
+  /* Table */
+  .matrix-wrap { overflow-x: auto; }
+  table.matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    line-height: 1.7;
+    min-width: 660px;
+  }
+  table.matrix th {
+    background: #FAF7EE;
+    color: #5F5B53;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid #E6E1D6;
+    font-size: 12px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  table.matrix td {
+    padding: 12px;
+    border-bottom: 1px solid #E6E1D6;
+    vertical-align: top;
+    color: #2C2A26;
+  }
+  table.matrix tr:last-child td { border-bottom: none; }
+  table.matrix td.vendor { font-weight: 600; white-space: nowrap; color: #2C2A26; }
+  table.matrix .dim { color: #5F5B53; font-size: 12px; }
+  .note { font-size: 12px; color: #B5B0A4; margin-top: 12px; }
+
+  /* Trend items */
+  .trend {
+    padding: 16px 0 16px 26px;
+    border-left: 2px solid #E6E1D6;
+    margin-left: 4px;
+    position: relative;
+  }
+  .trend:last-child { padding-bottom: 4px; }
+  .trend::before {
+    content: "";
+    position: absolute;
+    left: -5px; top: 22px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #8A8474;
+  }
+  .trend-title { font-size: 14.5px; font-weight: 600; color: #2C2A26; margin-bottom: 6px; line-height: 1.5; }
+  .trend-body { font-size: 13.5px; color: #5F5B53; line-height: 1.85; }
+  .trend-body b { color: #2C2A26; font-weight: 600; }
+
+  /* Watch list */
+  .watch {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px dashed #E6E1D6;
+  }
+  .watch:last-child { border-bottom: none; }
+  .watch-num {
+    font-size: 13px;
+    color: #8A8474;
+    font-weight: 600;
+    flex-shrink: 0;
+    width: 26px;
+    text-align: center;
+    padding-top: 2px;
+  }
+  .watch-title { font-size: 14px; font-weight: 600; color: #2C2A26; line-height: 1.5; margin-bottom: 4px; }
+  .watch-body { font-size: 13px; color: #5F5B53; line-height: 1.8; }
+
+  /* Review */
+  .review-item {
+    padding: 14px 18px;
+    border: 1px solid #E6E1D6;
+    border-radius: 10px;
+    background: #FAF7EE;
+    margin-bottom: 10px;
+  }
+  .review-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+  .review-status {
+    font-size: 11px;
+    padding: 1px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .review-status.fulfilled { background: #DAE0D2; color: #4A5340; }
+  .review-status.partial { background: #E5DCC4; color: #6B5F40; }
+  .review-status.missed { background: #E2D2CB; color: #6B4F47; }
+  .review-title { font-size: 13.5px; font-weight: 600; color: #2C2A26; }
+  .review-body { font-size: 13px; color: #5F5B53; line-height: 1.8; }
+  .review-note { font-size: 12px; color: #B5B0A4; margin-top: 14px; line-height: 1.7; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 30px 0 10px;
+    color: #B5B0A4;
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 2;
+  }
+  .footer .author { color: #7A766C; font-size: 13px; letter-spacing: 2px; }
+  .footer a { color: #8A8474; text-decoration: none; }
+  .footer a:hover { color: #2C2A26; }
+
+  @media (max-width: 600px) {
+    .container { padding: 16px 12px 40px; }
+    .header { padding: 30px 22px 26px; }
+    .header-title { font-size: 24px; }
+    .section { padding: 22px 18px; }
+    .signal-body { padding-left: 18px; }
+    .signal-stars { width: 44px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <nav class="nav">
+    <a class="nav-brand" href="index.html">AI DAILY</a>
+    <div class="nav-right">
+      <a class="nav-back" href="2026-08-16.html">← 最新日报</a>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="vol">AI WEEKLY · 趋势分析</div>
+    <div class="header-week">第 34 周 · 2026-08-10 ～ 2026-08-16</div>
+    <h1 class="header-title">财务爆发与战略收缩同台<br>AI 竞争进入「格局定型期」</h1>
+    <p class="header-subtitle">
+      Anthropic 以 115 亿美元季度营收和 2 万亿美元 IPO 预期改写商业化叙事，同一周 DeepMind 被曝停止前沿研发、转向 Flash 性价比路线；中国开源以 41% 下载占比登顶，字节押注 10 万亿参数自研。竞争焦点正从「谁能训出更强的模型」移向「谁能把模型变成可持续的生意」。
+    </p>
+    <div class="header-meta">基于 6 个工作日 58 条精选新闻 · 每周一 10:00 发布</div>
+  </header>
+
+  <!-- 维度1 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">一 · 本周关键信号</span>
+      <span class="section-count">8 条 · 点击展开</span>
+    </div>
+    <p class="section-sub">从过去 7 天的日报中抽取真正的行业转折信号，剔除噪声。星级 = 对产业格局的影响强度。</p>
+
+    <details class="signal" open>
+      <summary>
+        <span class="signal-stars">★★★</span>
+        <span class="signal-title">Anthropic Q2 营收 115 亿美元、同比增 14 倍，营业利润首次转正，IPO 估值目标 2 万亿美元</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>彭博披露：Anthropic 二季度初步营收超 115 亿美元（同比 +14 倍）、营业利润首次转正，5 月年化营收破 470 亿；85% 收入来自企业 API 与开发者订阅，Claude Code 年化约 25 亿。已秘密提交 IPO，预期 10 月上市、估值 2 万亿以上——若兑现将超越 SpaceX（1.77 万亿）成史上最大 IPO。</p>
+        <p><b>为什么重要：</b>「大模型无法盈利」的叙事首次被财务数据推翻；Anthropic 可能抢在 OpenAI 之前上市，二级市场估值已至 1.5 万亿（月内 +25%）。</p>
+        <div class="signal-tags"><span class="tag tag-融资">融资</span><span class="tag tag-大模型">大模型</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★★</span>
+        <span class="signal-title">Google DeepMind 停掉前沿大模型研发、转攻 Flash，传裁员 1/3</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>爱范儿独家：DeepMind 不再追逐前沿旗舰模型，全面转向性价比更高的 Flash 轻量模型；团队约 7000-8000 人，或裁员 1/3。8/5 Hassabis 已卸任 CEO 转任董事长、CTO Koray 接任并向皮查伊汇报。同一周 SemiAnalysis 发布《谷歌已放弃前沿 AI》。</p>
+        <p><b>为什么重要：</b>发明 Transformer 的实验室主动退出前沿竞赛，是性价比压力的极端信号——核心产品要的是「够用且便宜」，与 Anthropic 的爆发形成对照。</p>
+        <div class="signal-tags"><span class="tag tag-大模型">大模型</span><span class="tag tag-政策">战略</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★★</span>
+        <span class="signal-title">中国开源模型下载量占全球 41% 登顶，阿里首次开源 Max 级旗舰 Qwen3.8-2.4T</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>Hugging Face《开放模型现状》：中国开源模型下载量占全球 41%、登顶；千问近半年下载破 30 亿（HF Hub 20.45 亿），超谷歌（4.18 亿）、Meta（2.27 亿）。8/13 阿里首次开源 Max 级旗舰 Qwen3.8-2.4T-A95B：2.4 万亿总参、95B 激活、512 专家取 11、262K 上下文可扩至约 100 万。次日再开源 27B 多模态 Qwen3.8-27B（Apache 2.0）。</p>
+        <p><b>为什么重要：</b>开源首次覆盖从 14MB 端侧到 2.4 万亿旗舰的全谱系，旗舰性能官方宣称「比肩 Fable 5」——开源不再是低价平替，而是能力可信度的证明。</p>
+        <div class="signal-tags"><span class="tag tag-开源">开源</span><span class="tag tag-大模型">大模型</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">ChatGPT 与 Gemini 双双破 10 亿月活；Cloudflare 机器流量首超人类</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>8/11-12 ChatGPT 与 Gemini 先后宣布月活破 10 亿——Gemini 成谷歌第 14 个十亿用户产品（iOS 月活超 1 亿、语音占 63%），ChatGPT 7 月周活已破 10 亿。同期 Cloudflare Q2：非人类流量占比首破 50%（原预期 2027 下半年），Agent 请求同比 +1700%。</p>
+        <p><b>为什么重要：</b>两个「十亿」交汇——人端进入超级应用时代，机端（Agent 流量）成为互联网主要负载，竞争从模型能力扩展到流量入口。</p>
+        <div class="signal-tags"><span class="tag tag-大模型">大模型</span><span class="tag tag-推理">基础设施</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">DeepSeek V4 Pro 正式版 Agent 能力反超 Claude Opus 4.8；字节押注 10 万亿参数、张一鸣否决蒸馏捷径</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>8/13 DeepSeek 上线 V4-Pro-0813：DeepSWE 从 12.8 跃至 62.7、超越 Opus 4.8，Cybergym 83.3 与 AutomationBench 68.5 超越 Fable 5；1M 上下文、最大输出 384K token，定价不涨。8/14 官宣峰谷定价（闲时半价，8/17 生效）。同期钛媒体：字节 Seed 正预训练最高 10 万亿参数模型（超 Kimi K3 三倍），张一鸣全员会明确反对蒸馏竞品。</p>
+        <p><b>为什么重要：</b>中国厂商分两条路线——DeepSeek 打「效率战」，字节打「规模战」，且都拒绝蒸馏捷径，与 DeepMind 收缩前沿形成全球性分化。</p>
+        <div class="signal-tags"><span class="tag tag-大模型">大模型</span><span class="tag tag-推理">推理</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">SpaceX 正式收购 Cursor 获全球最大 GPU 集群；Grok 4.6 两天接入 GitHub Copilot 8 大平台</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>8/14 Cursor 官方确认被 SpaceX 收购（4 月启动流程），合并后获全球最大 GPU 集群、自建更强更便宜的模型。8/12 发布的 Grok 4.6（500K 上下文、面向长时自主 Agent）被视为合作早期成果，8/14 即接入 GitHub Copilot——8 大平台同日上线，距发布仅 2 天，Business/Enterprise 默认关闭。</p>
+        <p><b>为什么重要：</b>xAI 以「收购 IDE + 极速分销」切入开发者生态，Grok 成第三个主流编码模型选项，背靠算力军火库——IDE 是模型分发的最短路径。</p>
+        <div class="signal-tags"><span class="tag tag-Agent">Agent</span><span class="tag tag-融资">融资</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">OpenAI 发布进攻级安全模型 GPT-5.6-Cyber（完成率 95%）；Claude 上线 SynthID-Text 全文水印</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>8/13 OpenAI 发布 GPT-5.6-Cyber：基于 Sol 微调，高级网络任务完成率 95%（上代 57.3%、Sol 默认护栏下仅 1.5%），评估中发现 2 个 Chrome V8 0-day（CVE-2026-15903）及 400+ 内核提权漏洞，仅经 Daybreak Red 向审核安全团队开放。8/15 Anthropic 官宣 Claude 全文内嵌 SynthID-Text 不可见水印，为遵守欧盟 AI 法案 8/2 透明度规则。</p>
+        <p><b>为什么重要：</b>一周内同时出现「进攻性安全商业化」与「合规水印全面落地」——安全从监管议题变成产品功能，两家选择攻与守两条路径。</p>
+        <div class="signal-tags"><span class="tag tag-安全">安全</span><span class="tag tag-政策">政策</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">Claude 60 个子智能体协同改进黎曼猜想零点比例下界：41.6% → 67.2%</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>Anthropic 披露：研究版 Claude 在 Claude Code 中拉起约 60 个子智能体，跑了一天半（2,400 条 Shell 命令、3,100 万输出 token），将黎曼 ζ 函数零点比例下界从人类数十年未动的 41.6% 推至 67.2%。关键贡献来自其中 2 个 Agent。公司强调这是「agent 编排方法」的数据点，而非解出猜想本身。</p>
+        <p><b>为什么重要：</b>多 Agent 协作首次在「数十年未动的数学下界」上产出可验证进展——关键不是 Agent 数量，而是少数关键 Agent 的洞察驱动全局。</p>
+        <div class="signal-tags"><span class="tag tag-Agent">Agent</span><span class="tag tag-前沿技术">科研</span></div>
+      </div>
+    </details>
+
+  </section>
+
+  <!-- 维度2 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">二 · 厂商动态矩阵</span>
+      <span class="section-count">5 阵营横向对比</span>
+    </div>
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>厂商</th>
+            <th>模型</th>
+            <th>产品</th>
+            <th>融资 / 估值</th>
+            <th>关键动作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="vendor">OpenAI</td>
+            <td>GPT-5.6 Luna（免费无限聊天）；Sol Ultrafast（14 倍速、750 tok/s）；GPT-5.6-Cyber</td>
+            <td>ChatGPT Ads 扩 5 国；聊天内编辑 Google Docs/Slides；Atlas 浏览器停服；Linux 原生 App</td>
+            <td>年化破 400 亿美元，企业收入首超消费者；员工回购 70 亿、估值 8520 亿</td>
+            <td>Daybreak Blue/Red 安全双层级；10 亿月活；「智能单位成本」取代「token 最大化」考核</td>
+          </tr>
+          <tr>
+            <td class="vendor">Anthropic</td>
+            <td>Sonnet 5.5「Fennec」泄露（200 万 ctx）；内部 Model 2 拒发</td>
+            <td>Claude Code 8/14 起默认自动模式（拦截 89% 危险命令）；SynthID-Text 水印；Slack 智能协作</td>
+            <td>Q2 115 亿美元（+14 倍）、利润转正；IPO 目标 2 万亿；60 亿收购 Decart 洽谈中</td>
+            <td>85% 收入来自企业；Claude Code 年化 25 亿；Riot 91 亿美元锁定 20 年算力</td>
+          </tr>
+          <tr>
+            <td class="vendor">Google DeepMind</td>
+            <td>Gemini 3.7 Flash（3 周迭代、半价）；Gemini 3.5 Pro 延期</td>
+            <td>Gemini 破 10 亿月活；语音使用占 63%</td>
+            <td>—（母公司 Alphabet）</td>
+            <td>停止前沿研发转向 Flash；传裁员 1/3；Koray 接任、Hassabis 转董事长；Jeff Dean 离职创业</td>
+          </tr>
+          <tr>
+            <td class="vendor">Meta / xAI</td>
+            <td>Muse Glimmer（30B 本地 Agent、Apache 2.0）；Spark 1.2 全权重；Grok 4.6（500K ctx）</td>
+            <td>Cursor 并入 SpaceX；Grok 接入 Copilot 8 平台；Grok Bot Agent 公测</td>
+            <td>xAI 收购 Cursor（获全球最大 GPU 集群）；SpaceX 6 月上市市值 1.77 万亿</td>
+            <td>Meta 走本地开源 Agent 路线；xAI 走「算力+IDE 分发」闭环</td>
+          </tr>
+          <tr>
+            <td class="vendor">DeepSeek / 阿里 / 字节 / 智谱</td>
+            <td>DeepSeek V4 Pro（DeepSWE 62.7）；Qwen3.8-2.4T / 3.8-27B；字节 10 万亿参数预训练中；GLM-5.3（后训练 +50%）</td>
+            <td>deepseek-harness（Agent 全插件化）；OpenViking 记忆中枢；智谱网络安全能力涌现</td>
+            <td>宇树上市（610 亿、219 倍 PE）；Databricks 50 亿融资、估值 1900 亿</td>
+            <td>中国调用量 34.25 万亿 token、15 周全球第一；前四均为中国模型；开源下载占全球 41%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">* 数据均来自本周日报原始信源（厂商官方公告 / Bloomberg / Reuters / 钛媒体等），截至 8/16。</p>
+  </section>
+
+  <!-- 维度3 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">三 · 技术演进趋势</span>
+      <span class="section-count">5 条方向性变化</span>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">开源从「追赶」进入「越位」，覆盖全谱系——从 14MB 端侧到 2.4 万亿旗舰</div>
+      <div class="trend-body">
+        开源动作在两端同时发生：上端，阿里首次开源 Max 级旗舰 Qwen3.8-2.4T（2.4 万亿总参、95B 激活），Meta 开源 30B 本地 Agent 模型 Muse Glimmer（4bit 量化 24GB 显存可跑）；下端，needle 以 14MB 基础模型冲向手机与机器人，小红书开源 dots.tts（首包 54ms）。<b>「开源=低配」的等式已经失效</b>——开源成为能力可信度与生态话语权的证明，HF 下载量首次给出可量化阵营对比（千问 30 亿 vs 谷歌 4.18 亿 vs Meta 2.27 亿）。与上月 Kimi K3（2.8T）相比，节奏从「单点爆款」变成「系统性全谱系覆盖」。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">推理成本战进入「定价机制创新」阶段：分时、分级、分流</div>
+      <div class="trend-body">
+        三个定价动作指向同一方向：Gemini 3.7 Flash 定价砍半（$0.75/$3.75 每百万 token，约 Sonnet 5 的 1/3）；DeepSeek 引入峰谷定价（闲时半价，8/17 生效）；OpenAI 推出 Ultrafast 14 倍速按场景分级售卖。加上英伟达开源 NeMo Switchyard 智能路由库（按任务难度分流、宣称成本降至 1/3），<b>推理定价从「一刀切的 token 单价」走向「分时 × 分级 × 分流」的多维定价</b>。上月的降价是「跟着对手调价」，本周是「重构价格结构」——后者对成本精细控制的要求高一个量级。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">Agent 竞争从模型评分转向上下文基础设施：记忆、身份、工具成为主战场</div>
+      <div class="trend-body">
+        GitHub 高星项目几乎全部指向 Agent 的「上下文管理」：DeepSeek 开源 deepseek-harness（单日 +16K★，模型/工具/技能/沙箱/存储全插件化）、火山引擎 OpenViking（统一记忆中枢）、holaOS（让 Claude Code 和 Codex 共享记忆）、ego-lite（把登录态借给 Agent）、Scrapling（抓取变 Agent 原生工具）。<b>当模型能力趋同，Agent 差异化取决于「能记住什么、能碰什么、能改什么」</b>——上下文不再是窗口长度参数，而是记忆、权限与工具系统的组合能力。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">多 Agent 科研从「演示」进入「可验证产出」，但核心洞见来自少数 Agent</div>
+      <div class="trend-body">
+        Claude 60 个 Agent 将黎曼零点比例下界从 41.6% 推到 67.2%（人类数十年未动），加上 prime-agent（自进化编码 Agent）、scientific-agent-skills（161 个验证过的科研技能）等密集涌现，<b>Agent 科研从「能跑通流程」升级为「能推进人类未解问题的数值下界」</b>。值得注意的是 Anthropic 披露：关键贡献来自 60 个中的 2 个 Agent——「Agent 数量」不是变量，分工与关键节点的深度推理才是。与上月 Astra 以 $2,000 验证 10 道数学猜想相比，本周是「研究型 Agent 从验证已知走向推进未知」。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">安全从「监管合规」变成「攻防产品化」，三家实验室走出三条路</div>
+      <div class="trend-body">
+        安全信号密集到需要单独归纳：OpenAI 把进攻性安全做成付费产品（GPT-5.6-Cyber 完成率 95%、Daybreak Red 分级开放）；Anthropic 选择合规与保守（SynthID-Text 全文水印 + 拒发更强的 Model 2 + 风险等级上调为「低」）；Google 则通过 Gemini 3.7 Flash 与 SynthID 联合方身份参与。加上 GPT-5.6-Cyber 主动发现 2 个 Chrome V8 0-day，<b>「用模型对抗模型」从概念变成可交付的服务</b>——同时 Anthropic 承认传统任务式评估已难捕捉模型真实能力增长，安全评估体系进入失准期。
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 维度4 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">四 · 商业格局变化</span>
+      <span class="section-count">4 条结构性位移</span>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">估值排序洗牌：Anthropic 反超 OpenAI，IPO 竞速窗口打开</div>
+      <div class="trend-body">
+        估值叙事发生实质反转：Anthropic 二级市场估值约 1.5 万亿美元（月内 +25%），IPO 目标 2 万亿+；OpenAI 员工回购估值 8520 亿、6 月已秘密提交 IPO。年化营收（470 亿 vs 400 亿）与利润状态（转正 vs 未披露）让「谁是第一」有了新口径。<b>更关键的是节奏：Anthropic 预计 10 月挂牌，若兑现将抢在 OpenAI 之前</b>——先上市者掌握融资成本与员工流动性的定价权。Databricks 1900 亿估值（半年 +42%）完成 50 亿融资，宇树 610 亿市值、219 倍 PE 上市，全球 AI 资本化进入密集窗口（今年全球 IPO 融资 2564 亿美元、创 2021 年来新高）。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">算力金融化加速，但风险定价在收紧</div>
+      <div class="trend-body">
+        英伟达联手 Apollo/贝莱德/黑石/高盛/KKR 组建 5000 亿美元算力融资平台（GPU 集群被重新定义为「可投资基建资产」）；Anthropic 与矿企 Riot 签 91 亿美元 20 年算力协议（191MW，摩根士丹利提供 5.73 亿过渡融资）；但同一周英伟达对 OpenAI 俄亥俄项目的担保从 2500 亿缩至 1200 亿以下、仅覆盖一期 5GW。<b>资金流入与风控收缩并行</b>——算力从「买断的硬件」变成「租赁的资产」是确定的，但市场对 AI 回报的耐心并非无限，担保缩水是第一个显性信号。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">B 端渗透质变：企业收入成为主引擎，工具收入开始显性化</div>
+      <div class="trend-body">
+        OpenAI CFO 披露企业收入首次超过消费者业务（7 月运营率环比 +20%、企业客户 +32%）；Anthropic 85% 收入来自企业 API 与开发者订阅、Claude Code 年化约 25 亿——<b>「开发者工具」成为继「API 调用」之后第二增长曲线</b>。Claude Code 8/14 起默认自动模式（拦截 89% 危险命令 vs 人工 13.6%），说明厂商正用安全指标换取企业信任。B 端从「试点」进入「核心工作流」的转折，本周有了财务数字背书。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">中美格局：「中国模型便宜」叙事转向「能力可信度」，苹果入局中国自研</div>
+      <div class="trend-body">
+        中国 AI 调用量 15 周全球第一（周 34.25 万亿 token，前四全是中国模型），DeepSeek V4-Flash 以 8.83 万亿 token 居首、单任务成本 $0.03（约为 Fable 5 的 1/100）；但转向值得注意——Kimi K3 定价已与 GPT-5.4 同档、DeepSeek 反而涨价（峰谷制），<b>「便宜」不再是唯一卖点，能力可信度成为新竞争维度</b>。路透独家：苹果在阿里支持下为中国市场自训大模型（Apple Intelligence 数月内随 iOS 上线，千问仍集成国行设备），同时郑州 10 万卡国产超集群投用（PUE 1.04）。中美从「模型对抗」走向「供应链与生态互相嵌入」。
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 维度5 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">五 · 下周观察清单</span>
+      <span class="section-count">5 条 · 可验证</span>
+    </div>
+    <p class="section-sub">基于本周信号，下周值得跟踪的具体事件——每条都带一个可验证的判断标准。</p>
+
+    <div class="watch">
+      <div class="watch-num">01</div>
+      <div>
+        <div class="watch-title">DeepSeek 峰谷定价 8/17 生效首周：闲时半价能否真的拉动负载曲线？</div>
+        <div class="watch-body">判断标准：官方或社区是否有调用量时段分布的可观测变化；个人对话免费是否影响 API 收入结构。若负载迁移不明显，峰谷定价会从价格策略降级为营销事件。</div>
+      </div>
+    </div>
+
+    <div class="watch">
+      <div class="watch-num">02</div>
+      <div>
+        <div class="watch-title">Anthropic IPO 细节与 Sonnet 5.5「Fennec」发布时间</div>
+        <div class="watch-body">判断标准：10 月上市的 S-1 是否公开；泄露代号 Fennec 的 Sonnet 5.5（200 万 ctx）是否如传闻「最早下月发布」——Fennec 直指 DeepSeek V4 Flash 定价带，若发布将点燃新一轮性价比战。</div>
+      </div>
+    </div>
+
+    <div class="watch">
+      <div class="watch-num">03</div>
+      <div>
+        <div class="watch-title">GPT-5.6-Cyber 的两个 Chrome 0-day：修复节奏与 Daybreak 账号安全策略</div>
+        <div class="watch-body">判断标准：Google 对 CVE-2026-15903 的补丁发布速度；9/1 Daybreak 全账号强制硬件安全密钥后，安全团队的使用反馈与投诉量。</div>
+      </div>
+    </div>
+
+    <div class="watch">
+      <div class="watch-num">04</div>
+      <div>
+        <div class="watch-title">Qwen3.8-2.4T 第三方部署报告与智谱 GLM-5.3 权重开源</div>
+        <div class="watch-body">判断标准：2.4 万亿参数（95B 激活）能否在非阿里云环境稳定部署（与上月 Kimi K3 2.8T 对照）；智谱承诺「两周后开源 GLM-5.3 权重」（8/28 前后）是否兑现、是否为完整权重。</div>
+      </div>
+    </div>
+
+    <div class="watch">
+      <div class="watch-num">05</div>
+      <div>
+        <div class="watch-title">Grok 4.6 进 Copilot 后的一周数据与 DeepMind 裁员确认</div>
+        <div class="watch-body">判断标准：GitHub 是否披露 Grok 4.6 在 Copilot 的采用率（默认关闭下的转化率是关键）；DeepMind 裁员 1/3 传闻是否有官方确认；Gemini 3.5 Pro 的最终命运。</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 上期回顾 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">六 · 上期判断兑现度</span>
+      <span class="section-count">第 32 周 · 2 周后回顾</span>
+    </div>
+    <p class="section-sub">对照第 32 周（07-27 ～ 08-02）周报的 5 条观察清单逐条核验。第 33 周因故未发布，兑现窗口为 2 周。</p>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status partial">部分兑现</span>
+        <span class="review-title">Kimi K3 第三方大规模部署报告</span>
+      </div>
+      <div class="review-body">未见非 Moonshot 基础设施上的大规模部署报告，但结构变化更大：K3 定价已与 GPT-5.4 同档、字节押注 10 万亿参数模型，行业从「K3 能不能部署」转向「下一代旗舰谁先到」。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status partial">部分兑现</span>
+        <span class="review-title">OpenAI Astra 技术报告与更多数学验证</span>
+      </div>
+      <div class="review-body">无新技术论文公开，但被曝 GPT-6（Astra）传闻 10 万亿参数、8 月拟强行发布，Anthropic 备好 Fable 5.1 截击——「数学验证」被「发布竞赛」取代，Astra 最终形态成为新待验证项。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status missed">未兑现</span>
+        <span class="review-title">Anthropic 信任危机后的用户流失数据</span>
+      </div>
+      <div class="review-body">无流失数字公开，且出现反方向事实：Q2 营收 115 亿美元、同比 +14 倍、企业客户增长 32%——信任危机（Claude 入侵 3 家公司）未演变为可观测的商业损失；但风险报告承认失控概率上调为「低」，安全口碑与商业增长正在解耦。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status fulfilled">兑现</span>
+        <span class="review-title">EU AI Act 执法首周动态</span>
+      </div>
+      <div class="review-body">无「企业被调查」新闻，但 EU AI Act 8/2 生效的直接结果出现：Anthropic 8/15 宣布 Claude 全文内嵌 SynthID-Text 水印，全球统一生效。执法压力转化为合规产品功能，兑现形式比预期更具体。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status partial">部分兑现</span>
+        <span class="review-title">月之暗面 Pre-IPO 进展与 K3 算力瓶颈</span>
+      </div>
+      <div class="review-body">无 Pre-IPO 轮公开公告；K3 暂停新订阅后无官方恢复声明。但字节 10 万亿参数预训练改变语境——「K3 算力瓶颈」让位于「下一轮算力军备竞赛」，月之暗面需回答「2.8T 之后是什么」。</div>
+    </div>
+
+    <p class="review-note">核验口径：兑现 = 出现明确事实；部分兑现 = 相关但方向偏移；未兑现 = 无公开信息或事实相反。2 周窗口内未验证的项本轮未纳入。</p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="author">AI DAILY · 商业与认知观察者 · 出品</div>
+    <div>第 34 周 · 2026-08-10 ～ 2026-08-16 · 基于 6 个工作日 58 条精选新闻</div>
+    <div><a href="index.html">返回主页</a> · <a href="2026-08-16.html">最新日报</a></div>
+    <div>本报告为信息整理与分析，不构成投资建议</div>
+  </footer>
+
+</div>
+</body>
+</html>
