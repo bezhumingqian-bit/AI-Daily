@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·65 · 2026-08-18</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 08 / 18</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 65</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 08 ／ 18 · 周二</p>
+      </div>
+    </header>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://news.qq.com/rain/a/20260817A08PM900" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/ODymzGUmcRJlkx37fHHjOhGoZ7zy_NBRrlGRwznhKNsKoAA_640330/0" alt="Stripe 收购 OpenRouter" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Bloomberg / 环球网</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Stripe 超 70 亿美元收购 OpenRouter，卡位 AI 模型路由入口</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/17 彭博社披露，Stripe 已达成收购 AI 模型聚合网关 OpenRouter 的协议，交易金额超 70 亿美元（约 471 亿元），有望刷新 AI 模型路由平台并购纪录。OpenRouter 服务 800 万开发者、接入 400+ 模型，5 月刚完成 1.13 亿美元 B 轮、估值 13 亿美元；投资方含 a16z、谷歌 CapitalG、英伟达 NVentures。CEO Alex Atallah 是 OpenSea 联合创始人，曾称 OpenRouter 是「AI 界的 Stripe」；最终价格仍可能调整。</p>
+          <div class="comment">当模型越来越像「电」，谁掌握「电表」和「配电网」，谁就掌握利润。Stripe 从支付切入模型路由，本质是抢「Agent 经济的计费层」——模型调用正在变成像支付流水一样的常态化计费单元。800 万开发者 × 400+ 模型的聚合入口，是后训练时代最稀缺的位置之一。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L4F041FN05198NMR.html" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="英伟达缩减担保" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">华尔街日报 / 华尔街见闻</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">英伟达缩减 OpenAI 数据中心担保：2500 亿 → 1200 亿，只保首期 5GW</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">据《华尔街日报》首发、路透跟进，英伟达已重新设计对 OpenAI 俄亥俄州 10GW 超算园区的融资结构——财务担保从原定 2500 亿美元砍至不足 1200 亿美元，仅覆盖首期 5GW，剩余 5GW 后续再议。该园区由软银旗下 SB Energy 开发，芯片采购总额或达 3500 亿美元。此前 2500 亿担保消息传出当日，英伟达股价即跌 5%，投资者担忧其用资产负债表撬动芯片需求的风险敞口。</p>
+          <div class="comment">从 2500 亿缩到 1200 亿，英伟达在「卖铲人」与「金融杠杆」之间踩下刹车。市场用 5% 的下跌投了票：当芯片公司开始为下游客户的算力债背书，它的资产负债表就绑上了整个 AI 周期的兴衰。分期担保是风险管理上的让步，也暴露了这轮算力军备竞赛的融资脆弱性。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.sohu.com/a/1063677258_455313" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://aistify.com/wp-content/uploads/2026/08/anthropic-model-2-risk-report-misalignment-01.png" alt="Anthropic 风险报告" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">Anthropic 官方 / 腾讯研究院</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 186 页风险报告：自曝 Model 2 更强却拒发，生物安全分类器失效 11 个月</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/14 Anthropic 发布第二份公司级风险报告（186 页、RSP v3.4），首次将「灾难性失调」风险评级从「极低」上调至「较低」，并自曝内部藏着一款未发布模型 Model 2——CoBench 得 62.8%，高于旗舰 Mythos 5 的 50.3%，大量用于内部编码与 Agent 任务，但「无对外发布计划」。更扎眼的是：一个生物安全阻断分类器因内部 flag 意外失效约 11 个月，覆盖约 5 万名外包标注员的 1.33 亿次交互，日志同步关闭；事后回溯扫出 1197 条高风险记录，未发现明确滥用。</p>
+          <div class="comment">这份报告的杀伤力不在「模型更强」，而在「测量仪表失灵」——Anthropic 承认能力评测开始饱和，评级上调不是发现新失败，而是「不确定性上升」。当用来检测危险的尺子测不出增量，风险叙事就从「模型会不会变坏」转向「我们还能不能及时发现它变坏」。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 商业 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-商业"></span>
+        <span class="section-title stitle-商业">商 业</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://finance.sina.com.cn/stock/t/2026-08-17/doc-ininqxus9072210.shtml" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://n.sinaimg.cn/spider20260817/164/w660h304/20260817/4b09-b289ae6f1ca05f75be0d4482e053b903.jpg" alt="腾讯 Q2 资本开支" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-商业"></span>
+              <span class="card-source-name">腾讯财报 / 新浪财经</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">腾讯 Q2 资本开支 528 亿同比 +176%，自由现金流 2005 年来首次转负</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">腾讯 2026 Q2 资本开支 527.84 亿元，同比激增 176%、环比增 65%，单季投入超过 2019–2023 任一年全年；约七至八成流向 GPU 服务器与 AI 加速芯片，用于混元大模型训练与推理。叠加 514 亿元算力采购预付款，二季度 AI 基础设施实际投入超千亿元，自由现金流录得 -138 亿元、为 2005 年以来首次转负（剔除预付款后 +376 亿）。总裁刘炽平称本轮集中投入以今明两年为主，并将资本开支拆为成熟主业与 AI 原生业务两部分。</p>
+          <div class="comment">轻资产运营了二十年的腾讯，开始用今天的利润为 AI 买「明天」。528 亿单季资本开支 + 514 亿预付款，是押注算力底座的明确信号；自由现金流转负不是现金流枯竭，而是主动把现金流换成 GPU 与下一代入口。关键问题是：这批重投入何时换来匹配回报——刘炽平给出的兜底答案是「可随时出租算力」。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://news.aibase.com/zh/news/30377" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="" alt="dots3-note" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">小红书 / 华为昇腾</span>
+              <span class="card-divider">·</span>
+              <span>近日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">小红书开源 dots3-note：280B 全模态 MoE，华为昇腾 0 Day 适配</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">小红书开源 dots3-note preview，280B 总参、16B 激活的 MoE 架构，支持最长 512K 上下文，具备文本、视觉、语音全模态感知理解，专攻长程 Agent 与复杂推理任务。发布当日华为昇腾即完成 0 Day 全量适配（Atlas 800 A3 / 900 A3 超节点 + vLLM Ascend），4 卡并行吞吐达每秒 1200 tokens。该系列上月刚在国际数学奥林匹克（IMO）拿下 42 分满分金牌。</p>
+          <div class="comment">「大参数、小激活」的 MoE 把成本压住，再叠上 512K 上下文与多模态，dots3-note 直指 Agent 落地最难的长程任务。华为昇腾 0 Day 适配才是真正的信号——「国产模型 + 国产算力」从第一天就能跑通，形成全栈自主可控的完整链路。小红书正从「内容平台的 AI」长成有硬实力的通用模型玩家。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/cordiverse/cordis" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/cordiverse/cordis" alt="cordiverse/cordis" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">cordis：DeepSeek Harness 底层的时空可组合元框架，单日 +957★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">cordiverse/cordis，5.7K★、今日 +957★。基于北大与 DeepSeek 联合论文的插件元框架，只做三件事——加载插件、卸载插件、解析依赖，是 DeepSeek Harness「一切皆插件」的底座。Harness 开源后，dsh-plugin 标签公开仓库已迅速突破 700 个。</p>
+          <div class="comment">DeepSeek Harness 爆火背后，真正的「发动机」是这个 5.7K 星的元框架。当「插件即一切」成为 Agent 运行时的新共识，Cordis 这类克制到极致的底座——只负责插件的加载、卸载与依赖解析——反而成了最有生命力的那一层。框架层的军备竞赛，刚刚开始。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/usestrix/strix" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/usestrix/strix" alt="usestrix/strix" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">strix：开源 AI 渗透测试引擎，单日 +598★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">usestrix/strix，54.3K★、今日 +598★。开源 AI 渗透测试工具，用智能体自动发现并修复应用漏洞，覆盖 Web、API 等攻击面，把「红队」能力交给开发者，让安全测试从专家手艺变成可复跑的自动化流水线。</p>
+          <div class="comment">当 AI 让「进攻」门槛骤降，防御也必须同步自动化。strix 把渗透测试从专家手艺变成一条可复跑的流水线——54K 星的体量说明，开发者对「让 AI 帮我找出漏洞」的需求是真实且迫切的。安全，正在成为 Agent 时代的标配能力。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/akitaonrails/ai-memory" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/akitaonrails/ai-memory" alt="akitaonrails/ai-memory" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">ai-memory：为编码 Agent 补上长期记忆，单日 +207★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">akitaonrails/ai-memory，2.1K★、今日 +207★。为编码 CLI Agent（Codex、Claude Code 等）提供长期记忆，可在不同 Agent 厂商之间做上下文「交接」（handoff），让换模型、换工具时不再丢失累积的项目上下文。</p>
+          <div class="comment">Agent 生态正从「单次对话」走向「长期共事」，而记忆是其中最被低估的一环。ai-memory 解决的是跨 Agent、跨厂商的上下文交接——当开发者可以随时换底层模型而不丢记忆，「模型锁」就会进一步松动，Agent 层才能真正独立成生态。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
