@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·67 · 2026-08-20</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 08 / 20</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 67</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 08 ／ 20 · 周四</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://bfl.ai/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://bfl.ai/opengraph-image-j8qpfc.png?47e2121a0eb4d5b0" alt="FLUX 3 统一多模态模型" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Black Forest Labs 官方</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Black Forest Labs 发布 FLUX 3：统一多模态，20 秒原生音视频</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/19 Black Forest Labs 发布统一多模态基座模型 FLUX 3，基于 Self-Flow 自监督流匹配框架，把图像、视频、音频与动作预测整合进同一架构。FLUX 3 Video 支持文生视频与图生视频，单次最长生成 20 秒并默认输出原生同步音频，支持多语言对话与动画排版；FLUX 3 Action 用于机器人动作预测与物理动态模拟，已与特定合作伙伴推进专业应用。目前通过 Early Access 开放，后续将分阶段推出 FLUX 3 Image、FLUX 3 Action 及开放权重版本 FLUX 3 Dev。</p>
+          <div class="comment">从「生成画面」到「生成带声音、能预测物理动作的世界」，FLUX 3 把多模态统一推进到新层级。最值得盯的是 Action 模块——视频不再只是拍给人看，而是可以直接当机器人训练的「教材」。当生成模型开始输出力学轨迹而非像素，AIGC 与具身智能的边界正在消失。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.anthropic.com/research/Claude-accelerates-protein-design" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.sanity.io/images/4zrzovbb/website/e3758f1bc27af0786f4249cc1ab194fc2c6cce63-3840x2160.png" alt="Claude 自主设计蛋白质" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">Anthropic 官方</span>
+              <span class="card-divider">·</span>
+              <span>前日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Claude 自主设计蛋白质：15 个靶标命中 14 个，命中率约为行业两倍</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/18 Anthropic 公布实验：Claude（Mythos Preview + Opus 4.8）拿到 15 个蛋白靶标后，自主完成从选靶点、选表位、装工具、跑模型到筛选排序的全流程，14 个成功命中。1320 个设计中 354 个经 Adaptyv Bio 与 Twist 两家独立实验室验证有效，总成功率 26.8%（行业均值 10%–15%）；RBX1 靶点命中率 40%，而该靶点公开竞赛仅 3.7%，最强设计亲和力反超冠军约 10 倍。另一组实验中 Opus 5 直接解析 NMR/LC-MS 原始文件，分别 23 分钟、19 分钟出结果，纯度 96.4% 对上实验室 96.33%。</p>
+          <div class="comment">Claude 没有发明任何新工具——RFdiffusion、ProteinMPNN 全是现成的，它做的是「编排」：一份约 1.6 万词提示词把蛋白工程师的经验编进去，让模型自己当项目经理。这揭示了一个信号：AI 最先吃掉的可能不是「科学发现」本身，而是专家的操作时间。当模型能 48 小时跑完人类数周的编排劳动，「会用工具」本身就成了新的护城河。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://view.inews.qq.com/a/20260819A04CXY00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OVvLMzNWIL62jNX4pRuvsMLW1EE0O2POgR-NAbny6p49sAA_640330/0" alt="玄铁 C950 跑通千问" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">阿里达摩院 / 驱动之家</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">阿里玄铁 C950 原生跑通千问 27B：RISC-V 首次直驱 270 亿大模型</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/19 阿里达摩院披露，5nm RISC-V 服务器 CPU 玄铁 C950 原生运行通义千问 3.8-27B，无需 GPU、不借助任何模拟层或二进制翻译，成为全球首款直接跑通 270 亿参数大模型的 RISC-V 处理器。实测解码约 30 token/s、首 token 延迟 1.9 秒；芯片 64 核、最高 3.2GHz，SPECint2006 单核破 70 分创 RISC-V 新高，访存带宽较前代 C920 提升 4 倍，内置矩阵与向量加速引擎。</p>
+          <div class="comment">在 x86/ARM 被授权费锁死、高端 GPU 又被管制的背景下，RISC-V 跑通 27B 模型的意义是「去依附」。阿里同时握着模型、云和芯片三层，第一次形成从指令集到算子库到模型的全栈闭环。30 token/s 不算惊艳，但「无 GPU、无模拟层」这条路线一旦走通，边缘与端侧的算力版图可能要重新洗牌。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 商业 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-商业"></span>
+        <span class="section-title stitle-商业">商 业</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L4NIALBP0531M1CO.html" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2026%2F0819%2F0d3c9c38j00tk0lrg00a9d000hs00e7m.jpg&amp;thumbnail=660x2147483647&amp;quality=80&amp;type=jpg" alt="字节 Seed 组织架构调整" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-商业"></span>
+              <span class="card-source-name">晚点 LatePost</span>
+              <span class="card-divider">·</span>
+              <span>昨日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">字节 Seed 调整组织架构：新设四个一级部门，为 5 万亿参数 Omni 铺路</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/19 晚点 LatePost 报道，字节大模型部门 Seed 上周完成组织调整，Seed 基础模型新设四个一级部门：Pretrain Data（李成刚，统一多模态与超大模型数据）、Horizon RL（唐晟宇，整合后训练强化学习）、Product Posttrain-Work（秦禹嘉，B 端 Agentic 模型）、Product Posttrain-Chat（朱文佳，C 端对话模型），负责人均向吴永辉汇报。此举为字节正在讨论的超 5 万亿参数 Omni 全模态模型预训练铺路，该规模将超过 Qwen3.8-Max（2.4 万亿）与 Kimi K3（2.8 万亿）。</p>
+          <div class="comment">组织调整从来是战略的投影。字节把散落在文本、代码、视觉、语音的数据与后训练团队「合并同类项」，本质是承认——超大模型的真正瓶颈不在算力，而在「多模态数据」与「RL 上限」两件事上。当参数规模奔着 5 万亿去，团队的边界就得跟着重构。这是国产大模型军备竞赛里，最直白的一张组织架构图。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.etched.com/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.sanity.io/images/rwbees58/production/9885cd08fc6fe49fff1d2b35a8f97447753ca9b0-1200x630.png?w=1200&amp;h=630&amp;fm=png&amp;fit=max&amp;auto=format" alt="Etched 融资 7 亿美元" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Etched 官方 / 界面新闻</span>
+              <span class="card-divider">·</span>
+              <span>前日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">AI 芯片创企 Etched 融资 7 亿美元，估值一个月翻倍至 210 亿</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/18 AI 芯片公司 Etched 宣布完成 7 亿美元融资，估值达 210 亿美元，距上月 C 轮的 103 亿翻倍。本轮由量化交易巨头 Jane Street 领投，KPCB、红杉、a16z、Tiger Global、贝恩资本等跟投；Jane Street 同时成为其首位客户，已在自己数据中心部署 Etched 的 Sohu 芯片机架。公司累计融资 19 亿美元，客户合同超 10 亿美元。</p>
+          <div class="comment">一家 2022 年成立、被叫「芯片菜鸟」的创业公司，一个月估值翻倍——赌注全押在「Transformer 专用 ASIC」这一件事上。Jane Street 从「投资人」变「首位客户」，比任何 PR 都有说服力：当量化交易巨头愿意用真金白银和真实负载下场验证，专用推理芯片就从「PPT」变成了「交付物」。英伟达的「全能 GPU」，正在被一群「做减法」的人从侧面撬动。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L4KL96DM05118UGF.html" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2026%2F0818%2F48d0dd19j00tjyip00014d000hs009yg.jpg&amp;thumbnail=660x2147483647&amp;quality=80&amp;type=jpg" alt="英伟达入股 SB Energy" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">至顶科技 / NVIDIA</span>
+              <span class="card-divider">·</span>
+              <span>前日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">英伟达 15 亿美元入股 SB Energy，锁定 OpenAI 俄亥俄 8GW 数据中心</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/18 英伟达宣布向软银旗下数据中心开发商 SB Energy 投资 15 亿美元，确立其为 OpenAI 俄亥俄 Ports-Pike 数据中心（初期 4.25GW、可扩至 8GW）唯一算力基础设施供应商的地位。据 SEC 文件，英伟达还将提供最高 1050 亿美元信贷支持，远低于此前媒体盛传的 2500 亿。SB Energy 计划自建约 9.2GW 天然气发电厂供电，建设成本约 330 亿美元。</p>
+          <div class="comment">英伟达已经不满足于卖芯片——它现在直接给「电」和「地」背书。15 亿股权 + 千亿信贷，本质是用自己的资产负债表为 OpenAI 的算力园区「兜底」，换取长期的、独家的 GPU 部署空间。芯片巨头正在从「AI 硬件供应商」变成「AI 工厂的组织者」，把竞争边界一路推到土地、电力、建筑这些最底层要素。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/jundot/omlx" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/jundot/omlx" alt="jundot/omlx" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">omlx：Apple Silicon 本地 LLM 推理服务器，菜单栏一键管理，单日 +472★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">jundot/omlx，19.8K★、今日 +472★。一个面向 Apple Silicon 的 LLM 推理服务器，支持连续批处理（continuous batching）与 SSD 缓存，可直接从 macOS 菜单栏管理，让 M 系列芯片在本地稳定跑大模型推理，把「本地私有推理」做成开箱即用的体验。</p>
+          <div class="comment">当云端推理按 token 计费，omlx 代表的是另一条路——把 Mac 的 M 芯片变成常驻的私人推理服务器。连续批处理 + SSD 缓存，解决的是本地跑大模型的「吞吐」和「显存」两大痛点。Apple Silicon 生态的成熟，正在让「模型私有化」从发烧友玩具走向真正可用。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/mattpocock/skills" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/mattpocock/skills" alt="mattpocock/skills" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">mattpocock/skills：真实工程师的 Agent skills，单日 +1894★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">mattpocock/skills，223K★、今日 +1894★。知名 TypeScript 工程师 Matt Pocock 把自己的 .agents 目录开源，收录面向真实工程场景的 Agent skills，覆盖从代码规范到工程流程的实操技能，可直接被 Claude Code、Codex 等编码 Agent 加载，是「工程实践 × Agent 能力」的代表性 skills 集。</p>
+          <div class="comment">一个 22 万星的 skills 仓库，说明开发者真正缺的不是「更强的模型」，而是「把工程经验翻译成 Agent 能执行的动作」。当顶级工程师开始公开自己的 .agents 目录，Agent skills 就不再是玩具，而是一种可复用、可交易的「工程资产」。这可能是继开源代码之后，开发者社区的下一个分发范式。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/obra/superpowers" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/obra/superpowers" alt="obra/superpowers" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">superpowers：Agentic skills 框架与软件开发方法论，274K★ 单日 +557★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">obra/superpowers，274K★、今日 +557★。一个 agentic skills 框架 + 软件开发方法论，把「如何让 Agent 高效协作写代码」沉淀为一套可复用的 skills 与流程规范，强调先想清楚再动手的工程纪律，已被大量编码 Agent 生态采用，是当下 Agent 编程方法论层的标杆项目。</p>
+          <div class="comment">274K 星的体量放在一个「方法论」项目上，几乎是个异类。superpowers 卖的既不是模型也不是工具，而是「如何用好 Agent」这件事本身。当写代码的门槛被 Agent 击穿，「怎么指挥 Agent 写出好代码」就成了新的稀缺能力——方法论正在变成比代码更值钱的资产。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
