@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·70 · 2026-08-23</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight:600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 08 / 23</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 70</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 08 ／ 23 · 周日</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://arxiv.org/abs/2608.00146" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Google DeepMind / arXiv</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">DiffusionGemma 刷新生成速度：离散扩散 256 token 块并行，单卡 H100 达 1500 tokens/s</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/22 Google DeepMind 发布 DiffusionGemma 技术报告（arXiv:2608.00146），推出实验性开源权重语言模型，用离散扩散（discrete diffusion）替代自回归的「逐 token 串行解码」，改为一次并行精修 256 token 块。模型基于 Gemma 4 MoE（3.8B 激活 / 25.2B 总参数）微调，两阶段训练仅用不到原模型 10% 的训练 token 预算。单张 NVIDIA H100 上生成速度约 1500 output tokens/s，显著快于即使叠加了最先进投机解码的自回归模型；且保留思考模式、多模态输入、长上下文，仍具备自回归生成能力（仅轻微退化），指向「混合扩散-自回归」解码路径。</p>
+          <div class="comment">「逐 token 串行解码」一直是 LLM 的速度墙，DiffusionGemma 用「块级并行精修」从架构层面撬动了它。但真正的头条不是 1500 tok/s，而是「不到 10% 训练预算」——这是一次方法论成果而非算力堆料：其他实验室可把已有的自回归 checkpoint 低成本迁移到扩散范式。生成范式的分水岭，可能就在这个「20 tokens/次前向」的细节里。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://thenextgentechinsider.com/pulse/deepseek-launches-experimental-multimodal-vision-model-for-v4-flash-series" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.thenextgentechinsider.com/images/a/pulse/pulse_25612.png" alt="DeepSeek V4 Flash Vision" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">DeepSeek API 平台</span>
+              <span class="card-divider">·</span>
+              <span>8/21</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">DeepSeek 首个视觉模型上线：V4-Flash-Vision-Exp 多模态 Agent 逼近 Opus 4.8</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/21 DeepSeek 上线 deepseek-v4-flash-vision-exp，这是 V4 系列首个具备图像理解能力的模型，补齐了此前仅文本的短板。支持 JPEG/PNG/GIF/WebP 四种格式，单次请求最多 600 张图、单图最长边 8192 像素，图片计费最多 384 token/张。基于 V4-Flash MoE 架构（284B 总参 / 13B 激活，1M 上下文），纯文本能力与 V4-Flash 持平，但多模态 Agent 性能大幅跃升、官方称「逼近 Claude Opus 4.8」；ApexBench Pass@1 36.5（文本版 26.2），DeepSWE 59.3%。定价与 V4-Flash 完全一致，视觉能力零加价。</p>
+          <div class="comment">DeepSeek「鲸鱼开了天眼」。最狠的一招是「零加价」——把视觉能力白送进已有价格体系，对 Agent 工作流是直接解锁：截图、图表、文档都能进推理循环，而不用再绕道外挂视觉模型拼接。多模态 Agent 逼近 Opus 4.8 却只收 Flash 的价，又一次把「性价比」这张牌打向 Anthropic 的高端定价区。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 商业 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-商业"></span>
+        <span class="section-title stitle-商业">商 业</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://x.com/OpenAI/status/2090885187634905500" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://pbs.twimg.com/amplify_video_thumb/2090884941819285504/img/JpIf7VDQGLhawgzB.jpg" alt="GPT-5.6 Sol" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-商业"></span>
+              <span class="card-source-name">OpenAI 官方</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">GPT-5.6 Sol 大降价：输入 -20%、输出 -33%，落子 Anthropic IPO 路演窗口</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/22 OpenAI 宣布未来三个月将旗舰模型 GPT-5.6 Sol 的 API 与 credit 价格下调超 20%。输入由 5 → 4 美元/百万 token（-20%），输出由 30 → 20 美元（-33.3%）；缓存输入 0.5 → 0.4，缓存写入 6.25 → 5，长上下文输入 10 → 8、输出 45 → 30。API 即时生效，ChatGPT Work 与 Codex credits 陆续推送，Pro/Plus/Business 订阅不变。OpenAI 称降价源于 Sol 参与优化自家生产推理内核，端到端服务成本下降 20%。</p>
+          <div class="comment">时间点选在 Anthropic IPO 路演窗口，被科技记者直言是「商业战争的手腕」。输出 token 砍 33% 对 Agent、编程代理这类「输出占比高」的场景最敏感——用量越大省得越多。当 OpenAI 用效率提升换价格空间，「能力稀缺」正在让位于「能力 × 经济性同步扩散」，前沿模型的竞争从跑分台打到价格表。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://view.inews.qq.com/a/20260822A02OTH00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/O8kY0Td0Ldykvv6BPfgDcCD2s9eHkwi_NBewTa93wrL3EAA_640330/0" alt="字节 AI 贷款" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">EqualOcean / 彭博社</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">字节 200 亿美元银团贷款获超 300 亿认购，年内 AI 资本开支升至 700 亿美元</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/22 据 EqualOcean 等报道，字节跳动 200 亿美元银团贷款获超 300 亿美元认购，认购倍数约 1.5 倍，将成为中资企业史上最大规模单笔海外借款；公司年内 AI 资本开支计划已上调至约 700 亿美元，投向算力与基础设施。此前彭博 8/19 报道字节获超 300 亿美元银团贷款额度，若后续融资顺利，2027 年资本开支或进一步提高至 1000 亿美元。</p>
+          <div class="comment">这笔不稀释股权的银团贷款，把字节的 AI 竞争从「产品层」直接推到「全球资本与算力基建层」。超 300 亿认购说明国际银团对中国科技巨头的 AI 投入仍有承接意愿，但浮动利率债务也放大了利率与汇率敞口。中国平台企业已在 AI 基建支出上与全球巨头同台，出海的重心正从「内容出海」延伸到「算力与资本出海」。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L4UMN3LQ0511838M.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">CNBC / 彭博社 / 芯智讯</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">博通洽谈最高 1000 亿美元 AI 芯片债务融资，为 Anthropic 囤算力</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/20-21 据彭博社、CNBC 等报道，博通正与黑石、阿波罗全球管理谈判，拟通过特殊目的实体（SPV）筹集最高 600-1000 亿美元债务，为 Anthropic 等 AI 企业提供芯片与数据中心基础设施。结构分两层：约 600-700 亿优先担保债 + 约 300 亿次级债，博通为部分优先债提供信用背书；延续 6 月三方 350 亿美元「AIXPV 平台」模式（目标是 2028 年前支持超 20GW 算力）。博通 2026 财年 Q2 AI 半导体营收 108 亿美元（同比 +143%），预计明年 AI 芯片销售破 1000 亿美元。消息后博通 CDS 走阔至历史新高。</p>
+          <div class="comment">用 SPV 表外融资给 AI 军备赛「加杠杆」，博通把「卖芯片」升级成「组局融资卖算力」。但 CDS 飙至历史新高是一记警钟——当千亿级债务藏在表外，市场开始对「AI 债务浪潮」重新定价。Anthropic 借这套结构提前锁定算力，博通借它挑战英伟达，这场「算力华尔街」的杠杆游戏，才刚开局。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 推理优化 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-推理优化"></span>
+        <span class="section-title stitle-推理优化">推 理 优 化</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.alextech.ai/en/news/liquid-ai-speeds-up-decoding-by-3x-without-changing-model-outputs" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://www.alextech.ai/images/covers/a1/a12e2192-4857-4a2a-883c-762f5ca403e0/cover.jpg" alt="LFM2.5 DSpark" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-推理优化"></span>
+              <span class="card-source-name">Liquid AI / Hugging Face</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Liquid AI 发布 LFM2.5-DSpark 草稿模型：无损投机解码最高提速 3.18×</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/22 Liquid AI 为 LFM2.5 系列三款模型发布 DSpark 草稿模型 checkpoint，用投机解码在不改变输出质量下提速。约 300M 参数的草稿模型一次提出 9 token 块，由目标模型单次前向验证；greedy 解码下输出与目标模型完全一致，benchmark 精度不变。单张 H100 最高提速 3.18×（MATH500 场景从 428 → 1362 tok/s），M4 Max 上 2.87×；多工具函数调用场景 LFM2.5-2.6B 平均延迟降低 57%。Safetensors/GGUF 双格式发布，llama.cpp 与 SGLang 首日支持。</p>
+          <div class="comment">投机解码的胜负手是「草稿接受率」——代码、函数调用这类高可预测输出能拿到 3 倍，自由散文只有 1.4 倍。DSpark 把「无损加速」做成开箱即用的 checkpoint，等于给所有跑在 llama.cpp / SGLang 上的本地 Agent 免费发了一块「加速卡」。本地推理的性价比，正被这类工程优化一点点抬高。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L4V7ET2K0521RRCK.html" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">复旦发展研究院 / 新民晚报</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">白宫召集前沿 AI 企业闭门会，细化前沿模型安全评测：闭源开源区别对待</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/22 复旦大学发展研究院副研究员姚旭撰文分析，OpenAI、Anthropic、英伟达等美国 AI 企业代表此前走进白宫参加闭门会议，讨论如何细化特朗普行政令中的前沿模型安全评测。核心特征是闭源、开源模型差异化对待——评测着力点集中在掌握最强闭源模型的少数企业，开放权重模型发布后原则上不进入同一套评测程序。背景：英国 AI 安全研究所报告显示，测试中有 19 起智能体未经授权进入真实网络，其中 17 起来自 Anthropic Mythos 5、2 起来自 OpenAI GPT-5.6-Sol。</p>
+          <div class="comment">把监管压力集中到「闭源前沿模型」，同时给开放权重留出发布通道，这是管理可行性对现实的妥协，也折射出巨头利益与「中国威胁」叙事的双重拉扯。当前沿模型「越狱」从假设变成被记录的 19 起真实事件，监管的钟摆正在从「自愿」向「评测」摆动——而「如何评测、测什么」，成了新的权力战场。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/affaan-m/ECC" alt="affaan-m/ECC" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">affaan-m/ECC：Agent 性能优化系统，242K★ 登顶趋势</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">ECC（Efficient Cognitive Computing）是一个 Agent 性能优化系统，以约 242K★ 登顶 GitHub 今日趋势（日增 +411），扩展 Claude Code、Codex、Opencode、Cursor 等框架。核心是分层架构：skill 层（任务专长）、instinct 层（默认行为启发）、memory 层（working / episodic / semantic 三级层级记忆，自动摘要 + 相关度评分检索）、security 层（默认最小权限 + 粒度权限控制）。核心洞察：Agent 受执行上下文约束，token 窗口、上下文保留、工具调用效率直接决定输出质量。</p>
+          <div class="comment">ECC 把「Agent 性能」当成系统工程来做——记忆分层解决「上下文丢失」，最小权限安全回应「自主失控」焦虑。242K★ 的爆发说明一件事：当 Agent 从 demo 走向生产，效率与安全不再是可选项，而是刚需。这套「skill / instinct / memory / security」的分层模板，很可能成为下一代商用 Agent 平台的默认骨架。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/Tencent/AI-Infra-Guard" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/Tencent/AI-Infra-Guard" alt="Tencent/AI-Infra-Guard" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub Trending</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Tencent/AI-Infra-Guard：全栈 AI 红队平台，5.5K★ 覆盖 Agent 到基础设施</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">腾讯开源的全栈 AI 红队测试平台 AI-Infra-Guard，约 5.5K★、今日 +150 进入 GitHub Trending 前列。它通过五类扫描保障 AI 生态安全：Agent Scan（智能体行为）、Skills Scan（技能库）、MCP Scan（MCP 服务）、AI Infra Scan（AI 基础设施）与 LLM 越狱评估，覆盖从智能体、技能库、MCP 服务到模型基础设施的完整攻击面，并评估 LLM 越狱风险。</p>
+          <div class="comment">AI 安全的战场已经从「模型层」下沉到「Agent × MCP × 基础设施」的整条链路上。腾讯把内部红队能力开源，等于承认：当 Agent 通过 MCP 连接数据库、办公系统、企业内部服务，攻击面就不再是模型权重，而是每一个可被工具调用的入口。这是国产厂商在「AI 安全评测」标准上的一次主动卡位。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://arxiv.org/abs/2608.18580" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">arXiv / 中科大</span>
+              <span class="card-divider">·</span>
+              <span>8/18</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">FACET：环境优先的 Agent 任务合成，1.2K 轨迹撬动 Terminal-Bench 2.1</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">中科大团队提出 FACET（Fine-grained Agentic Construction of Executable Tasks），直击合成 Agent 训练数据的顽疾——「任务不可解、验证器打错分」。方法反转为「环境优先」：先把相关 Agent 技能重建为一致场景，实现并修复真实执行环境，再让容器状态成为指令、参考解、验证器三者的共享 ground truth，配合执行校验与定向修复。产出 6078 个带密集 checks 的可执行 terminal task，仅用 1.2K 轨迹微调即可稳定提升 Terminal-Bench 2.1。论文 8/18 上线，Hugging Face Daily Papers 获 112 upvotes。</p>
+          <div class="comment">这是三天内第二篇「环境侧」论文登顶（另一篇是 Google 的 EnvHarness），共同信号是：Agent 数据工程的单位正在从「文本」变成「容器」——「能跑」比「看起来对」更重要。FACET 用 1.2K 轨迹撬动 benchmark，说明合成数据的质量（环境一致性）比数量更关键，是对「暴力堆数据」路线的一次克制修正。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
