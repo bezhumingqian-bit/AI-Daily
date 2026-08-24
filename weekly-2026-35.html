@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 趋势周报 · 第 35 周 · 2026-08-17 ～ 2026-08-23</title>
+<meta name="description" content="Anthropic 2 万亿美元 IPO 冲刺、OpenAI 旗舰降价打截击、Stripe 70 亿吞 OpenRouter——AI 竞争进入资本、价格与基础设施的三重对撞期">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #2C2A26;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: #7A766C; font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: #2C2A26; }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: #B5B0A4; letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: #7A766C; text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-back:hover { color: #2C2A26; }
+  .container { max-width: 780px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .header {
+    background: #FFFEFC;
+    border: 1px solid #E6E1D6;
+    border-radius: 16px;
+    padding: 44px 36px 38px;
+    margin-bottom: 26px;
+    position: relative;
+  }
+  .vol { font-size: 11px; letter-spacing: 4px; color: #7A766C; text-transform: uppercase; margin-bottom: 18px; }
+  .header-week { font-size: 13px; color: #8A8474; letter-spacing: 1px; margin-bottom: 12px; }
+  .header-title { font-size: 30px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.35; color: #2C2A26; }
+  .header-subtitle { font-size: 15px; color: #5F5B53; margin-top: 14px; line-height: 1.8; padding-top: 14px; border-top: 1px solid #E6E1D6; }
+  .header-meta { font-size: 12px; color: #7A766C; margin-top: 16px; letter-spacing: 0.5px; }
+
+  .section {
+    background: #FFFEFC;
+    border: 1px solid #E6E1D6;
+    border-radius: 14px;
+    padding: 30px 32px;
+    margin-bottom: 22px;
+  }
+  .section-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .section-title { font-size: 17px; font-weight: 700; letter-spacing: 2px; color: #2C2A26; }
+  .section-count { font-size: 11px; color: #B5B0A4; letter-spacing: 1px; margin-left: auto; }
+  .section-line { flex: 1; height: 1px; background: #E6E1D6; }
+  .section-sub { font-size: 13px; color: #7A766C; margin: -10px 0 20px; line-height: 1.7; }
+
+  .signal { border: 1px solid #E6E1D6; border-radius: 10px; background: #FAF7EE; margin-bottom: 12px; overflow: hidden; }
+  .signal summary { list-style: none; cursor: pointer; padding: 14px 18px; display: flex; align-items: flex-start; gap: 10px; user-select: none; }
+  .signal summary::-webkit-details-marker { display: none; }
+  .signal summary:hover { background: rgba(0,0,0,0.015); }
+  .signal-stars { font-size: 12px; letter-spacing: 1px; color: #B08D5A; flex-shrink: 0; padding-top: 3px; width: 52px; }
+  .signal-title { font-size: 15px; font-weight: 600; color: #2C2A26; line-height: 1.5; flex: 1; }
+  .signal-arrow { color: #B5B0A4; font-size: 12px; flex-shrink: 0; padding-top: 4px; transition: transform 0.2s; }
+  .signal[open] .signal-arrow { transform: rotate(90deg); }
+  .signal-body { padding: 2px 18px 16px 80px; font-size: 13.5px; color: #5F5B53; line-height: 1.85; }
+  .signal-body p { margin-bottom: 8px; }
+  .signal-body p:last-child { margin-bottom: 0; }
+  .signal-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 11px; padding: 2px 10px; border-radius: 20px; letter-spacing: 0.5px; }
+  .tag-开源 { background: #E8E2D2; color: #5A5443; }
+  .tag-Agent { background: #DAE0D2; color: #4A5340; }
+  .tag-政策 { background: #E5DCC4; color: #6B5F40; }
+  .tag-大模型 { background: #E2D2CB; color: #6B4F47; }
+  .tag-推理 { background: #D5DCDC; color: #4A5258; }
+  .tag-融资 { background: #E8E2D2; color: #5A5443; }
+  .tag-安全 { background: #E5DCC4; color: #6B5F40; }
+
+  .matrix-wrap { overflow-x: auto; }
+  table.matrix { width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.7; min-width: 660px; }
+  table.matrix th { background: #FAF7EE; color: #5F5B53; font-weight: 600; text-align: left; padding: 10px 12px; border-bottom: 2px solid #E6E1D6; font-size: 12px; letter-spacing: 1px; white-space: nowrap; }
+  table.matrix td { padding: 12px; border-bottom: 1px solid #E6E1D6; vertical-align: top; color: #2C2A26; }
+  table.matrix tr:last-child td { border-bottom: none; }
+  table.matrix td.vendor { font-weight: 600; white-space: nowrap; color: #2C2A26; }
+  table.matrix .dim { color: #5F5B53; font-size: 12px; }
+  .note { font-size: 12px; color: #B5B0A4; margin-top: 12px; }
+
+  .trend { padding: 16px 0 16px 26px; border-left: 2px solid #E6E1D6; margin-left: 4px; position: relative; }
+  .trend:last-child { padding-bottom: 4px; }
+  .trend::before { content: ""; position: absolute; left: -5px; top: 22px; width: 8px; height: 8px; border-radius: 50%; background: #8A8474; }
+  .trend-title { font-size: 14.5px; font-weight: 600; color: #2C2A26; margin-bottom: 6px; line-height: 1.5; }
+  .trend-body { font-size: 13.5px; color: #5F5B53; line-height: 1.85; }
+  .trend-body b { color: #2C2A26; font-weight: 600; }
+
+  .watch { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px dashed #E6E1D6; }
+  .watch:last-child { border-bottom: none; }
+  .watch-num { font-size: 13px; color: #8A8474; font-weight: 600; flex-shrink: 0; width: 26px; text-align: center; padding-top: 2px; }
+  .watch-title { font-size: 14px; font-weight: 600; color: #2C2A26; line-height: 1.5; margin-bottom: 4px; }
+  .watch-body { font-size: 13px; color: #5F5B53; line-height: 1.8; }
+
+  .review-item { padding: 14px 18px; border: 1px solid #E6E1D6; border-radius: 10px; background: #FAF7EE; margin-bottom: 10px; }
+  .review-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+  .review-status { font-size: 11px; padding: 1px 10px; border-radius: 20px; letter-spacing: 0.5px; flex-shrink: 0; }
+  .review-status.fulfilled { background: #DAE0D2; color: #4A5340; }
+  .review-status.partial { background: #E5DCC4; color: #6B5F40; }
+  .review-status.missed { background: #E2D2CB; color: #6B4F47; }
+  .review-title { font-size: 13.5px; font-weight: 600; color: #2C2A26; }
+  .review-body { font-size: 13px; color: #5F5B53; line-height: 1.8; }
+  .review-note { font-size: 12px; color: #B5B0A4; margin-top: 14px; line-height: 1.7; }
+
+  .footer { text-align: center; padding: 30px 0 10px; color: #B5B0A4; font-size: 12px; letter-spacing: 1px; line-height: 2; }
+  .footer .author { color: #7A766C; font-size: 13px; letter-spacing: 2px; }
+  .footer a { color: #8A8474; text-decoration: none; }
+  .footer a:hover { color: #2C2A26; }
+
+  @media (max-width: 600px) {
+    .container { padding: 16px 12px 40px; }
+    .header { padding: 30px 22px 26px; }
+    .header-title { font-size: 24px; }
+    .section { padding: 22px 18px; }
+    .signal-body { padding-left: 18px; }
+    .signal-stars { width: 44px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <nav class="nav">
+    <a class="nav-brand" href="index.html">AI DAILY</a>
+    <div class="nav-right">
+      <a class="nav-back" href="2026-08-23.html">← 最新日报</a>
+    </div>
+  </nav>
+
+  <header class="header">
+    <div class="vol">AI WEEKLY · 趋势分析</div>
+    <div class="header-week">第 35 周 · 2026-08-17 ～ 2026-08-23</div>
+    <h1 class="header-title">资本、价格与基础设施<br>三重对撞的一周</h1>
+    <p class="header-subtitle">
+      Anthropic 以 2 万亿美元估值冲刺史上最大 IPO，OpenAI 用旗舰降价 33% 与 8GW 俄亥俄算力协议正面对冲；Stripe 超 70 亿美元吞下 OpenRouter，把 token 变成可计量、可计费、可路由的基础设施。同一周，中国厂商在 RISC-V 芯片、开源模型与财报兑现三条线上同步推进。竞争的主战场正从「谁的模型更强」滑向「谁的资本、价格与供应链更厚」。
+    </p>
+    <div class="header-meta">基于 6 个工作日 53 条精选新闻 · 每周一 10:00 发布</div>
+  </header>
+
+  <!-- 维度1 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">一 · 本周关键信号</span>
+      <span class="section-count">8 条 · 点击展开</span>
+    </div>
+    <p class="section-sub">从过去 7 天的日报中抽取真正的行业转折信号，剔除噪声。星级 = 对产业格局的影响强度。</p>
+
+    <details class="signal" open>
+      <summary>
+        <span class="signal-stars">★★★</span>
+        <span class="signal-title">Anthropic IPO 拟募超 1000 亿美元、估值 2 万亿美元，抢 OpenAI 之前上市</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>彭博披露：Anthropic 预计 8 月底公开提交 S-1、10 月挂牌，估值目标 2 万亿美元，募资规模瞄准追平或超过 SpaceX 的 862 亿美元纪录（Polymarket 上 SpaceX 以约 55% 概率保住「年度最大 IPO」头衔，Anthropic 44%-45% 紧咬）。财务底座：Q2 营收 115 亿美元（去年同期 7.87 亿、同比约 14 倍），年化营收 7 月底达 650 亿（年初约 50 亿），Q2 调整后经营利润首次转正——但 2025 年净亏损约 420 亿，是 2024 年 83 亿的五倍。</p>
+        <p><b>为什么重要：</b>这是前沿模型公司第一次把「营收高增长 + 巨额亏损」这套组合拳摆上公开市场定价。IPO 前一周，Anthropic 同步把信贷额度扩至超 100 亿、挖来谷歌 TPU 老将 Amir Salek 自研芯片、与 SpaceX 签下 3 年数十亿美元算力协议，Dario 持股约 2% 并考虑超级投票权。二级市场将第一次用市销率给「纯研究型实验室」定锚。</p>
+        <div class="signal-tags"><span class="tag tag-融资">融资</span><span class="tag tag-大模型">大模型</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★★</span>
+        <span class="signal-title">Stripe 超 70 亿美元收购 OpenRouter：AI「支付+路由」基础设施成型</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>支付巨头 Stripe 敲定收购 AI 模型网关 OpenRouter，报价 70-75 亿美元——后者 5 月 26 日 B 轮估值仅 13 亿，82 天涨约 5 倍。OpenRouter 聚合 400+ 模型、80+ 供应商，10 万+ 开发者，日均处理超 10 万亿 token，按推理消费抽成约 5%，月收入 4 月以来增长逾 3 倍至约 1300 万美元。最大股东 a16z infra 一周之内连吃 Cursor（被 SpaceX 收购）与 OpenRouter 两笔巨型退出。</p>
+        <p><b>为什么重要：</b>这笔交易的意义不在「又一个 AI 应用被买」，而在于 Stripe 正把 token 消费嵌入支付体系——继收购计量计费公司 Metronome、稳定币 Bridge、钱包 Privy 之后，Stripe 补上了「路由」这一环，形成「计量 + 计费 + 路由 + 结算」的 AI 消费闭环。算力消费正在变成像水电一样被计量的基础设施生意。</p>
+        <div class="signal-tags"><span class="tag tag-融资">融资</span><span class="tag tag-推理">基础设施</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★★</span>
+        <span class="signal-title">OpenAI 旗舰 GPT-5.6 Sol 输出价降 33%，正面压 Anthropic 路演窗口</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>OpenAI 宣布未来三个月 GPT-5.6 Sol 的 API 与积分定价下调：输入 $5→$4（-20%）、输出 $30→$20（-33%），至少持续到 11/21；订阅方案（Pro/Plus/Business）不含在内。调价后 Sol 已低于 Claude Opus 5（$5/$25），远低于旗舰 Fable 5（$10/$50）。时点极敏感：Anthropic 路演窗口恰在 8-9 月。官方称降价由推理内核效率提升支撑（端到端成本降 20%、token 生成效率 +15%）。</p>
+        <p><b>为什么重要：</b>这是 OpenAI 第一次把旗舰模型也拉进价格战——此前 Sol 一直维持品牌溢价。降价前 4 天，OpenAI 刚与 SB Energy、英伟达签下俄亥俄 8GW-IT 的 20 年算力协议（英伟达 15 亿股权投资 + 1050 亿融资框架）。价格战的底层逻辑已从「算法优化」切换成「算力重工业的对轰」——谁的电力与芯片供给更厚，谁就有降价的物理空间。</p>
+        <div class="signal-tags"><span class="tag tag-大模型">大模型</span><span class="tag tag-推理">推理</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">OpenAI 暂停 Astra 训练两周，英伟达缩减其数据中心担保 2500→1200 亿</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>OpenAI 宣布暂停下一代 Astra 训练两周，同时上线青少年版 ChatGPT；华尔街日报另报英伟达对 OpenAI 俄亥俄项目的担保从 2500 亿缩至 1200 亿、只覆盖首期 5GW。两件事叠加，指向前沿训练与算力融资的双重不确定性。</p>
+        <p><b>为什么重要：</b>与上周「DeepMind 停前沿研发转 Flash」一脉相承——前沿旗舰的训练节奏正在普遍收紧。但与 DeepMind 的「战略放弃」不同，OpenAI 更像是「阶段性暂停」，且同一周又在俄亥俄锁 8GW 长期算力。前沿训练不是不做了，而是被切得更碎、更谨慎地推进。</p>
+        <div class="signal-tags"><span class="tag tag-大模型">大模型</span><span class="tag tag-融资">融资</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">阿里玄铁 C950 让 RISC-V 原生跑通千问 27B；小红书 dots3-note 华为昇腾 0 Day 适配</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>阿里达摩院宣布玄铁 C950 原生跑通千问 27B，是 RISC-V 首次直驱 270 亿参数大模型；小红书开源 280B 全模态 MoE 模型 dots3-note，华为昇腾实现 0 Day 适配；商汤同期开源 SenseNova U1.5 Lite（超长指令 + 原生 4K）。</p>
+        <p><b>为什么重要：</b>「开源模型」与「国产芯片」这两条线开始咬合。此前国产推理芯片多靠 x86/ARM 或自有架构，如今开源大模型直接跑在 RISC-V、昇腾上，说明软件栈与芯片栈的适配正在下沉到开源社区层。这不是单点突破，而是一个「模型-框架-芯片」三方协同的信号。</p>
+        <div class="signal-tags"><span class="tag tag-开源">开源</span><span class="tag tag-推理">芯片</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">腾讯 Q2 资本开支 528 亿（+176%）、百度 AI 收入 125 亿首破五成</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>腾讯 Q2 资本开支 528 亿元、同比 +176%，自由现金流自 2005 年来首次转负；百度 Q2 AI 业务收入 125 亿元、占总收入比例首次突破五成。两家财报同日，指向同一个事实：中国大厂的 AI 投入已进入「现金流换算力」的兑现期。</p>
+        <p><b>为什么重要：</b>中国科技巨头的 AI 投入第一次在财报层面「显性亏损化」——腾讯自由现金流转负是 20 年来首次。这对照 OpenAI/Anthropic 的巨额亏损，说明「烧钱换增长」不是美国前沿实验室的专利，中国大厂也在用同样的资产负债表语言说话。区别在于：中国大厂的算力采购更偏国产化。</p>
+        <div class="signal-tags"><span class="tag tag-融资">商业</span><span class="tag tag-大模型">大模型</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">字节 Seed 重组新设四部门、押 5 万亿参数 Omni；200 亿美元贷款获超 300 亿认购</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>晚点报道：字节 Seed 调整组织架构、新设四个一级部门，为 5 万亿参数自研模型 Omni 铺路；同期字节 200 亿美元银团贷款获超 300 亿认购，AI 资本开支升至 700 亿美元。</p>
+        <p><b>为什么重要：</b>字节在「规模战」上越走越远——5 万亿参数远超 Kimi K3 的 2.8T，也超过多数已公开的旗舰。与 DeepSeek 的「效率战」、月之暗面的「开源爆款」形成三种不同的中国路线，本周同时浮出水面。</p>
+        <div class="signal-tags"><span class="tag tag-大模型">大模型</span><span class="tag tag-融资">融资</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">Claude 自主设计蛋白质 15 靶标命中 14；扩散解码单卡 H100 达 1500 tokens/s</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>Anthropic 披露 Claude 自主设计蛋白质、15 个靶标命中 14 个，命中率约为行业两倍；Google DeepMind 的 DiffusionGemma 用离散扩散 256 token 块并行，单卡 H100 达 1500 tokens/s；Liquid AI 发布 LFM2.5-DSpark 草稿模型无损投机解码提速 3.18×，ReCache 用 KV Cache 复用让工具型 Agent 首 token 快 3.66×。</p>
+        <p><b>为什么重要：</b>「能力」与「效率」两条线本周同时突破——前者验证 Agent 能推进真实科研（不是演示），后者把推理加速从「云端专用」推向「单卡可复现」。值得留意的是，蛋白质设计与推理加速都开始用「倍数」「命中率」这类硬数字自证，而非形容词。</p>
+        <div class="signal-tags"><span class="tag tag-Agent">Agent</span><span class="tag tag-推理">推理</span></div>
+      </div>
+    </details>
+
+  </section>
+
+  <!-- 维度2 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">二 · 厂商动态矩阵</span>
+      <span class="section-count">5 阵营横向对比</span>
+    </div>
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>厂商</th>
+            <th>模型</th>
+            <th>产品</th>
+            <th>融资 / 估值</th>
+            <th>关键动作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="vendor">OpenAI</td>
+            <td>GPT-5.6 Sol（输出价 -33%）；Astra（暂停训练两周）</td>
+            <td>零数据留存 API；青少年版 ChatGPT；Codex Harness 开源（107K★）</td>
+            <td>估值 8520 亿；英伟达担保缩至 1200 亿；俄亥俄 8GW 算力协议</td>
+            <td>旗舰降价压 Anthropic 路演；暂停 Astra 训练；8GW-IT 长期算力锁定</td>
+          </tr>
+          <tr>
+            <td class="vendor">Anthropic</td>
+            <td>Claude Opus 5 / Fable 5（维持原价，成降价对照）；自研芯片推进中</td>
+            <td>Claude Security 上线 Mythos 5；186 页风险报告；蛋白质设计</td>
+            <td>IPO 目标 2 万亿；年化营收 650 亿；信贷超 100 亿；博通为其囤 1000 亿债务</td>
+            <td>8 月底公开 S-1；挖 TPU 老将 Amir Salek；与 SpaceX 签 3 年算力协议</td>
+          </tr>
+          <tr>
+            <td class="vendor">Google DeepMind</td>
+            <td>DiffusionGemma（离散扩散 1500 tok/s）</td>
+            <td>—（本周无重大产品动作）</td>
+            <td>—（母公司 Alphabet）</td>
+            <td>继续深耕推理加速与离散扩散，前沿旗舰无新动态</td>
+          </tr>
+          <tr>
+            <td class="vendor">Meta / xAI</td>
+            <td>Grok 系列（Bot 走红硅谷）</td>
+            <td>Grok Build 全量上线（一句话生成应用、X 内试玩）</td>
+            <td>xAI 背靠 SpaceX 算力集群</td>
+            <td>Grok Bot 被称「又一个 Claude Code 时刻」；应用生成工具全量开放</td>
+          </tr>
+          <tr>
+            <td class="vendor">DeepSeek / 阿里 / 字节 / 智谱 / 腾讯 / 百度</td>
+            <td>DeepSeek V4-Flash-Vision-Exp（首个视觉模型）；千问 27B（RISC-V 跑通）；字节 5 万亿 Omni；智谱 GLM-5.3；小红书 dots3-note 280B</td>
+            <td>Qwen-UI-Agent「看懂屏幕」；腾讯 HPC-Ops（Attention 2.22× FlashInfer）；MiniMax Music 3.0</td>
+            <td>字节 200 亿贷款获 300 亿认购；腾讯 Q2 资本开支 528 亿；百度 AI 收入 125 亿</td>
+            <td>芯片自主（RISC-V/昇腾）＋开源全谱系＋财报兑现三条线并行</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">* 数据均来自本周日报原始信源（Bloomberg / Reuters / CNBC / 晚点 LatePost / 钛媒体 / 官方公告等），截至 8/23。</p>
+  </section>
+
+  <!-- 维度3 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">三 · 技术演进趋势</span>
+      <span class="section-count">5 条方向性变化</span>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">推理加速从「工程技巧」变成「多路线竞赛」：扩散解码、投机解码、KV Cache 复用同台</div>
+      <div class="trend-body">
+        本周推理效率的突破密集到值得单独成条，且路线不再单一：Google DeepMind 的 DiffusionGemma 走离散扩散、256 token 块并行，单卡 H100 冲到 1500 tokens/s；Liquid AI 的 LFM2.5-DSpark 走无损投机解码（草稿模型），最高提速 3.18×；ReCache 用 KV Cache 复用压缩，让工具型 Agent 首 token 快 3.66×；腾讯 HPC-Ops 把 Attention 优化到 FlashInfer 的 2.22×。<b>三条路线各有适用场景</b>——扩散适合长序列并行、投机解码适合低延迟对话、KV Cache 复用适合多轮 Agent 调用，彼此不互斥。与上月「人人都在追量化」的单一叙事相比，本周呈现的是推理加速的「技术分叉」。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">Agent 基础设施从「框架混战」走向「标准化沉淀」：Codex 开源、Apache 入场、skills 生态成形</div>
+      <div class="trend-body">
+        本周的 Agent 信号几乎都指向「标准化」而非「又一个新框架」：OpenAI 把 Codex Harness 全面开源（107K★），Apache 上线首个 local-first Agent 工作台 maka，Hugging Face 推出 Agentic RL 协议层 OpenEnv。更值得注意的是 skills 生态的密度——mattpocock/skills 单日 +1894★、obra/superpowers 冲到 274K★、Anthropic-Cybersecurity-Skills 一口气放出 817 个安全 skills。<b>当模型能力趋同，「能被复用的 Agent 技能包」成了新的分发单位</b>，这与上周「Agent 竞争转向上下文基础设施」的判断一致，但本周的分量更重：连 Apache 这种老牌组织都进来了。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">多模态从「拼接」走向「原生统一」，且向 Agent 与科研场景下沉</div>
+      <div class="trend-body">
+        Black Forest Labs 的 FLUX 3 把文本、图像、音频、视频统一到一个模型，20 秒原生生成音视频；DeepSeek 上线首个视觉模型 V4-Flash-Vision-Exp，明确把「看懂屏幕」作为 Agent 的能力入口；阿里发布 Qwen-UI-Agent 让模型操作 App 界面；MiniMax 开源 Music 3.0 一次生成 5 分钟完整歌曲。<b>「多模态」的落点变了</b>——从「生成好看的图/视频」转向「让 Agent 能看见、能听、能操作界面」，这是 Agent 从纯文本走向真实世界操作的必要条件。DeepSeek 的视觉模型价格与纯文本版持平、不另收视觉溢价，进一步压低了多模态 Agent 的门槛。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">芯片多元化加速：RISC-V 与自研芯片同时进入前沿模型圈</div>
+      <div class="trend-body">
+        阿里玄铁 C950 让 RISC-V 原生跑通千问 27B，是开源指令集首次直驱 270 亿参数模型；小红书 dots3-note 在华为昇腾上 0 Day 适配；Anthropic 挖来谷歌 TPU 老将 Amir Salek 加速自研芯片。<b>三条线指向同一个判断：GPU 不再是唯一答案</b>。中国厂商用 RISC-V 和昇腾走「自主可控」，Anthropic 用自研芯片走「成本与供给安全」。与上月「英伟达一家独大」的叙事相比，本周开始出现可观察的硬件多元化迹象——尽管离「撼动英伟达」还很远。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">安全从「评估」走向「攻防产品化」，监管开始区分闭源与开源</div>
+      <div class="trend-body">
+        白宫召集前沿 AI 企业闭门会，明确对闭源、开源模型区别对待的安全评测；Anthropic 发布 186 页风险报告，自曝更强的内部 Model 2 拒发、生物安全分类器失效 11 个月；Claude Security 上线 Mythos 5 并另投 3500 万美元 0xDAF 开源安全基金；腾讯开源全栈 AI 红队平台 AI-Infra-Guard，strix 开源渗透测试引擎单日 +598★。<b>安全正在变成一个「有产品、有基金、有开源工具」的独立赛道</b>，而不只是实验室的自查动作。值得注意的是「闭源/开源区别对待」——监管开始意识到开源模型的攻击面与责任归属不同于闭源，这可能是后续政策分化的起点。
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 维度4 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">四 · 商业格局变化</span>
+      <span class="section-count">4 条结构性位移</span>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">「算力金融化」进入新阶段：从股权融资转向债务、信贷与资产化</div>
+      <div class="trend-body">
+        本周融资信号明显向「债务工具」迁移：博通拟为 Anthropic 筹最高 1000 亿美元 AI 芯片债务（SPV 结构）；字节 200 亿美元银团贷款获超 300 亿认购；Anthropic 自己把信贷额度扩至超 100 亿、IPO 拟募超 1000 亿；英伟达为 OpenAI 俄亥俄项目提供 1050 亿融资框架。对照上周「英伟达 + 资管巨头组建 5000 亿算力平台」，<b>算力融资从「VC/PE 的股权故事」转向「银行的资产负债表」</b>——这意味着 AI 资本开支开始进入信贷风控的定价体系，回报率会被更冷地审视。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">AI「消费层」基础设施成型：Stripe 用收购拼出 token 经济闭环</div>
+      <div class="trend-body">
+        Stripe 收购 OpenRouter 的意义在于「收编」——把散落在数百个模型供应商之间的 token 消费，收进一个「计量 + 计费 + 路由 + 结算」的闭环（Metronome 计量、Bridge 稳定币结算、Privy 钱包、OpenRouter 路由）。OpenRouter 日均 10 万亿 token、抽成约 5%、月收入 1300 万美元的数据，第一次让「AI 模型网关」这个中间层有了可核算的商业价值。a16z infra 一周两笔巨型退出（Cursor + OpenRouter）也说明，<b>「模型层」之外的「基础设施层」正在产生比模型本身更快的资本回报</b>。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">价格战进入「旗舰层」，Anthropic 在 IPO 前夜被成本端夹击</div>
+      <div class="trend-body">
+        OpenAI 把旗舰 Sol 的输出价砍 33%，直接对标并低于 Anthropic 的 Opus 5、Fable 5。这不是一次普通降价——它发生在 Anthropic 路演窗口（8-9 月）内，等于在对手向投资人讲「高毛利」故事时，用价格战改写「市场愿意为模型付多少钱」的预期。<b>Anthropic 的处境是结构性的</b>：IPO 需要漂亮的毛利叙事，但价格战要求它跟着降；而它不像 OpenAI 有 8GW 俄亥俄算力和英伟达 1050 亿框架垫底。这个「定价权」的博弈，比任何 benchmark 都能反映两家真实的竞争位势。
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">中美格局：苹果入局中国自研，中国大厂从「开源追赶」转向「芯片+财报」双兑现</div>
+      <div class="trend-body">
+        苹果携手阿里为中国市场自研 AI 模型，成为首家获准在华自训模型的外国企业，Apple Intelligence 数月内随 iOS 上线。这延续了上周「苹果+阿里」的信号，但本周更实质的是中国大厂的「兑现」：腾讯资本开支 528 亿、百度 AI 收入占五成、字节贷款 200 亿、阿里玄铁 C950 跑通千问。<b>中国 AI 的叙事从「模型便宜」升级为「自主芯片 + 重资本开支 + 商业化落地」的复合叙事</b>。同时英伟达缩减 OpenAI 担保、而中国厂商在 RISC-V/昇腾上加速适配，两条「算力自主」的路线在并行。
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 维度5 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">五 · 下周观察清单</span>
+      <span class="section-count">5 条 · 可验证</span>
+    </div>
+    <p class="section-sub">基于本周信号，下周值得跟踪的具体事件——每条都带一个可验证的判断标准。</p>
+
+    <div class="watch">
+      <div class="watch-num">01</div>
+      <div>
+        <div class="watch-title">Anthropic 是否在 8 月底公开提交 S-1，2 万亿估值是否坐实</div>
+        <div class="watch-body">判断标准：SEC 是否在 8/28 前后公开 Anthropic 的 Form S-1；估值是否如彭博所报稳定在 2 万亿或下调；超级投票权与 Dario 约 2% 持股的结构是否出现在文件里。若公开提交，将首次披露经审计的营收、毛利与算力成本结构。</div>
+      </div>
+    </div>
+
+    <div class="watch">
+      <div class="watch-num">02</div>
+      <div>
+        <div class="watch-title">OpenAI Astra 是否恢复训练、两周暂停的真实原因是否披露</div>
+        <div class="watch-body">判断标准：OpenAI 是否在两周期限（约 9/2 前后）恢复 Astra 训练；官方或可信信源是否解释暂停原因（安全评测 / 算力 / 架构调整）。若恢复，Astra 的发布时间线是否后移。</div>
+      </div>
+    </div>
+
+    <div class="watch">
+      <div class="watch-num">03</div>
+      <div>
+        <div class="watch-title">DeepSeek V4-Flash-Vision 是否开源权重，多模态 Agent 第三方跑分是否兑现</div>
+        <div class="watch-body">判断标准：Hugging Face 是否出现该模型的权重（社区普遍预期「最终版开源」）；是否有独立实验室复现其「接近 Opus 4.8」的多模态 Agent 成绩。上周观察点「GLM-5.3 权重 8/28 前后开源」仍在本窗口内。</div>
+      </div>
+    </div>
+
+    <div class="watch">
+      <div class="watch-num">04</div>
+      <div>
+        <div class="watch-title">GPT-5.6 Sol 降价后开发者迁移数据，及 Anthropic 是否跟进降价</div>
+        <div class="watch-body">判断标准：是否有可观测的 API 调用迁移或开发者社区选型变化；Anthropic 是否在路演压力下调整 Opus 5 / Fable 5 定价。若 Anthropic 坚持不降，将是对「企业愿为质量付溢价」的一次市场检验。</div>
+      </div>
+    </div>
+
+    <div class="watch">
+      <div class="watch-num">05</div>
+      <div>
+        <div class="watch-title">苹果中国自研模型细节与字节 Omni 5 万亿参数的下一步</div>
+        <div class="watch-body">判断标准：苹果在阿里支持下自训模型的技术路线（是否基于千问基座）是否披露；字节 Seed 重组后四个一级部门的分工、Omni 是否进入公开预训练或发布预告。</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 上期回顾 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">六 · 上期判断兑现度</span>
+      <span class="section-count">第 34 周 · 1 周后回顾</span>
+    </div>
+    <p class="section-sub">对照第 34 周（08-10 ～ 08-16）周报的 5 条观察清单逐条核验。</p>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status partial">部分兑现</span>
+        <span class="review-title">Anthropic IPO 细节与 Sonnet 5.5「Fennec」发布时间</span>
+      </div>
+      <div class="review-body">IPO 细节密集兑现——2 万亿估值、拟募超 1000 亿、8 月底公开提交、信贷超 100 亿、挖 TPU 老将自研芯片；但 Sonnet 5.5「Fennec」无新消息，「直指 DeepSeek 定价带」的性价比新模型仍未出现。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status partial">部分兑现</span>
+        <span class="review-title">DeepSeek 峰谷定价 8/17 生效首周：闲时半价能否拉动负载曲线</span>
+      </div>
+      <div class="review-body">峰谷定价已生效（8/23 起周末全天闲时价），但无「负载曲线迁移」的公开数据。DeepSeek 本周的重心转向多模态（V4-Flash-Vision-Exp，视觉不加价），价格策略的观察被新模型发布抢了注意力。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status missed">未兑现</span>
+        <span class="review-title">GPT-5.6-Cyber 两个 Chrome 0-day 的修复节奏与 Daybreak 安全策略反馈</span>
+      </div>
+      <div class="review-body">无 CVE-2026-15903 补丁节奏、无 Daybreak 硬件安全密钥后的用户反馈公开。安全话题本周被 Anthropic 风险报告、白宫闭门会、Claude Security 抢走，OpenAI 的 Cyber 后续未进入公开视野。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status partial">部分兑现</span>
+        <span class="review-title">Qwen3.8-2.4T 第三方部署报告与智谱 GLM-5.3 权重开源</span>
+      </div>
+      <div class="review-body">GLM-5.3 已上线（编程 +50%、漏洞发现持平 Mythos 5），但权重开源仍未兑现；Qwen3.8-2.4T 无第三方大规模部署报告，不过阿里以「玄铁 C950 跑通千问 27B」的方式间接推进了国产化部署叙事。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status partial">部分兑现</span>
+        <span class="review-title">Grok 4.6 进 Copilot 后的一周数据与 DeepMind 裁员确认</span>
+      </div>
+      <div class="review-body">无 Copilot 采用率数据、无 DeepMind 裁员官方确认。但 Grok 生态明显升温——Grok Bot 被称「又一个 Claude Code 时刻」、Grok Build 全量上线，xAI 的开发者攻势在延续，只是缺了可验证的数字。</div>
+    </div>
+
+    <p class="review-note">核验口径：兑现 = 出现明确事实；部分兑现 = 相关但方向偏移或仅部分落地；未兑现 = 无公开信息。窗口仅 1 周，多数观察项尚在发酵期，判断偏保守。</p>
+  </section>
+
+  <footer class="footer">
+    <div class="author">AI DAILY · 商业与认知观察者 · 出品</div>
+    <div>第 35 周 · 2026-08-17 ～ 2026-08-23 · 基于 6 个工作日 53 条精选新闻</div>
+    <div><a href="index.html">返回主页</a> · <a href="2026-08-23.html">最新日报</a></div>
+    <div>本报告为信息整理与分析，不构成投资建议</div>
+  </footer>
+
+</div>
+</body>
+</html>
