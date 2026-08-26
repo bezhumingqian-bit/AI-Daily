@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·73 · 2026-08-26</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight:600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-硬件 { background: #D0956B; box-shadow: 0 0 8px rgba(208,149,107,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-硬件 { color: #B07040; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 08 / 26</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 73</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 08 ／ 26 · 周三</p>
+      </div>
+    </header>
+
+    <!-- Section: 硬件 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-硬件"></span>
+        <span class="section-title stitle-硬件">硬 件</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://openai.com/index/jalapeno-first-results/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://n.sinaimg.cn/spider20260826/195/w600h395/20260826/ecd4-0c24c1e724f3d685ca35817050ce594a.png" alt="OpenAI Jalapeño" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-硬件"></span>
+              <span class="card-source-name">OpenAI 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>8/25</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI 自研推理芯片 Jalapeño 首秀：每瓦吞吐 1.5–1.9 倍于英伟达 GB200/GB300</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/25 OpenAI 在 Hot Chips 2026 公布首款自研推理芯片 Jalapeño 的实测数据。该芯片由 OpenAI 与博通合作开发、台积电 N3P（3nm）代工、从设计到流片仅 9 个月，专做推理不做训练。在 SemiAnalysis 公开基准 InferenceX 上，横跨 GPT-OSS 120B、DeepSeek R1 670B、Kimi K2.5 1T 三款模型，每瓦完成的 AI 吞吐量是对比系统（英伟达 GB200/GB300）的 1.5–1.9 倍，端到端延迟低 1.7–3.6 倍，高交互场景性能高 2.1–4.1 倍。芯片额定 700W（实测持续 ≤550W），配 6 组 HBM4、216GB、15.4TB/s 带宽。计划 2026 年底小规模部署、2027 扩产，第二代已进入后期开发。</p>
+          <div class="comment">第一代自研 ASIC 通常只是「交学费」，Jalapeño 却直接摸到了前沿推理芯片的竞争区间。更值得玩味的是 OpenAI 把「每瓦吞吐」而非「每芯片吞吐」作为主口径——电力已成为 AI 扩张最难增加的资源，每瓦性能就是收入。而 SemiAnalysis 也提醒：对比的是 Blackwell（GB200/GB300），真正的对手应是同代 HBM4 的 Vera Rubin。比分数更重要的是，OpenAI 用自家大模型参与芯片设计与内核编程（Gluon 语言），试图绕过 CUDA 生态——这场仗打的不是某一代芯片，而是软件生态的护城河。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.apple.com.cn/cn/newsroom/2026/08/apple-introduces-m6-and-m5-ultra-for-a-big-leap-in-performance-and-ai-compute/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://www.apple.com.cn/newsroom/images/2026/08/apple-introduces-m6-and-m5-ultra-for-a-big-leap-in-performance-and-ai-compute/tile/Apple-M6-and-M5-Ultra-hero-260825-lp.jpg.og.jpg?202608251404" alt="Apple M6 & M5 Ultra" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-硬件"></span>
+              <span class="card-source-name">Apple Newsroom（官方）</span>
+              <span class="card-divider">·</span>
+              <span>8/25</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Apple 突袭发布 M6 与 M5 Ultra：首款 2nm 芯片 + 首款四晶粒架构，押注本地 AI</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/25 Apple 无发布会直接上架两款自研芯片与新品：Mac mini 首发 M6，Mac Studio 首发 M5 Ultra。M6 是 Apple 首款 2nm 制程芯片，12 核 CPU（2 超核 + 4 性能核 + 6 能效核）+ 12 核 GPU + 双 16 核神经引擎（共 32 核），AI 性能较 M4 最高提升 4 倍、CPU 提升 40%、统一内存带宽最高 170GB/s。M5 Ultra 采用新一代 UltraFusion、首次四晶粒（quad-die）架构，最高 36 核 CPU + 80 核 GPU，统一内存最高 512GB、带宽 1.2TB/s（较 M3 Ultra 提升 50%），AI 性能最高提升 4.3 倍。国行 Mac mini 起售 6999 元，9/22 发售。</p>
+          <div class="comment">库克卸任前最后一代 Mac，把「本地跑大模型」从口号变成硬件规格——512GB 统一内存 + 1.2TB/s 带宽，意味着 Mac Studio 已能本地装下并运行数百亿乃至数千亿参数模型。2nm 制程首秀没留给 iPhone 而是给了桌面，说明 Apple 在「端侧 AI」这条线上的优先级已经拉满。当云端 AI 的 token 账单越来越贵，Apple 的赌注是：把模型塞进用户自己买的盒子里，边际成本归零。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://venturebeat.com/infrastructure/perplexity-partners-with-nvidia-to-launch-portable-computer-a-fully-local-ai-agent-with-zero-token-costs" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://images.ctfassets.net/jdtwqhzvc2n1/38SqWqR29f9YmMh5XSixJv/d375ddc77c0d8b0bc11c676fef937097/Nuneybits_Vector_art_of_cloud_dissolving_into_Nvidia_green_pixe_585344e3-0291-425f-9c47-895b98c353ff.webp?w=800&q=75" alt="Perplexity Portable Computer" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-硬件"></span>
+              <span class="card-source-name">VentureBeat</span>
+              <span class="card-divider">·</span>
+              <span>8/25</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Perplexity × 英伟达推「Portable Computer」：本地 Agent 零 token 成本，24GB 显存起</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/25 Perplexity 携手英伟达推出 Agent 平台 Computer 的本地版「Portable Computer」，模型、用户文件与任务结果全部留在本地设备，本地完成任务不消耗任何计费额度（token 成本归零）。首发支持英伟达 DGX Spark 及 RTX GPU（≥24GB 显存，约 RTX 3090 起）的 Linux 设备，Windows 9 月跟进。内置 Qwen 3.8 27B 或 Perplexity 自训的 PPLX 27B，英伟达 Nemotron 3.5 Lightning 即将加入。默认本地执行，需调用更强云端前沿模型时先征得用户授权。Perplexity 同步发表论文，论证本地小模型需「模型 + Agent harness 联合设计」而非套用通用框架。</p>
+          <div class="comment">当 Perplexity 和英伟达把「本地 AI Agent」打包成一键安装，云端 token 计价模式第一次遇到「零边际成本」的正面挑战。24GB 显存的门槛是眼下的护城河，但每一代 GPU 都在把这条线往下压。更关键的技术判断藏在论文里：小模型塞不进「为前沿模型设计」的通用 Agent 框架，模型与 harness 必须一起设计——这可能是「端侧 Agent」从玩具走向实用的一条分水岭。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://stability.ai/news-updates/stability-ai-latest-funding-backed-by-entertainment-industry-biggest-names" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://static1.squarespace.com/static/6213c340453c3f502425776e/62f2452bc121595f4d87c713/6a8730e30efce41687f2cc22/1787686016586/Stability_AI_Series_B_Annoucement_Blog_Thumbnail.png?format=1500w" alt="Stability AI Series B" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Stability AI 官方</span>
+              <span class="card-divider">·</span>
+              <span>8/25</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Stability AI 完成 $7600 万 B 轮：EA、三大唱片 + AMD Ventures 入股</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/25 Stability AI（Stable Diffusion 母公司）宣布完成 7600 万美元 Series B，累计融资达 2.32 亿美元（含两轮股权与可转债，CEO Prem Akkaraju 2024 年 6 月上任以来）。本轮新进投资者包括互动娱乐巨头 Electronic Arts、全球三大音乐唱片 Sony Music / Universal Music / Warner Music，以及 AMD Ventures、Pacific Alliance Ventures；Coatue、Greycroft、Sean Parker、Eric Schmidt 等连续第二轮跟投。资金将投入创意生产产品套件、应用研究及专业服务。此前 Stable Audio 3.0（全授权数据训练的开放权重音乐模型）已上线 DAW 插件。</p>
+          <div class="comment">三大唱片 + EA 同时写支票，这比 7600 万美元本身更有信号意义——过去两年还在起诉生成式 AI 的版权方，如今选择「股权 + 联合开发」来对冲风险。Stability 的策略很清晰：不做通用大模型，做「创意人的专业工具」，把 DAW 插件、游戏资产生成直接嵌进创作者已有的工作流。当「版权诉讼」变成「版权方入股」，生成式 AI 与内容产业的关系，正从对抗走向合谋。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 商业 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-商业"></span>
+        <span class="section-title stitle-商业">商 业</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.anthropic.com/economic-index" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.sanity.io/images/4zrzovbb/website/b420cf0d1aceb9bbbf5ee1fa5cf93bf7fbb6f7f1-2964x1656.png" alt="Anthropic Economic Index" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-商业"></span>
+              <span class="card-source-name">Anthropic 官方</span>
+              <span class="card-divider">·</span>
+              <span>8/25</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 发布经济指数「observed exposure」：程序员 75%、客服 70% 被 AI 触及</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/25 Anthropic 发布 Economic Index 新指标「observed exposure」（观测到的 AI 暴露度），基于 Claude 真实使用数据衡量各职业被 AI 渗透的程度。结果显示程序员/软件开发者约 75% 的任务与 AI 高度相关（最高），客服支持约 70% 次之；同时强调没有任何职业的「全部任务」被 Claude 系统性完成，每个岗位都存在人际协调、面对面互动、物理世界打交道等 AI 搞不定的环节。印度位列 Claude 使用量全球第二（但按劳动年龄人口人均仅排 101/116 国），用户平均用 AI 完成 3.8 小时工作仅需 14.8 分钟（约 15 倍提速）。</p>
+          <div class="comment">Anthropic 用「真实使用数据」而非「模型能力上限」来量化 AI 对就业的影响，是一次方法论的纠偏——「能自动化」和「真的被自动化」是两回事。75% 的暴露度意味着程序员的工作正在被大幅改造，但「暴露」≠「消失」：规划、判断、纠错这类元能力反而更值钱。这份指数最大的价值，是把「AI 抢饭碗」从情绪化争论拉回「哪些任务、哪些岗位、多大程度」的可测量事实。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A G E N T</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://claude.com/blog/claudes-memory-works-everywhere-and-you-decide-whats-in-it" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a8dcb60a9e2ed84590a8b9e_og_claudes-memory-works-everywhere-and-you-decide-whats-in-it.jpg" alt="Claude Memory" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">Claude by Anthropic（官方）</span>
+              <span class="card-divider">·</span>
+              <span>8/25</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Claude 记忆打通聊天与 Cowork：跨入口统一上下文，敏感话题默认不记</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/25 Anthropic 宣布 Claude 的记忆功能在聊天与 Claude Cowork 之间统一：Chat 里积累的上下文（如项目进度、汇报偏好）Cowork 云端执行任务时可直接调用，反之亦然。记忆从「对话结束后总结」改为「聊天中实时更新」，用户可在 Settings 的 Topics 里按主题查看、编辑、删除每条记忆，可随时暂停或重置。敏感话题（健康、种族、宗教信仰、政治、性别认同等）默认不存储、可手动开启；身份证号、犯罪记录、移民状态等即使开启也不存储。Free/Pro/Max 计划默认开启，Team/Enterprise 由管理员控制。</p>
+          <div class="comment">Agent 越像「同事」，记忆就越不能只是一个开关。Claude 把聊天记忆与 Cowork 打通，本质是把「上下文」从单次会话的临时状态，升级成跨工作入口的持久资产——同一份记忆既服务于对话，也服务于自主执行任务。但这也把隐私问题推到台前：企业用之前，得先想清楚哪些内容能被长期保存、谁能改、敏感信息怎么撤回。当 AI 开始「记住你」，治理的复杂度也就真正开始了。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://economy.gmw.cn/2026-08/25/content_38963618.htm" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://n.sinaimg.cn/spider20260825/191/w1080h711/20260825/b662-f326e02219be7ba3086268985bf61929.png" alt="豆包工作" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">字节跳动 / 光明网</span>
+              <span class="card-divider">·</span>
+              <span>8/25</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">字节发布「豆包工作」：Agent 深度打通飞书，继承企业上下文跨软件干活</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/25 字节跳动正式发布面向生产力场景的 Agent 产品与品牌「豆包工作」。它能围绕目标自主拆解任务、调用工具、持续推进复杂流程，支持框选文档/表格/PPT/网页局部内容「指哪改哪」直接修改；获授权后可操作浏览器和电脑跨软件完成任务，长任务可调用云电脑后台持续执行（本机关机不中断）。核心差异化是与飞书深度打通：用飞书账号登录后继承权限范围内的聊天、文档、会议纪要、日程等企业上下文，产出内容沉淀回飞书。飞书内原「豆包企业版」入口同步升级为豆包工作，已通过办公智能体能力与云端基准测试双项认证。</p>
+          <div class="comment">字节把「企业上下文」做成了豆包工作的护城河——Agent 不再只靠一句话指令干活，而是基于飞书里沉淀的真实业务背景理解需求。这是国内大厂 AI 办公的典型打法：用自家办公套件的存量数据喂养 Agent，形成「越用越懂你」的飞轮。从 TRAE、扣子并入豆包体系到豆包工作发布，字节的战略已经很清楚：AI 办公不是单点工具，而是要把「工作上下文 + Agent + 生态工具」焊成一条完整流水线。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; Hugging Face 周边</p>
+
+      <a class="card-link" href="https://github.com/CopilotKit/OpenBot" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/CopilotKit/OpenBot" alt="CopilotKit/OpenBot" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>8/25</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">CopilotKit/OpenBot：AG-UI 协议驱动的「机器人同事」，2.9K★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">OpenBot 是 CopilotKit 开源的一个「机器人同事」（Robot Coworker）项目，基于 AG-UI（Agent-User Interface）协议，让 Agent 能像真人同事一样使用一台专用电脑完成真实工作。通过为 AI 配备「自己的显示器、键鼠、账户与桌面环境」，把 Agent 从纯 API 调用提升到可观察、可干预的「桌面同事」形态。当前约 2,917★，近期仍活跃提交。</p>
+          <div class="comment">CopilotKit 从「给 AI 应用加聊天框」进化到「给 AI 配一台专属电脑」，AG-UI 协议是关键——它把 Agent 的状态、UI 与人的干预统一到一个可交互界面里。相比纯后端 Agent，「机器人同事」的可观察性（你随时能看到它在屏幕上做什么）是它走向企业场景的重要一步：信任，来自「看得见」。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/anthropics/claude-plugins-community" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/anthropics/claude-plugins-community" alt="anthropics/claude-plugins-community" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>8/25</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">anthropics/claude-plugins-community：Anthropic 官方社区插件市场，1.8K★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">claude-plugins-community 是 Anthropic 官方的「Claude 插件社区」仓库，为开发者提供一个集中提交、共享与发现 Claude 插件 / MCP 服务器的社区入口，配套插件清单与使用文档，是 Anthropic 在官方插件生态上的社区化动作。当前约 1,800★，正在快速吸纳社区贡献。</p>
+          <div class="comment">官方下场做「社区插件市场」，意味着 Anthropic 在走「平台化」路线——不再自己包办所有工具，而是把 MCP/插件生态开放给社区，用目录 + 规范的方式做分发。对开发者而言，这是「你的工具被 Claude 生态收录」的新渠道；对 Anthropic 而言，这是用社区力量补齐 Agent 能力长尾、同时守住接口标准的高性价比打法。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/duty1g/x64dbg-mcp-server" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/duty1g/x64dbg-mcp-server" alt="duty1g/x64dbg-mcp-server" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>8/25</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">duty1g/x64dbg-mcp-server：Zig 原生 MCP 调试器插件，1.4K★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">x64dbg-mcp-server 是一个用 Zig 编写的 x64dbg 调试器 MCP 服务器插件，通过 MCP 协议让 AI 模型能直接操控 x64dbg 进行逆向工程与动态调试——读取寄存器/内存、下断点、单步执行、读写模块等。把「人工逆向」变成「AI 驱动的自动化调试」，当前约 1,390★。</p>
+          <div class="comment">MCP 生态正在从「接文档、接数据库」向「接专业逆向调试器」这类高门槛工具延伸。用 Zig 写意味着内存安全 + 无运行时依赖，适合嵌入调试器这种对稳定性要求极高的宿主。它代表一个趋势：AI 的「手」正在伸向安全研究、逆向工程这些过去只有专家能碰的领域，工具的 MCP 化就是 AI 能力的「最后一公里」。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
