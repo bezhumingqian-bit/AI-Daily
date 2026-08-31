@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·76 · 2026-08-31</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight:600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-硬件 { background: #D0956B; box-shadow: 0 0 8px rgba(208,149,107,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-硬件 { color: #B07040; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 08 / 31</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 76</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 08 ／ 31 · 周一</p>
+      </div>
+    </header>
+
+    <!-- Section: 商业 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-商业"></span>
+        <span class="section-title stitle-商业">商 业</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.163.com/dy/article/L5J9O9T205568W0A.html" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202608/elon-musk-sam-altman-284459503-16x9.jpg?VersionId=6UoMA_AkSDuLhNFZl7BrRoJbfQIQ3uGg" alt="OpenAI 终止向 Cursor 供应模型" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-商业"></span>
+              <span class="card-source-name">OpenAI 官方 / 环球市场播报</span>
+              <span class="card-divider">·</span>
+              <span>8/28</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI 宣布 11 月终止向 Cursor 供应模型：马斯克「毫不在意」</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/28 OpenAI 官网公告，因 SpaceX 于 8 月初完成以约 600 亿美元全股票收购 Cursor 母公司 Anysphere，触发了合同中「控制权变更」后的有限解除窗口，OpenAI 据此宣布将终止向 Cursor 提供模型，拟定切断日期为 2026 年 11 月 12 日（合同允许的最长通知期）。OpenAI 明确表示后续模型（含 Astra）均不再供应，理由是「基于与马斯克旗下公司违反合同的过往经验，无法确信 SpaceX 会在服务条款框架内使用技术」——并提及 Twitter 收购后违约、xAI 蒸馏 OpenAI 数据两条先例。Cursor CEO Michael Truell 当晚回应：OpenAI 模型约占 Cursor 用户流量 5%，双方仍在沟通；Anthropic 联合创始人 Tom Brown 则表示将继续增加算力支持 Cursor 中的 Claude。</p>
+          <div class="comment">这是「收购触发断供」的经典商战样本——SpaceX 花 600 亿美元买下 Cursor，两周后 OpenAI 用合同里的控制权变更条款切掉模型供应，把商业信任问题直接摊在桌面。对 Cursor 伤害有限（OpenAI 只占 5% 流量，且可切换 Claude/Grok），真正的信号是：AI 编程工具对上游模型的依赖，正在变成可被「卡脖子」的战略筹码，头部模型供应商开始用供应条款行使地缘与商业博弈。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://startupfortune.com/sony-music-and-warner-chappell-sue-anthropic-over-stolen-song-lyrics" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://startupfortune.com/wp-content/uploads/2026/08/sf-19567-1788031862841.jpg" alt="索尼华纳起诉 Anthropic" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">Music Business Worldwide / TechCrunch</span>
+              <span class="card-divider">·</span>
+              <span>8/28</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">索尼、华纳联手起诉 Anthropic：指控盗版数万首歌词训练 Claude</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/28 索尼音乐出版与华纳查普尔向美国加州北区联邦法院提交 48 页诉状，指控 Anthropic「明目张胆地盗版」，通过种子下载、抓取 MusixMatch/LyricFind 等来源，用数千至数万首受版权保护的歌词与乐谱训练 Claude，并在投喂前剥离歌名、词曲作者与版权声明。诉状罕见地把联合创始人 Dario Amodei 与 Benjamin Mann 列为个人被告，指控 Mann 2021 年 6 月从 Library Genesis 下载至少 500 万册盗版书。原告要求每件故意侵权作品最高 15 万美元法定赔偿、剥除版权管理信息另加 2.5 万美元，涉及「数万首」作品，潜在赔偿可达数十亿美元，歌单含 Eye of the Tiger、Hallelujah、Paper Rings、Livin' on a Prayer 等。Anthropic 回应将「积极抗辩」。</p>
+          <div class="comment">这是 Bartz 案 15 亿美元和解之后，音乐出版商对 Anthropic 的第二次总攻，且这次把矛头从「公司」升级到「创始人个人」。核心法律线很清晰：用合法渠道买内容训练模型可能算合理使用，但通过盗版库（Library Genesis / Pirate Library Mirror）获取就违法。把 Dario 与 Mann 个人列为被告，是出版方逼迫管理层直接担责的施压策略——一旦成立，AI 公司「公司担责、创始人隐身」的惯例将被击穿。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://huggingface.co/zai-org/GLM-5.3" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn-thumbnails.huggingface.co/social-thumbnails/models/zai-org/GLM-5.3.png" alt="智谱 GLM-5.3" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">智谱 Z.AI 官方 / Hugging Face</span>
+              <span class="card-divider">·</span>
+              <span>8/28</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">智谱开源 GLM-5.3 完整权重：753B 参数，许可证从 MIT 换成「营收门槛」</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/28 深夜，智谱兑现「发布两周后开放权重」的承诺，将 GLM-5.3 完整权重上架 Hugging Face 与 ModelScope：总参数 753B（HF 口径 744B）、激活约 40B、1M 上下文，提供 FP8（约 756GB）与 BF16（约 1.51TB）双精度。许可证由 MIT 换成专属 GLM-5.3 License：个人与普通企业可免费商用、微调、部署，仅年营收超 100 亿美元且经营 MaaS 推理/微调业务的巨头需经智谱安全审查。性能上 CyberGym 漏洞发现 84.5%、ExploitBench 54.4%（GLM-5.2 仅 24.4%）、编码较 5.2 提升约 50%，并称后训练中「涌现」了网络攻防能力。</p>
+          <div class="comment">这是国产大模型首次以完整 753B 旗舰权重面向全球开放，标志闭源与开源的鸿沟进一步收窄。最有意思的是许可证设计：MIT 换成「营收 + MaaS 双重门槛」，本质是把「开源」变成战略武器——让全球开发者免费替智谱迭代生态，只对「年营收 100 亿美元以上做模型服务」的巨头设卡，精准锁住 OpenAI / Google 等对手白嫖其权重。开源不再是慈善，而是生态卡位。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.nowosci.ai/en/article/nvidia-perplexity-investment-30-billion-valuation" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://nowosci.ai/images/articles/nvidia-inwestycja-perplexity-wycena-30-mld-dolarow.jpg" alt="英伟达投资 Perplexity" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">The Information / Reuters</span>
+              <span class="card-divider">·</span>
+              <span>8/28</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">英伟达拟以超 300 亿美元估值投资 Perplexity，8 个月营收翻三倍</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">据 The Information 报道（Reuters 等确认），英伟达正洽谈参与 Perplexity 新一轮股权融资，完成后估值将超过 300 亿美元，较去年 9 月 200 亿美元估值增长超 50%。核心推力是「Perplexity Computer」——2 月 25 日上线的云端 AI Agent 产品，可自动执行电脑上的多步复杂任务，带动年化营收从年初不足 2.5 亿美元增至超 7.5 亿美元。英伟达自 2023 年起持续投资 Perplexity，此前曾考虑数十亿美元「技术授权 + 挖人」方案，后转向传统股权投资；Perplexity 7 月已承诺用英伟达 Vera 芯片跑 Agent 工作负载，CEO 计划 2028 年 IPO。</p>
+          <div class="comment">英伟达这笔投资的逻辑不在财务回报，而在「生态锁定」——Perplexity Computer 这类 Agent 是吃算力的大户，任务越重、Token 越密，英伟达芯片卖得越多。英伟达对 OpenAI（最高 1000 亿美元）、Anthropic（100 亿美元）都是同一套「投应用入口、锁芯片需求」的打法，甚至被质疑是「循环融资」：钱投出去，对方再买回英伟达的卡。300 亿美元对应约 40 倍年化营收，定价不便宜，但英伟达买的是「确定性」。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.tencent.com/zh-cn/tencent-releases-and-open-sources-tencent-hy4-preview/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://www.tencent.com/wp-content/uploads/2026/08/hy4-preview-cover.jpg" alt="腾讯混元 Hy4 preview" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">腾讯混元 官方</span>
+              <span class="card-divider">·</span>
+              <span>8/28</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">腾讯混元开源 Hy4 preview：770B 参数、1M 上下文，盲测略胜 GLM-5.3</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/28 腾讯发布并开源新一代旗舰大模型 Hy4 preview：总参数 770B、激活 49B、上下文 1M，Apache 2.0 许可（HF 文件页 780B 含 10B MTP 投机解码层），已在 WorkBuddy、CodeBuddy、元宝、ima 同步首发，并限时两周免费。在 163 名内部专家、203 个工程任务的盲测中，Hy4 preview 均分 2.99/4，略优于 GLM-5.3（2.92）与 Kimi K3（2.94）。定位「为生产力而生」，覆盖软件工程、办公分析、游戏开发、科研四大场景；模型还参与了自身训练方法与推理系统的自动优化，端到端推理吞吐较基线提升 31.8%。API 定价输入 0.834 美元、输出 2.501 美元/百万 token。</p>
+          <div class="comment">腾讯这次把「开源」和「产品」绑得最紧——Hy4 不只是一个权重包，而是直接首发进 WorkBuddy / CodeBuddy / 元宝 / ima 这些真实生产力产品里，用「免费两周」把开发者导流进自己的 Agent 工作台。与智谱 GLM-5.3 的同台对比（盲测略胜）也表明，国产开源大模型已进入「互相对表」的贴身肉搏阶段，参数、上下文、价格、benchmark 全面对齐，剩下的竞争点变成了「谁能把模型变成用户离不开的工作流」。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 硬件 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-硬件"></span>
+        <span class="section-title stitle-硬件">硬 件</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://a16z.com/the-machine-age-fund/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://d1lamhf6l6yk6d.cloudfront.net/uploads/2026/08/MAF-LI-Yoast.png" alt="a16z Machine Age Fund" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-硬件"></span>
+              <span class="card-source-name">a16z 官方</span>
+              <span class="card-divider">·</span>
+              <span>8/28</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">a16z 募集 11 亿美元 Machine Age 基金，全力押注 AI 物理底座</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/28 a16z 官宣完成 11 亿美元 Machine Age（机器时代）专项基金募集，这是该机构首只完全聚焦 AI 底层硬件与物理基础设施的基金，标志「软件吞噬世界」的 a16z 正式把硬件列为「official motion」。基金覆盖 AI 运行所需的全部计算机基础设施：芯片、内存、网络、存储、数据中心、机器人、家用 AI 终端，乃至供电散热系统。a16z 给出硬数据：Rubin 机架单机架算力密度是 H100 的 28 倍，机架功耗从 5-10kW 跃升至 100-250kW、未来三年将冲上 1MW；硬件初创占其 deal flow 已从很小比例涨到超 20%。</p>
+          <div class="comment">当 a16z 这个「软件吞噬世界」的旗手开始募 11 亿美元专投硬件，说明 AI 的价值创造重心正在从模型层下移到物理层——芯片、内存、网络、电力每一层都撞上供应链与物理极限，需要「平台级重构」。这轮算力军备的瓶颈不再是算法，而是「电」和「硅」：谁能重做数据中心的供电、散热、互联，谁就握住下一代 AI 的基础设施定价权。对国内一级市场的具身智能、世界模型、算力芯片热潮，这也是同频共振的海外注脚。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; Hugging Face 周边</p>
+
+      <a class="card-link" href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/punkpeye/awesome-mcp-servers" alt="punkpeye/awesome-mcp-servers" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>8/30</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">punkpeye/awesome-mcp-servers：MCP 服务器生态大全，93K★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">社区最权威的 MCP（Model Context Protocol）服务器精选清单，按领域分门别类收录数千个 MCP 服务器，覆盖搜索、数据库、浏览器自动化、办公套件、云服务、开发工具等几乎全部场景，是开发者接入 MCP 生态的「黄页」。当前 93,354★，是本日 GitHub Trending 榜单中总星标最高的仓库，仍在高频更新。MCP 已成为 Agent 连接外部工具的事实标准，这份清单是生态繁荣度的直接标尺。</p>
+          <div class="comment">一个「清单仓库」冲到 9.3 万星，本身就是 MCP 生态爆发的证据——它说明开发者不再纠结「MCP 是什么」，而是急着找「现成的 MCP 服务器」。当工具接入能力被标准化、目录化，Agent 的「手」就从一个模型的内置能力，变成了可插拔、可组合的开放供应链。谁掌握高质量的工具目录，谁就掌握 Agent 能力的供给。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/abhigyanpatwari/GitNexus" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/abhigyanpatwari/GitNexus" alt="abhigyanpatwari/GitNexus" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>8/30</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">abhigyanpatwari/GitNexus：浏览器端代码知识图谱 + Graph RAG Agent，47K★</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">GitNexus 是零服务器的代码智能引擎，纯 TypeScript 实现，在浏览器本地把代码库解析、索引成知识图谱（调用图、类型关系、依赖），再内置 Graph RAG Agent 做语义检索与问答。无需后端、无需上传代码，天然保护隐私，适合本地代码库的可视化导航与「代码级问答」。当前 46,582★（TypeScript），8/30 上榜 GitHub Trending。核心卖点是把「代码理解」从 LLM 的窗口内塞上下文，转向结构化的图谱检索。</p>
+          <div class="comment">GitNexus 代表一种趋势：代码理解正在从「靠大模型硬读」转向「先结构化、再检索」。把代码库建成知识图谱，Agent 就能按需拉取相关子图，而不是把整个仓库塞进上下文——这跟本期 SKILL.state 的思路异曲同工：与其无限扩上下文，不如让结构替你「记住」。对隐私敏感的企业场景，浏览器本地解析还是零信任的加分项。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://arxiv.org/abs/2608.26263" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">Google DeepMind / arXiv</span>
+              <span class="card-divider">·</span>
+              <span>8/28</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Google SKILL.state：用「结构化状态」替代历史，Agent 令牌用量砍 94%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Google DeepMind 论文（arXiv 2608.26263，EMNLP 接收）提出 SKILL.state：长程 Agent 不再把逐轮增长的对话历史塞进上下文，而是每步只喂「技能指令 + 结构化状态 + 最新观察」，推理轨迹在产出「经过验证的状态更新」后即被丢弃，输入规模全程保持稳定。在 100 步仓库任务上，Gemini-3-Flash 用 SKILL.state 拿到 0.94 精度、仅消耗 65,408 个 token；LangGraph 风格的「保留全历史」基线 0.91 精度、却烧掉 1,062,387 个 token——16.2 倍差距，token 削减 94% 且准确率反升。</p>
+          <div class="comment">这篇论文直接挑战「Agent 记得越多越好」的默认假设。它证明长上下文对 Agent 未必是资产，反而可能是「注意力稀释 + 成本黑洞」——把原始历史一路堆进 prompt，是 1960 年代操作系统就解决的「进程控制块」问题的倒退。边界也很诚实：只有「后续所需信息能装进状态 schema」时才成立。对本地跑开源模型的开发者，这是「KV cache 膨胀」的解药；对 API 玩家，则是真金白银的成本悬崖。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
