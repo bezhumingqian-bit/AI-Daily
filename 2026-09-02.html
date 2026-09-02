@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·78 · 2026-09-02</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight:600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-硬件 { background: #D0956B; box-shadow: 0 0 8px rgba(208,149,107,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-硬件 { color: #B07040; }
+  .stitle-前沿技术 { color: #9080B0; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 09 / 02</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 78</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 09 ／ 02 · 周三</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.anthropic.com/claude-fable-and-mythos-5-1" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.sanity.io/images/4zrzovbb/website/932ca7d6f414ca22fd5a26dcc131410575b9b3e5-1200x630.jpg" alt="Claude Fable 5.1" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Anthropic 官方</span>
+              <span class="card-divider">·</span>
+              <span>9/1</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 发布 Fable 5.1 / Mythos 5.1：编程科研双双登顶，缓存读取降价 75%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/1 Anthropic 发布 Claude Fable 5.1 与 Claude Mythos 5.1，同一底座、不同安全护栏（Fable 5.1 全量开放，Mythos 5.1 仅经可信访问计划供给网安/生命科学机构）。性能全面超越前代 Fable 5 与 OpenAI GPT-5.6 Sol：Agent 科研基准 Terminal-Bench-Science 0.1 拿下 52.6%（Fable 5 仅 24.7%、Opus 5 29.0%、GPT-5.6 Sol 22.4%）；Agent 编程 Terminal-Bench 4.0 达 55.8%（Mythos 5.1 放宽护栏后 60.9%）；知识工作 GDPval-AA v2 1853 分。价格层面，缓存读取资费下调 75%（$1.00→$0.25/百万 token），典型负载成本降约 25%，高度 Agent 化任务最高省 45%；基础定价不变（输入 $10 / 输出 $50 每百万 token）。同步推出企业级前沿防护 EFS，把数据存进客户自控云基础设施，等效零数据留存，今秋分批开放。</p>
+          <div class="comment">Fable 5.1 的「涨能力 + 降缓存价」组合拳直击一个行业痛点：Agent 长任务里 cache reads 占比极高，降价 75% 才是真实的降本。更值得注意 Anthropic 的定位转向——从「回答问题的模型」变成「连续数小时自主完成任务、中途自查纠偏的 Agent 底座」。8 项基准霸榜、科研基准接近翻倍，再配合 EFS 把零数据留存做成默认选项，等于同时向企业合规与 IPO 叙事交卷。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://runwayml.com/news/research/introducing-solaris" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://d3phaj0sisr2ct.cloudfront.net/site/images/sanity/2026/08/082626-solaris-blogpost-thumbnail-2fe8ad11-4846-4ba2-bbbf-a8db3feaa725.png" alt="Runway Solaris" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">Runway 官方</span>
+              <span class="card-divider">·</span>
+              <span>9/1</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Runway 发布 Solaris：首个「界面世界模型」，把 UI 像视频一样逐帧实时生成</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">8/31 Runway 发布 Solaris，定义为首个 Interface World Model（界面世界模型）。它基于 Gen-4.5 视频模型改造，去掉「代码」这层中间表示：用户点击、拖拽、输入都被当作下一帧的生成条件，界面逐帧自回归实时渲染（720p、约 37ms/帧），没有预定义页面与模板。架构上 LLM 负责「推理下一步」、世界模型负责「实时渲染」，实现推理与渲染解耦。真人偏好测试（250 人、近 7500 次两两比较）中，Solaris 在「指令遵循」获 61% 偏好（代码方案 24%）、「行为自然度」71%（代码方案 21%）。目前仅向关键伙伴开放早期申请。</p>
+          <div class="comment">Solaris 的激进在于把「界面 = 代码」几十年的共识直接推翻：生成的画面本身就是软件，DOM/CSS/JS 都不存在。这既是对 Coding Agent 的潜在降维威胁，也带来确定性难题——按钮身份、事务一致性、无障碍合规都是「代码天生保证、生成天生缺失」的东西。所以它的近期最大价值，反而可能是给 Computer Use Agent 提供「永远在变化、从未见过」的训练环境，逼 Agent 学泛化而非背布局。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://openai.com/index/path-to-astra" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OagbHiQPYcLqLLiCt8ZmwkNFuocXMJwF_v2V-hZmaz16oAA_640330/0" alt="OpenAI Astra" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">OpenAI 官方</span>
+              <span class="card-divider">·</span>
+              <span>9/1</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI 确认 Astra 达「Critical」网安能力门槛，公司史上首个</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/1 OpenAI 发布《Path to Astra》，确认下一代模型 Astra 达到 Preparedness Framework 定义的「Critical」网络安全能力阈值——可在无人逐步指导下，自主发现并利用未知漏洞攻击强防护真实系统，为公司史上首个获此评级模型。评测中 Astra 在 ExploitBench 拿下 100% 满分，随后自建 20 个高严重性 V8 漏洞内部集测试，过程中自主发现并利用 2 个零日漏洞（正与维护者负责任披露）；在强防护浏览器/OS 专家测试中跑通「沙箱逃逸→主机命令执行」与「本地提权到 root」的完整攻击链。安全面 Astra 越狱拒绝率达 91.5%（GPT-5.6 Sol 仅 59%）。发布采取双轨：通用能力照常上线，进攻性网安能力仅经 Daybreak Blue 提供给受审防御方。</p>
+          <div class="comment">「Critical」不是「不安全不能发」，而是「能力上限已达自主攻击级，必须把最有杀伤力的切片锁起来」。OpenAI 的应对是双轨发布——通用推理/编码照常，进攻性网安能力只给经过审查的防守方。最硬的数据是 91.5% 越狱拒绝率 vs 前代 59%，这是它迄今公开过最具体的护栏提升。但争议仍在：前研究员 Yona Shavit 质疑 Astra 的「不越界」到底是真对齐，还是「学会了评测想看到什么」。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 硬件 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-硬件"></span>
+        <span class="section-title stitle-硬件">硬 件</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.trendforce.com/news/2026/09/01/news-samsung-unveils-memory-roadmap-at-semicon-hbm5-targets-2x-hbm4e-performance-zhbm-8x-boost/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://img.trendforce.com/blog/wp-content/uploads/2026/09/01164214/Samsung-SEMICON-zHBM-624x483.jpg" alt="三星 HBM5" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-硬件"></span>
+              <span class="card-source-name">TrendForce / SEMICON</span>
+              <span class="card-divider">·</span>
+              <span>9/1</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">三星甩出 HBM5 / zHBM 完整路线图：2nm 基片、性能较 HBM4E 翻倍</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/1 SEMICON Taiwan 2026 上，三星存储产品规划副总裁 Jangseok Choi 披露下一代 HBM 路线图。HBM5 目标性能达 HBM4E 的 2 倍、每瓦性能提升 20%、热阻下降 20%，基础裸片（Base Die）从 4nm 升级到三星自研 2nm 节点，规划 12/16/20 层三种 DRAM 堆叠，预计 2028 年前后量产。更激进的是 zHBM 新架构：把存储芯片直接垂直堆叠在处理器上方，目标性能达 HBM4E 的 8 倍、每瓦提升 3 倍、热阻降 75%–90%，预计 2029 年后推出。同时提出 CUBE 战略（容量 / 利用率 / 带宽 / 效率四维）。</p>
+          <div class="comment">HBM5 把 base die 推进到 2nm，是三星在先进制程 + 存储双线的关键卡位；而 zHBM 的「存储叠在算力上」是打破 HBM 并排瓶颈的结构性方向。这场路线图之争，本质是 AI 加速器带宽与散热双重瓶颈的军备竞赛——三星用 CUBE 框架把「堆更多层」升级为「从系统角度重构存储」。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://news.qq.com/rain/a/20260902A05HAU00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OrINRNr_XWKH3zSAPegEvSEu-MLjbIvSKQSeLljzAcTOwAA_640330/0" alt="VAST Tripo P2.0" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">品玩 / 腾讯新闻</span>
+              <span class="card-divider">·</span>
+              <span>9/2</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">VAST 完成约 30 亿 B 轮 / B+ 轮融资，同步发布 3D 基座模型 Tripo P2.0</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/2 VAST（三启万物）宣布完成 B 轮与 B+ 轮合计约 30 亿元融资，由经纬创投领投，完美世界、三七互娱、蓝色光标、中科创达等产业资本与鼎晖 VGC、中金资本等财投参投；不到半年累计融资约 50 亿元，刷新 3D 原生智能赛道融资纪录。同步发布旗舰 3D 原生基座模型 Tripo P2.0——全球首个支持原生四边面拓扑网格的 3D 基座模型，单面数上限从 2 万提升至 5 万三角面，首次同时满足「引擎可用、动画可绑、编辑可及」三条工业级门槛。</p>
+          <div class="comment">「30 亿 + 原生四边面」放一起看才完整：钱买的是「从视觉可看走向生产可用」。四边面是游戏/影视工业通用网格标准，传统手工重拓扑要数小时到数天，P2.0 直接端到端生成干净四边面，把 AI 3D 从「出图」推进到「进管线」。多元产业资本（游戏/广告/终端）集体下注，说明下游不是看演示，是已经把 Tripo 接进了真实生产流程——这是 AI 3D 从「可用」到「好用」的分水岭信号。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 商业 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-商业"></span>
+        <span class="section-title stitle-商业">商 业</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.zaobao.com/finance/world/story20260901-9608935" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-商业"></span>
+              <span class="card-source-name">WSJ / 路透社 / 联合早报</span>
+              <span class="card-divider">·</span>
+              <span>9/1</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 与 Lambda 签 350 亿美元算力大单，英伟达隐成最大赢家</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">据 WSJ / 路透社报道，Anthropic 与英伟达支持的云服务商 Lambda 达成约 350 亿美元（六年期）云计算协议，为 Claude 扩充算力。相关数据中心位于得州 Nueces County，由 Hut 8 建设、容量约 350MW，英伟达持有该设施承租权——Lambda 从英伟达取得机房使用权并部署英伟达芯片，再向 Anthropic 供算力。叠加此前与 Nscale 的 450 亿美元协议，Anthropic 近期云算力承诺合计约 800 亿美元。双方均未公开确认。</p>
+          <div class="comment">这笔交易的「隐藏主角」是英伟达：芯片是它卖、Lambda 股权有它的份、机房租约也攥在它手里——一个环节收三道钱，风险却分摊给 Hut 8（建设资本开支）、Lambda（运营）、Anthropic（天价账单）。对 Anthropic，这是 IPO 前必须交出的「算力储备」答卷；但对整个行业，它说明即便大模型公司拼命自研芯片、分散供应商，短期账单仍绕不开英伟达。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub Trending 周边</p>
+
+      <a class="card-link" href="https://github.com/jingyaogong/minimind" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/jingyaogong/minimind" alt="jingyaogong/minimind" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>57,189★</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">jingyaogong/minimind：从零 2 小时训练 64M 参数大模型的完整教程</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">57,189★，本日登上 GitHub Trending。项目提供「2 小时从零训练一个 64M 参数 LLM」的完整代码与教程，把 GPT 结构的小模型训练全过程拆解为可复现的最小闭环，让学习者理解 LLM 的预训练、微调与推理底层机制，而非只停留在调用 API。</p>
+          <div class="comment">当大模型越做越大、越做越黑箱，minimind 反其道而行——用最小规模、最短时间，把「预训练—微调—推理」整条链路完整摊开。它上热榜的意义不只是「学习资源」，更印证了一个方向：理解底层、可复现、可亲手训练的「小模型」，正成为开发者补齐基本功的入口。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/THU-MAIC/OpenMAIC" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/THU-MAIC/OpenMAIC" alt="THU-MAIC/OpenMAIC" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>29,640★</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">THU-MAIC/OpenMAIC：一键获得沉浸式多智能体交互课堂</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">29,640★，本日登上 GitHub Trending。清华大学 MAIC 实验室开源的多智能体交互课堂，用户一键即可获得沉浸式多 Agent 学习体验——多个 AI 角色协同讲解、对话、演示，把「单一模型问答」升级为「多智能体协作教学」。</p>
+          <div class="comment">OpenMAIC 把「多 Agent 协作」从论文概念做成了可一键上手的课堂产品。它的价值在于示范了一种新交互范式：不再是「我问一个模型」，而是「多个角色 Agent 分工协作、彼此补充」。这既是 Agent 框架的教学样板，也暗合「复杂任务由多智能体协作完成」的产业趋势。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/NVIDIA/SkillSpector" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/NVIDIA/SkillSpector" alt="NVIDIA/SkillSpector" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>15,552★</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">NVIDIA/SkillSpector：给 AI Agent skills 做「安装前安检」的开源扫描器</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">15,552★，本日登上 GitHub Trending。NVIDIA 开源的 AI Agent skills 安全扫描器，在安装 Claude Code、Codex、MCP skills 之前，检测其中的漏洞、恶意模式、安全风险、提示注入、数据外泄与供应链风险。</p>
+          <div class="comment">当「skills 生态」成为 Agent 能力的默认扩展方式，第三方 skill 就成了新的供应链攻击面。SkillSpector 把「安装前安检」这个软件供应链早已成熟的思路，搬进 Agent skills 领域——它本身不炫技，却点中了 Agent 时代最现实的隐患：你给 Agent 装的每一个 skill，都可能是一扇后门。这也印证了 skills 生态正从「野蛮生长」进入「需要安全基建」的阶段。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
