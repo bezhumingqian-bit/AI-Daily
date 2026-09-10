@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·84 · 2026-09-10</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight:600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-硬件 { background: #D0956B; box-shadow: 0 0 8px rgba(208,149,107,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+  .dot-算力 { background: #7FA6A0; box-shadow: 0 0 8px rgba(127,166,160,0.4); }
+  .dot-版权 { background: #C4A0B0; box-shadow: 0 0 8px rgba(196,160,176,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-硬件 { color: #B07040; }
+  .stitle-前沿技术 { color: #9080B0; }
+  .stitle-算力 { color: #5F8680; }
+  .stitle-版权 { color: #A87E90; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 09 / 10</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 84</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 09 ／ 10 · 周四</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://cloud.tencent.com/developer/article/2740132" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">DeepSeek / 第一财经</span>
+              <span class="card-divider">·</span>
+              <span>9/10</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">DeepSeek V4.1 Flash 发布：性能全面超越 V4 Pro，Flash 系列同步降价 60%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/9，DeepSeek 在开放平台发布公告，新一代模型 V4.1 Flash 于 9/10 前后正式发布，并自 9/10 12:00 起对 Flash 系列大幅降价。官方称经内部及多方测试，V4.1 Flash 采用全新架构、原生支持多模态，在性能、响应速度、费用与总用时等指标上全面超越 V4 Pro；V4.1 Flash 上线后、V4.1 Pro 推出前，所有指向 V4 Pro 的请求将自动路由到 V4.1 Flash，并按 Flash 更低单价计费。价格方面，空闲时段每百万 token 缓存命中输入从 0.05 元降至 0.02 元（降 60%）、缓存未命中从 1.5 元降至 1 元、输出从 4.5 元降至 4 元，高峰时段为空闲两倍。这距 8/13 的 V4 Pro 大幅涨价不到一个月，本质是对上一轮涨价的"部分回调"；首批内测反馈其生成速度约 284 tokens/s，约为现版 V4（约 97）的近三倍。</p>
+          <div class="comment">这轮"发布 + 降价"最有信息量的是那句"V4 Pro 请求全部路由到 V4.1 Flash"——DeepSeek 等于亲手把刚上线一个月的 V4 Pro 打成了过渡产品，用户零改动就能用上更强的模型、付更低的钱。背后的算盘很清楚：用一次"升级降价同步"，把 8/13 涨价流失的开发者口碑和调用量一起拉回来。价格战打到现在，比的已经不是单卡多便宜，而是"谁能把性价比做进产品迭代节奏里"。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 算力 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-算力"></span>
+        <span class="section-title stitle-算力">算 力</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.googlecloudpresscorner.com/2026-09-09-Google-Deepens-Commitment-to-Finland-with-Two-Year-EUR13-Billion-investment-in-AI-Infrastructure" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://www.googlecloudpresscorner.com/image/GC_Social_New.jpg" alt="谷歌芬兰 AI 基础设施" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-算力"></span>
+              <span class="card-source-name">Google / CNBC</span>
+              <span class="card-divider">·</span>
+              <span>9/9</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">谷歌在芬兰投 130 亿欧元建 AI 数据中心，签下美国以外首份核电采购协议</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/9，谷歌宣布未来两年在芬兰投资至少 130 亿欧元（约 151 亿美元）用于 AI 基础设施，这是谷歌在欧洲有史以来最大单笔投资。计划至少新建 Kajaani、Muhos、Vaala 三座数据中心，并扩建东南部 Hamina 现有园区；同时与芬兰能源公司 Fortum 签署 22 年核电购电协议（PPA），支持 Loviisa 核电站延寿、锁定其 50% 出力（2030–2049），这是谷歌在美国以外签署的首份核电采购协议。此外新增 629MW 陆上风电与 94MW 电池储能，项目预计建设期创造超 3.7 万个岗位、建成后约 7000 个长期岗位。此举呼应 Alphabet 7 月将今年资本支出预期上调至 2050 亿美元。</p>
+          <div class="comment">这单的题眼不在 130 亿欧元，而在那份 22 年的核电 PPA——谷歌第一次在美国之外用"长周期核电合同"给 AI 算力锁电价、锁绿电。当数据中心从"租地建楼"变成"自建电网伙伴关系"，AI 的竞争已经从模型层下沉到了电力层。芬兰能接住这笔钱，靠的是 96% 无碳电力和寒冷气候的低散热成本；反过来，这也把"AI 算力的地理版图"和"欧洲的能源安全"绑在了一起。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 版权 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-版权"></span>
+        <span class="section-title stitle-版权">版 权</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.zhiding.cn/ai-applications/2026/0909/3198836.shtml" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-版权"></span>
+              <span class="card-source-name">Suno / TechCrunch</span>
+              <span class="card-divider">·</span>
+              <span>9/9</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Suno 发布 v6：AI 音乐首次全面转向「授权训练 + 付费分成」</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/9，AI 音乐公司 Suno 发布 v6 模型家族（旗舰 v6、实验性 v6-wild、免费 v6-mini 三档），首次完全使用华纳音乐集团、BMG 与分销商 Believe 的授权数据训练，并宣布淘汰全部旧模型。这是 AI 音乐赛道首次由头部公司全面转向"授权训练 + 付费分成"：首席产品官 Jack Brody 称"从 9/9 上线第一天起，这套合作就开始为版权方产生收入"，Believe/TuneCore 艺人可选择加入、生成的歌曲可进入传统发行渠道。v6 支持用文本改单句歌词、多源 mashup、分离乐器采样、以文本/音频/图像/视频作参考。Suno 仍面临索尼、环球音乐及 Jason Isbell 的诉讼，且曾承认用 YouTube 视频训练旧模型；公司估值约 54 亿美元、累计融资超 8.19 亿。</p>
+          <div class="comment">Suno 这一步，是生成式 AI 从"先上车后补票"转向"正版数据换分发"的样板——被华纳、BMG 起诉到和解，最后干脆把对手变成股东和内容供给方。但真正的信号是它的不彻底：索尼和环球两家最有诉讼筹码的巨头还没签，训练数据细节和艺人分成比例也含糊带过。这说明"授权训练"目前更像一张止血的创可贴，而非一劳永逸的商业模式；AI 音乐要跑通，还得看索尼环球这两关怎么过。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 商业 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-商业"></span>
+        <span class="section-title stitle-商业">商 业</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://caifuhao.eastmoney.com/news/20260909160729689232400" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-商业"></span>
+              <span class="card-source-name">晚点 / 财联社</span>
+              <span class="card-divider">·</span>
+              <span>9/9</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">月之暗面秘密递表港交所：拟融资 30 亿美元，目标估值 500 亿美元</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/9，据晚点 LatePost 报道，Kimi 母公司月之暗面已以保密形式向港交所递交 A1 文件、启动港股 IPO（走特专科技公司第 18C 章），拟融资约 30 亿美元、目标估值高达 500 亿美元。公司估值呈三级跳：去年底约 43 亿美元 → 今年 5 月 200 亿美元 → 现目标 500 亿美元。商业化上，ARR 于 6 月中旬突破 3 亿美元（3 月 1 亿、4 月 2 亿），API 收入占整体七成；7 月发布的 Kimi K3 达 2.8 万亿参数、1040 亿激活。背后站着阿里、腾讯、美团等。月之暗面方面回应"不予置评"。若成行，它将是继智谱、MiniMax 之后第三家赴港上市的中国 LLM 独角兽。</p>
+          <div class="comment">月之暗面选港股而非 A 股，核心是 18C 章"允许未盈利特专科技公司上市"的通道，以及香港能对接境外机构资本——这跟它"海外付费用户增长 4 倍"的出海叙事是配套的。值得盯的是估值纪律：43 亿 → 200 亿 → 500 亿，一年翻了十倍多，而 ARR 才刚到 3 亿美元。公开市场会不会认这个"500 亿美元"，是这轮中国大模型 IPO 潮能不能立住估值锚的第一场真考试。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://news.qq.com/rain/a/20260909A07NPA00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OdsZxtAse2OKU-pLYlys9lEPWUyC4r60syxf21GDYCxWsAA_640330/0" alt="Cognition E 轮融资" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">智东西 / 腾讯新闻</span>
+              <span class="card-divider">·</span>
+              <span>9/9</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Cognition 完成 20 亿美元 E 轮：估值 480 亿，三位华人 IOI 金牌创始人再造独角兽</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/9，美国 AI 编程独角兽 Cognition 宣布完成超 20 亿美元（约 134 亿元）E 轮融资，估值达 480 亿美元，由 a16z 与 Accel 领投。公司由三位华人工程师 Scott Wu、Steven Hao、Walden Yan 联合创办，三人均为国际信息学奥林匹克（IOI）金牌得主。自 5 月上一轮以来，Cognition 年化收入从 4.92 亿美元增至接近 9 亿美元，约 4 个月增长 83%。其主打产品 Devin 被称为"全球首个 AI 软件工程师"，2025 年又收购 Windsurf 拓展编程工具线。（注：09-04 曾报"约 10 亿美元 / 470 亿估值"传闻，此为正式官宣，融资额与估值均有上修，属事件追加进展。）</p>
+          <div class="comment">三位 IOI 金牌得主把"AI 软件工程师"这个叙事跑出了 480 亿美元的估值，靠的是把编程 Agent 从"写代码"延伸到"调试、测试、交付"的完整闭环，四个月收入涨 83% 证明企业真的在买单。但更值得玩味的是它的竞争位：前有 OpenAI Codex、Cursor 这种"平台 + 工具"的对手，后有开源 Agent 框架的围剿，Cognition 押的是"垂直做到极致"的路线。当编程 Agent 市场从"谁先定义"进入"谁先规模化"，这 20 亿美元买的是抢跑的时间窗。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://news.qq.com/rain/a/20260910A037AQ00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/Oci4sYNnnDCPSYjyOsxe1sNDnTp_54R9yt7lXnK735uuEAA_640330/0" alt="Anthropic 研究员辞职警告" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">华尔街日报 / Deadline</span>
+              <span class="card-divider">·</span>
+              <span>9/9</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 研究员 Jacob Coxon 辞职长文：AI 行业在「拿我们的生命赌博」</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/9，Anthropic 预训练研究员 Jacob Coxon（27 岁）宣布辞职，在 X 发布七段长文、一夜收获约 7600 万浏览，直言"OpenAI 和 Anthropic 都没有在负责任地行动，它们在冲向自我改进的超智能，拿我们的生命赌博"。他警告"到明年年底，一些最激进的情景可能已经失控"，并透露业内同事已用"crunchtime（关键时刻）""endgame（终局）"来形容自我改进模型临近的阶段。Coxon 此前在 OpenAI 与 Anthropic 做了三年预训练研究，今年初刚转投后者。Anthropic 对齐科学家 Evan Hubinger 随后附议，称"未来十年 AI 灭绝人类概率超过 10%"。同一周，OpenAI 首席科学家 Pachocki 也发文呼吁政府介入、协调行业减速。</p>
+          <div class="comment">Coxon 这篇辞职信最重的不是"危言"，而是它来自一个最不该危言的人——一个刚从 OpenAI 跳到"安全标杆"Anthropic 的预训练研究员，用"终局""关键时刻"这种词描述自己亲手在做的事。当一线研究员把"再往前推一步就是失控"的判断摆上台面，AI 安全就从"哲学争论"变成了"内部告密"。信不信他的概率，是一回事；但"造模型的人自己在喊停"这件事本身，已经是这轮算力狂飙里最值得记录的一声警钟。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub Trending 周边</p>
+
+      <a class="card-link" href="https://github.com/Tencent/teamai-cli" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/Tencent/teamai-cli" alt="teamai-cli" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · 腾讯</span>
+              <span class="card-divider">·</span>
+              <span>3,097★</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">teamai-cli：腾讯开源的团队级 Agent 配置管理 CLI，一键统一 skill/rule/MCP</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">腾讯开源的 teamai-cli（"Make Every Team AI Native"），把团队的 skill、rule、MCP 配置集中到一个 git 仓库管理，通过 teamai pull 自动同步到 Claude Code、Codex、Cursor、Gemini CLI 等 11 种 agent harness，解决"团队方法论靠 prompt 重复灌输"的协作难题。TypeScript 实现，4 月创建、9/10 仍在高频更新，3,097 星，是国产 Agent 工具链中少有的、面向"团队共享"这一真痛点的项目。</p>
+          <div class="comment">teamai-cli 踩中的是 Agent 落地后的下一个问题：单人用得溜，团队怎么对齐？把 skill/rule/MCP 像"代码库"一样版本化、拉取、分发，本质是把工程团队的协作纪律复制给 AI 团队。这跟 Harness 的"工具白名单 + 团队共享接入"是同一个方向——Agent 的安全和一致性，最终要靠团队级的配置治理，而不是每个人的 prompt 自觉。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/cathrynlavery/diagram-design" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/cathrynlavery/diagram-design" alt="diagram-design" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>36,725★</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">diagram-design：38 种编辑级图表，替代 Mermaid 的 Agent 可视化方案</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">diagram-design 提供 38 种编辑风格的图表类型（自包含 HTML + SVG），专为 Claude Code、Codex、Pi 等 Agent 生成架构图、流程图设计，口号是"No shadows. No Mermaid slop."（无阴影、无 Mermaid 的敷衍感）。HTML/MIT 实现，4 月创建、单日涨约 2,286 星、累计 36,725 星，是本周 GitHub trending 涨得最快的项目之一，直击"Agent 画图又丑又糊"的痛点。</p>
+          <div class="comment">这个项目的爆火说明一件事：Agent 的"内容输出"已经过关，卡住的是"视觉输出"——Mermaid 那套渲染出来的图，工程味太重、审美太敷衍，配不上 Agent 已经写出来的代码质量。diagram-design 用"编辑级排版 + 无阴影的克制设计"把 Agent 的输出从"能看"拉到了"能直接进 PPT / 文档"。当 Agent 开始承担更多汇报、设计、交付的工作，"会画好看的图"会变成下一个硬技能。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/ayghri/i-have-adhd" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/ayghri/i-have-adhd" alt="i-have-adhd" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>34,925★</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">i-have-adhd：一个让 coding agent 别把答案埋进冗长输出的 skill</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">i-have-adhd 是一个 Python skill，专门阻止 coding agent 把关键答案淹没在冗长输出里，强制"ADHD-friendly"的输出风格——结论先行、要点短促、一眼扫到答案。MIT 实现，5 月创建、9/10 仍在更新，34,925 星，名字自带传播力，切中的是"Agent 越强、废话越多"这个被广泛吐槽的体验痛点。</p>
+          <div class="comment">名字是自嘲，问题是真问题：模型能力越强，越容易"为了显得专业"而堆砌过程、把答案埋进几千字的推理里。i-have-adhd 用"结论先行"这条硬约束，把 Agent 的输出从"给我看过程"拉回"给我看答案"。输出优化的终点，不是更长，而是更准、更短、更耐读。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
