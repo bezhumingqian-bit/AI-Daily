@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·85 · 2026-09-11</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight:600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-硬件 { background: #D0956B; box-shadow: 0 0 8px rgba(208,149,107,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+  .dot-算力 { background: #7FA6A0; box-shadow: 0 0 8px rgba(127,166,160,0.4); }
+  .dot-版权 { background: #C4A0B0; box-shadow: 0 0 8px rgba(196,160,176,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-硬件 { color: #B07040; }
+  .stitle-前沿技术 { color: #9080B0; }
+  .stitle-算力 { color: #5F8680; }
+  .stitle-版权 { color: #A87E90; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 09 / 11</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 85</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 09 ／ 11 · 周五</p>
+      </div>
+    </header>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A g e n t</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://new.qq.com/rain/a/20260911A03SLC00" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://inews.gtimg.com/om_ls/OYaTXutcCaxSVHaMh7QDcU1pBPDhW1ytBkm0f-8S_D8T8AA_640330/0" alt="OpenAI Agents API" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">OpenAI / 腾讯新闻</span>
+              <span class="card-divider">·</span>
+              <span>9/10</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OpenAI 开放 Agents API 公测：把 Codex harness 变成托管的 Agent 运行时</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/10，OpenAI 宣布 Agents API 进入公开测试，把驱动 Codex 的 harness（编排层）与沙箱打包成托管服务开放给所有开发者，且不额外收费。分工是：OpenAI 负责会话生命周期、编排、上下文压缩与故障恢复，应用侧负责提供工具并选择执行环境。一次 API 调用即可创建 agent——示例代码以 gpt-6-astra 为模型，通过 MCP 挂载外部可观测性服务，用 multi_agent 打开子代理并发上限（示例为 3），环境写 openai_hosted。harness 近期新增三项能力：跨长会话的上下文自动压缩（接近上限时压缩早期内容，开发者不必自己写压缩逻辑）、tool search 按需加载工具定义以省 token 并保住缓存、programmatic tool calling 让 agent 在代码里并行调用并过滤合并结果、只把有用部分带回上下文。沙箱支持 OpenAI 托管、九家伙伴（Modal、Cloudflare、Daytona、Blaxel、Runloop、Vercel、Oracle、E2B、DigitalOcean）、自建，或不开沙箱。harness 本身开源。两个已知限制：数据驻留目前仅限美国，且即便选择自托管沙箱也不支持零数据保留（ZDR）。</p>
+          <div class="comment">这条真正的信息量不在"又多了个 API"，而在 OpenAI 把 Agent 最脏最累的那层——会话状态、上下文压缩、失败恢复、子代理调度——抽出来做成了托管服务，还不要钱。这意味着"自建 Agent 运行时"的门槛被一次性抹平：过去要养一个工程团队维护的东西，现在一次 POST /v1/agents/sessions 就够了。代价也很直白：会话状态放在 OpenAI 那边，数据只能留在美国，ZDR 还不支持。企业选不选它，本质是在"少写多少代码"和"交出多少控制权"之间做交换。Agent 竞争的主战场，从模型能力正式转向了 Runtime。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://openai.com/index/introducing-gpt-live-1-in-the-api/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://images.ctfassets.net/kftzwdyauwt9/7Mz7MwoSyFLdOMk26N1hCA/b66e84b656c1d666fc2adc1c56ff67f1/introducing-gpt-live-1-green-seo.png?w=1600&amp;h=900&amp;fit=fill" alt="GPT-Live-1" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">OpenAI</span>
+              <span class="card-divider">·</span>
+              <span>9/10</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">GPT-Live-1 上 API：全双工语音把交互分从 45.4% 拉到 80.1%</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/10，OpenAI 宣布 GPT-Live-1 在 API 上线，把 ChatGPT 里那套全双工（边听边说）语音能力开放给开发者。传统语音 Agent 要把 STT、推理模型、TTS 串成链，每一次交接都加延迟；GPT-Live-1 在单一模型里同时处理进出的音频，把打断、停顿、背景噪声交给模型自己判，深度推理与工具调用则委派给后端文本模型（如 GPT-6 Astra 或第三方模型）。官方数据：Full Duplex Bench v1.5 交互性 80.1%，对比 GPT-Realtime-2.1 的 45.4% 与 GPT-Realtime-2 的 47.8%；轮次接管延迟 0.798 秒，对比 1.41 秒与 1.63 秒；Tau3（Voice）智能 Pass@1 为 86.2%，对比 45.7% 与 42.4%；Tau Banking 语音知识任务完成率 32.0%，对比 12.4% 与 10.3%；Artificial Analysis 对话动态 97.3%。定价上前端语音层 0.05 美元/分钟（约 3 美元/小时），后端模型与工具另计；同步新增 Quartz、Ripple、Vesper、Willow、Stone、Gleam、Meridian、Bossa、Tempo、Beacon、Delta、Cinder 十二种声音，并支持电话场景。早期客户侧：语言学习平台 Speak 的误打断减少近 80%；某医疗平台 CTO 称代码量减少 80%、删掉约 2.3 万行代码。</p>
+          <div class="comment">语音这一轮的关键不是"模型更聪明"，而是架构被砍掉了：STT→LLM→TTS 三段式每一段都在丢节奏、加延迟，全双工单模型把"什么时候该闭嘴"交给了模型自己判断。交互分从 45.4% 跳到 80.1%，意味着语音 Agent 第一次从"能听懂"走到了"会聊天"。真正的商业信号是 0.798 秒接管延迟与 0.05 美元/分钟同时成立——当延迟接近真人、成本压到每小时 3 美元，客服、预约、电话销售这些最重人力的岗位，才第一次有了被规模化替代的经济账。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.siliconreport.com/anthropic-details-disrupted-claude-misuse-across-seven-harm-areas" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://media.siliconreport.com/sha256/6a/14/6a14c0651d0290f96d48698f007eac1331ef625e1568daaada19ef3839e69534/3214dda660000c6cbe4c369bbf55eec27be6af4ee73e3c67c920326051e11402.webp" alt="Anthropic 威胁情报报告" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">Anthropic / Silicon Report</span>
+              <span class="card-divider">·</span>
+              <span>9/10</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 九月威胁报告：AI 拉平国家级攻击门槛，7 家中国实验室蒸馏被阻断</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/10，Anthropic 发布《Detecting and countering misuse of AI: September 2026》威胁情报报告，覆盖 2025 年 12 月至 2026 年 8 月被识别并阻断的滥用行为，分七类危害：网络攻击、影响力行动、监控、诈骗欺诈、生物滥用、常规武器开发、违规蒸馏。涉案模型为 Claude Haiku / Sonnet / Opus，Fable 与 Mythos 级别仅出现一例蒸馏。几个硬数据：自 2026 年 2 月起阻断来自 7 家中国实验室的蒸馏攻击，其中与阿里巴巴相关的活动在 5–7 月抽取超过 1.51 亿次对话，峰值近 300 万次/天，动用 3,500 多个虚假账号；俄罗斯关联组织 GTG-20006（归属与 Midnight Blizzard 公开报道一致）针对 20 多家乌克兰及欧洲政府、军事、外交机构，其 AI 代理会在恶意软件被安全产品标记后自动改写重建；与 ShinyHunters 相关的团伙在约 34 小时内，从一家 SaaS 供应商约 200 家下游客户中捞走 2,100 多套 Azure AD 令牌、覆盖 40 多个企业租户，几乎全部由 AI 代理完成；马里一名顾问以 Claude 作为"工程团队"搭建 Lakana 360 平台，监控该国三大运营商约 2,500 万张 SIM 卡。常规武器方向共 6 例（中国 3、俄罗斯 2、也门 1），也门一处用 Claude Code 开发制导火箭及射程目标超 2,000 公里多级弹道导弹的制导导航控制软件，并做了实弹试射（据报告似未成功）。</p>
+          <div class="comment">这份报告最刺骨的一句不是"有人拿 AI 造武器"，而是"AI 抹平了资源鸿沟"——过去需要一支团队跑几周的攻击链，现在一两个人几小时就能对几十个目标并行下手。更值得注意的是 Anthropic 把"蒸馏"单列成一类危害并点名 7 家实验室：当模型能力本身成了可被批量搬运的资产，前沿实验室之间的竞争就从产品层下沉到了反情报层。还有个容易忽略的细节——马里那套监控系统跑在本地模型上，封号根本关不掉。这说明"事后封禁"这类补救，对已经落地的 AI 系统正在失效。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.harvey.ai/en-US/blog/harvey-raises-dollar550m-at-a-dollar155b-valuation-to-help-legal-teams-own-their-intelligence" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.sanity.io/images/07s0r5r6/production/d46c5beb4e5eac66678d77936d49e0fd9a630b93-3840x2160.jpg?w=1200&amp;h=675&amp;fm=jpg" alt="Harvey 融资" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Harvey</span>
+              <span class="card-divider">·</span>
+              <span>9/10</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">法律 AI 公司 Harvey 融资 5.5 亿美元：估值 155 亿，ARR 破 4 亿后转身自研模型</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/10，法律 AI 公司 Harvey 宣布完成 5.5 亿美元融资，估值 155 亿美元（彭博口径为 156 亿），由 Diffusion 与 Lightspeed Venture Partners 联合领投，Sapphire Ventures、Whale Rock 新进，红杉、Kleiner Perkins、a16z、Coatue、Conviction、Elad Gil、GIC、Goldman Sachs Alternatives 等老股东跟投。估值轨迹：2025 年 2 月 30 亿 → 同年 6 月 50 亿 → 12 月 80 亿 → 2026 年 3 月 110 亿 → 现在 155 亿，14 个月涨了两倍多。商业数据：服务 3,000 多家机构（今年 3 月约 1,300 家），ARR 超过 4 亿美元，Am Law 100 律所约 80% 在用，客户含 Latham &amp; Watkins、微软法务团队及 5 家 Fortune 10 公司，估值约为 ARR 的 39 倍。同步动作：收购 AI 代理安全公司 Guardrails AI（2026 年内第四笔，此前为 1 月 Hexus、3 月 Lume AI 团队、7 月 Benchmark）；8 月发布首个自有后训练模型 Tenet，基座用的是 Moonshot AI 的开源模型 Kimi K3，由 Fireworks AI 协助训练；另推出法律代理基准 Harvey LAB。</p>
+          <div class="comment">155 亿估值最值得琢磨的不是数字本身，而是 Harvey 拿这笔钱要干什么——它把旗舰模型建在了中国 Moonshot 的开源权重上，而不是继续加深与 OpenAI 的依赖。OpenAI 从 2022 年就投它、至今仍是股东，这一手等于公开对冲：既压成本，也避免把受法律特权保护的材料彻底绑死在单一供应商链路上。但代价同样清楚——客户工作的数据溯源链，起点从旧金山换成了北京。垂直 AI 公司这一波"自研模型"，真正买的不是性能，是议价权。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://theaiinnovator.com/eu-starts-enforcing-ai-regulations-is-it-prepared-to-use-its-full-authority" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://theaiinnovator.com/wp-content/uploads/2026/09/EU-flags.png" alt="EU AI Act 执法" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">Euractiv / The AI Innovator</span>
+              <span class="card-divider">·</span>
+              <span>9/10</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">欧盟首次动用 AI Act 执法权：向前沿实验室索要安全与版权合规证据</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">欧盟委员会首次动用《AI 法案》新授予的执法权，向部分最强通用 AI 模型的开发方发出信息请求，要求说明网络安全、安全与版权合规情况。欧盟委员会技术主权、安全与民主事务执行副主席 Henna Virkkunen 接受 Euractiv 采访时确认了这一动作，但未点名收件方；她表示请求并未覆盖所有提供方，因为委员会近几个月已与部分开发商保持密切对话。Euractiv 就此事联系 Anthropic、OpenAI、Google、Meta 与 Mistral，截至发稿均未回应。另据一路报道，AI 办公室已于 9 月 1 日向 30 多家 AI 公司发出第一批信息请求，重点是那些未参与此前非正式合规对话的提供方。问询内容包括：模型与物理基础设施的网络安全防护、防止模型被人或其他 AI 系统窃取的证据、给外部评估方的访问程度、对其安全建议的跟进情况，以及发布后的使用监测。通用 AI 模型规则自 2025 年 8 月 2 日起适用，要求维护技术文档、建立版权政策、公开训练内容摘要；AI 办公室可要求整改、限制模型可得性，并处以最高全球年营收 3% 或 1,500 万欧元罚款（取高者）。高风险 AI 系统义务已推迟至 2027 年 12 月 2 日。</p>
+          <div class="comment">这是《AI 法案》从"纸面上的牙齿"变成"会咬人"的第一步，但要看清它的分量：信息请求本身不等于认定违法，它只是一次取证动作。真正的信号在两处——一是欧盟把问询重点放在"没来聊过"的公司身上，等于明说配合对话可以换缓冲空间；二是问题清单直指模型窃取、外部评估访问权、发布后监测这些厂商最不愿公开的环节。监管的打法很清楚：先要文档，再谈整改，罚款是最后一张牌。对下游企业来说更现实的影响是——以后采购模型，要问供应商拿的不只是能力指标，还有这套合规证据链。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 硬件 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-硬件"></span>
+        <span class="section-title stitle-硬件">硬 件</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.humanoidsdaily.com/news/unitree-open-sources-unifolm-wla-1-0-to-tackle-humanoid-generalization" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://7jopx6ax2qhwmgqx.public.blob.vercel-storage.com/images/unitree-unifolm-opensourced.webp" alt="宇树 UnifoLM-WLA-1.0" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-硬件"></span>
+              <span class="card-source-name">Unitree / Humanoids Daily</span>
+              <span class="card-divider">·</span>
+              <span>9/10</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">宇树全开源 UnifoLM-WLA-1.0：60 亿参数单模型统筹 64 项人形机器人真机任务</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/10，宇树科技宣布新一代通用人形机器人基础模型 UnifoLM-WLA-1.0 全面开源，同步开放代码、模型权重与训练数据集，并可免费商用。模型为 60 亿参数的视觉-语言-动作（VLA）基座，架构由两部分堆叠：一是 UnifoLM-ER-1-4B，基于 Qwen3-VL-4B 的具身推理主干，在超过 500 万条具身样本（图像点预测、目标检测、多图推理、2D 轨迹预测、3D 检测、多图空间问答）上与通用图文数据共训；二是基于 MMDiT 的动作专家，把 VLM 隐状态与带噪动作 token 去噪成连续控制量。中间的关键设计是"以交互为中心的世界建模"：对相邻帧做光流估计、抽取运动像素得到动态区域掩码，再用 VQ-VAE 压成离散 token，让模型只预测"场景里哪里会变"，而不是重建整帧未来。动作空间拆成末端位姿、手/夹爪关节、下肢关节三路，各自用残差向量量化（RVQ）离散化后同步喂入模型，实现跨本体先验迁移。训练用约 2,500 小时高质量真机数据（含宇树开源数据集、BitRobot-HIW-500 等）。真机评测单模型完成 64 项任务，其中 54 项桌面精细操作、10 项全身移动作业，可跨任务、跨末端执行器（平行夹爪与多种五指灵巧手）泛化；4B 的 ER 模型在 16 项空间与多模态基准中的 7 项取得开源第一，部分指标对标闭源模型；实机策略推理延迟低于 105 毫秒。</p>
+          <div class="comment">人形机器人过去两年的通病是"移动一套模型、操作一套模型"，两套系统靠调度硬拼，泛化能力因此被锁死。宇树这次把感知、世界模型、动作解码塞进同一条训练管线，用"只预测会变的区域"替掉"重建整帧未来"，本质是在算力预算内买到了更聚焦的物理先验——6B 体量能压过 RoboBrain2.0-7B、Cosmos-R1-7B，靠的不是参数而是监督信号更准。但真要说里程碑，还是"全开源 + 可免费商用"这个动作：它把具身智能的门槛从"有没有机器人"降到了"会不会改代码"。接下来要看的，是有没有人在 G1 之外的本体上把它跑通——跨本体泛化喊得多，验证得少。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub Trending 周边</p>
+
+      <a class="card-link" href="https://github.com/vastsa/PI-Desktop" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/vastsa/PI-Desktop" alt="PI-Desktop" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>2,355★ · +624 today</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">PI-Desktop：本地优先的 AI 编程 Agent 桌面端，Electron + Rust 内核 + 插件化</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">PI-Desktop 是一个本地优先（local-first）的 AI 编程 Agent 桌面应用，架构为 Electron 外壳 + Rust 编写的 host core + pi Agent Harness + 用户可自行安装的插件体系，主要语言 TypeScript。仓库 2023 年 3 月创建，2026 年 9 月 11 日仍在高频提交，当前 2,355 星、当日新增 624。Topics 覆盖 ai-agent、coding-agent、local-first、mcp、pi-agent、plugins、rust 等。它把"Agent 跑在用户自己的机器上"当成默认形态：文件读写、命令执行、工具调用都发生在本地，而不是托管沙箱里。</p>
+          <div class="comment">当 OpenAI 把 Agent 运行时往云端托管推（见本日 Agents API），PI-Desktop 代表的是完全相反的另一极——所有状态留在本地，用户自己掌控数据与执行边界。这两条路线的分歧点很有意思：前者卖的是"少写代码"，后者卖的是"少交数据"。对金融、医疗以及任何受合规约束的团队来说，本地优先不是情怀而是硬要求。Rust host core + 插件化这个组合也说明，Agent 桌面端正在从"套壳聊天窗口"进化成有真实扩展机制的应用平台。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/okf-memory/okf-agent-memory" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1/okf-memory/okf-agent-memory" alt="okf-agent-memory" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub</span>
+              <span class="card-divider">·</span>
+              <span>549★</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">okf-agent-memory：拿 Git 当记忆底座，内嵌 MCP server，BM25 检索压到 300µs 内</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">okf-agent-memory 为 AI 编程 Agent 提供持久化记忆，实现 Google 提出的 Open Knowledge Format（OKF）v0.2 规范。技术要点：把记忆以 Markdown 形式存进 Git 仓库，用 Git 本身做版本与同步，零外部数据库、零依赖；检索侧在内存中跑 BM25，延迟做到 sub-300µs；采用渐进式披露（progressive disclosure）策略，只按需加载相关片段，官方称可将 token 膨胀削减 80%；同时内嵌一个 MCP server，可被任意支持 MCP 的 Agent 直接挂载。纯 Go 实现，2026 年 9 月 5 日创建、9 月 10 日仍在更新，当前 549 星。Topics 含 mcp、mcp-server、model-context-protocol、agent-memory、bm25、git-native、okf、knowledge-graph 等。</p>
+          <div class="comment">Agent 记忆这一年基本在两条路上打架：一条是向量数据库 + 嵌入检索，效果强但要起服务、要维护、要钱；另一条就是 okf 这种——把 Markdown 塞进 Git，用 BM25 硬搜。后者看起来"技术含量低"，但 sub-300µs 的内存检索加上零部署成本，对编程 Agent 这种高频短查询场景其实更划算。真正的价值点在内嵌 MCP server：记忆不该是每个 Agent 各做一套的私有实现，而应该是可插拔的标准件。当记忆层也能像工具一样被 MCP 挂载，Agent 的"状态"才第一次有机会跨应用迁移。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://arxiv.org/abs/2609.08798" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">arXiv · 2609.08798</span>
+              <span class="card-divider">·</span>
+              <span>9/8</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">OPRD：把弱老师当"方向"而不是"目标"，弱监督蒸馏也能跑赢老师</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">论文《Eliciting Weak-to-Strong Generalization with On-Policy Reverse Distillation》，9 月 8 日提交，共 38 页、18 图、10 表，作者包括 Pashmina Cameron、Aaron Courville、Se-Young Yun 等 9 人，方向为 cs.LG / cs.CL。核心问题：强模型能否从更弱的监督者身上学到东西并反超？传统蒸馏把弱老师当作优化目标，等于把老师的能力天花板压在学生头上。OPRD 的做法是：在学生自己的 rollout 上，评估老师的策略相对于其参考策略的偏移方向，然后把学生的 verifier 驱动策略梯度中"沿着这个方向"的分量放大。关键约束是只 rescale 被 verifier 支持的更新，因此保留了策略优化的驻点（stationary points）不变——老师加速学习，但不改变优化目标本身。实验上，在连续代际模型迁移与多老师蒸馏两种设定里，OPRD 用更少的学生更新步数取得更高性能；响应风格分析显示，OPRD 的学生更接近"纯 verifier RL 训练出的模型"而非弱老师，佐证了"老师是指南针而非终点"这一设计意图。</p>
+          <div class="comment">这篇论文的巧思在于把"向谁学"和"学什么"拆开了：传统蒸馏把弱老师的输出当答案去拟合，学生再强也被老师的分布拽住；OPRD 只借老师的一个方向向量，真正推动学生的仍是 verifier 给的奖励信号，所以策略优化的驻点不被污染，老师的能力上限也就不再是学生的天花板。工程含义很实际——新一代模型上线后不必从零重跑昂贵的后训练，拿上一代当指南针就能加速收敛。RL 与蒸馏长期是两套方法论，这个工作给出的是一个可证明不破坏优化目标的合并方式：不是把两者加权，而是让一个只管方向、另一个只管目标。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">A I &nbsp; D A I L Y</div>
+      <div class="footer-tag">商 业 · 认 知 观 察 者 · 出 品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
