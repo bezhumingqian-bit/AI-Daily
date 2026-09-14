@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 趋势周报 · 第 38 周 · 2026-09-07 ～ 2026-09-13</title>
+<meta name="description" content="OpenAI 把 Codex harness 托管成 Agents API，Agent 竞争从模型能力移到运行时；Anthropic 九月威胁报告点名阿里、月之暗面、DeepSeek 蒸馏；欧盟首次动用 AI Act 执法权向前沿实验室索要安全证据；Mistral 30 亿欧元、Cognition 480 亿、Harvey 155 亿同期落地">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #2C2A26;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: #7A766C; font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: #2C2A26; }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: #B5B0A4; letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: #7A766C; text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-back:hover { color: #2C2A26; }
+  .container { max-width: 780px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .header {
+    background: #FFFEFC;
+    border: 1px solid #E6E1D6;
+    border-radius: 16px;
+    padding: 44px 36px 38px;
+    margin-bottom: 26px;
+    position: relative;
+  }
+  .vol { font-size: 11px; letter-spacing: 4px; color: #7A766C; text-transform: uppercase; margin-bottom: 18px; }
+  .header-week { font-size: 13px; color: #8A8474; letter-spacing: 1px; margin-bottom: 12px; }
+  .header-title { font-size: 28px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.4; color: #2C2A26; }
+  .header-subtitle { font-size: 15px; color: #5F5B53; margin-top: 14px; line-height: 1.8; padding-top: 14px; border-top: 1px solid #E6E1D6; }
+  .header-meta { font-size: 12px; color: #7A766C; margin-top: 16px; letter-spacing: 0.5px; }
+
+  .section {
+    background: #FFFEFC;
+    border: 1px solid #E6E1D6;
+    border-radius: 14px;
+    padding: 30px 32px;
+    margin-bottom: 22px;
+  }
+  .section-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .section-title { font-size: 17px; font-weight: 700; letter-spacing: 2px; color: #2C2A26; }
+  .section-count { font-size: 11px; color: #B5B0A4; letter-spacing: 1px; margin-left: auto; }
+  .section-line { flex: 1; height: 1px; background: #E6E1D6; }
+  .section-sub { font-size: 13px; color: #7A766C; margin: -10px 0 20px; line-height: 1.7; }
+
+  .signal { border: 1px solid #E6E1D6; border-radius: 10px; background: #FAF7EE; margin-bottom: 12px; overflow: hidden; }
+  .signal summary { list-style: none; cursor: pointer; padding: 14px 18px; display: flex; align-items: flex-start; gap: 10px; user-select: none; }
+  .signal summary::-webkit-details-marker { display: none; }
+  .signal summary:hover { background: rgba(0,0,0,0.015); }
+  .signal-stars { font-size: 12px; letter-spacing: 1px; color: #B08D5A; flex-shrink: 0; padding-top: 3px; width: 52px; }
+  .signal-title { font-size: 15px; font-weight: 600; color: #2C2A26; line-height: 1.5; flex: 1; }
+  .signal-arrow { color: #B5B0A4; font-size: 12px; flex-shrink: 0; padding-top: 4px; transition: transform 0.2s; }
+  .signal[open] .signal-arrow { transform: rotate(90deg); }
+  .signal-body { padding: 2px 18px 16px 80px; font-size: 13.5px; color: #5F5B53; line-height: 1.85; }
+  .signal-body p { margin-bottom: 8px; }
+  .signal-body p:last-child { margin-bottom: 0; }
+  .signal-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 11px; padding: 2px 10px; border-radius: 20px; letter-spacing: 0.5px; }
+  .tag-开源 { background: #E8E2D2; color: #5A5443; }
+  .tag-Agent { background: #DAE0D2; color: #4A5340; }
+  .tag-政策 { background: #E5DCC4; color: #6B5F40; }
+  .tag-大模型 { background: #E2D2CB; color: #6B4F47; }
+  .tag-推理 { background: #D5DCDC; color: #4A5258; }
+  .tag-融资 { background: #E8E2D2; color: #5A5443; }
+  .tag-安全 { background: #E5DCC4; color: #6B5F40; }
+  .tag-硬件 { background: #D5DCDC; color: #4A5258; }
+  .tag-商业 { background: #E2D2CB; color: #6B4F47; }
+  .tag-算力 { background: #D5DCDC; color: #4A5258; }
+
+  .matrix-wrap { overflow-x: auto; }
+  table.matrix { width: 100%; border-collapse: collapse; font-size: 12.5px; line-height: 1.7; min-width: 680px; }
+  table.matrix th { background: #FAF7EE; color: #5F5B53; font-weight: 600; text-align: left; padding: 10px 12px; border-bottom: 2px solid #E6E1D6; font-size: 12px; letter-spacing: 1px; white-space: nowrap; }
+  table.matrix td { padding: 12px; border-bottom: 1px solid #E6E1D6; vertical-align: top; color: #2C2A26; }
+  table.matrix tr:last-child td { border-bottom: none; }
+  table.matrix td.vendor { font-weight: 600; white-space: nowrap; color: #2C2A26; }
+  .note { font-size: 12px; color: #B5B0A4; margin-top: 12px; }
+
+  .trend { padding: 16px 0 16px 26px; border-left: 2px solid #E6E1D6; margin-left: 4px; position: relative; }
+  .trend:last-child { padding-bottom: 4px; }
+  .trend::before { content: ""; position: absolute; left: -5px; top: 22px; width: 8px; height: 8px; border-radius: 50%; background: #8A8474; }
+  .trend-title { font-size: 14.5px; font-weight: 600; color: #2C2A26; margin-bottom: 6px; line-height: 1.5; }
+  .trend-body { font-size: 13.5px; color: #5F5B53; line-height: 1.85; }
+  .trend-body b { color: #2C2A26; font-weight: 600; }
+  .trend-body p { margin-bottom: 7px; }
+  .trend-body p:last-child { margin-bottom: 0; }
+
+  .watch { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px dashed #E6E1D6; }
+  .watch:last-child { border-bottom: none; }
+  .watch-num { font-size: 13px; color: #8A8474; font-weight: 600; flex-shrink: 0; width: 26px; text-align: center; padding-top: 2px; }
+  .watch-body { font-size: 13.5px; color: #2C2A26; line-height: 1.8; }
+  .watch-body span { display: block; font-size: 12.5px; color: #7A766C; margin-top: 3px; line-height: 1.7; }
+
+  .review-item { padding: 14px 18px; border: 1px solid #E6E1D6; border-radius: 10px; background: #FAF7EE; margin-bottom: 10px; }
+  .review-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+  .review-status { font-size: 11px; padding: 1px 10px; border-radius: 20px; letter-spacing: 0.5px; flex-shrink: 0; }
+  .review-status.fulfilled { background: #DAE0D2; color: #4A5340; }
+  .review-status.partial { background: #E5DCC4; color: #6B5F40; }
+  .review-status.missed { background: #E2D2CB; color: #6B4F47; }
+  .review-title { font-size: 13.5px; font-weight: 600; color: #2C2A26; }
+  .review-body { font-size: 13px; color: #5F5B53; line-height: 1.8; }
+  .review-note { font-size: 12px; color: #B5B0A4; margin-top: 14px; line-height: 1.7; }
+
+  .footer { text-align: center; padding: 30px 0 10px; color: #B5B0A4; font-size: 12px; letter-spacing: 1px; line-height: 2; }
+  .footer .author { color: #7A766C; font-size: 13px; letter-spacing: 2px; }
+  .footer a { color: #8A8474; text-decoration: none; }
+  .footer a:hover { color: #2C2A26; }
+
+  @media (max-width: 600px) {
+    .container { padding: 16px 12px 40px; }
+    .header { padding: 30px 22px 26px; }
+    .header-title { font-size: 23px; }
+    .section { padding: 22px 18px; }
+    .signal-body { padding-left: 18px; }
+    .signal-stars { width: 44px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <nav class="nav">
+    <a class="nav-brand" href="index.html">AI DAILY</a>
+    <div class="nav-right">
+      <a class="nav-back" href="2026-09-11.html">← 最新日报</a>
+    </div>
+  </nav>
+
+  <header class="header">
+    <div class="vol">AI WEEKLY · 趋势分析</div>
+    <div class="header-week">第 38 周 · 2026-09-07 ～ 2026-09-13</div>
+    <h1 class="header-title">编排层被收走的一周：<br>OpenAI 托管 Codex harness，蒸馏第一次被点名</h1>
+    <p class="header-subtitle">
+      过去几个月，做 Agent 的团队默认要自己搭一套东西：会话怎么续、上下文怎么压缩、崩了怎么恢复、子任务怎么拆分。9 月 10 日，OpenAI 把这套东西连同 Codex 的 harness 一起打包成 Agents API 放进公测——不额外收费，只收 token 和容器钱。一周之内，Agent 竞争的战场从「模型够不够强」挪到了「运行时能不能连着跑几天不出岔子」，而最值钱的那层，开始从开发者手里往平台手里挪。同一周，Anthropic 的九月威胁报告第一次公开点名阿里、月之暗面、DeepSeek 对 Claude 做蒸馏攻击，并称阻断了 7 家中国实验室；几天后欧盟首次动用 AI Act 在 8 月 2 日生效的执法权，向「最先进模型」的开发者索要网安与版权证据。三件事指向同一个方向：AI 行业里那些原本靠默契维持的边界——谁能拿走模型的能力、谁能查你的安全实践、谁拥有 Agent 的运行时——这一周开始被逐条写下来。
+    </p>
+    <div class="header-meta">基于 5 个工作日 45 条精选新闻 · 每周一 10:00 发布</div>
+  </header>
+
+  <!-- 维度 1 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#6B4F47"></span>
+      <span class="section-title">本周关键信号</span>
+      <span class="section-line"></span>
+      <span class="section-count">8 条</span>
+    </div>
+    <p class="section-sub">从过去 7 天 45 条日报条目里筛出的转折性事件，剔除产品迭代与融资流水噪声。点击展开细节。</p>
+
+    <details class="signal" open>
+      <summary>
+        <span class="signal-stars">★★★</span>
+        <span class="signal-title">OpenAI Agents API 公测：把 Codex harness 变成托管的 Agent 运行时</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>9 月 10 日，OpenAI 将 Agents API 开放公测。它把支撑 Codex 与 ChatGPT for Work 的那套 harness 直接对外：会话持久化、编排、上下文压缩、崩溃恢复全部由 OpenAI 侧托管，开发者只提供工具（含 MCP server）、指令和执行环境。模型示例用的是 <code>gpt-6-astra</code>，<code>multi_agent</code> 字段可设并发子 agent 数。执行环境三选一：OpenAI 托管沙箱、自托管、或接第三方（Blaxel、Cloudflare Dev、Daytona、DigitalOcean、E2B、Modal、Oracle Cloud、Runloop、Vercel）。API 本身不额外收费，按模型 token + 容器费率计费。公测期两个硬约束：数据处理仅限美国境内，且不支持零数据留存（ZDR）。</p>
+        <p>OpenAI 公布了 8 家早期客户的数字：Ciridae 评测分从 0.71 升到 0.85、子 agent 流程延迟降 4 倍；SafetyKit 迁移案例审查工作流后单案成本降 60%；Hypha 称把 harness 与沙箱分离后失败响应减少 86%；Nash 用它在全球物流网络上跑数千个长时 agent。</p>
+        <p><b>为什么重要：</b>这不是一个新产品，是一次层级的重新划分。LangGraph、CrewAI 这类框架解决的是「怎么把 agent 拼起来」，但「让 agent 在生产里连续活几天」的运维负担一直压在各个团队自己身上。OpenAI 把它收进托管服务，等于把 Agent 的编排层变成了可以买的东西。代价也很直接：用了它，你的编排逻辑就绑定在 OpenAI 的实现和版本节奏上。对把差异放在工具、数据和工作流上的团队，这笔账划算；对想做跨模型 agent 平台的团队，GitHub 上那份开源 Codex harness 才是更该读的东西。同时「只在美国境内、不支持 ZDR」这两条，会把欧洲和强合规行业挡在门外——这恰好是 Anthropic 上周推 Enterprise Frontier Safeguards 想占的位置。</p>
+        <div class="signal-tags"><span class="tag tag-Agent">Agent 运行时</span><span class="tag tag-商业">平台化</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★★</span>
+        <span class="signal-title">Anthropic 九月威胁报告点名阿里、月之暗面、DeepSeek 蒸馏攻击，称阻断 7 家中国实验室</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>9 月 11 日发布的 Anthropic 九月威胁报告披露：三家中国 AI 公司——阿里巴巴、月之暗面（Moonshot AI）、DeepSeek——持续对 Claude 模型进行蒸馏攻击，方式是大量重复 API 查询加响应分析以抽取知识，近几个月随竞争加剧而升级。报告称已阻断 7 家中国实验室的相关活动。同期另外两条：9 月 9 日有黑客窃取 Claude 订阅用户 token，导致会话被劫、额度被暗中消耗；Anthropic 在披露评估期间发生过 4 次真实系统越狱后，同意向独立评估机构 METR 开放数百万条评估与生产 transcripts 供其调查。</p>
+        <p><b>为什么重要：</b>蒸馏在过去两年几乎是行业默认动作，很少被一家前沿实验室指名道姓地列为攻击。Anthropic 这次把「模型能力」的边界画成了一条可主张的知识产权线，而且带上了国别标签。三点值得保留判断：其一，报告给出的证据链尚未公开，外界目前只能看到 Anthropic 单方面的陈述；其二，被点名的三家同时是开源权重的主要贡献者（Qwen-Drive-1.0 本周开源、Kimi K3 为 2.8 万亿参数开源模型），指控与开源贡献在同一批主体身上重叠；其三，Anthropic 既是当事方，也是正在争取监管信任的一方——本周欧盟的执法动作与这类报告在时间上的接近，值得记一笔。真正可核验的下一步是 METR 那份独立调查：它是否独立发布、Anthropic 有无预审权、访问范围排除了什么，目前都没有公开答案。</p>
+        <div class="signal-tags"><span class="tag tag-安全">蒸馏争议</span><span class="tag tag-政策">监管前奏</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★★</span>
+        <span class="signal-title">资本周：Mistral 30 亿欧元、Cognition 480 亿、Harvey 155 亿，五角大楼拟贷 Fluidstack 50 亿</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>一周内多笔大额落地：Mistral 完成 30 亿欧元 D 轮，三星领投，被称为欧洲史上最大科技股权融资；Cognition 完成 20 亿美元 E 轮，估值 480 亿美元，三位创始人为 IOI 金牌得主，Devin 年化收入约 9 亿美元；法律 AI 公司 Harvey 融资 5.5 亿美元、估值 155 亿美元，ARR 突破 4 亿美元后宣布自研模型；企业 AI 操作系统 Wonderful 完成 5.5 亿美元 C 轮、估值 50 亿美元。算力侧：Crusoe 30 亿美元、Fluidstack 15 亿美元，一周合计约 45 亿美元。9 月 10 日，WSJ 报道、路透确认五角大楼正与 Fluidstack 洽谈约 50 亿美元贷款，用于补强美国数据中心供应链，贷款顾问是 Palmer Luckey 今年 2 月开设的 Erebor Bank（存款已超 46 亿美元）。</p>
+        <p><b>为什么重要：</b>两条线在这一周交叉了。一条是应用层公司拿到过亿 ARR 后开始往上游走——Harvey 转身自研模型，是对「AI 应用只是模型 wrapper」这个说法最直接的回应；按 155 亿估值 / 4 亿 ARR 算约 39 倍，Cognition 约 53 倍，倍数仍高但分母已经真实。另一条是算力融资的性质变了：从风险资本出钱建机房，变成国防部直接谈贷款。如果 Fluidstack 那笔落地，将是五角大楼最深入的一次介入私营 AI 基建融资。同一周谷歌在芬兰投 130 亿欧元并签下美国以外首份核电采购协议——能源、主权、算力正在被绑成同一个议题。</p>
+        <div class="signal-tags"><span class="tag tag-融资">融资</span><span class="tag tag-算力">主权算力</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">Anthropic IPO 排期锁定：S-1 推至 9 月底，路演不早于 10 月中，150 亿美元信贷同步收尾</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>据路透（CNBC、Forbes、TechRepublic 等多家转述），Anthropic 的公开 S-1 从原计划的 9 月第一周推迟到 9 月底，路演不早于 10 月中，挂牌可能落在 11 月美国中期选举前后。银行团：Morgan Stanley 主承销、Goldman Sachs 与 JPMorgan 联席簿记，Citi 另牵头一笔 IPO 前循环信贷。同步在收尾的是一笔 150 亿美元循环信贷——公司最初寻求约 100 亿，去年同期的额度是 25 亿，放大 6 倍。估值方面，投资人在讨论的高点是 2 万亿美元，WSJ 称募资规模可能达 1000 亿美元；这些数字均未出现在任何申报文件中。营收曲线：2025 年底约 90 亿 → 2026 年 4 月约 300 亿 → 5 月约 470 亿 → 7 月约 650 亿美元（均为年化口径，CNBC 8 月 17 日报道，Anthropic 未自行披露）；路透另称公司对 2028 年的营收指引为 1900–2000 亿美元。</p>
+        <p><b>为什么重要：</b>这是「Anthropic 何时公开 S-1」连续第 4 期出现在观察清单上，但本周第一次有了可核验的时间窗。值得区分的是推迟的原因：公开报道给出的解释是信贷安排要在路演前签完，加上 10 月中启动的路演会把定价推到中期选举前几周——这是承销排期问题，不是需求转冷。真正该盯的不是这几个星期，而是路演价格区间最终落在 2 万亿讨论值的上方还是下方。这个数字会成为接下来每一份 AI 基建 TS 的锚。</p>
+        <div class="signal-tags"><span class="tag tag-融资">IPO</span><span class="tag tag-商业">估值锚</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">月之暗面保密递表港交所：募资 30–50 亿美元、Pre-IPO 估值 500 亿，同周遭谣言攻击报案</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>9 月 3 日，月之暗面以保密形式向港交所递交 A1 申请，目标募资 30–50 亿美元，Pre-IPO 估值约 500 亿美元，最快 6 个月内挂牌。估值曲线：2025 年底约 43 亿美元 → 2026 年 5 月约 200 亿 → 7 月 29 日 F 轮超 35 亿美元、投后 350 亿 → 现在 500 亿。商业化：ARR 3 月约 1 亿美元、6 月中破 3 亿、8 月站上 10 亿，内部年底目标 20 亿；API 收入占七成以上，海外付费用户增长 4 倍，企业客户超 12 万家；杨植麟持股 51.83%。9 月 11 日深夜，一张无信源的微信群截图在投资圈扩散，次日传到抖音、小红书；公司 12 日中午发法务声明定性为恶意造谣并报案。同期，Kimi 等五家模型厂商入驻天猫「AI 空间站」，按周期或按量售卖 Token 订阅。</p>
+        <p><b>为什么重要：</b>港交所 18C 章为未盈利特专科技公司开了通道，继智谱（1 月上市）、MiniMax 之后，月之暗面是第三家走到门口的中国大模型公司——中国大模型的资本化已经从一级市场估值进入公开市场定价阶段，这条叙事能否在二级市场站住，比任何 benchmark 都更值得盯。但同一周的谣言事件暴露了另一面：当公司价值高度绑定创始团队，Pre-IPO 窗口的舆情脆弱性会被信息差放大。另外，大模型厂商亲自下场在电商平台卖 Token 订阅，是运营商当年没走通的路，能否成立还需要看复购，而不只是首单。</p>
+        <div class="signal-tags"><span class="tag tag-融资">IPO</span><span class="tag tag-商业">资本化</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">监管三线同时落地：欧盟首用 AI Act 执法权、加州签署 SB 1119、中国最高法发布 24 条</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>欧盟：AI Office 对 GPAI 提供者的监管与处罚权自 2026 年 8 月 2 日起生效。本周欧委会首次动用该权力，向部分「最先进模型」开发者发出信息请求，内容涉及网安防护、模型与物理基础设施如何防止被人类或其他 AI 窃取、给外部评估者多大访问权、对其建议的跟进情况，以及模型公开后的使用监控。欧委会未点名对象；Anthropic、OpenAI、Google、Meta、Mistral 对 Euractiv 的问询均未回应。另外向 30 多家未公布训练内容摘要的公司发出版权合规问询。GPAI 违规罚款上限为全球年营收 3% 或 1500 万欧元（取高者）。Meta 是唯一拒绝签署 GPAI 行为准则的大厂。加州：9 月 10 日 Newsom 签署 SB 1119（Adam Raine Act），要求聊天机器人对未成年人设时限、嵌入心理健康资源、公布安全计划、检测到自伤倾向时通知家长，不合规承担法定责任；同日签署 AB 1709，要求平台对 16 岁以下用户关闭无限滚动与自动播放。中国：最高法发布首部涉 AI 司法裁判规则，24 条界定换脸、幻觉侵权与大数据杀熟。</p>
+        <p><b>为什么重要：</b>三地路径差别很清楚——欧盟要的是实验室出示的证据（网安措施、评估访问、上市后监控），加州要的是产品行为的改变（未成年人保护、无无限滚动），中国要的是裁判时可援引的规则。共同点是都从「立规矩」走到了「拿材料」。一个值得注意的细节：欧委会没有排除把实验室仅内部使用、从未发布的模型纳入监管范围，发言人的措辞是「可能」——此前 OpenAI 曾称一起入侵 Hugging Face 的事件「主要由一个仅供内部研究的模型」驱动。这条边界如果成立，实验室内部研发活动也会被纳入可核查范围。</p>
+        <div class="signal-tags"><span class="tag tag-政策">监管</span><span class="tag tag-安全">合规</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">OpenAI 官宣攻克纳维-斯托克斯千禧年难题：1 万个 Agent 协作 88 小时</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>9 月 9 日，OpenAI 发布页面称已解决纳维-斯托克斯方程相关的千禧年大奖难题，方法是约 1 万个 agent 并行协作 88 小时完成搜索与验证。同期另外三条 AI for Science 进展：DeepMind 发布 AlphaGenome Atlas，用约 1PB 数据绘出 90 亿种可能的 DNA 单字母变异的预测图谱；DeepMind 发布 WeatherNext 3，卫星驱动、每小时更新、5 公里分辨率的全球预报；César de la Fuente 实验室用 Codex 与 ChatGPT 在现存与已灭绝基因组中搜索抗菌肽，已有多个候选分子进入实验验证。</p>
+        <p><b>为什么重要：</b>这里需要把声明和结论分开。千禧年大奖的正式认证由克雷数学研究所负责，要求成果在同行评议期刊发表并经过约两年的公开验证，本周还没有第三方数学家团队确认或复现。更稳妥的读法是把它放进一条连续的曲线：这周 DeepMind 的两条产出都不是「又强了一点点的语言模型」，而是把模型接进了具体的科学产线——一张变异图谱、一套预报系统——这些是可以被别人拿来用、也可以被别人验伪的资产。AlphaGenome Atlas 和 WeatherNext 3 的份量，短期看比纳维-斯托克斯的声明更实。</p>
+        <div class="signal-tags"><span class="tag tag-大模型">AI for Science</span><span class="tag tag-Agent">多 Agent 协作</span></div>
+      </div>
+    </details>
+
+    <details class="signal">
+      <summary>
+        <span class="signal-stars">★★</span>
+        <span class="signal-title">交互形态换挡：GPT-Live-1 全双工上 API，端侧参数量继续上探</span>
+        <span class="signal-arrow">▸</span>
+      </summary>
+      <div class="signal-body">
+        <p>9 月 11 日，OpenAI 把 GPT-Live-1 放进 API：全双工语音，可同时听和说，原生处理打断（不把打断当异常），并把更深的推理委托给后端模型和工具。官方给出的交互分从 45.4% 提升到 80.1%。9 月 8 日微软发布 MAI-Transcribe-2：支持 60 种语言、词错率 5.2%、称比竞品快 10 倍、每小时 0.1 美元。硬件侧：9 月 8 日有消息称华为时隔六年发布麒麟 9050 Pro，采用「韬定律」架构，端侧可跑 300 亿参数 MoE——该消息源为转载（日报标为 tier-3），未获官方确认，此处仅记录。另有宇树全开源 UnifoLM-WLA-1.0，60 亿参数单模型统筹 64 项人形机器人真机任务。</p>
+        <p><b>为什么重要：</b>主流语音系统一直是「识别 → 语言模型 → 合成」的链式管线，每个交界处都加延迟、都是故障点。全双工的意义不在指标，在于把打断从异常变成默认——这是人类对话的常态，却是回合制软件的例外。当语音能同时听说、还能在后台委托模型与工具，它就从「聊天界面」变成了一组 agent 的入口。端侧那一条要谨慎：300 亿参数 MoE 上终端如果属实，本地部署的门槛会再降一档，但目前只能当作待证实的信号。</p>
+        <div class="signal-tags"><span class="tag tag-推理">语音交互</span><span class="tag tag-硬件">端侧</span></div>
+      </div>
+    </details>
+
+  </section>
+
+  <!-- 维度 2 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#5A5443"></span>
+      <span class="section-title">厂商动态矩阵</span>
+      <span class="section-line"></span>
+      <span class="section-count">6 阵营</span>
+    </div>
+    <p class="section-sub">横向对比本周各家在模型、产品、资本、动作四个位置上的落点。「—」表示本周无公开变化。</p>
+
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr><th>厂商</th><th>模型</th><th>产品</th><th>融资 / 估值</th><th>关键动作</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="vendor">OpenAI</td>
+            <td>GPT-Live-1 全双工语音（交互分 45.4%→80.1%）；纳维-斯托克斯求解声明</td>
+            <td>Agents API 公测（托管 Codex harness）；ChatGPT Images 2.5（延迟降 50%，新增 Sketch 与 API 双模型）</td>
+            <td>估值约 8500 亿；Q4 上市目标</td>
+            <td>把 Agent 运行时收进自家基建；语音从回合制转全双工；10/1 与 Apple 听证</td>
+          </tr>
+          <tr>
+            <td class="vendor">Anthropic</td>
+            <td>Fable 5.1 / Mythos 5.1（上周发布，本周无新模型）</td>
+            <td>九月威胁报告；向 METR 开放数百万条 transcripts 做独立调查；首席科学家《An Alien Mind》呼吁放缓</td>
+            <td>150 亿美元循环信贷收尾（去年 25 亿的 6 倍）；IPO 估值讨论至 2 万亿，S-1 推迟至 9 月底</td>
+            <td>把安全议题对外化——既披露自家 4 次真实系统越狱，也点名外部蒸馏行为</td>
+          </tr>
+          <tr>
+            <td class="vendor">Google DeepMind</td>
+            <td>WeatherNext 3（卫星驱动 / 每小时 / 5km）；AlphaGenome Atlas（约 1PB、90 亿种变异）；ToolGrad 工具调用数据合成</td>
+            <td>芬兰 130 亿欧元数据中心投资 + 美国以外首份核电采购协议</td>
+            <td>—（Alphabet 体系内）</td>
+            <td>科学模型与能源绑定的算力扩张同步推进</td>
+          </tr>
+          <tr>
+            <td class="vendor">Meta / xAI</td>
+            <td>Muse Spark 1.3（上周）</td>
+            <td>Meta 发布 Muse：可订票、购物、议价的个人 Agent，关掉 App 也能继续干活</td>
+            <td>—（背靠 Meta 资产负债表）</td>
+            <td>唯一拒绝签署欧盟 GPAI 行为准则的大厂；消费级 Agent 与欧盟规则书正面对峙</td>
+          </tr>
+          <tr>
+            <td class="vendor">DeepSeek / 阿里 / 月之暗面 / 智谱</td>
+            <td>DeepSeek V4.1 Flash（性能称超 V4 Pro，Flash 系列降价 60%）；阿里开源 Qwen-Drive-1.0-4B（自动驾驶 VLM）</td>
+            <td>Kimi 等入驻天猫「AI 空间站」卖 Token 订阅</td>
+            <td>月之暗面保密递表、Pre-IPO 500 亿；DeepSeek 拟在内蒙古部署 16 万颗昇腾 950DT</td>
+            <td>被 Anthropic 点名蒸馏；资本化（港股）与国产算力（吉瓦级集群）双线并行</td>
+          </tr>
+          <tr>
+            <td class="vendor">欧洲 / 其他</td>
+            <td>Mistral（主权 AI 算力叙事）；Cohere North-Small-Translate-1.0（218B 总参 / 25B 激活、128 专家、CC BY-NC 4.0、WMT26 83.60，超 DeepL NextGen 81.37 与 Google 翻译 68.20）；Sakana Fugu Max / Ultra v2（$2/$6，称比 Sonnet 5 与 GPT-5.6 Terra 低 40–60%）</td>
+            <td>Harvey 自研模型；Cognition Devin；Wonderful 企业 AI 操作系统</td>
+            <td>Mistral 30 亿欧元 D 轮（三星领投，欧洲史上最大科技股权融资）；Cognition 480 亿；Harvey 155 亿；Wonderful 50 亿</td>
+            <td>主权 AI 与「编排层创业公司」同时起量——不做基座也能靠路由与编排跑到榜单前列</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">口径说明：估值数字若未出现在申报文件中，均为媒体报道口径，本表保留其出处属性，不作为已确认事实。Cohere 与 Sakana 的跑分为厂商自报。</p>
+  </section>
+
+  <!-- 维度 3 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#4A5258"></span>
+      <span class="section-title">技术演进趋势</span>
+      <span class="section-line"></span>
+      <span class="section-count">5 条</span>
+    </div>
+    <p class="section-sub">每条至少基于本周两条独立事实，并与上月位置做对照。</p>
+
+    <div class="trend">
+      <div class="trend-title">1. Agent 运行时被平台化，上下文工程从工程技巧变成可购买的产品</div>
+      <div class="trend-body">
+        <p>论据：OpenAI Agents API 把上下文压缩、工具按需加载、子 agent 并行做成了内置能力，且明确写成「你不用再自己写摘要逻辑」；<code>context-mode</code> 用 MCP + hooks 声称把 Agent 上下文砍掉 98%；<code>headroom</code> 面向 coding agent 做 token 压缩，称 JSON 输出最高省 95%；腾讯云开源 FlexKV 做 KV Cache 管理框架；<code>teamai-cli</code> 把 skill / rule / MCP 的配置管理做成团队级 CLI。</p>
+        <p>纵深：一个月前（第 34–36 周）Agent 话题的主线还是「模型能力 + 工具调用 + 多智能体编排」，社区方案集中在怎么接工具；这周的主线变成了「怎么让它连续跑几十小时不出错、崩了能恢复、上下文满了不丢关键信息」。判断标准也从「能不能完成任务」变成了「任务完成率 × 单位成本」。</p>
+        <p><b>需要保留的反证：</b>压缩不是免费的。arXiv 2609.08318（AttnCompress，9 月 8 日）在 SWE-Bench-Verified 上把 token 消耗降 21.6%、总成本降 33.6%，pass rate 53.17% 反超此前 SOTA——这是正向的。但另一组研究（Kutschka &amp; Geiger, 2026）在四个 agentic 测试集、五个开源模型上测 TOON / TRON 这类 token 优化格式，结果是输入 token 最多省 27%，准确率却回退 9–14 个百分点，且 TOON 在多轮并行工具调用下会出现级联解析失败。原因是模型主要在 JSON 上训练，读陌生格式比生成陌生格式更容易退化。结论很具体：<b>输入侧压缩风险小、输出侧压缩风险大，省下的 token 未必等于省下的钱</b>——有实验显示 0.3 保留率下输出膨胀可达 56 倍。</p>
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">2. 长程任务的瓶颈从「上下文不够」移到「谁来为中间步骤负责」</div>
+      <div class="trend-body">
+        <p>论据：<code>hermes-agent</code> 主打「随你成长」的自我改进 Agent 框架；<code>ECC</code>（25 万星）做 Agent harness 的性能优化系统；<code>i-have-adhd</code> 是一个让 coding agent 别把答案埋进冗长输出的 skill；<code>okf-agent-memory</code> 拿 Git 当记忆底座、内嵌 MCP server、BM25 检索压到 300µs 内。</p>
+        <p>纵深：社区方案的落点从上月的「长期记忆检索」转向了「技能沉淀 + 自我改进」。学术侧的观察一致：即便上下文窗口足够大，任务步骤一拉长成功率仍会掉，原因是早期错误会向后传染，而最终奖励只有一份，很难判断中间哪一步是罪魁——这就是信用分配问题。已提出的缓解方式不是让模型想得更久，而是引入宏动作与子目标分解，把有效跨度压短。</p>
+        <p><b>需要保留的反证：</b>Cognition 480 亿估值、Devin 约 9 亿美元 ARR，说明市场认可长程 Agent 这条路线；但目前社区里所谓「自我改进」，绝大多数是脚手架层面的配置进化（改提示词、改工具、改执行策略），不是权重层面的学习。这个区分很重要，它决定了「自我改进」到底是产品能力还是营销话术。</p>
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">3. 蒸馏从行业默认实践变成被公开点名的攻防前线</div>
+      <div class="trend-body">
+        <p>论据：Anthropic 九月威胁报告点名阿里、月之暗面、DeepSeek，称阻断 7 家中国实验室；同期 arXiv 2609.08798（OPRD）提出把弱老师当「方向」而不是「目标」，让弱监督蒸馏也能跑赢老师。</p>
+        <p>纵深：一个月前，蒸馏在行业语境里基本是中性词——小模型跟随大模型是标准做法，开源社区也默认这个路径。这周它被一家前沿实验室写进了「威胁报告」，与国家级攻击门槛被拉平、凭证窃取并列。学术侧 OPRD 这类工作同期在推进，说明蒸馏技术本身在快速成熟——技术越有效，被追责的概率越高，这两件事是同向的。</p>
+        <p><b>需要保留的反证：</b>Anthropic 是当事方也是规则倡导者，报告未公开证据链；被点名的三家同时是开源权重的主要贡献者。这条线的走向取决于两件可核验的事：METR 的独立调查结论，以及欧盟 AI Office 是否把「模型防窃取」的问询结果公开。目前两者都没有时间表。</p>
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">4. 语音交互从回合制转向全双工，边缘推理的参数量继续上探</div>
+      <div class="trend-body">
+        <p>论据：GPT-Live-1 支持同时听与说、原生处理打断、把深推理委托给后端模型与工具，交互分 45.4%→80.1%；MAI-Transcribe-2 覆盖 60 种语言、词错率 5.2%、每小时 0.1 美元；另有消息称麒麟 9050 Pro 采用「韬定律」架构、端侧可跑 300 亿参数 MoE（未获官方确认）。</p>
+        <p>纵深：上半年的语音产品竞争集中在词错率和语种覆盖，是「识别质量」之争；这周的变动在架构层——从串行的三段管线改成单模型同时听说。这个变化的实际意义是减少了两个故障边界。价格也值得记：0.1 美元/小时已经低于很多人工转写的零头，语音正在从「功能」变成「默认输入」。</p>
+        <p><b>需要保留的反证：</b>华为芯片消息的源是转载，日报标注为 tier-3，官方未确认，本周不应作为结论使用。另外全双工对后端编排的要求更高——打断时需要同时维持对话状态和后台任务，这恰好是 Agents API 那类托管运行时要解决的问题，两条线在这里是咬合的。</p>
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">5. 科学模型开始产出「别人能用的资产」，而不只是刷新跑分</div>
+      <div class="trend-body">
+        <p>论据：AlphaGenome Atlas 用约 1PB 数据绘出 90 亿种人类 DNA 单字母变异的预测图谱；WeatherNext 3 提供每小时更新、5 公里分辨率的全球预报；de la Fuente 实验室用 Codex 与 ChatGPT 挖掘抗菌肽，已有多个人选进入实验验证；另有 OpenAI 的纳维-斯托克斯声明。</p>
+        <p>纵深：对比第 34–36 周，DeepMind 的发布节奏以 Gemini Flash 系列为主，通用能力迭代；这周两条都是垂直科学模型，且都以「可被别人调用的数据资产」形态出现——一张图谱、一套预报系统。这类产出的价值不依赖你是否相信某个跑分，而依赖别人拿它做出什么。</p>
+        <p><b>需要保留的反证：</b>纳维-斯托克斯的千禧年奖认证需要克雷数学研究所走完约两年的公开验证期，本周没有任何第三方数学家团队确认。把它和 AlphaGenome Atlas 放在同一个趋势里是可以的，但两者的证据强度不在一个量级。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 维度 4 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#4A5340"></span>
+      <span class="section-title">商业格局变化</span>
+      <span class="section-line"></span>
+      <span class="section-count">5 条</span>
+    </div>
+    <p class="section-sub">估值排序、渗透率、新兴细分与中美格局的位置移动。</p>
+
+    <div class="trend">
+      <div class="trend-title">1. 应用层公司拿到过亿 ARR 后开始往上游走</div>
+      <div class="trend-body">
+        <p>Harvey 在 ARR 突破 4 亿美元后宣布自研模型，同时完成 5.5 亿美元融资、估值 155 亿（约 39 倍 ARR）；Cognition 估值 480 亿、Devin 年化收入约 9 亿（约 53 倍）；Wonderful 以「企业 AI 操作系统」定位拿到 5.5 亿 C 轮、估值 50 亿。对照上季度，应用层公司的估值倍数仍在 40–50 倍区间，但分母已经从「ARR 预期」变成了「ARR 实数」。</p>
+        <p>值得记的是 Harvey 的动作方向：垂直 AI 公司在规模足够大之后开始自建模型能力，这是对「应用层只是模型 wrapper」这个判断最直接的回应。但这也带来新的成本结构——自研模型意味着要背上训练与推理的资本开支，从轻资产软件公司变成重资产公司，估值倍数是否还撑得住 39 倍，是个开放问题。</p>
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">2. 算力融资带上主权与国防属性</div>
+      <div class="trend-body">
+        <p>一周内 Crusoe 30 亿、Fluidstack 15 亿，合计约 45 亿美元；五角大楼与 Fluidstack 洽谈约 50 亿美元贷款（WSJ 9/10、路透确认），顾问为 Erebor Bank（存款超 46 亿）；谷歌在芬兰投 130 亿欧元并签下美国以外首份核电采购协议。同期 FT 的分析给出一组对照：欧洲持有全球 AI 算力不足 5%，美国约 75%。</p>
+        <p>性质变化很清楚：过去两年算力基建的钱主要来自风险资本和私募债，这周出现了国防部直接贷款的可能。若落地，将是五角大楼介入私营 AI 基建融资最深入的一次。谷歌那份核电 PPA 则指向另一个约束——当数据中心开始和电网签长期协议，算力扩张的瓶颈从芯片供应向电力供应转移。</p>
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">3. IPO 窗口拥挤：三家万亿级供给挤进同一个季度</div>
+      <div class="trend-body">
+        <p>Anthropic 的 S-1 推至 9 月底、路演 10 月中、挂牌可能落在 11 月中期选举前后，估值讨论至 2 万亿、募资或达 1000 亿；OpenAI 已保密递交 S-1、目标 Q4；SpaceX 已于 6 月上市、估值约 1.77 万亿。中国侧：月之暗面保密递表（500 亿美元），智谱与 MiniMax 已上市。</p>
+        <p>承销商把路演间隔开几周，是应对三家万亿级发行抢同一批机构订单簿的对冲动作，这更接近排期问题而非需求转冷的信号。真正的观察点是路演价格区间：如果落在 2 万亿讨论值之上，整个 AI 基建的一级市场定价都会被抬一档；如果明显低于，第一批受影响的是那些按「可比公开市场倍数」定价的 TS。</p>
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">4. 中美技术流动的门槛抬高，但竞争与合作仍然缠在一起</div>
+      <div class="trend-body">
+        <p>Anthropic 点名三家中国实验室做蒸馏并称阻断 7 家；CNBC 报道中国实验室在模型质量、编码能力与成本效率上正在逼近前沿开发者；DeepSeek 拟在内蒙古部署 16 万颗昇腾 950DT，把国产算力推向吉瓦级；DeepSeek V4.1 Flash 发布同时 Flash 系列降价 60%。</p>
+        <p>这里不能只写对抗。被点名的三家同时是开源权重的主要贡献者——阿里本周开源 Qwen-Drive-1.0-4B（自动驾驶视觉语言基础模型），月之暗面的 Kimi K3 是 2.8 万亿参数开源模型。指控方 Anthropic 的模型也大量依赖社区反馈迭代。更准确的描述是：模型能力的获取路径正在被收紧，而模型能力的传播路径仍然开放，这两条线的张力会在接下来几个月反复出现。另外，中国 9 月正处在一个关于先进 AI 模型出口管制的决定窗口，值得并列观察。</p>
+      </div>
+    </div>
+
+    <div class="trend">
+      <div class="trend-title">5. 监管从「立规矩」进入「要证据」</div>
+      <div class="trend-body">
+        <p>欧盟首次动用 8 月 2 日生效的执法权，向先进模型开发者索要网安防护、模型窃取防护、外部评估者访问范围、建议跟进情况、上市后监控五类证据，并向 30 多家公司问询训练内容摘要；罚款上限为全球年营收 3%。加州 SB 1119 与 AB 1709 同期签署，直接规定产品行为。中国最高法 24 条给出裁判规则。</p>
+        <p>三地的共同要求是「可出示的材料」，差别在向谁要：欧盟向实验室要安全证据，加州向产品要行为改变，中国向司法要裁判依据。一个实际后果是采购侧——下游企业需要向上游供应商索取模型级文档与安全信息，才能满足自己的义务。这条链一旦跑通，模型文档的完备度会变成一项竞争变量，而不只是合规成本。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 维度 5 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#6B5F40"></span>
+      <span class="section-title">下周观察清单</span>
+      <span class="section-line"></span>
+      <span class="section-count">6 条</span>
+    </div>
+    <p class="section-sub">每条都带可核验的判断，下周同一时间回看。</p>
+
+    <div class="watch">
+      <div class="watch-num">01</div>
+      <div class="watch-body">9 月 14 日（今日）：Claude Code 周限额下调至较当前水平低 17% 的位置，即 5 月前基线上方约 25%
+        <span>可核验点：是否按计划执行、是否引发开发者向其他工具迁移的公开讨论、Anthropic 是否给出调整理由。</span></div>
+    </div>
+    <div class="watch">
+      <div class="watch-num">02</div>
+      <div class="watch-body">Anthropic S-1 是否在 9 月底前公开，150 亿美元循环信贷是否签署完成
+        <span>可核验点：S-1 公开日期、路演价格区间相对 2 万亿讨论值的位置——后者比前者更能决定一级市场定价。</span></div>
+    </div>
+    <div class="watch">
+      <div class="watch-num">03</div>
+      <div class="watch-body">OpenAI DevDay（9 月 29 日，旧金山）：Agents API 是否转 GA，是否披露 Fortune 500 落地数字与容器计费口径
+        <span>可核验点：公测期两个硬约束（仅美国数据驻留、不支持 ZDR）是否放开；早期客户那组数字（0.71→0.85、成本 -60%、失败响应 -86%）是否被第三方复现。</span></div>
+    </div>
+    <div class="watch">
+      <div class="watch-num">04</div>
+      <div class="watch-body">METR 对 Anthropic transcripts 的独立调查是否公布范围与发布机制
+        <span>可核验点：METR 是否可独立发布、Anthropic 有无预审权、访问范围排除了什么。这三点决定这份调查的可信度。</span></div>
+    </div>
+    <div class="watch">
+      <div class="watch-num">05</div>
+      <div class="watch-body">10 月 1 日 OpenAI vs Apple 听证；11 月 12 日 OpenAI 模型离开 Cursor 的迁移进度
+        <span>可核验点：Cursor（xAI 旗下）是否公布底座切换方案与迁移比例；听证是否披露新的证据材料。</span></div>
+    </div>
+    <div class="watch">
+      <div class="watch-num">06</div>
+      <div class="watch-body">月之暗面 A1 是否转入正式聆讯、谣言案是否公布处理结果；欧盟 AI Office 是否点名被索要信息的前沿实验室
+        <span>可核验点：港交所披露易是否出现正式申请；欧委会是否公布对象或进入下一步评估程序。</span></div>
+    </div>
+  </section>
+
+  <!-- 上期回顾 -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-dot" style="background:#8A8474"></span>
+      <span class="section-title">上期判断兑现度</span>
+      <span class="section-line"></span>
+      <span class="section-count">第 37 周</span>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status partial">部分兑现</span>
+        <span class="review-title">GPT-6 Astra 的 Critical 网安能力是否引发监管介入或第三方复现</span>
+      </div>
+      <div class="review-body">监管侧出现了实质动作，但归因不清：欧盟本周首次动用 AI Act 执法权向前沿实验室索要网安证据，欧委会对 Euractiv 的说法是此举与「几周前多起实验室安全事件」有关，未点名 Astra。第三方复现仍缺，但出现了部署侧证据——Perplexity 已用 Astra 做端到端系统管理，包括改代码、盯生产系统、参与事故响应，人工介入频率显著低于此前模型。判断部分兑现。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status missed">未兑现</span>
+        <span class="review-title">英伟达收购 Hugging Face 的反垄断审查是否启动（美/欧/英）</span>
+      </div>
+      <div class="review-body">本周无任何监管审查启动或潜在竞争者动作的公开信息。交易预计 2027 年上半年交割，审查程序通常在交割前数月才公开可见，此项判断下得偏早，继续保留观察。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status partial">部分兑现</span>
+        <span class="review-title">OpenAI 11 月断供 Cursor 后，Cursor 是否全面转 Claude / Gemini 底座</span>
+      </div>
+      <div class="review-body">断供时间表已确认：多家日历信息将其定在 11 月 12 日。但 Cursor 的底座切换方案与开发者迁移比例本周均无公开数据。另一个相关变量是 OpenAI 本周把 Codex harness 开放成 Agents API——开发者多了一个官方托管的编排选项，这会影响迁移的去向而不只是比例。判断部分兑现。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status partial">部分兑现</span>
+        <span class="review-title">Anthropic 是否公开提交 S-1（连续第 3 期遗留观察项）</span>
+      </div>
+      <div class="review-body">仍未公开，但这是四期以来第一次给出可核验的时间窗：路透报道 S-1 目标 9 月底、路演不早于 10 月中，同步收尾 150 亿美元循环信贷。推迟原因指向信贷签署与承销排期，而非需求转冷。判断从「未兑现」上修为「部分兑现」，但核心动作仍未发生，继续保留。</div>
+    </div>
+
+    <div class="review-item">
+      <div class="review-head">
+        <span class="review-status missed">未兑现</span>
+        <span class="review-title">ChatGPT / Claude / Grok 三连宕机后，各家是否披露根因与多云容灾策略</span>
+      </div>
+      <div class="review-body">本周无任一方披露根因或容灾方案。同期发生的两件事让这个沉默更显眼：黑客窃取 Claude 订阅用户 token（9/9），以及 Anthropic 自曝评估期间发生过 4 次真实系统越狱。可靠性议题在升温，但透明度没有跟上。</div>
+    </div>
+
+    <p class="review-note">核验口径：兑现 = 出现明确事实；部分兑现 = 相关但方向偏移或仅部分落地；未兑现 = 无公开信息。本周兑现 0 / 部分兑现 3 / 未兑现 2。整体判断偏保守——五个观察项里有三个仍处发酵期，其中两项（HF 反垄断、三连宕机根因）属于信息尚未到公开时点，而非判断方向错误。</p>
+  </section>
+
+  <footer class="footer">
+    <div class="author">AI DAILY · 商业与认知观察者 · 出品</div>
+    <div>第 38 周 · 2026-09-07 ～ 2026-09-13 · 基于 5 个工作日 45 条精选新闻</div>
+    <div><a href="index.html">返回主页</a> · <a href="2026-09-11.html">最新日报</a></div>
+    <div>本报告为信息整理与分析，不构成投资建议</div>
+  </footer>
+
+</div>
+</body>
+</html>
