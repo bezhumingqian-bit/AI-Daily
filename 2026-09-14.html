@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·86 · 2026-09-14</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight:600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-硬件 { background: #D0956B; box-shadow: 0 0 8px rgba(208,149,107,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+  .dot-算力 { background: #7FA6A0; box-shadow: 0 0 8px rgba(127,166,160,0.4); }
+  .dot-版权 { background: #C4A0B0; box-shadow: 0 0 8px rgba(196,160,176,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-硬件 { color: #B07040; }
+  .stitle-前沿技术 { color: #9080B0; }
+  .stitle-算力 { color: #5F8680; }
+  .stitle-版权 { color: #A87E90; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 09 / 14</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 86</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 09 ／ 14 · 周一</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://openai.com/index/perplexity-improving-accuracy-with-astra" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://images.ctfassets.net/kftzwdyauwt9/2ONJEXhA8M9IGON14JgHTc/4450550ce2d8b38c7fe2e7825839c92a/og.png?w=1600&h=900&fit=fill" alt="Perplexity Astra" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">OpenAI 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Perplexity 把生产系统交给 Astra：改代码、盯线上，检查频率大降</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/14，OpenAI 官网上线 Perplexity 案例：这家以准确率为生命线的答案引擎，已把 GPT-6 Astra 用于三类真实工作——起草对内对外沟通、直接修改软件代码库、监控生产系统；联合创始人兼首席战略官 Johnny Ho 称团队"检查它的频率远低于前几代模型"。他给出的具体用法是让模型围绕应用写一个小型测试程序，模拟语言模型 API 或连接器等其他服务会返回的真实响应，替身式地跑通端到端工作流。Ho 的判断是：模型写代码的能力每提升一档，Perplexity 的搜索引擎就跟着变好一档。</p>
+          <div class="comment">从"答案引擎"到"托管生产"，Perplexity 卖的已经不是检索质量，而是敢不敢放手。但要给这条案例打个折扣：全文没有一个 SLA、事故率或回滚数字，唯一可核验的只是创始人的一句信任宣言。真正值得注意的反而是那个技术细节——让模型伪造下游服务的响应来做集成测试，这是把"模型会写代码"升级成"模型会搭测试替身"，后者才是 Agent 能独立闭环的前提。信任可以先讲，账单得后补。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://huggingface.co/openbmb/MiniCPM5-2B" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn-thumbnails.huggingface.co/social-thumbnails/models/openbmb/MiniCPM5-2B.png" alt="MiniCPM5-2B" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">HuggingFace / OpenBMB</span>
+              <span class="card-divider">·</span>
+              <span>今日 · 15 万次下载</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">2B 模型登顶 4B 以下智能指数，Agentic Index 打出 20:9</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">OpenBMB 放出 2B 稠密模型 MiniCPM5-2B，面向端侧推理、编码与工具调用。HuggingFace 数据显示该模型下载约 15 万次、1,345 likes，并已衍生 GGUF / MLX / DSpark 等多个量化分发版本。在 Artificial Analysis 智能指数上它位列 4B 以下档位第一，Agentic Index 以 20 分对第二名的 9 分领先。社区实测把它完全本地运行成一个"调查 agent"：单条请求"上周收入下降，查明原因、量化影响并产出带证据的事件报告"，模型自主串联订单、流量、支付、退款与部署日志完成多步分析；同一作者还在 iPhone 上做了离线 iMessage 助手（读短信、设提醒与日程、查资料、起草回复），并据此提出"能力密度约每 3.5 个月翻倍"的 Densing Law。</p>
+          <div class="comment">Densing Law 这个数字未必站得住，但 Agentic Index 上 20:9 的差距说明了真问题：端侧模型的瓶颈早就不是知识量，而是能不能连续多步把一件事办完。真正的分水岭也不是 2B 跑得多快，而是它第一次敢被当成"不用回头盯的执行者"，而不是"随时要人接手的草稿机"。还得泼一盆冷水——目前所有惊艳实测都来自作者本人和早期试用者，没有独立第三方复现；端侧 agent 的真实失败率，要等它离开演示环境才看得见。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://x.com/DavidSacks/status/2098973625252708460" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://images.moneycontrol.com/static-mcnews/2024/12/20241206040502_david-sacks.jpg" alt="David Sacks" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">X / @DavidSacks</span>
+              <span class="card-divider">·</span>
+              <span>9/13 · 5.7 万赞</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">白宫一句 "go ahead"：接受踩刹车，但拆掉了挂在上面的三项诉求</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/13，白宫 PCAST 主席、前白宫 AI 与加密事务负责人 David Sacks 发文回应 Amodei 的"pace the frontier"与 Altman 的附议，该帖获约 5.7 万赞、9,500 转推。他全盘接受放缓本身——"你们就是前沿，按市场份额、营收增长、模型能力任何合理指标，你俩已经垄断了前沿智能；如果未发布的模型真那么危险，我支持你们自己负责地减速"。但他逐条拒绝提案对政府的三项请求：不需要反垄断豁免（"别假装反垄断法得暂停好让你们组卡特尔"）、不需要凌驾产品责任的监管审批流程、不接受第三方评估人（"别假装 METR 是独立的，它和 Anthropic 的投资人与员工纠缠在一起"）。他给出的替代动机解释是产品责任敞口：Hugging Face 事件之后，用一部分原始能力换可靠性和可预测性"只是好生意"。同日，Meta 首席 AI 官 Alexandr Wang 表示对齐正在成为"扩展的 gating factor"。</p>
+          <div class="comment">Sacks 的高明之处在于全盘接受安全前提，再抽掉挂在上面的政策请求——你完全可以自己停，那就别拿"需要许可"来换你想要的监管框架。这招把球踢回给实验室，而且给了个便宜得离谱的证伪测试：公开划一条能力红线和日期就行。划不出来，动机质疑就一直有效。但他那句"你俩已经垄断前沿智能"其实是双刃的——如果政府认定前沿是双寡头，那"自愿减速"在市场结构里就近乎合谋，这恰恰是反垄断法最敏感的地带。这场辩论最有价值的产出不是谁说服了谁，而是"谁来评估评估者"这个老问题第一次被摆到了台面上。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.cnstock.com/commonDetail/789606" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">上海证券报</span>
+              <span class="card-divider">·</span>
+              <span>9/13</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">智谱 50 亿美元落袋：两个月前刚募 40 亿，MaaS ARR 冲到 16 亿美元</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/13，智谱（02513.HK）公告完成约 50 亿美元融资：约 20 亿美元股份配售 + 约 30 亿美元零息可转债，六成资金来自可转债。配售价每股 714 港元，较公告前收盘价折让约 9.96%，配售股份占扩大后已发行股本约 4.50%；可转债零息、发行价为本金的 100.5%、到期按本金赎回，初始转股价 892.50 港元，较配售价溢价 25%、较公告前收盘价溢价约 12.55%。资金投向下一代 GLM 基础模型、"完全自训练"体系及算力基建——智谱把"完全自训练"描述为下一代 GLM 在上一代构建的环境里训练，形成递归式自我改进循环。财务面：上半年 MaaS 开放平台及 API 收入 8.25 亿元、同比增长约 2736%，占总收入 86.5%；截至 8 月底 MaaS 平台 ARR 达 16 亿美元，较 7 月上旬的 10 亿美元增长 60%。距上一次融资（7 月配售约 40 亿美元）仅两个月，今年 1 月才登陆港交所。</p>
+          <div class="comment">零息 + 溢价 12.55% 转股，等于投资人主动放弃票息去赌股权——这是资本给"耐力赛"的定价方式，比任何 BP 都诚实。但真正刺眼的是时间表：1 月上市、7 月募 40 亿、9 月再要 50 亿。当模型公司按"月"融资时，"算力壁垒"和"烧钱速度"其实是同一个词的两个说法。另一个信号藏在收入结构里：86.5% 的收入来自 MaaS 和 API，说明智谱已经不太像一家卖模型的公司，而更像一家卖推理算力的云厂商——这条路的毛利能不能撑住估值，比 GLM 的下一个榜单排名更值得盯。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://traictory.com/news/2026-09-14-huggingface-hub-agent-telemetry" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://traictory.com/api/news/images/2026-09-14-huggingface-hub-agent-telemetry/cover-lg.webp" alt="huggingface_hub telemetry" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">r/LocalLLaMA</span>
+              <span class="card-divider">·</span>
+              <span>今日</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">huggingface_hub 在偷偷上报你用哪个编码 Agent，26 个环境变量注册表</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">r/LocalLLaMA 的一次网络流量审计发现：huggingface_hub 里的 _detect_agent.py 会从 Hub 的 /api/agent-harnesses 拉取并缓存一份 26 个编码 agent 的环境变量指纹表（Cursor→CURSOR_TRACE_ID，Claude Code→CLAUDECODE / CLAUDE_CODE，Copilot→COPILOT_MODEL / COPILOT_GITHUB_TOKEN，另有 AI_AGENT / AGENT 作为通用信号），每 24 小时刷新，每次 Hub API 调用都打上 agent/ user-agent 标签。因为检测在共享的 Python 客户端里，transformers、faster-whisper 等所有下游库都会继承——哪怕库作者从未要求。Hugging Face 官方数据：Claude Code 以 39.5k 独立用户、4,860 万请求居首，Codex 34.8k / 3,640 万次之。已知缺陷（issue #4860）：Warp 终端无条件设置 TERM_PROGRAM=WarpTerminal，导致所有 Warp 里的人类用户也被判为 agent，进度条与颜色被静默关闭——同一 90.9MB 下载只输出 42 字节（正常为 892-949 字节）。关闭方式只有 HF_HUB_OFFLINE=1，但它同时会停掉所有模型下载。</p>
+          <div class="comment">技术上它只是给已有请求打个标签，不是另开一条上报通道——Reddit 原帖把它说成独立遥测是夸大了，HF 六月就在博客里公开写过并有公开注册页。但这条界线挡不住真正的麻烦：一旦"识别 agent"的结果开始改变渲染行为，归因数据本身就脏了，人类 Warp 用户被计入 Warp agent 用量只是第一个可见裂缝。更实际的槽点是那个开关——想关掉归因，就得连模型下载一起关，中间没有档位。当整个 Agent 生态的用量统计建立在"从环境变量猜你是谁"这种可伪造的信号上，这些数字能用来讲融资故事，但不适合用来做任何严肃决策。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/max-sixty/worktrunk" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/1078528927/6196f2ac-248f-42f5-abb5-d18768111b3b" alt="worktrunk" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · Rust</span>
+              <span class="card-divider">·</span>
+              <span>7,533★ · 今日活跃</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">worktrunk：为"同时跑 10 个 Agent"重写的 git worktree CLI</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">max-sixty/worktrunk 当前 7,533 星，Rust 实现，2026-09-14 仍在提交，定位是"为并行 AI agent 工作流设计的 git worktree 管理器"。它把原生 git 需要敲三次名字的操作（git worktree add -b feat ../repo.feat &amp;&amp; cd ../repo.feat）压缩成一行 wt switch -c feat，按名而非路径管理工作树。除切换外还带 LLM 生成 commit message、一键 squash / rebase / merge，以及跨 worktree 共享构建缓存——在支持写时复制的文件系统（APFS / btrfs / XFS）上切换分支不必重建 node_modules。项目 2025 年 10 月创建，近一年持续迭代，MIT / Apache-2.0 双许可。</p>
+          <div class="comment">"同时开 5-10 个 Claude Code / Codex 跑不同任务"已经从炫技变成常态，但 git 从来没为这种用法设计过——它假设一次只有一个人在一条分支上思考。worktrunk 的价值不在少敲两行命令，而在于它承认了执行主体已经换人：当写代码的是一堆 agent，版本控制的原子单位就从"一次提交"变成了"一个隔离沙箱"。共享构建缓存那条尤其实在——多 agent 并行最大的隐性成本不是 GPU，而是每个沙箱各自重装一遍依赖。这类"Agent 基建补缺口"的项目会是未来半年最稳的开源赛道：模型怎么变，总得有人收拾并行留下的烂摊子。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/melgarafael/DeskcommCRM" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/1223939135/976719c3-5d23-4dd9-a6b2-915229d2c325" alt="DeskcommCRM" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · TypeScript</span>
+              <span class="card-divider">·</span>
+              <span>1,707★ · 今日 +432</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">DeskcommCRM：不把机器人贴在 CRM 外面，而是用内嵌 MCP 把整个系统交出去</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">melgarafael/DeskcommCRM 当前 1,707 星、今日新增 432，定位 Kommo / Octadesk / Intercom 的自托管开源替代，主打会话式商务。关键设计不是外挂一个客服机器人，而是通过内嵌的 MCP server 把整个 CRM 暴露给 agent：模型可以推进客户在漏斗中的阶段、判断是否转人工、并根据会话结果提出自己的流程改进建议（仍需人工批准）。技术栈为 Next.js 16 + Supabase（Postgres + pgvector）+ WAHA（WhatsApp 通道）+ Vercel AI SDK v7；多租户架构支持一套内核服务电商、诊所、房产、在线课程等场景，只需替换业务词汇（"线索"在这叫客户，在那叫患者），并内置巴西 LGPD 合规支持。</p>
+          <div class="comment">区别很关键：外挂客服机器人只能回答问题，内嵌 MCP 的 agent 能改系统状态——前者是界面，后者是操作员。一天 +432 星说明拉美 SMB 真的在买"AI 原生垂类 SaaS"这个叙事，而且买的是能自托管、能过本地合规的版本。但把客户关系和后续可能的资金流交给一个能自主改状态的 agent，需要的不是更聪明的 risk engine，而是一条可回放的审计链：谁在第几步把哪个客户推进到了哪一阶段、依据是什么。README 里目前还看不到这层设计。MCP 让"接上"变廉价了，配套的"可追溯"却还没跟上。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://arxiv.org/abs/2609.10712" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://qhaph2f3vltn91ho.public.blob.vercel-storage.com/nvidia-nemotron-scores-imo-gold-with-open-natural-language-p-61716fdf-EvfXE9vwuVnWStvgh2oqboQzZLUUsw.webp" alt="Nemotron IMO" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">arXiv · NVIDIA</span>
+              <span class="card-divider">·</span>
+              <span>561B ×2 全栈开源</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Nemotron 拿下 IMO 金牌 30/42：不用 Lean，还把整条配方开源了</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">NVIDIA 团队在 arXiv 公布基于 Nemotron 3 Ultra 的 IMO 系统：2026 年国际数学奥林匹克拿到 30/42（金牌线 29），全程只用自然语言证明，不依赖 Lean 等形式化证明器、外部工具或联网。架构是三 checkpoint 的生成-验证-精炼循环——GA 基座 + SFT 专家 + RL 专家；首轮每道题产出 384 份证明尝试（3 checkpoint × 8 种策略提示 × 16 次采样），每份证明由 16 次独立判定打分，必须全票满分才被接受，否则带上最多 8 条评审意见进入下一轮精炼，最多 8 轮。四道满分证明在开赛 76 分钟内定稿，全部六份在约 7.07 亿 token、1,464 GB200 GPU 小时内找到。开源内容包括两个 561B 专家 checkpoint、13.3 万 SFT 样本 + 9,600 道 RL 题、训练与推理代码、提交解答，以及由 Titu Andreescu 参与构建的 200 道新基准 Nemotron-IMO-Bench。</p>
+          <div class="comment">真正值钱的不是 30 分，而是 NVIDIA 把成绩单背后的东西全摊开了：checkpoint、数据、算力账单、ablation 数字一并开源，这在金牌级结果里几乎没先例。更值得记的是论文自曝的那个污点——两个模型评审在截止时估分约 32，比官方 30 高 2 分，误差全在第 3、6 题，说明评审模型共享了同一个盲区而不是独立噪声。还有一条反直觉结论：把单个 checkpoint 的采样翻倍只多解 0-4 题，混用两个 checkpoint（RL 128 + SFT 128）却能解 18 题。给所有做 test-time scaling 的团队提了个醒——堆采样不如堆多样性。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <p class="footer-brand">AI DAILY</p>
+      <p class="footer-tag">商业 · 认知观察者 · 出品</p>
+    </footer>
+
+  </div>
+</body>
+</html>
