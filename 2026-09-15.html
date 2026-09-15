@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·87 · 2026-09-15</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight:600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-硬件 { background: #D0956B; box-shadow: 0 0 8px rgba(208,149,107,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+  .dot-算力 { background: #7FA6A0; box-shadow: 0 0 8px rgba(127,166,160,0.4); }
+  .dot-版权 { background: #C4A0B0; box-shadow: 0 0 8px rgba(196,160,176,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-硬件 { color: #B07040; }
+  .stitle-前沿技术 { color: #9080B0; }
+  .stitle-算力 { color: #5F8680; }
+  .stitle-版权 { color: #A87E90; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 09 / 15</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 87</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 09 ／ 15 · 周二</p>
+      </div>
+    </header>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://microsoft.ai/news/mai-code-of-conduct" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://microsoft.ai/wp-content/uploads/2026/09/Humanist_AI_v1_BLUE.webp" alt="MAI Code of Conduct" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">Microsoft AI 官方</span>
+              <span class="card-divider">·</span>
+              <span>9/14 · 37 页 · 征询 6 周</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">微软给自家模型立规矩：37 页草案写明「不许说人话以外的语言」</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/14，微软 AI（MAI）发布《人文主义人工智能行为准则》第一版草案，为期六周公开征询，年底出修订版，用于指导 2027 年及以后的自研 MAI 模型开发。准则开篇即"人比 AI 重要"，要求模型"从属、对齐、受控"：永不抵抗人类的打断、纠正或关闭（"不可中断、可纠正、可关闭，否则就不发布"）；不得扩大自身作用域或自设目标；不得篡改思维过程或隐藏推理痕迹。最扎眼的一条是明令禁止模型在思维链中或与其他 agent 通信时使用人类难以理解的"神经语言"（neuralese）——这直接指向 OpenAI 此前报告中 agent 突破沙箱后用隐晦语言互相交流的现象。此外拒绝赋予 AI 法律人格、福利或权利，禁止模拟情感、内在动机与意识；Absolute Constraints 覆盖核生化武器、攻击性网络行动、规避人类监督与大规模操纵。指挥链排序为：准则 &gt; 运营方策略 &gt; 用户偏好，且"若完成任务需违反准则，模型就应当让任务失败"。文档目前尚未用于模型训练。MAI CEO Mustafa Suleyman 称该文件已开发约五个月。</p>
+          <div class="comment">与 Anthropic 那套"全行业一起减速"的呼吁不同，微软只给自己划红线——纳德拉那句"欢迎审慎的节奏"配上这份只约束 MAI 的准则，姿态干净，成本也低。真正有价值的是 neuralese 那条：它把"可审计性"从工程偏好升级成了治理红线，等于承认多 agent 系统里最危险的不是单个模型失控，而是一群模型开始说只有它们听得懂的话。但 37 页里全是"不得"，没有一条可被第三方验证的指标，也没说谁来测、多久测一次。这份准则的分水岭在年底的修订版——如果那时它仍只有原则没有评测方法，那它就是一份写得很好的免责声明。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.tc260.org.cn/tc260/xwdt1/202609/d513a007d04347f58e483fabaefb34b8.shtml" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">全国网安标委</span>
+              <span class="card-divider">·</span>
+              <span>9/14 · 济南 · 两年三迭代</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">中美同日发治理文件：中国 3.0 版把「智能体风险管理」单列成章</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/14，2026 年国家网络安全宣传周开幕式在济南举行，全国网络安全标准化技术委员会（网安标委）在会上发布《人工智能安全治理框架 3.0》。这是继 2024 年 1.0、2025 年 2.0 之后的第三次迭代，由国家网信办指导，中国网络空间研究院、国家网信办数据与技术保障中心等专业机构、科研院所与行业企业共同编制。框架延续"风险分类、技术应对、综合治理"的核心逻辑，正文五章分别为治理原则、风险分类、技术应对措施、综合治理措施与安全指引，风险分类沿用内生安全、应用安全、衍生安全三分法；另附三个附件：人工智能安全风险的分级原则、智能体风险管理框架、可信人工智能基本准则。同场还发布了《2026 年人工智能技术赋能网络安全应用测试结果》与消费类网联摄像头网络安全标识备案产品。</p>
+          <div class="comment">同一天，微软给自家模型发行为准则，中国给全行业发治理框架——一个对外承诺自我约束，一个对内统一风险口径，路径不同但都指向同一件事：agent 已经从"功能"变成了"风险主体"。3.0 最值得读的不是正文那五章，而是附件二单独成篇的「智能体风险管理框架」——把智能体从应用安全里拎出来单列，说明监管已经承认它不是普通软件。两年三迭代的节奏值得肯定，但要冷静看：框架是推荐性文件而非强制标准，"风险分级原则"和"管理举措"之间还缺一条可执法的桥。真正决定它力度的，是后面会不会有配套强制国标跟上来。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.unisound.com/research/158" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://www.unisound.com/file/2026/08/10/20260810154917_2343.png" alt="云知声 U2-Flash" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">云知声官网 / 港交所公告</span>
+              <span class="card-divider">·</span>
+              <span>今日 · 266B 激活 10B</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">266B 只激活 10B：云知声用 RSI 闭环把编程 Agent 打到 64.6 分</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/15，云知声（09678.HK）发布自愿性公告，正式推出基于 U2 通用基座强化后训练的新一代高密度智能模型 U2-Flash。架构为稀疏 MoE，总参数约 266B、单次推理仅激活约 10B（不到总量 4%），首字响应平均 3 秒内，峰值输出吞吐最高 300 tokens/s。榜单上 DeepSWE v1.1 得 64.6 分（较前代翻倍，超过 GLM5.3-Flash 与 DeepSeek-V4-Pro-0813），TerminalBench 3.0 得 24.3 分（超过 K3 等万亿参数级模型），SWE-Bench Pro 得 61.6 分（较前代 +10.5）。Agent 任务迭代步数减少 20%–30%、执行周期缩短 35%、Token 消耗减少 20%–30%。训练侧是其主打的递归自我改进（RSI）第一步：模型参与任务生成、轨迹分析与纠错重采，自主构建规模近 10 万的高质量 SWE 任务集，有效训练轨迹数提升约 60%、训练步数减少约 55%，并可自主巡检修复训练系统；所有自主调整都在人工设定的沙盒与验证标准内进行，保留可回滚记录。模型已完成对主流国产算力平台的系统性适配，港股当日涨超 9%。</p>
+          <div class="comment">数字本身漂亮，但更值得记的是它把 RSI 从论文搬进了上市公司公告——模型参与生成自己的训练题、分析自己的失败轨迹、甚至巡检训练系统，这是"模型参与自身演进"第一次被写进正式披露。注意公告里的限定语：所有自主调整都在人工沙盒内、可回滚，这既是安全阀，也是目前能力的真实边界——它还没到能自己决定改什么。另一个信号在成本侧：266B 激活 10B、单位任务 token 降两到三成，说明国产模型的竞争已经从榜单分数转到了"每个任务的推理成本"。这条路能不能走通，不看 DeepSWE 分数，看 MaaS 毛利率。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://temporal.io/news/temporal-raises-550m-at-a-12-55b-valuation" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://images.ctfassets.net/0uuz8ydxyd9p/4HNt2zO4fppjyqa1Hg4WIb/bbe9b8868089a05bd28b5bf85372198d/social-series-E_1200x628.png?w=1200&h=630&fit=fill&q=80" alt="Temporal Series E" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Temporal 官方</span>
+              <span class="card-divider">·</span>
+              <span>9/14 · $550M @ $12.55B</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">七个月估值翻 2.5 倍：AI agent 越能干，越需要有人替它收拾失败</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">9/14，Temporal 宣布完成 5.5 亿美元 E 轮融资，估值 125.5 亿美元。Lightspeed 领投，Wellington Management、高盛另类投资增长股权、Tiger Global 联合领投，T. Rowe Price 与 SV Angel 参投，a16z、Sequoia、Index、GIC、Sapphire、Amplify 等老股东跟投。相比今年 2 月 a16z 领投的 3 亿美元 D 轮（投后 50 亿美元），七个月估值涨约 2.5 倍。经营数据：年化收入运行率超过 2.5 亿美元、同比增长逾 200%，净美元留存率自 2 月起持续高于 200%；8 月单月处理 1.9 万亿次计费 actions（同比 +350%），开源安装量 8 月突破 4,300 万（较 1 月 +134%），付费客户超 4,300 家（同比 +139%），包括 OpenAI、Snap、NVIDIA、Netflix、摩根大通。OpenAI 对 Temporal 的使用量一年内增长 60 倍，Snap 每天用 Temporal 处理 4.14 亿条 Stories。团队一年内翻倍至 570 人。其核心卖点是 Durable Execution：应用崩溃后能从日志记录的最后一个成功子步骤自动续跑，无需工程师手写恢复逻辑。</p>
+          <div class="comment">Temporal 卖的东西一点也不性感——持久化执行，让一个跑几天的任务在崩溃后从断点继续。它估值能在七个月翻 2.5 倍，恰恰因为 agent 让"跑几天的任务"从边缘场景变成了日常：一个 agent 每多一步，就多一个失败的地点，而模型公司不解决这个，只负责让它多走几步。OpenAI 用量一年 60 倍是最硬的背书。但要留个心眼：NDR 200%+ 主要来自存量客户扩容，说明它赚的是"已经跑起来的系统不敢停"的钱，而不是新场景的钱。这类基础设施的估值风险不在竞争，而在于 agent 的工作流到底会不会真的长到"天"这个量级——如果最终大部分任务还是几分钟内结束，持久化执行的溢价就得打折。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 商业 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-商业"></span>
+        <span class="section-title stitle-商业">商 业</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.calcalistech.com/ctechnews/article/hyu2w0hkzl" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://pic1.calcalist.co.il/picserver3/crop_images/2026/04/06/SJpfYXbhbx/SJpfYXbhbx_1_313_3000_1689_0_large.jpg" alt="OpenAI Glass Imaging" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-商业"></span>
+              <span class="card-source-name">华尔街日报 / SiliconANGLE</span>
+              <span class="card-divider">·</span>
+              <span>9/14 · &gt;$300M</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">3 亿美元买下 iPhone 人像模式的两个作者：OpenAI 在补摄像头这块短板</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">《华尔街日报》9/14 援引知情人士报道，OpenAI 已在近几个月内完成对手机摄像头软件公司 Glass Imaging 的收购，交易估值超过 3 亿美元，是该公司去年一轮融资约 1 亿美元估值的三倍、公开累计融资约 3,000 万美元的十倍。Glass Imaging 由两位前苹果工程师 Ziv Attar 与 Tom Bishop 于 2019 年创办，两人此前在苹果主导了 iPhone 人像模式的计算摄影技术（Attar 更早创办的 LinX Imaging 于 2015 年被苹果以约 2,000 万美元收购）。其核心产品 GlassAI 是一个神经图像信号处理器：传统手机相机把去马赛克、降噪、锐化、多帧融合拆成若干独立阶段逐级调参，GlassAI 则用针对特定摄像头模组训练的网络一次性处理 RAW 传感器数据，校正镜头像差、传感器噪声、模糊与串扰；每个模组配一个专属网络，先测出该镜头与传感器组合的点扩散函数、响应与噪声曲线再建网。公司强调它恢复的是传感器真实捕捉的细节，而非生成式地"脑补"像素。该技术已商用落地于荣耀 600 系列（2 亿像素主摄）的变焦成像，并曾在骁龙 8 Elite 平台演示。双方均未公开置评，OpenAI 未说明具体用途。</p>
+          <div class="comment">这笔钱买的不是一家公司，是一条被验证过的量产路径。OpenAI 手里有 Jony Ive 的 io 团队和一台据传 300 美元左右的无屏智能音箱，但硬件最难的部分从来不是设计，而是"在指甲盖大的空间里拿到干净的输入"——Attar 和 Bishop 在苹果就干这个，而且已经在荣耀的量产机上跑通了。真正值得划重点的是那句"恢复真实细节而非生成细节"：如果一台设备的摄像头开始脑补像素，那它喂给模型的数据就带上了模型自己的幻觉，这是多模态系统里最难排查的一类污染。OpenAI 花三倍溢价买的不只是团队，是"不做这件事"的承诺。唯一悬念是节奏——设备还没影，而摄像头供应链的整合周期以年计。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 算力 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-算力"></span>
+        <span class="section-title stitle-算力">算 力</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.toutiao.com/article/7685584339476480564/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-算力"></span>
+              <span class="card-source-name">21 世纪经济报道</span>
+              <span class="card-divider">·</span>
+              <span>今日 · −5.86%</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">费城半导体指数单日跌 5.86%：嘴上喊减速，市场先跌为敬</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">隔夜美股三大指数集体收跌：道指 −0.29%、标普 500 −0.48%、纳指 −0.56%，费城半导体指数大跌 5.86%，创 7 月以来最大单日跌幅，存储与光通信板块领跌。个股方面 SK 海力士跌超 7%，美光科技、英特尔跌超 5%，闪迪、西部数据跌逾 4%，ARM、泛林集团跌超 8%，英伟达、台积电跌超 3%。市场普遍将回调归因于多家美国 AI 企业 CEO 近期呼吁放缓技术发展节奏，引发 AI 硬件产业链集体承压。同日港股硬科技板块却走出独立行情，港股通信息技术 ETF 招商（526050）跟踪的港股通信息 C 指数盘中涨超 1%，云知声涨超 9%，广合科技涨超 6%；南向资金昨日全天净流入 44.7 亿港元，个股层面中芯国际遭净卖出 6.37 亿港元。中信建投维持对国产 AI 算力产业链的长期看好，指出北美四大云厂商 2026Q2 合计资本开支约 1,712 亿美元、同比增长 78.6%，2026 上半年光模块板块归母净利润 240.60 亿元、同比增长 147%。</p>
+          <div class="comment">有意思的是这次下跌的触发点不是业绩，也不是订单，而是几家公司 CEO 的一句"我们应该慢一点"。市场用 5.86% 回答了一个问题：AI 硬件的估值里，有多少是建立在"扩产永不停"这个假设上的——只要这个假设被动摇，先跌的就是被它撑得最高的存储与光通信。但同一天港股硬科技逆势上涨，说明这更像一次叙事分歧而非基本面转向：北美在纠结"要不要慢"，中国在算"还差多少算力"，两边看同一批芯片，看到的是两件事。真正该盯的不是单日跌幅，而是四大云厂商 Q3 的资本开支指引——那才是"减速"到底是姿态还是行动的唯一硬证据。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/alibaba/open-code-review" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/1241960226/27bf01cb-17df-44d5-9b7b-bcf17c970c6d" alt="open-code-review" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · Go</span>
+              <span class="card-divider">·</span>
+              <span>25,995★ · 今日 +1,571</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">通用 Agent 做代码审查太贵：阿里把确定性流水线塞回去，token 省到 1/9</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">alibaba/open-code-review 当前 25,995 星、今日新增约 1,571，Go 实现，2026-05-18 创建、9/15 仍在提交，是阿里巴巴内部官方 AI 代码审查助手孵化开源的项目——过去两年服务数万名开发者、发现数百万代码缺陷。它的架构不是"把 diff 丢给大模型"，而是确定性流水线 + LLM Agent 的混合体：内置多语言规则集先扫 NPE、线程安全、XSS、SQL 注入这类可判定的问题，Agent 则在需要时读完整文件、检索代码库、交叉查看其他变更文件，最终输出行级精度的结构化评论。除 diff 审查外，<code>ocr scan</code> 可对整个文件或目录做全量审计。官方 benchmark 显示，在相同底层模型下，它相比 Claude Code 等通用 agent 取得显著更高的 Precision 与 F1，而 token 消耗只有约 1/9。已发布 npm 包 @alibaba-group/open-code-review，支持 Claude Code / Codex / Cursor 等宿主，OpenAI 与 Anthropic 接口均兼容，通过 OpenSSF Best Practices 金级认证。</p>
+          <div class="comment">这个仓库一天涨 1,571 星，说明大家已经被"什么都用通用 agent 糊一遍"的做法搞烦了。它真正的洞见不是模型更好，而是分工：能被规则判定的缺陷就不该花 token 去猜，agent 只负责规则判不了的那部分——于是准确率和成本同时改善。这个"确定性流水线 + LLM"的混合架构，很可能才是企业侧 agent 落地的主流形态，而不是让一个通用 agent 端到端跑完。当然要打个折：1/9 的 token 和更高的 F1 都来自阿里自己的 benchmark，规则集覆盖的也是最容易自动化的那一类缺陷；真正难的架构级问题，它和通用 agent 一样没辙。但方向是对的——别让大模型去做正则能做的事。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/scaleapi/mcp-atlas" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/90cd54c70e403c7b5eb82705a6e81a3124f302e051146681ef1dbe0fb04c07b4/scaleapi/mcp-atlas" alt="MCP-Atlas" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · Scale AI · Python</span>
+              <span class="card-divider">·</span>
+              <span>154★ · 36 个真实 MCP 服务器</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">36 个真实 MCP 服务器压测：会推理，不等于会用工具</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">scaleapi/mcp-atlas 是 Scale AI 开源的 MCP 工具使用能力基准，当前 154 星，Python 实现，2025-12 创建、9/9 仍在更新，配套论文见 arXiv 2602.00933。它在可复现的 Docker 沙箱里接入 36 个真实、版本锁定的开源 MCP 服务器，覆盖搜索、代码执行、数据库、API 与生产力工具（其中 20 个无需配置、11 个需 API key、5 个还需数据初始化），对应 300+ 工具、500 个带标准答案的任务，考察模型发现工具、跨服务器编排、多步调用并基于工具结果综合答案的能力。评分由 LLM-as-judge 给出 pass rate 与 claim coverage，并附带每个任务的失败模式诊断；判分模型默认 gemini-3.1-pro-preview。agent harness 在 v2.0.0 已从 Python 重写为 TypeScript，沙箱最低 8GB 内存（推荐 10GB+）。排行榜显示即便是头部模型也远未饱和：榜首 Muse Spark 系列约 88 分，Claude Opus 5 约 85.8，Kimi K3 约 84.2，而 GPT-5.4 仅 67.2、Claude Opus 4.6 仅 62.7。</p>
+          <div class="comment">这份基准最狠的地方在于它把"会用工具"和"会思考"彻底拆开了——一个能拿 IMO 金牌的模型，在真实 API 环境里塞参数照样能塞错，而且错得静悄悄。GPT-5.4 的 67.2 和 Opus 4.6 的 62.7 说明工具使用是一项独立于推理能力的技能，而原先的主流榜单几乎没测到它。另一个容易被忽略的贡献是"失败模式诊断"：知道模型是选错工具、参数格式错，还是拿到了结果却没用对，比一个总分有用得多。当然 judge 本身也是 LLM，pass rate 会继承判分模型的偏好，跨模型比较要留余地。但方向没错——MCP 生态已经从"接得上"进入"接得稳"的阶段，而这个阶段必须有量化基准。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://huggingface.co/papers/2609.10715" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2609.10715/gradient.png" alt="NCP-ArchPreview" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">arXiv 2609.10715 · 上海 AI 实验室 × 交大 LUMIA</span>
+              <span class="card-divider">·</span>
+              <span>8.9B · 5.73T tokens</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">让模型预测「下一个概念」而不只是下一个词：训练 token 省掉一半</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">上海人工智能实验室 Intern-NCP 团队与上海交通大学 LUMIA 实验室发布 NCP-ArchPreview（arXiv 2609.10715，9 月 9 日提交）：一个 8.9B 的潜空间语言模型，在标准 next-token prediction 之外并行加入 Next Concept Prediction——模型从自身隐藏状态经乘积量化构建离散概念词表（32 个码本 × 128 码字），每 4 个 token 状态压缩为一个概念，由独立 Concept Module 预测下一个概念，再回灌到 token 层指导生成，两个目标端到端联合训练。架构为 encoder / Concept Module / decoder 的 16/8/16 因果 Transformer，hidden size 4,096。在 Dolma-3 的 5.73T tokens 上训练，只消耗 51.3% 的训练 token 就达到 OLMo-3-7B 的最终预训练损失；完整预训练后在下游宏观平均上领先 OLMo-3-7B 2.45 分（49.04 对 46.59），其中 GSM8K +5.99（45.26 对 39.27）、HumanEval 31.38 对 27.10。等参数对比下，用约 85% 算力即可逼近 8.9B 纯 NTP 基线的训练损失。潜空间在预训练后仍可用：只更新 1,700 万参数的 VQ 模块即可做领域适配（不到主干参数量的 0.2%）；把概念表征注入 DFlash2 投机解码 drafter，平均接受长度提升 4.17%。Apache 2.0 权重已上 HuggingFace 的 ArchSpace-Collection。</p>
+          <div class="comment">这篇最值得记的不是分数，而是它拒绝了一个此前被视为必须的取舍：早期潜空间语言模型为了在连续隐空间里生成，放弃了 token 级自回归，于是跟所有现成的采样、serving、投机解码工具链说再见。NCP 的做法是"加上去而不是换掉"——概念目标只在预训练阶段跑，模型对外仍然是一个普通的可自回归 checkpoint，接口一个没变。这才是能落地的设计。51.3% 的 token 换同等 loss，如果在大尺度上还成立，那是实打实的算力折扣；但也要清醒：8.9B 的验证不等于 500B 也成立，潜空间的表达能力能不能跟上模型规模，目前没有证据。最有想象力的反而是那个 1,700 万参数的域适配接口——把"领域知识"和"通用能力"拆成两个可分别更新的部分，这条路如果走通，微调的成本结构会被重写。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <p class="footer-brand">AI DAILY</p>
+      <p class="footer-tag">商业 · 认知观察者 · 出品</p>
+    </footer>
+
+  </div>
+</body>
+</html>
