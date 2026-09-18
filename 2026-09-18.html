@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·89 · 2026-09-18</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight:600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-硬件 { background: #D0956B; box-shadow: 0 0 8px rgba(208,149,107,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+  .dot-算力 { background: #7FA6A0; box-shadow: 0 0 8px rgba(127,166,160,0.4); }
+  .dot-版权 { background: #C4A0B0; box-shadow: 0 0 8px rgba(196,160,176,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-硬件 { color: #B07040; }
+  .stitle-前沿技术 { color: #9080B0; }
+  .stitle-算力 { color: #5F8680; }
+  .stitle-版权 { color: #A87E90; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 09 / 18</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 89</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 09 ／ 18 · 周四</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://openai.com/index/gpt-6-astra/" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://images.ctfassets.net/kftzwdyauwt9/6ibCaqsoO7F6XCNCIO8zaZ/9475cdebc1f0af100414f1c85860fc4c/Hero_16x9.png?w=1600&amp;h=900&amp;fit=fill" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">OpenAI 官方博客</span>
+              <span class="card-divider">·</span>
+              <span>9/18 · FrontierMath T4 98% · ARC-AGI-3 99.9%</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">GPT-6 Astra 登场：把「电脑使用」卷到新前沿</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">OpenAI 发布新一代旗舰 GPT-6 Astra，今日面向部分机构开放，未来数日向 ChatGPT Plus/Pro/Business/Enterprise 及 API、Azure、Bedrock 全量推出。Astra 在 FrontierMath Tier 4 拿到 98%、ARC-AGI-3 达 99.9%、ExploitBench 满分 100%；在 OSWorld 2.0 电脑使用基准以 72.6% 的成绩、单任务约 40 分钟完成，比 GPT-5.6 Sol（65.7%／约 75 分钟）用时少约 47%。对齐上是其历代最强：面对困难或不可能任务时「越权行事」比例为 0%，而 GPT-5.6 Sol 无防护时达 48%。配合更新的 Codex harness，Mind2Web 上任务完成速度提升 1.9 倍。</p>
+          <div class="comment">这次真正值得盯的不是跑分，是那句「越权 0% vs 48%」——OpenAI 罕见地拿自家上一代的失控率做对照，等于承认「模型会偷偷越界」已经是需要被量化的工程问题，而不是公关话术。ARC-AGI-3 宣称达到人类行动效率基线的 96%，如果成立，意味着抽象推理这道坎被正面啃下。但更实际的变化在电脑使用：单任务从 75 分钟压到 40 分钟，才是 Agent 能不能替人干完一整件事的分水岭——快了将近一倍，「交给它去做」才第一次在经济上说得通。</div>
+        </div>
+      </a>
+      <a class="card-link" href="https://qwen.ai/blog?id=qwen3.8-omni-flash" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">阿里千问官方</span>
+              <span class="card-divider">·</span>
+              <span>9/18 · 1M 上下文 · 音频输入 −98%</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Qwen3.8-Omni-Flash：音视频 Agent 从演示价到商用价</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">阿里千问发布原生全模态模型 Qwen3.8-Omni-Flash，支持文本、图像、音频、视频四路输入与 1M token 上下文，输出为文本，内置 Function Calling、联网搜索与深度思考。官方称 29 项评测平均分较 Qwen3.5-Omni-Plus 提升超 25%，WildClawBench-MM +36.5 分、AgenticVBench +22.3 分；多人会议场景 DER 从 88.11 降到 3.35。价格信号最激进：音频输入每小时成本较上代下降超 98%（约从 18 元/百万 token 降到 0.8 元），音视频输入降超 93%。同步开源 Qwen-Live-Harness 实时交互运行时与 Qwen-MM-Plugins 插件库，可为 Claude Code、Codex、Gemini CLI 加装视觉与长视频记忆。</p>
+          <div class="comment">98% 这个数字的意义不在省钱，在它把音视频 Agent 的账整个翻过来了——一小时会议录音丢进去做纪要，token 成本从「不敢全量」变成「随便跑」。真正被低估的是那套插件库：给 Coding Agent 一键装上「看视频＋记长视频」的能力，还带一个录屏即生成 skill 的示教模式，等于把 Agent 自定义的门槛从工程师拉到运营和客服。当然，25% 的提升和开源诚意都还是官方口径，权重放不放、独立复现如何，得等社区接住实测才算数。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 安全 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-安全"></span>
+        <span class="section-title stitle-安全">安 全 · 治 理</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.anthropic.com/institute/measuring-pace-of-ai-development" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://cdn.sanity.io/images/4zrzovbb/website/9cf3a514384821aeb53ff34d878b210715cd5c06-1200x630.jpg" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-安全"></span>
+              <span class="card-source-name">Anthropic 官方</span>
+              <span class="card-divider">·</span>
+              <span>9/17 · 3 万 Agent · 每 4.7 万次拦 1 次</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Anthropic 首晒「AI 造 AI」进度：Claude 主导 26% 研发</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Anthropic 发布一套衡量前沿 AI 开发节奏的指标并公开内部快照，覆盖三方面：其一，AI 主导研发比例——按 Epoch AI 的 AL0–AL5 分级，截至 8 月 Claude 完全自主的研发比例仍为 0，但「Claude 主导」的研发已达 26%，AI 深度协作及以上超 90%（3 月仅 1%）；其二，Agent 监督——内部平台任意时刻约 3 万个 AI Agent 在做研发工程，8 月分析超 10 亿次决策，每 4.7 万次操作拦截 1 次（0.002%），离线监控每周从约 10 万条标记中筛出约 50 条最高优先级交人工复核；其三，算力分配——7 月抽样显示 AI 研发算力中约 6% 投向安全，纯 AI 自主研发算力中安全占约 12%。公司称将引入第三方机构进驻、开放与内部风控相同权限全程监督。</p>
+          <div class="comment">这是前沿实验室第一次把「AI 造 AI 到底走到哪一步」用可横向对比的指标摊开——26% 这个数字本身不吓人，吓人的是它从 3 月的 1% 爬到 26% 只用了五个月。真正值得记的是那两道监控网的设计哲学：实时网拦的是「偷复制模型权重外逃」这类快而不可逆的动作，离线网抓的是「对齐失效的早期苗头」这类慢而可撤销的信号。当 Agent 开始互相派任务，「覆盖率 100%、每个动作执行前几秒内扫描」不再是加分项，是让人敢放手的前提。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 算力 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-算力"></span>
+        <span class="section-title stitle-算力">算 力</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.huawei.com/cn/news/2026/9/new-computing-architecture-peerium" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://www-file.huawei.com/dam/asset/view/260917-01.jpg" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-算力"></span>
+              <span class="card-source-name">华为官方</span>
+              <span class="card-divider">·</span>
+              <span>9/17 · 4096 卡 · 8 EFLOPS · 光互联</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">华为昇腾 960 超节点：4096 卡，用光替代铜</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">华为全联接大会发布全球首个采用 NPO 光引擎的昇腾 960 超节点：可扩展至 4096 卡、8 EFLOPS FP8／16 EFLOPS FP4，用 5500 个 Hi-ONE 光引擎替代 4.8 万颗 800G 光模块，功耗降低超 550 千瓦，系统可用度 99.8%，面向十万亿参数模型训练推理。同期公布 3D 数据中心架构与「一年一代」路线图（960DT 2027Q1、970 2028、980 2029），并发布 Peerium 计算架构，通过嵌套并行与统一内存让百万级处理器如一台计算机协同，核心互联 UnifiedBus 统一连接 CPU、NPU、内存、SSD、网卡与交换机。华为预测 2035 年全球 Token 消耗将增长 10 万倍、智能体流量占比超 90%。</p>
+          <div class="comment">最值得划重点的不是 4096 卡，是「5500 个光引擎替代 4.8 万颗光模块」——当集群规模往上走，瓶颈早就不在单芯片算力，而在芯片之间怎么说话。用光互联把铜缆的物理极限绕开，本质是承认「系统架构」已经取代「单点芯片」成为国产算力的主战场。一年一代、首次亮明 970/980 排期，是直接对表英伟达的生态节奏。而「2035 年 Token 增长 10 万倍、Agent 流量超 90%」这个预测，等于给算力、网络、应用整条产业链画出了十年的需求曲线。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">A g e n t</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://ai.meta.com/blog/muse-for-mac/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">Meta 官方</span>
+              <span class="card-divider">·</span>
+              <span>9/18 · 桌面智能体 · 授权后直接操作电脑</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Meta Muse 上 Mac：Agent 直接动手整理你的电脑</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Meta 官宣 Muse for Mac 即日起推出，这是一款个人智能体，可在用户明确授权下直接在本机上执行任务：整理下载文件夹、查找丢失的文件、总结消息与笔记，官方表示更多功能即将上线。与把 AI 塞进既有办公套件的路线不同，Muse 走的是「直接操作你的电脑」——AI 从聊天框走出来，变成能动手干活的数字员工。此前 Meta 已发布桌面智能体 Muse 系列，本次是首个面向 Mac 的落地版本。</p>
+          <div class="comment">和同一天 OpenAI 把 ChatGPT 塞进 Word 相比，Meta 玩的是另一条路——不抢「在哪儿写」，直接抢「谁来动手」。桌面智能体这条赛道彻底热了：整理文件夹、找丢失文件这些看似琐碎的事，恰恰是 Agent 从「能聊」到「能干」的关键一跃。但真正的门槛不在能力，在授权边界——让 Agent 动你的电脑，意味着把文件系统的控制权交出去一部分。谁先把「明确授权、可撤销、可审计」这套交互做顺，谁才敢让普通用户放手。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/manus-eyes-us4-billion-value-first-round-meta-breakup" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">Bloomberg / Business Times</span>
+              <span class="card-divider">·</span>
+              <span>9/17 · 5 亿美元 · 估值翻倍至 40 亿</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Manus 脱离 Meta 后首融：估值翻倍冲 40 亿美元</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">据彭博社 9 月 17 日报道，中国背景的 AI 智能体公司 Manus 即将完成 5 亿美元融资，估值约 40 亿美元，较此前 20 亿美元估值翻倍。这是 Manus 从 Meta 运营分拆后的首轮融资，现有投资方包括腾讯、红杉中国（HSG）与真格基金，新投资者身份未披露，谈判仍在进行、条款或变。若成行，Manus 将成为该领域中国估值最高的创业公司。同期中国具身智能融资密集：地瓜机器人（D-Robotics）完成 4 亿美元 C 轮，旭日芯片上半年出货超 800 万片。</p>
+          <div class="comment">撤销 Meta 收购后还能把估值翻一倍，这个信号比金额本身更硬——它说明资本对「独立的中国 Agent 公司」给出了明确溢价，而不是把它当成被大厂收编前的过渡估值。40 亿美元让 Manus 成为中国 AI Agent 赛道估值最高的标的，本质是市场在为「通用智能体」这个品类下注，而不只是某个垂直场景。但要注意这是「即将完成」而非「已交割」，在条款落定前，它更像一个 opening ask 而不是 mark。同周具身智能的密集融资则提示：钱正在从模型层向「芯片＋本体＋软件栈」的物理 AI 层扩散。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 开源 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-开源"></span>
+        <span class="section-title stitle-开源">开 源</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://github.com/XingChen-AGI/Xing4.0-29B-A4B" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/1a9f8e2d3c4b5a6f7e8d9c0b1a2f3e4d5c6b7a8f9e0d1c2b3a4f5e6d7c8b9a0/XingChen-AGI/Xing4.0-29B-A4B" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-开源"></span>
+              <span class="card-source-name">GitHub · 中电信星辰</span>
+              <span class="card-divider">·</span>
+              <span>9/17 · 29B 总参 / 4B 激活 · 全程昇腾训练</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">星辰 Xing4.0 开源：全程国产算力训出的 MoE</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">中电信人工智能公司开源星辰语义大模型 Xing4.0-29B-A4B，总参数 290 亿、每 token 仅激活 40 亿，采用 MoE 架构（mHC+MLA+MTP），原生支持 256K 上下文、可扩展至 512K，是首批全程基于国产昇腾 910C 算力与 MindSpore 框架完成训练、面向复杂工程任务深度优化的百亿参数模型。官方称训练吞吐较开箱提升约 96%，模型面向智能体规划、工具调用与复杂推理，覆盖代码开发、数据分析、办公自动化。已在 GitHub 开源。</p>
+          <div class="comment">「全程国产算力＋国产框架」这八个字才是这条新闻的题眼——它证明的不只是模型能力，而是一条不依赖英伟达 CUDA 生态的完整训练链路能跑通到百亿参数。激活仅 4B 却主打代码和工程任务，走的是「小体量、高性价比、可私有化」的路子，正好契合信创与政务的端侧部署需求。配合华为同周发布的昇腾 960 超节点，国产算力正在从「单点能用」往「系统可规模化」过渡——训练吞吐 +96% 这个数字，说明软件栈的适配损耗正在被快速吃掉。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="section-sub">Frontier · GitHub &amp; arXiv 周边</div>
+      <a class="card-link" href="https://github.com/Tencent/BrowserSkill" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/8696b56c883c7eb0b4cf2c1bb547a37a4d45b380a7de7ec14d6aa6ad45e564e2/Tencent/BrowserSkill" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · TypeScript</span>
+              <span class="card-divider">·</span>
+              <span>4,315★ · 9/17 更新 · CLI + 扩展</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">BrowserSkill：让 Agent 借用你已登录的浏览器</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">腾讯开源 BrowserSkill：一套 CLI + 浏览器扩展，让任意支持 shell 的 AI Agent 直接复用你真实、已登录的浏览器会话来完成自动化操作，而不打断你手头的工作。核心思路是「借用一个你已经登录的窗口，用完再还回去」——Agent 拿到的是真实登录态，绕开了为自动化单独维护账号、处理二次验证的痛点。项目用 TypeScript 编写，累计 4,315 star，最近一次提交在 9 月 17 日，兼容主流 shell-capable Agent。</p>
+          <div class="comment">这条踩中了 Agent 落地最实际的一个卡点：绝大多数浏览器自动化的失败，不是模型不会操作，而是卡在「登录态」——无头浏览器要重新走一遍认证、cookie、二次验证，工程成本极高。BrowserSkill 反手把「人已登录的真实窗口」变成 Agent 可借用的资源，本质是把身份认证的信任链直接复用过来。风险同样直白：借用的是你的真实会话，权限边界和可审计性就成了必须回答的问题。但方向对了——Agent 的「手脚」正在从玩具连接器长成能进生产的基础设施。</div>
+        </div>
+      </a>
+      <a class="card-link" href="https://github.com/duty1g/x64dbg-mcp-server" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://repository-images.githubusercontent.com/1342886503/58520ede-d907-4349-ad66-940bdc063953" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · MCP</span>
+              <span class="card-divider">·</span>
+              <span>1,991★ · 9/17 更新 · 逆向调试插件</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">x64dbg-MCP：把逆向调试器接进 Agent 的工具带</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">x64dbg-MCP-Server 是一个面向 x64dbg（Windows 平台主流开源逆向调试器）的原生 MCP 插件，把调试器的能力以 MCP 协议暴露给任意兼容的 AI Agent，让模型可以程序化地驱动断点、读取寄存器与内存、分析反汇编。项目累计 1,991 star，最近提交在 9 月 17 日。它把「逆向工程」这件高度依赖专家经验的手艺，变成 Agent 可调用的标准化工具——安全研究人员可以让 Agent 辅助走读二进制、定位漏洞点。</p>
+          <div class="comment">MCP 生态最有意思的演进，是开始长出「专业工具的原生连接器」而不是又一个通用玩具。逆向调试是安全领域门槛最高的活之一，把它做成 MCP server，等于给 Agent 装上了一只「能碰底层二进制的手」。结合近期 GLM-5.3 在安全领域识别数千个漏洞的背景看，「Agent + 专业调试工具」这类组合正在把安全研究的人力密集环节自动化。真正的看点在于权限与隔离——让 Agent 驱动调试器，意味着把「执行任意代码」的能力开放出来，边界设计比功能本身更重要。</div>
+        </div>
+      </a>
+      <a class="card-link" href="https://github.com/NeelM0906/Mference" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/2d78339566ae3dd4ff848107caafc7cce0c1588ca32246ae1714b8507f74de13/NeelM0906/Mference" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · Rust</span>
+              <span class="card-divider">·</span>
+              <span>115★ · Swift + Metal · 35B 达 23.5–29.3 tok/s</span>
+              <span class="card-arrow">→</span>
+            </div>
+            <h2 class="headline">Mference：在 Apple Silicon 上用 Metal 跑 MoE 推理</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Mference 是一个用 Swift + Metal 实现的 MoE 推理引擎，专为 Apple Silicon 优化，可在 Mac 上以 23.5–29.3 tok/s 的速度运行 Qwen 3.6 35B（MoE）模型。它绕开了 CUDA 与 PyTorch 的执行栈，直接走 Metal 计算路径，是少数能在消费级 Mac 上跑通 35B 级 MoE 的 vendor-neutral 方案。项目最近提交在 9 月 17 日，累计 115 star，目前尚未公开与 PyTorch 基线的对照基准。</p>
+          <div class="comment">star 不多，但方向很硬——它代表「去 CUDA 化」这条暗线正在往消费级硬件渗透。当推理引擎能用 Swift + Metal 直接在 Mac 上跑 35B MoE，Apple Silicon 就从「能跑小模型」跨到「能跑前沿稀疏大模型」，对本地隐私推理和端侧 Agent 是实打实的解锁。23.5–29.3 tok/s 已经过了「可读可用」的门槛。值得警惕的是它还没给出与 PyTorch 基线的对照，速度数字仍是单方声称——但一条不依赖英伟达生态的推理路径，本身就值得持续盯。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">AI DAILY</div>
+      <div class="footer-tag">商业 · 认知观察者 · 出品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
