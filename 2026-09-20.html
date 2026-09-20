@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<title>AI 日报 · VOL·90 · 2026-09-20</title>
+<meta name="description" content="把今天的 AI，一杯咖啡读完">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    background: #F5F1E8;
+    color: #1A1A1A;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 14px; margin-bottom: 4px; }
+  .nav-brand { font-size: 12px; letter-spacing: 3px; color: rgba(26,26,26,0.4); font-weight: 600; text-decoration: none; }
+  .nav-brand:hover { color: rgba(26,26,26,0.8); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-date { font-size: 10.5px; color: rgba(26,26,26,0.25); letter-spacing: 0.5px; }
+  .nav-back { font-size: 11px; color: rgba(26,26,26,0.35); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; display: flex; align-items: center; gap: 4px; }
+  .nav-back:hover { color: rgba(26,26,26,0.8); }
+  .nav-back-arrow { font-size: 13px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; }
+
+  .header {
+    background: linear-gradient(135deg, #FAF8F4 0%, #F5F1E8 50%, #F0EDE6 100%);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 18px;
+    padding: 40px 32px 36px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(180,140,100,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(120,160,120,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-content { position: relative; z-index: 2; }
+  .vol {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(26,26,26,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .header-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #1A1A1A 0%, #8A8278 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(26,26,26,0.5);
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .header-date {
+    font-size: 12px;
+    color: rgba(26,26,26,0.3);
+    margin-top: 18px;
+    letter-spacing: 1px;
+  }
+  .header-date::before {
+    content: "";
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: rgba(26,26,26,0.15);
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -2px;
+  }
+
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-title { font-size: 12px; font-weight:600; letter-spacing: 1px; }
+  .section-line { flex: 1; height: 1px; background: rgba(0,0,0,0.06); }
+  .section-sub { font-size: 11px; color: rgba(26,26,26,0.35); letter-spacing: 0.5px; margin-bottom: 14px; padding: 0 4px; }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.12);
+  }
+  .card-link:active { transform: translateY(-1px); }
+
+  .card-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #F0EDE6;
+  }
+  .card-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+    filter: brightness(0.92) saturate(0.9);
+  }
+  .card-link:hover .card-hero img {
+    transform: scale(1.04);
+    filter: brightness(0.98) saturate(1);
+  }
+
+  .card-hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 70%;
+    background: linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.4) 70%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .card-hero-content {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 22px 24px 20px;
+    z-index: 2;
+  }
+  .card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: rgba(26,26,26,0.6);
+    letter-spacing: 0.3px;
+  }
+  .card-cat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-source-name {
+    color: rgba(26,26,26,0.7);
+    font-weight: 500;
+  }
+  .card-divider {
+    color: rgba(26,26,26,0.25);
+  }
+  .card-arrow {
+    margin-left: auto;
+    color: rgba(26,26,26,0.25);
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .card-link:hover .card-arrow { color: rgba(26,26,26,0.6); transform: translateX(4px); }
+
+  .headline {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  .card-body {
+    background: #FFFFFF;
+    padding: 20px 24px 22px;
+  }
+  .fact {
+    font-size: 13px;
+    color: rgba(26,26,26,0.55);
+    line-height: 1.85;
+    margin-bottom: 14px;
+    letter-spacing: 0.1px;
+  }
+  .comment {
+    font-size: 13.5px;
+    color: rgba(26,26,26,0.7);
+    line-height: 1.85;
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.03);
+    border-left: 2px solid rgba(0,0,0,0.08);
+    border-radius: 0 8px 8px 0;
+    letter-spacing: 0.1px;
+  }
+
+  .dot-大模型 { background: #C8A892; box-shadow: 0 0 8px rgba(200,168,146,0.4); }
+  .dot-商业 { background: #6B9AC0; box-shadow: 0 0 8px rgba(107,154,192,0.4); }
+  .dot-Agent { background: #9ABE8E; box-shadow: 0 0 8px rgba(154,190,142,0.4); }
+  .dot-政策 { background: #C8B468; box-shadow: 0 0 8px rgba(200,180,104,0.4); }
+  .dot-融资 { background: #8CC44A; box-shadow: 0 0 8px rgba(140,196,74,0.4); }
+  .dot-开源 { background: #B8B098; box-shadow: 0 0 8px rgba(184,176,152,0.4); }
+  .dot-推理优化 { background: #9AB0BA; box-shadow: 0 0 8px rgba(154,176,186,0.4); }
+  .dot-安全 { background: #D07070; box-shadow: 0 0 8px rgba(208,112,112,0.4); }
+  .dot-硬件 { background: #D0956B; box-shadow: 0 0 8px rgba(208,149,107,0.4); }
+  .dot-前沿技术 { background: #A89BC8; box-shadow: 0 0 8px rgba(168,155,200,0.4); }
+  .dot-算力 { background: #7FA6A0; box-shadow: 0 0 8px rgba(127,166,160,0.4); }
+  .dot-版权 { background: #C4A0B0; box-shadow: 0 0 8px rgba(196,160,176,0.4); }
+
+  .stitle-大模型 { color: #B08E72; }
+  .stitle-商业 { color: #4E7A99; }
+  .stitle-Agent { color: #7EA06E; }
+  .stitle-政策 { color: #A89440; }
+  .stitle-融资 { color: #6EA030; }
+  .stitle-开源 { color: #9A9280; }
+  .stitle-推理优化 { color: #7A96A2; }
+  .stitle-安全 { color: #C05050; }
+  .stitle-硬件 { color: #B07040; }
+  .stitle-前沿技术 { color: #9080B0; }
+  .stitle-算力 { color: #5F8680; }
+  .stitle-版权 { color: #A87E90; }
+
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    padding: 24px 0 8px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .footer-brand {
+    font-size: 13px;
+    color: rgba(26,26,26,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-size: 11px;
+    color: rgba(26,26,26,0.2);
+    letter-spacing: 1px;
+  }
+
+  .card-hero img.error { display: none; }
+  .card-hero.no-img {
+    background: linear-gradient(135deg, #E8E4DA 0%, #E2DED4 40%, #DCD8CE 100%);
+    display: flex; align-items: center;
+  }
+  .card-hero.no-img::before {
+    content: ""; position: absolute; right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(168,155,200,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .card-hero.no-img .headline { font-size: 21px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px 32px; }
+    .nav { padding: 8px 2px 10px; }
+    .header { padding: 30px 22px 26px; border-radius: 14px; }
+    .header-title { font-size: 26px; }
+    .header-subtitle { font-size: 13.5px; margin-top: 8px; }
+    .card-link { border-radius: 12px; }
+    .card-hero { aspect-ratio: 16 / 10; }
+    .card-hero-content { padding: 18px 20px 16px; }
+    .headline { font-size: 16px; }
+    .card-body { padding: 16px 20px 18px; }
+    .fact, .comment { font-size: 12.5px; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">AI DAILY</a>
+      <div class="nav-right">
+        <span class="nav-date">2026 / 09 / 20</span>
+        <a href="index.html" class="nav-back"><span class="nav-back-arrow">←</span> 主页</a>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="header-content">
+        <div class="vol">VOL · 90</div>
+        <h1 class="header-title">把今天的 AI<br>一杯咖啡读完</h1>
+        <p class="header-subtitle">每日精选 · 一手源优先 · 看见 AI 浪潮的真实方向</p>
+        <p class="header-date">2026 ／ 09 ／ 20 · 周六</p>
+      </div>
+    </header>
+
+    <!-- Section: 大模型 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-大模型"></span>
+        <span class="section-title stitle-大模型">大 模 型</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.toutiao.com/article/7687434491790508585/" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">财联社 · 阶跃星辰官方</span>
+              <span class="card-divider">·</span>
+              <span>9/20 · 600B MoE · 成本仅 Opus 5 的 1/8</span>
+            </div>
+            <h2 class="headline">阶跃星辰 Step 5 Preview：600B 参数只激活 27B，开源前三</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">阶跃星辰发布新一代旗舰基座模型 Step 5 Preview，采用稀疏 MoE 架构，总参数 600B、激活参数仅 27B，支持 100 万 Token 上下文窗口，原生支持文本与视觉输入。在 Artificial Analysis Intelligence Index 中取得 44 分，位居全球开源模型前三。单任务成本仅为 Claude Opus 5 的 1/8。模型将于 10 月 15 日正式开源权重。</p>
+          <div class="comment">600B 总参数只激活 27B——4.5% 的激活比把「大模型贵」这个刻板印象撕开一道口子。更狠的是成本对标：直接拿 Claude Opus 5 做分母，说自己是 1/8。开源阵营现在不打跑分打性价比，这张牌如果 10 月兑现，对 API 定价体系的冲击比又出一个 benchmark 冠军要大得多。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://www.aiweekly.co/ai-news-today" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-大模型"></span>
+              <span class="card-source-name">xAI 官方 · Variety</span>
+              <span class="card-divider">·</span>
+              <span>9/19 · WER 20.6% → 6.8% · 19 语言</span>
+            </div>
+            <h2 class="headline">Grok Voice Transcribe 2.0：词错率砍掉三分之二，登顶排行榜</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">SpaceXAI 发布 Grok Voice Transcribe 2.0，短语句词错率（WER）从 v1 的 20.6% 降至 6.8%，电话英语通话 WER 从 3.9% 降至 2.7%。覆盖 19 种语言，在 Artificial Analysis 流式语音转文字排行榜 32 个模型中排名第一。定价不变：批量 $0.10/小时、流式 $0.20/小时。API-only，含说话人分离、时间戳和关键词偏置。</p>
+          <div class="comment">价格不变、准确率翻倍——xAI 这次没发新模型，而是把一个「够用」的语音转文字工具变成了「好用」的。6.8% WER 意味着每 100 个词只错不到 7 个，已经逼近人工速记水平。对 Agent 场景更关键：语音交互的瓶颈从来不是模型聪不聪明，而是它能不能「听清」你在说什么。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: Agent -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-Agent"></span>
+        <span class="section-title stitle-Agent">Agent</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.sohu.com/a/1078322629_455313" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-Agent"></span>
+              <span class="card-source-name">MiniMax 官方 · 腾讯研究院</span>
+              <span class="card-divider">·</span>
+              <span>9/20 · MIT 开源 · 通过率 76.7%</span>
+            </div>
+            <h2 class="headline">MiniMax Code CLI 开源：76.7% 通过率，中位耗时 4 分半</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">MiniMax 发布 Code CLI v0.4.12 并以 MIT 协议正式开源。在第三方 FrontierHarness Eval 的 30 道任务评测中通过 23 道，通过率 76.7%，成功任务耗时中位数 4 分 33 秒，两项指标均优于报告所列公开基线。该组件是 MiniMax Code 客户端核心部分，可通过一行安装脚本快速体验。</p>
+          <div class="comment">MIT 协议开源意味着商业可用、无传染性条款——这是对开发者的诚意表态。76.7% 通过率在编码 Agent 赛道不算最高，但「中位 4 分半」这个速度指标暗示它走的是「快速迭代、允许重试」路线，而非「一次做对但等 20 分钟」的重型方案。编码 Agent 的竞争正在从「谁更聪明」转向「谁更快交付」。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 融资 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-融资"></span>
+        <span class="section-title stitle-融资">融 资</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://agihunt.info/en/daily/2026-09-20?f=dr" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-融资"></span>
+              <span class="card-source-name">AGI Hunt · 多方信源</span>
+              <span class="card-divider">·</span>
+              <span>9/20 · $3.9B · 估值 $30.9B</span>
+            </div>
+            <h2 class="headline">Crusoe 融 39 亿美元：AI 算力基建估值冲破 300 亿</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">AI 算力基础设施公司 Crusoe 完成 39 亿美元融资，投后估值 309 亿美元。有投资人指出，从未见过基础设施「订单积压」与实际交付收入之间有如此大的鸿沟，信贷市场要求五年确定性，但将面对延期、失败与欺诈。同期，推理芯片初创 Positron 完成 8.75 亿美元 C 轮（估值 50 亿），Manus 据报寻求 5 亿美元融资（估值 40 亿）。</p>
+          <div class="comment">309 亿估值对应一家「还没交付收入」的算力公司——这要么是史上最大的基建泡沫前奏，要么是 AI 版「先修路再收费」的长期主义。投资人的原话很诚实：订单和收入之间的鸿沟「从未见过」。但同一周 Positron（推理芯片）和 Manus（Agent）也在融大钱，说明资本仍在全面押注 AI 基础设施层，而非只赌模型。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 政策 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-政策"></span>
+        <span class="section-title stitle-政策">政 策</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://www.nytimes.com" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-政策"></span>
+              <span class="card-source-name">NYT · Truth Social</span>
+              <span class="card-divider">·</span>
+              <span>9/19 · 仿 Space Force · 任命 AI 沙皇</span>
+            </div>
+            <h2 class="headline">Trump 宣布组建「AI Force」：仿太空军、 dismiss 安全担忧</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">美国总统 Trump 在 Truth Social 发文，宣布将任命一位「AI 沙皇」并组建新的「AI Force」，仿照太空军模式监管 AI 产业。他称 AI 安全担忧为「骗局」（hoax），誓言白宫「绝不会阻碍或扼杀」AI 增长，并将美国领导力定位为「击败中国」的必要条件。未公布具体人选。</p>
+          <div class="comment">「仿太空军建 AI 军种」——这个类比本身就暴露了思路：把 AI 当军备竞赛而非社会治理。把安全担忧叫「骗局」的同时建「AI Force」，等于说「我们只管跑不管刹车」。对中国 AI 产业的实际影响：如果美国真把 AI 当军种来搞，出口管制只会更严，国产替代的紧迫性再上一个台阶。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 版权 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-版权"></span>
+        <span class="section-title stitle-版权">版 权</span>
+        <div class="section-line"></div>
+      </div>
+
+      <a class="card-link" href="https://techcrunch.com" target="_blank" rel="noopener">
+        <div class="card-hero no-img">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-版权"></span>
+              <span class="card-source-name">TechCrunch · 法庭文件</span>
+              <span class="card-divider">·</span>
+              <span>9/19 · 60,202 首录音 · 45 页诉状</span>
+            </div>
+            <h2 class="headline">UMG/Sony 再诉 Suno v6：6 万首录音、指控「毒树之果」</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">环球音乐集团（UMG）和索尼音乐在美国马萨诸塞州联邦法院提交 45 页诉状，指控 Suno 新发布的 v6 系列模型是「同一棵毒树之果」——训练于 Suno 早期侵权模型的输出。诉状列出 60,202 首版权录音，称这「仅占被侵权总量的一小部分」。Warner、BMG 和 Believe 已授权内容给 v6，UMG 和 Sony 未授权，正寻求法定赔偿和律师费。</p>
+          <div class="comment">「毒树之果」这个法律概念被搬到 AI 训练领域是标志性事件——如果法院接受「用侵权模型的输出训练新模型 = 继续侵权」这个逻辑链，整个 AI 音乐赛道的「迭代」路径都要重新设计。60,202 首不是小数目，法定赔偿按每首最高 15 万美元算，理论上限接近 90 亿美元。Suno 的 v6 可能是 AI 音乐最后一个「自由训练」版本。</div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Section: 前沿技术 -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-dot dot-前沿技术"></span>
+        <span class="section-title stitle-前沿技术">前 沿 技 术</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-sub">Frontier · GitHub &amp; arXiv 周边</p>
+
+      <a class="card-link" href="https://github.com/cloudflare/security-audit-skill" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/f2a833b029150ad69ba2be3fb57eaf3fdf4779787d4a49db297b0a02f454d8af/cloudflare/security-audit-skill" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · Cloudflare</span>
+              <span class="card-divider">·</span>
+              <span>16,509 ★ · 今日 +3,155 · 全站增速第一</span>
+            </div>
+            <h2 class="headline">Cloudflare 安全审计 Skill：Agent 写代码时的实时安全门禁</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">Cloudflare 开源的编码 Agent 安全审计技能，今日全站增速第一（+3,155★，总 16,509★）。不是独立扫描器，而是 Agent 能力插件——Claude Code、Codex 等 Agent 写代码时自动触发多阶段安全审计：静态分析 → 依赖检查 → 逻辑漏洞扫描 → 输出机器可读修复建议。JavaScript 实现，MIT 协议。</p>
+          <div class="comment">这个项目的意义不在技术本身，而在「安全左移」的范式落地：不是写完代码再跑 CI 扫描，而是 Agent 生成的瞬间就拦截。Cloudflare 把自家安全工程经验编码成 Agent 可消费的 skill，等于给 AI 编码加了一层「条件反射」。当 Agent 能力越来越强，「如何引导 Agent 做正确的事」比「如何让 Agent 做事」更值钱。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/trycua/cua" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/fa466d439e5aba4a2d71e28130d53861c72fea9f7e5c6cdd6957a5f71b3e8eca/trycua/cua" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · trycua</span>
+              <span class="card-divider">·</span>
+              <span>24,488 ★ · 今日 +859 · Computer Use 2.0</span>
+            </div>
+            <h2 class="headline">CUA：开源 Computer Use 全栈基础设施，跨 OS 驱动 + Agent 集群</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">trycua/cua 是 Anthropic Computer Use 的开源替代与扩展，总 24,488★。提供跨操作系统（macOS Virtualization.framework / Windows Sandbox / Linux）的开源驱动、Agent 集群管理（fleet）、训练/评估/数据生成基准测试套件。同日开源 CUA-S1-FORMS：706K 参数的 System 1 模型，单次前向传播规划表单填写动作，MIT 协议，2.8MB 检查点。</p>
+          <div class="comment">Computer Use 从概念到工程化的完整路径正在被开源社区铺平。24K star 说明这不是 demo 级玩具——跨 OS 驱动 + 集群管理 + benchmark 是生产级基础设施的三件套。更值得关注的是 706K 参数的 System 1 模型：用不到 1MB 的模型做「点击哪里」的决策，比调 GPT-6 便宜 245 倍。Agent 的未来不是一个大模型做所有事，而是一堆小模型做对的事。</div>
+        </div>
+      </a>
+
+      <a class="card-link" href="https://github.com/HarnessRouter/harnessrouter" target="_blank" rel="noopener">
+        <div class="card-hero">
+          <img src="https://opengraph.githubassets.com/43224d36ddfd68f78b41f6631e3173af1e97dbf5da2fef7d59c69395084c3a2c/HarnessRouter/harnessrouter" alt="" onerror="this.classList.add('error');this.parentElement.classList.add('no-img');" loading="lazy" referrerpolicy="no-referrer">
+          <div class="card-hero-content">
+            <div class="card-meta-row">
+              <span class="card-cat-dot dot-前沿技术"></span>
+              <span class="card-source-name">GitHub · HarnessRouter</span>
+              <span class="card-divider">·</span>
+              <span>1,522 ★ · UHP 开放标准 · Apache-2.0</span>
+            </div>
+            <h2 class="headline">HarnessRouter：一个 API 统一 Codex / Claude Code / Hermes 等 Agent 后端</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="fact">HarnessRouter 开源统一 Agent harness 接口，实现 Unified Harness Protocol（UHP）开放标准，暴露 OpenAI Responses 兼容 API。将 Codex、Claude Code、Hermes、PI、DSH 等现有 harness 变为即插即用的 Agent 后端。支持持久会话、流式输出、文件传输、取消和失败处理。Community Edition 为 Apache-2.0 协议，自托管，Python 实现，1,522★。</p>
+          <div class="comment">Agent 生态正在经历「USB 接口标准化」时刻——每个 harness 都有自己的 API 格式，产品方要接 N 个后端就得写 N 套适配。HarnessRouter 的野心是做 Agent 界的 OpenAI-compatible API：一个接口吃所有。1.5K star 还不大，但 UHP 如果被社区采纳，这个位置的战略价值远超当前热度。GitHub 的 HydraFusion 同期在做类似的事（多模型路由降本 36-67%），说明「harness 层标准化」是本月共识。</div>
+        </div>
+      </a>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">AI DAILY</div>
+      <div class="footer-tag">商业 · 认知观察者 · 出品</div>
+    </footer>
+
+  </div>
+</body>
+</html>
